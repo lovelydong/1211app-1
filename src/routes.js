@@ -39,6 +39,9 @@ import ChangePassword from './pages/my/setSettingUpInstall/changePassword.vue';
 import ChangeNumber from './pages/my/setSettingUpInstall/changeNumber.vue';
 import coupleBack from './pages/my/setSettingUpInstall/coupleBack.vue';
 import Issue from './pages/my/setSettingUpInstall/issue.vue';
+import Login from './pages/login/login.vue';
+import Register from './pages/login/register.vue';
+import RetrievePassword from './pages/login/retrievePassword.vue';
 
 export default [{
         path: '/', //首页
@@ -202,5 +205,18 @@ export default [{
         path: '/issue', //常见问题
         component: Issue,
     },
+    {
+        path: '/login', //登录
+        component: Login,
+    },
+    {
+        path: '/register', //注册
+        component: Register,
+    },
+    {
+        path: '/retrievePassword', //找回密码
+        component: RetrievePassword,
+    },
+
 
 ]
