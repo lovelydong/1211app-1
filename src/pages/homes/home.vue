@@ -2,7 +2,7 @@
   <f7-page class="home">
       <f7-navbar sliding>
           <div class="lf">
-            <span class="active">教师招聘0</span>
+            <span class="active">教师招聘</span>
             <span>教师资格证</span>
             <span>特岗教师</span>
           </div>
@@ -391,10 +391,19 @@
 </template>
 <script>
 export default {
+	
   data: function() {
     return {};
   },
-  methods: {}
+  methods: {},
+  created:function(){
+  	this.$http.get("http://baidu.com",{
+            }).then(function(res){
+                console.log(res)
+            },function(res){
+                console.log(res.status);
+            })   
+  }
 };
 </script>
 <style lang="less">
