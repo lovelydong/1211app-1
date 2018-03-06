@@ -1,0 +1,347 @@
+<template>
+  <f7-page class="indent">
+        <f7-navbar>
+          <f7-nav-left sliding><f7-link class="iconfont icon-zuo" @click="$f7router.back()"></f7-link></f7-nav-left>
+          <f7-nav-title>提交订单</f7-nav-title>
+        </f7-navbar>
+        <div class="mid">
+          <f7-link class="top" href="/myAddress">
+            <h4><i class="iconfont icon-dizhi"></i>收货人：熊老表      15589655241</h4>
+            <p>收货地址：河南省郑州市金水区花园路街道金水路16号中青大厦8楼</p>
+            <i class="iconfont icon-you"></i>
+          </f7-link>
+          <div class="com">
+                <f7-link>
+                    <span></span>
+                    <div>
+                      <p>浙江2018年教师招聘教育心理学二期回放</p>
+                      <p>￥138.00</p>
+                    </div>
+                </f7-link>
+          </div>
+          <div class="pay">
+            <h5>选择支付方式</h5>
+            <f7-link class="active"> <i class="iconfont icon-zhifubao"></i> 支付宝 <span><i class="iconfont icon-iconfontcheck"></i></span></f7-link>
+            <f7-link> <i class="iconfont icon-weixin-copy"></i> 微信 <span><i class="iconfont icon-iconfontcheck"></i></span></f7-link>
+          </div>
+          <f7-link class="zjb"><i class="iconfont icon-qian"></i> 招教币抵扣 <em>（最高抵扣15%）</em><span><i class="iconfont icon-iconfontcheck"></i></span></f7-link>
+          <f7-link class="discount">优惠券 <span> 0 张可用 <i class="iconfont icon-you"></i></span></f7-link>
+        </div>
+        <div class="bot">
+          <p>不含运费<span>合计:</span><em>￥138.00</em></p>
+          <f7-link href="">结算（1）</f7-link>
+        </div>
+  </f7-page>
+</template>
+<script>
+export default {
+  data: function() {
+    return {
+      shows: {
+        bot: false
+      }
+    };
+  },
+  methods: {}
+};
+</script>
+<style lang="less">
+.indent {
+  .mid {
+    padding: 20px 14px;
+    > .top {
+      display: block;
+      min-height: 84px;
+      background-color: #fff;
+      border-radius: 10px;
+      width: 100%;
+      padding: 16px 36px;
+      position: relative;
+      > .iconfont {
+        position: absolute;
+        top: 50%;
+        right: 10px;
+        transform: translateY(-50%);
+        color: #999;
+      }
+      > h4 {
+        font-family: "PingFang-SC-Medium";
+        font-size: 16px;
+        color: #333333;
+        font-weight: 400;
+        position: relative;
+        > i {
+          color: #999999;
+          position: absolute;
+          left: -24px;
+          top: -4px;
+          font-size: 22px;
+        }
+      }
+      > P {
+        font-family: "PingFang-SC-Regular";
+        font-size: 12px;
+        color: #666666;
+        margin-top: 10px;
+      }
+    }
+    > .com {
+      display: block;
+      padding: 10px 15px;
+      min-height: 106px;
+      position: relative;
+      background-color: #fff;
+      border-radius: 10px;
+      margin: 20px 0;
+      > .link {
+        display: block;
+        > span {
+          width: 120px;
+          height: 86px;
+          background: url(https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1519301525135&di=dd2fed90de9f2622da9e2c6f51d3888b&imgtype=0&src=http%3A%2F%2F5b0988e595225.cdn.sohucs.com%2Fimages%2F20170922%2Fca414a2cf9b34ec49aff78f350b0ec87.gif)
+            no-repeat center center;
+          border-radius: 12px;
+          position: absolute;
+          left: 0;
+          top: 0;
+          > em {
+            width: 50px;
+            height: 20px;
+            background-color: rgba(253, 93, 50, 0.7);
+            position: absolute;
+            right: 0;
+            bottom: 10px;
+            font-family: "PingFang-SC-Regular";
+            font-size: 10px;
+            color: #ffffff;
+            text-align: center;
+            line-height: 20px;
+            border-top-left-radius: 15px;
+            border-bottom-left-radius: 15px;
+          }
+        }
+        > div {
+          vertical-align: top;
+          width: 100%;
+          float: left;
+          padding-left: 130px;
+          > p {
+            font-family: "PingFang-SC-Regular";
+            font-size: 16px;
+            color: #333333;
+          }
+          > p:nth-of-type(2) {
+            font-family: "PingFang-SC-Medium";
+            font-size: 16px;
+            color: #fd2d44;
+          }
+        }
+      }
+      > .yuan {
+        width: 62px;
+        height: 100%;
+        position: absolute;
+        left: 0;
+        top: 0;
+        > div {
+          width: 20px;
+          height: 20px;
+          border: solid 2px #d2d2d2;
+          position: absolute;
+          padding: 0;
+          top: 50%;
+          left: 50%;
+          transform: translate(-50%, -50%);
+          border-radius: 50%;
+          background-color: #efeff4;
+          > div {
+            position: absolute;
+            width: 8px;
+            height: 8px;
+            background-color: #efeff4;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            border-radius: 50%;
+          }
+        }
+        > .active {
+          border-color: #fd2d44;
+          > div {
+            background-color: #fd2d44;
+          }
+        }
+      }
+    }
+    > .pay {
+      background-color: #fff;
+      border-radius: 10px;
+      padding: 15px;
+      > h5 {
+        font-family: "PingFang-SC-Medium";
+        font-size: 16px;
+        color: #333333;
+        text-align: center;
+        font-weight: 400;
+      }
+      > .link {
+        display: block;
+        height: 50px;
+        width: 100%;
+        line-height: 50px;
+        font-family: "PingFang-SC-Medium";
+        font-size: 16px;
+        color: #333333;
+        position: relative;
+        padding-left: 40px;
+        > i {
+          color: #00aaee;
+          font-size: 30px;
+          position: absolute;
+          left: 0;
+          top: 50%;
+          transform: translateY(-50%);
+        }
+        > .icon-weixin-copy {
+          color: #00be12;
+        }
+        > span {
+          position: absolute;
+          top: 50%;
+          transform: translateY(-50%);
+          right: 15px;
+          width: 25px;
+          height: 25px;
+          border-radius: 50%;
+          border: solid 2px #cccccc;
+          > i {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            color: #fff;
+          }
+        }
+      }
+      > .active {
+        > span {
+          background-color: #00d214;
+          border-color: #00d214;
+        }
+      }
+    }
+    > .zjb {
+      display: block;
+      height: 65px;
+      background-color: #fff;
+      border-radius: 10px;
+      padding: 0 15px;
+      margin: 20px 0;
+      line-height: 65px;
+      width: 100%;
+      font-family: "PingFang-SC-Medium";
+      font-size: 16px;
+      color: #333333;
+      position: relative;
+      padding-left: 55px;
+      > em {
+        font-family: "PingFang-SC-Medium";
+        color: #999999;
+      }
+      > i {
+        color: #fd5d32;
+        font-size: 30px;
+        position: absolute;
+        left: 15px;
+        top: 50%;
+        transform: translateY(-50%);
+      }
+      > .icon-weixin-copy {
+        color: #00be12;
+      }
+      > span {
+        position: absolute;
+        top: 50%;
+        transform: translateY(-50%);
+        right: 30px;
+        width: 25px;
+        height: 25px;
+        border-radius: 50%;
+        border: solid 2px #cccccc;
+        > i {
+          position: absolute;
+          top: 50%;
+          left: 50%;
+          transform: translate(-50%, -50%);
+          color: #fff;
+        }
+      }
+    }
+    > .discount {
+      display: block;
+      height: 44px;
+      background-color: #fff;
+      border-radius: 10px;
+      padding: 0 15px;
+      margin: 20px 0;
+      line-height: 44px;
+      width: 100%;
+      font-family: "PingFang-SC-Medium";
+      font-size: 16px;
+      color: #333333;
+      position: relative;
+      padding-left: 15px;
+      > span {
+        font-family: "PingFang-SC-Medium";
+        font-size: 13px;
+        color: #999999;
+        float: right;
+      }
+    }
+
+  }
+  .bot {
+      height: 50px;
+      background-color: #fff;
+      position: fixed;
+      width: 100%;
+      bottom: 0;
+      left: 0;
+      padding-left: 12px;
+      padding-right: 110px;
+      > .link {
+        font-family: "PingFang-SC-Regular";
+        font-size: 16px;
+        color: #ffffff;
+        background-color: #fd2d44;
+        height: 100%;
+        width: 110px;
+        position: absolute;
+        right: 0;
+        top: 0;
+      }
+
+      > p {
+        height: 100%;
+        line-height: 50px;
+        font-family: "PingFang-SC-Regular";
+        font-size: 12px;
+        color: #999999;
+        min-width: 162px;
+        > span {
+          font-family: "PingFang-SC-Medium";
+          font-size: 16px;
+          color: #333333;
+          margin-left: 5px;
+        }
+        > em {
+          font-family: "PingFang-SC-Medium";
+          font-size: 16px;
+          color: #fd5d32;
+        }
+      }
+    }
+}
+</style>
+
+
