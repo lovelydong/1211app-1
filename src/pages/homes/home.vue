@@ -2,7 +2,7 @@
   <f7-page class="home">
       <f7-navbar sliding>
           <div class="lf">
-            <span class="active">教师招聘</span>
+            <span class="active">教师招聘0</span>
             <span>教师资格证</span>
             <span>特岗教师</span>
           </div>
