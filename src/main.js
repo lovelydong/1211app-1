@@ -39,7 +39,8 @@ Vue.component('Share', Share);
 import ToggleButton from 'vue-js-toggle-button'
 Vue.use(ToggleButton)
 
-
+import VueResource from 'vue-resource'
+Vue.use(VueResource);
 // Init App
 new Vue({
     el: '#app',
