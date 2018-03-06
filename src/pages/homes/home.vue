@@ -28,7 +28,7 @@
           <f7-swiper-slide>
             <img src="../../assets/homebar.png" alt="">
           </f7-swiper-slide>
-          <f7-swiper-slide>
+           <f7-swiper-slide>
             <img src="../../assets/homebar.png" alt="">
           </f7-swiper-slide>
           <f7-swiper-slide>
