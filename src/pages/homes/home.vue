@@ -497,7 +497,7 @@ export default {
 
   	randerClass:function()
   	{
-  		let url="http://192.168.0.120:8080/shiro_test";
+  		let url="http://192.168.0.69:8080/shiro_test";
 
 
 
@@ -657,7 +657,7 @@ export default {
 
 
   created:function(){
-  	let url="http://192.168.0.120:8080/shiro_test"
+  	let url="http://192.168.0.69:8080/shiro_test"
 
 
   	//最新课程渲染1
