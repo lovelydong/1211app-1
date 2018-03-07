@@ -2,9 +2,9 @@
   <f7-page class="home">
       <f7-navbar sliding>
           <div class="lf">
-            <span class="active">教师招聘</span>
-            <span>教师资格证</span>
-            <span>特岗教师</span>
+            <span :class="Topactive==1?'active':''" @click="Topactive=1">教师招聘</span>
+            <span :class="Topactive==2?'active':''" @click="Topactive=2">教师资格证</span>
+            <span :class="Topactive==3?'active':''" @click="Topactive=3">特岗教师</span>
           </div>
           <div class="rt">
               <f7-link>
@@ -52,30 +52,30 @@
         </div>
         <f7-link> <img src="../../assets/homeQiang.png" alt=""> </f7-link>
         <div class="midlist midRecommend">
-           <h3><i></i> 推荐课程 <f7-link>更多 <i class="iconfont icon-you"></i></f7-link></h3>
+           <h3><i></i> 推荐课程 <f7-link href="/recommended/">更多 <i class="iconfont icon-you"></i></f7-link></h3>
 
             <f7-swiper pagination >
               <f7-swiper-slide>
                   <div>
-                    <f7-link>
-                    <p>2018年综合素质现场直播</p>
-                    <p>国版·354人正在学习</p>
+                    <f7-link >
+                    <p>{{recommend11.name}}</p>
+                    <p>{{recommend11.area}}·{{recommend11.buyno}}人正在学习</p>
                     <p><i class="iconfont icon-xingxing"></i><i class="iconfont icon-xingxing"></i><i class="iconfont icon-xingxing"></i><i class="iconfont icon-xingxing"></i><i class="iconfont icon-xingxing"></i></p>
-                    <p>￥4886.00</p>
+                    <p>￥{{recommend11.discount_price}}.00</p>
                     </f7-link>
                   </div>
                   <ul>
-                      <li class="clearfix link">
+                      <li class="clearfix link" v-for="cl in recommend1">
                         <f7-link>
                           <span></span>
                           <div>
-                            <p>浙江2018年教师招聘教育心理学二期回放</p>
-                            <p>国版·354人正在学习 <i class="iconfont icon-xingxing"></i><i class="iconfont icon-xingxing"></i><i class="iconfont icon-xingxing"></i><i class="iconfont icon-xingxing"></i><i class="iconfont icon-xingxing"></i></p>
-                            <p>￥356.00</p>
+                            <p>{{cl.name}}</p>
+                            <p>{{cl.area}}·{{cl.buyno}}人正在学习 <i class="iconfont icon-xingxing"></i><i class="iconfont icon-xingxing"></i><i class="iconfont icon-xingxing"></i><i class="iconfont icon-xingxing"></i><i class="iconfont icon-xingxing"></i></p>
+                            <p>￥{{cl.discount_price}}.00</p>
                           </div>
                         </f7-link>
                         </li>
-                      <li class="clearfix link">
+                      <!--<li class="clearfix link">
                         <f7-link>
                           <span></span>
                           <div>
@@ -94,11 +94,31 @@
                             <p>￥356.00</p>
                           </div>
                         </f7-link>
-                      </li>
+                      </li>-->
                   </ul>
               </f7-swiper-slide>
               <f7-swiper-slide>
-                 <img src="../../assets/homebar.png" alt="">
+              	 <div>
+                    <f7-link>
+                    <p>{{recommend22.name}}</p>
+                    <p>{{recommend22.area}}·{{recommend22.buyno}}人正在学习</p>
+                    <p><i class="iconfont icon-xingxing"></i><i class="iconfont icon-xingxing"></i><i class="iconfont icon-xingxing"></i><i class="iconfont icon-xingxing"></i><i class="iconfont icon-xingxing"></i></p>
+                    <p>￥{{recommend22.discount_price}}.00</p>
+                    </f7-link>
+                  </div>
+              	<ul>
+                      <li class="clearfix link" v-for="cl in recommend2">
+                        <f7-link>
+                          <span></span>
+                          <div>
+                            <p>{{cl.name}}</p>
+                            <p>{{cl.area}}·{{cl.buyno}}人正在学习 <i class="iconfont icon-xingxing"></i><i class="iconfont icon-xingxing"></i><i class="iconfont icon-xingxing"></i><i class="iconfont icon-xingxing"></i><i class="iconfont icon-xingxing"></i></p>
+                            <p>￥{{cl.discount_price}}.00</p>
+                          </div>
+                        </f7-link>
+                        </li>
+                    </ul>
+                 <!--<img src="../../assets/homebar.png" alt="">-->
               </f7-swiper-slide>
 
             </f7-swiper>
@@ -112,14 +132,24 @@
               <f7-swiper-slide>
                   <div>
                     <f7-link>
-                    <p>2018年综合素质现场直播</p>
-                    <p>国版·354人正在学习</p>
+                    <p>{{newclass11.name}}</p>
+                    <p>{{newclass11.area}}·{{newclass11.buyno}}人正在学习</p>
                     <p><i class="iconfont icon-xingxing"></i><i class="iconfont icon-xingxing"></i><i class="iconfont icon-xingxing"></i><i class="iconfont icon-xingxing"></i><i class="iconfont icon-xingxing"></i></p>
-                    <p>￥4886.00</p>
+                    <p>￥{{newclass11.discount_price}}.00</p>
                     </f7-link>
                   </div>
                   <ul>
-                      <li class="clearfix link">
+                      <li class="clearfix link" v-for="newclass in newclass1"> 
+                        <f7-link>
+                          <span></span>
+                          <div>
+                            <p>{{newclass.name}}</p>
+                            <p>{{newclass.area}}·{{newclass.buyno}}人正在学习 <i class="iconfont icon-xingxing"></i><i class="iconfont icon-xingxing"></i><i class="iconfont icon-xingxing"></i><i class="iconfont icon-xingxing"></i><i class="iconfont icon-xingxing"></i></p>
+                            <p>￥{{newclass.discount_price}}.00</p>
+                          </div>
+                        </f7-link>
+                      </li>
+                      <!--<li class="clearfix link">
                         <f7-link>
                           <span></span>
                           <div>
@@ -138,21 +168,31 @@
                             <p>￥356.00</p>
                           </div>
                         </f7-link>
-                      </li>
-                      <li class="clearfix link">
-                        <f7-link>
-                          <span></span>
-                          <div>
-                            <p>浙江2018年教师招聘教育心理学二期回放</p>
-                            <p>国版·354人正在学习 <i class="iconfont icon-xingxing"></i><i class="iconfont icon-xingxing"></i><i class="iconfont icon-xingxing"></i><i class="iconfont icon-xingxing"></i><i class="iconfont icon-xingxing"></i></p>
-                            <p>￥356.00</p>
-                          </div>
-                        </f7-link>
-                      </li>
+                      </li>-->
                   </ul>
               </f7-swiper-slide>
               <f7-swiper-slide>
-                 <img src="../../assets/homebar.png" alt="">
+                 <!--<img src="../../assets/homebar.png" alt="">-->
+                 	<div>
+                    <f7-link>
+                    <p>{{newclass22.name}}</p>
+                    <p>{{newclass22.area}}·{{newclass22.buyno}}人正在学习</p>
+                    <p><i class="iconfont icon-xingxing"></i><i class="iconfont icon-xingxing"></i><i class="iconfont icon-xingxing"></i><i class="iconfont icon-xingxing"></i><i class="iconfont icon-xingxing"></i></p>
+                    <p>￥{{newclass22.discount_price}}.00</p>
+                    </f7-link>
+                  </div>
+                  <ul>
+                      <li class="clearfix link" v-for="newclass in newclass2"> 
+                        <f7-link>
+                          <span></span>
+                          <div>
+                            <p>{{newclass.name}}</p>
+                            <p>{{newclass.area}}·{{newclass.buyno}}人正在学习 <i class="iconfont icon-xingxing"></i><i class="iconfont icon-xingxing"></i><i class="iconfont icon-xingxing"></i><i class="iconfont icon-xingxing"></i><i class="iconfont icon-xingxing"></i></p>
+                            <p>￥{{newclass.discount_price}}.00</p>
+                          </div>
+                        </f7-link>
+                      </li>
+                      </ul>
               </f7-swiper-slide>
 
             </f7-swiper>
@@ -163,14 +203,24 @@
               <f7-swiper-slide>
                   <div>
                     <f7-link>
-                    <p>2018年综合素质现场直播</p>
-                    <p>国版·354人正在学习</p>
+                    <p>{{limitclass11.name}}</p>
+                    <p>{{limitclass11.area}}·{{limitclass11.buyno}}人正在学习</p>
                     <p><i class="iconfont icon-xingxing"></i><i class="iconfont icon-xingxing"></i><i class="iconfont icon-xingxing"></i><i class="iconfont icon-xingxing"></i><i class="iconfont icon-xingxing"></i></p>
-                    <p>￥4886.00 <span><i>24</i> 时 <i>30</i> 分 <i>30</i> 秒</span></p>
+                    <p>￥{{limitclass11.discount_price}}.00 <span><i>24</i> 时 <i>30</i> 分 <i>30</i> 秒</span></p>
                     </f7-link>
                   </div>
                   <ul>
-                      <li class="clearfix link">
+                      <li class="clearfix link" v-for="limit in limitclass1">
+                        <f7-link>
+                          <span></span>
+                          <div>
+                            <p>{{limit.name}}</p>
+                            <p>{{limit.area}}·{{limit.buyno}}人正在学习 <i class="iconfont icon-xingxing"></i><i class="iconfont icon-xingxing"></i><i class="iconfont icon-xingxing"></i><i class="iconfont icon-xingxing"></i><i class="iconfont icon-xingxing"></i></p>
+                            <p>￥{{limit.discount_price}}.00 <span><i>24</i> 时 <i>30</i> 分 <i>30</i> 秒</span></p>
+                          </div>
+                        </f7-link>
+                      </li>
+                      <!--<li class="clearfix link">
                         <f7-link>
                           <span></span>
                           <div>
@@ -189,31 +239,49 @@
                             <p>￥356.00 <span><i>24</i> 时 <i>30</i> 分 <i>30</i> 秒</span></p>
                           </div>
                         </f7-link>
-                      </li>
-                      <li class="clearfix link">
-                        <f7-link>
-                          <span></span>
-                          <div>
-                            <p>浙江2018年教师招聘教育心理学二期回放</p>
-                            <p>国版·354人正在学习 <i class="iconfont icon-xingxing"></i><i class="iconfont icon-xingxing"></i><i class="iconfont icon-xingxing"></i><i class="iconfont icon-xingxing"></i><i class="iconfont icon-xingxing"></i></p>
-                            <p>￥356.00 <span><i>24</i> 时 <i>30</i> 分 <i>30</i> 秒</span></p>
-                          </div>
-                        </f7-link>
-                      </li>
+                      </li>-->
                   </ul>
               </f7-swiper-slide>
               <f7-swiper-slide>
-                 <img src="../../assets/homebar.png" alt="">
+                 <div>
+                    <f7-link>
+                    <p>{{limitclass22.name}}</p>
+                    <p>{{limitclass22.area}}·{{limitclass22.buyno}}人正在学习</p>
+                    <p><i class="iconfont icon-xingxing"></i><i class="iconfont icon-xingxing"></i><i class="iconfont icon-xingxing"></i><i class="iconfont icon-xingxing"></i><i class="iconfont icon-xingxing"></i></p>
+                    <p>￥{{limitclass22.discount_price}}.00 <span><i>24</i> 时 <i>30</i> 分 <i>30</i> 秒</span></p>
+                    </f7-link>
+                  </div>
+                  <ul>
+                      <li class="clearfix link" v-for="limit in limitclass2">
+                        <f7-link>
+                          <span></span>
+                          <div>
+                            <p>{{limit.name}}</p>
+                            <p>{{limit.area}}·{{limit.buyno}}人正在学习 <i class="iconfont icon-xingxing"></i><i class="iconfont icon-xingxing"></i><i class="iconfont icon-xingxing"></i><i class="iconfont icon-xingxing"></i><i class="iconfont icon-xingxing"></i></p>
+                            <p>￥{{limit.discount_price}}.00 <span><i>24</i> 时 <i>30</i> 分 <i>30</i> 秒</span></p>
+                          </div>
+                        </f7-link>
+                      </li>
+                      </ul>
               </f7-swiper-slide>
 
             </f7-swiper>
         </div>
         <div class="midlist midAnalyze ">
-           <h3><i></i> 考情分析<f7-link>更多 <i class="iconfont icon-you"></i></f7-link></h3>
+           <h3><i></i> 考情分析<f7-link href="/examinationAnalysis/">更多 <i class="iconfont icon-you"></i></f7-link></h3>
             <f7-swiper pagination >
               <f7-swiper-slide>
                   <ul>
-                      <li class="clearfix link">
+                      <li class="clearfix link" v-for="condition in condition1"> 
+                        <f7-link>
+                          <span></span>
+                          <div>
+                            <p>{{condition.file_name}}</p>
+                            <p><i>新</i>  {{condition.create_person}} &nbsp;&nbsp;{{timestampToTime(condition.create_time)}}</p>
+                          </div>
+                        </f7-link>
+                      </li>
+                      <!--<li class="clearfix link">
                         <f7-link>
                           <span></span>
                           <div>
@@ -230,26 +298,28 @@
                             <p><i>新</i>  中国招教网 &nbsp;&nbsp;2018/13/30</p>
                           </div>
                         </f7-link>
-                      </li>
-                      <li class="clearfix link">
-                        <f7-link>
-                          <span></span>
-                          <div>
-                            <p>浙江2018年教师招聘教育心理学二期回放</p>
-                            <p><i>新</i>  中国招教网 &nbsp;&nbsp;2018/13/30</p>
-                          </div>
-                        </f7-link>
-                      </li>
+                      </li>-->
                   </ul>
               </f7-swiper-slide>
               <f7-swiper-slide>
-                 <img src="../../assets/homebar.png" alt="">
+                 <!--<img src="../../assets/homebar.png" alt="">-->
+                 	<ul>
+                      <li class="clearfix link" v-for="condition in condition2"> 
+                        <f7-link>
+                          <span></span>
+                          <div>
+                            <p>{{condition.file_name}}</p>
+                            <p><i>新</i>  {{condition.create_person}} &nbsp;&nbsp;{{timestampToTime(condition.create_time)}}</p>
+                          </div>
+                        </f7-link>
+                      </li>
+                      </ul>
               </f7-swiper-slide>
 
             </f7-swiper>
         </div>
          <div class="midlist midTopic ">
-           <h3><i></i> 推荐题库<f7-link>更多 <i class="iconfont icon-you"></i></f7-link></h3>
+           <h3><i></i> 推荐题库<f7-link href="/questionBank/">更多 <i class="iconfont icon-you"></i></f7-link></h3>
             <f7-swiper pagination >
               <f7-swiper-slide>
                   <ul>
@@ -393,16 +463,360 @@
 export default {
 	
   data: function() {
-    return {};
+    return {
+    	recommend1:"",
+    	recommend2:"",
+    	recommend11:"",
+    	recommend22:"",
+    	limitclass1:"",
+    	limitclass11:"",
+    	limitclass2:"",
+    	limitclass22:"",
+    	newclass1:"",
+    	newclass11:"",
+    	newclass2:"",
+    	newclass22:"",
+    	condition1:"",
+    	condition2:"",
+    	Topactive:1,
+    	recommendtype:"",
+    	limittype:""
+    };
   },
-  methods: {},
-  created:function(){
-  	this.$http.get("http://baidu.com",{
+  methods: {
+  	
+  	timestampToTime:function (timestamp){
+        var date = new Date(timestamp);
+        var Y = date.getFullYear() + '/';
+        var M = (date.getMonth()+1 < 10 ? '0'+(date.getMonth()+1) : date.getMonth()+1) + '/';
+        var D = date.getDate() < 10 ? '0'+date.getDate() : date.getDate();
+        return Y+M+D;
+   },
+  	
+  	
+  	
+  	randerClass:function()
+  	{
+  		let url="http://192.168.0.120:8080/shiro_test";
+  		
+  		
+  		
+  		
+  		
+  //最新课程渲染1
+  	
+        this.$http.get(url+"/sx1211courseAdmin/listJson",{
+  		params:{
+  			exam_type:this.recommendtype,
+  			page:1,
+  			limit:4
+  		}
             }).then(function(res){
-                console.log(res)
+                //console.log(res.data.data)
+                this.newclass11=res.data.data[0];
+                
+                
+                res.data.data.splice(0,1);
+                 this.newclass1=res.data.data;
+                 //console.log(res.data.data)
+                 
             },function(res){
                 console.log(res.status);
-            })   
+            })
+  	//最新课程渲染2
+         
+            this.$http.get(url+"/sx1211courseAdmin/listJson",{
+  		params:{
+  			exam_type:this.recommendtype,
+  			page:1,
+  			limit:4
+  		}
+            }).then(function(res){
+                //console.log(res.data.data)
+                this.newclass22=res.data.data[0];
+                
+              
+                res.data.data.splice(0,1);
+                 this.newclass2=res.data.data;
+                // console.log(res.data.data)
+                 
+            },function(res){
+                console.log(res.status);
+            })
+  			
+  		
+  		
+  		
+  		
+  		
+  		
+  		
+  		//推荐课程渲染1
+  	this.$http.get(url+"/sx1211courseAdmin/recommend",{
+  		params:{
+  			type:this.recommendtype,
+  			page:1,
+  			limit:4
+  		}
+            }).then(function(res){
+                //console.log(res.data.data)
+                this.recommend11=res.data.data[0];
+                
+                //console.log(this.recommend11)
+                res.data.data.splice(0,1);
+                 this.recommend1=res.data.data;
+                 //console.log(res.data.data)
+                 
+            },function(res){
+                console.log(res.status);
+            }) 
+            //推荐课程渲染2
+            this.$http.get(url+"/sx1211courseAdmin/recommend",{
+  		params:{
+  			type:this.recommendtype,
+  			page:1,
+  			limit:4
+  		}
+            }).then(function(res){
+                //console.log(res.data.data)
+                this.recommend22=res.data.data[0];
+                res.data.data.splice(0,1);
+                 this.recommend2=res.data.data;
+                 //console.log(res.data.data)
+            },function(res){
+                console.log(res.status);
+            }) 
+           //限时课程渲染1
+        this.$http.get(url+"/flashsale/sale",{
+  		params:{
+  			type:this.limittype,
+  			page:1,
+  			limit:4
+  		}
+            }).then(function(res){
+                //console.log(res.data.data)
+                this.limitclass11=res.data.data[0];
+                
+                //console.log(this.limitclass11)
+                res.data.data.splice(0,1);
+                 this.limitclass1=res.data.data;
+                 //console.log(res.data.data)
+                 
+            },function(res){
+                console.log(res.status);
+            })
+          //限时课程渲染2  
+            this.$http.get(url+"/flashsale/sale",{
+  		params:{
+  			type:this.limittype,
+  			page:1,
+  			limit:4
+  		}
+            }).then(function(res){
+                //console.log(res.data.data)
+                this.limitclass22=res.data.data[0];
+                
+                //console.log(this.limitclass22)
+                res.data.data.splice(0,1);
+                 this.limitclass2=res.data.data;
+                // console.log(res.data.data)
+                 
+            },function(res){
+                console.log(res.status);
+            })
+           
+           
+            
+  	}
+  },
+  
+  //监听课程切换
+  watch: {
+       Topactive(newTopactive, oldTopactive) {
+             //console.log(newTopactive, oldTopactive);
+             if(newTopactive==1){
+             	this.recommendtype=121100302;
+             	this.limittype=35202001;
+             	this.randerClass();
+             }
+             else if(newTopactive==2){
+             	this.recommendtype=121100301;
+             	this.limittype=35202002;
+             	
+             	this.randerClass();
+             }
+             else if(newTopactive==3){
+             	this.recommendtype=121100303;
+             	this.limittype=35202003;
+             	
+             	this.randerClass();
+             }
+       }
+   },
+
+
+  
+  created:function(){
+  	let url="http://192.168.0.120:8080/shiro_test"
+  	
+  	
+  	//最新课程渲染1
+  	
+        this.$http.get(url+"/sx1211courseAdmin/listJson",{
+  		params:{
+  			exam_type:121100302,
+  			page:1,
+  			limit:4
+  		}
+            }).then(function(res){
+                //console.log(res.data.data)
+                this.newclass11=res.data.data[0];
+                
+                
+                res.data.data.splice(0,1);
+                 this.newclass1=res.data.data;
+                 //console.log(res.data.data)
+                 
+            },function(res){
+                console.log(res.status);
+            })
+  	//最新课程渲染2
+         
+            this.$http.get(url+"/sx1211courseAdmin/listJson",{
+  		params:{
+  			exam_type:121100302,
+  			page:1,
+  			limit:4
+  		}
+            }).then(function(res){
+                //console.log(res.data.data)
+                this.newclass22=res.data.data[0];
+                
+              
+                res.data.data.splice(0,1);
+                 this.newclass2=res.data.data;
+                // console.log(res.data.data)
+                 
+            },function(res){
+                console.log(res.status);
+            })
+  	
+  	
+  	
+  	
+  	//推荐课程渲染1
+  	this.$http.get(url+"/sx1211courseAdmin/recommend",{
+  		params:{
+  			type:121100302,
+  			page:1,
+  			limit:4
+  		}
+            }).then(function(res){
+                //console.log(res.data.data)
+                this.recommend11=res.data.data[0];
+                
+                //console.log(this.recommend11)
+                res.data.data.splice(0,1);
+                 this.recommend1=res.data.data;
+                 //console.log(res.data.data)
+                 
+            },function(res){
+                console.log(res.status);
+            }) 
+            //推荐课程渲染2
+            this.$http.get(url+"/sx1211courseAdmin/recommend",{
+  		params:{
+  			type:121100302,
+  			page:1,
+  			limit:4
+  		}
+            }).then(function(res){
+                //console.log(res.data.data)
+                this.recommend22=res.data.data[0];
+                res.data.data.splice(0,1);
+                 this.recommend2=res.data.data;
+                 //console.log(res.data.data)
+            },function(res){
+                console.log(res.status);
+            }) 
+            
+            
+        //限时课程渲染1
+        this.$http.get(url+"/flashsale/sale",{
+  		params:{
+  			type:35202001,
+  			page:1,
+  			limit:4
+  		}
+            }).then(function(res){
+                //console.log(res.data.data)
+                this.limitclass11=res.data.data[0];
+                
+                //console.log(this.limitclass11)
+                res.data.data.splice(0,1);
+                 this.limitclass1=res.data.data;
+                 //console.log(res.data.data)
+                 
+            },function(res){
+                console.log(res.status);
+            })
+          //限时课程渲染2  
+            this.$http.get(url+"/flashsale/sale",{
+  		params:{
+  			type:35202001,
+  			page:1,
+  			limit:4
+  		}
+            }).then(function(res){
+                //console.log(res.data.data)
+                this.limitclass22=res.data.data[0];
+                
+                //console.log(this.limitclass22)
+                res.data.data.splice(0,1);
+                 this.limitclass2=res.data.data;
+                // console.log(res.data.data)
+                 
+            },function(res){
+                console.log(res.status);
+            })
+            
+    //考情分析列表
+    
+    //考情分析列表渲染1
+        this.$http.get(url+"/examcondition/list",{
+  		params:{
+  			page:1,
+  			limit:4
+  		}
+            }).then(function(res){
+                //console.log(res.data.data)
+                this.condition1=res.data.data;
+                
+                
+                 
+            },function(res){
+                console.log(res.status);
+            })
+             //考情分析列表渲染2
+        this.$http.get(url+"/examcondition/list",{
+  		params:{
+  			page:2,
+  			limit:4
+  		}
+            }).then(function(res){
+                //console.log(res.data.data)
+                this.condition2=res.data.data;
+                
+                
+                 
+            },function(res){
+                console.log(res.status);
+            })
+          
+    
+            
+            
+            
   }
 };
 </script>
