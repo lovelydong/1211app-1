@@ -1,18 +1,32 @@
 <template>
   <f7-page class="recommendedParticulars">
     <div class="top">
-      <div class="img">
+      <div class="img" :style="{backgroundImage: 'url(' + oneJson.img + ')' }">
         <h3>
           <f7-link  @click="$f7router.back()"><i class="iconfont icon-zuo"></i></f7-link>
-          <f7-link><i class="iconfont icon-gouwuche1"></i><span>1</span></f7-link>
-          <f7-link><i class="iconfont icon-gengduo"></i></f7-link>
+          <f7-link><i class="iconfont icon-gouwuche1"></i><span>{{Quantityincart}}</span></f7-link>
+          <f7-link><i class="iconfont icon-gengduo" @click="showTop = !showTop"></i></f7-link>
         </h3>
       </div>
+      <transition
+                  name="custom-classes-transition"
+                  enter-active-class="animated pulse"
+                >
+          <div class="TopsZ" v-if="showTop" >
+            <ul>
+              <f7-link><i class="iconfont icon-xiaoxi1"></i> 系统消息</f7-link>
+              <f7-link><i class="iconfont icon-shouye"></i> 返回首页</f7-link>
+              <f7-link><i class="iconfont icon-saoyisao"></i> 扫一扫</f7-link>
+              <f7-link><i class="iconfont icon-gouwuche"></i> 购物车</f7-link>
+              <f7-link  @click="shareboy"><i class="iconfont icon-fenxiang"></i> 分享</f7-link>
+            </ul>
+          </div>
+          </transition>
       <div class="text">
-        <p>浙江2018年教师招聘教育心理学二期回放</p>
-        <p>赠送配套图书、配套资料、配套试卷</p>
-        <p>￥356.00 <span>￥356.00</span></p>
-        <p>国版 · 256人已学习 <em>有效期限：365天</em></p>
+        <p>{{oneJson.name}}</p>
+        <p v-show="oneJson.is_send_book == 1 || oneJson.is_send_file == 1">赠送<span v-if="oneJson.is_send_book == 1">配套图书</span>、<span v-if="oneJson.is_send_file == 1">配套资料</span> </p>
+        <p>￥{{oneJson.discount_price}} <span>￥{{oneJson.price}}</span></p>
+        <p>{{oneJson.area}} · {{oneJson.buyno}}人已学习 <em>有效期限：{{oneJson.expiry_date}}天</em></p>
       </div>
     </div>
     <h4 class="tabh4">
@@ -22,23 +36,14 @@
     </h4>
     <div class="mid">
       <div class="XQ" v-if="shows.XQ">
-        <img src="https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1519301525135&di=dd2fed90de9f2622da9e2c6f51d3888b&imgtype=0&src=http%3A%2F%2F5b0988e595225.cdn.sohucs.com%2Fimages%2F20170922%2Fca414a2cf9b34ec49aff78f350b0ec87.gif" alt="">
+        {{oneJson.descripetion}}
       </div>
       <div class="ZJ" v-if="shows.ZJ">
-        <ul>
-          <h3> <i class="iconfont icon-selected-copy"></i> 第一章</h3>
-          <f7-link> <i class="iconfont icon-fasong"></i> 第一章</f7-link>
-          <f7-link> <i class="iconfont icon-fasong"></i> 第一章</f7-link>
-          <f7-link> <i class="iconfont icon-fasong"></i> 第一章</f7-link>
-          <f7-link> <i class="iconfont icon-fasong"></i> 第一章</f7-link>
+        <ul v-for="(value, key) in chap">
+          <h3> <i class="iconfont icon-selected-copy"></i> {{key}}</h3>
+          <f7-link v-for="item in value"> <i class="iconfont icon-fasong" :key="item.id"></i> {{item.name}}</f7-link>
         </ul>
-        <ul>
-          <h3> <i class="iconfont icon-selected-copy"></i> 第一章</h3>
-          <f7-link> <i class="iconfont icon-fasong"></i> 第一章</f7-link>
-          <f7-link> <i class="iconfont icon-fasong"></i> 第一章</f7-link>
-          <f7-link> <i class="iconfont icon-fasong"></i> 第一章</f7-link>
-          <f7-link> <i class="iconfont icon-fasong"></i> 第一章</f7-link>
-        </ul>
+
       </div>
       <div class="PJ" v-if="shows.PJ">
           <ul>
@@ -109,6 +114,7 @@
         <div class="col-33"><f7-link>立即购买</f7-link></div>
       </div>
     </div>
+        <Share ref="c1"></Share>
 
   </f7-page>
 </template>
@@ -116,33 +122,144 @@
 export default {
   data: function() {
     return {
-      shows:{
-        XQ:true,
-        ZJ:false,
-        PJ:false,
+      url: "http://localhost:8080/shiro_test",
+      showTop: false,
+      shows: {
+        XQ: true,
+        ZJ: false,
+        PJ: false
+      },
+      Quantityincart: 0,
+      oneJson: {},
+      chap: {
+        category: [
+          {
+            name: "cate0"
+          },
+          {
+            name: "cate1"
+          }
+        ]
       }
     };
   },
   methods: {
-      XQ(){
-        this.shows.XQ = true;
-        this.shows.ZJ = false;
-        this.shows.PJ = false;
-      },
-      ZJ(){
-        this.shows.XQ = false;
-        this.shows.ZJ = true;
-        this.shows.PJ = false;
-      },
-      PJ(){
-        this.shows.XQ = false;
-        this.shows.ZJ = false;
-        this.shows.PJ = true;
-      },
+    XQ() {
+      this.shows.XQ = true;
+      this.shows.ZJ = false;
+      this.shows.PJ = false;
+    },
+    ZJ() {
+      this.shows.XQ = false;
+      this.shows.ZJ = true;
+      this.shows.PJ = false;
+    },
+    PJ() {
+      this.shows.XQ = false;
+      this.shows.ZJ = false;
+      this.shows.PJ = true;
+    },
+    shareboy: function(data) {
+      this.$refs.c1.sharefn();
     }
+  },
+  created() {
+    let id = this.$f7route.query.id;
+    //购物车数量
+    this.$http
+      .get(this.url + "/shoppingcart/selectShoppingCount", {
+        params: {}
+      })
+      .then(function(res) {
+        this.Quantityincart = res.body.count;
+      });
+    //收藏
+    // this.$http
+    //   .get(this.url + "/sxcollect/add", {
+    //     params: {
+    //       courseid: id
+    //     }
+    //   })
+    //   .then(function(res) {
+    //     console.log(res);
+    //   });
+    //详情
+    this.$http
+      .get(this.url + "/sx1211courseAdmin/oneJson", {
+        params: {
+          id: id
+        }
+      })
+      .then(function(res) {
+        this.oneJson = res.body.data;
+      });
+    //章节
+    this.$http
+      .get(this.url + "/sx1211courseAdmin/chap", {
+        params: {
+          id: id
+        }
+      })
+      .then(function(res) {
+        let obj = {};
+        let key = "";
+        res.body.data.forEach(element => {
+          if (element.ext1) {
+            key = element.ext1;
+            obj[key] = [];
+            obj[key].push(element);
+          } else {
+            obj[key].push(element);
+          }
+        });
+        this.chap = obj;
+      });
+    //评论
+    this.$http
+      .get(this.url + "/coursedetail/detailCourseJson", {
+        params: {
+          courseid: id,
+          page:1,
+          limit:99,
+        }
+      })
+      .then(function(res) {
+        console.log(res.body.data);
+      });
+  }
 };
 </script>
 <style lang="less">
+.TopsZ {
+  position: fixed;
+  top: 56px;
+  right: 10px;
+  padding: 10px 20px;
+  background-color: rgba(0, 0, 0, 0.3);
+  line-height: 30px;
+  vertical-align: middle;
+  border-radius: 20px;
+
+  > em {
+    position: absolute;
+    width: 20px;
+    height: 20px;
+    background-color: rgba(0, 0, 0, 0.3);
+    transform: rotate(45deg);
+    -ms-transform: rotate(45deg); /* IE 9 */
+    -webkit-transform: rotate(45deg); /* Safari and Chrome */
+    -o-transform: rotate(45deg); /* Opera */
+    -moz-transform: rotate(45deg);
+    top: -5px;
+    right: 20px;
+  }
+  .link {
+    color: #fff;
+    i {
+      margin-right: 10px;
+    }
+  }
+}
 .recommendedParticulars {
   .page-content {
     padding-top: 0 !important;
@@ -162,7 +279,7 @@ export default {
           border-radius: 50%;
           background-color: rgba(0, 0, 0, 0.3);
           color: #fff;
-          position: absolute;
+          position: fixed;
           > span {
             position: absolute;
             top: -4px;
@@ -298,7 +415,7 @@ export default {
       }
     }
     > .PJ {
-      padding: 10PX;
+      padding: 10px;
       > ul {
         > li {
           text-align: left;
@@ -337,6 +454,7 @@ export default {
     width: 100%;
     height: 50px;
     background-color: #fff;
+    z-index: 999;
     -ms-filter: "progid:DXImageTransform.Microsoft.Shadow(Strength=50, Direction=143, Color=#454545)"; /*IE 8*/
     -moz-box-shadow: 4px 3px 50px -2px rgba(69, 69, 69, 0.5); /*FF 3.5+*/
     -webkit-box-shadow: 4px 3px 50px -2px rgba(69, 69, 69, 0.5); /*Saf3-4, Chrome, iOS 4.0.2-4.2, Android 2.3+*/

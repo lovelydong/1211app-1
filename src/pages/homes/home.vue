@@ -17,9 +17,9 @@
 
       </f7-navbar>
       <f7-toolbar>
-        <f7-link><span></span><p>首页</p></f7-link>
-        <f7-link><span></span><p>直播</p></f7-link>
-        <f7-link><span></span><p>录播</p></f7-link>
+        <f7-link  href="/" :reload-all="true" :animate="true"><span></span><p>首页</p></f7-link>
+        <f7-link  href="/nLiveStreaming" :reload-all="true" :animate="true"><span></span><p>直播</p></f7-link>
+        <f7-link ><span></span><p>录播</p></f7-link>
         <f7-link href="/questionBankhome" :reload-all="true" :animate="true"><span></span><p>题库</p></f7-link>
         <f7-link href="/my"><span></span><p>我的</p></f7-link>
       </f7-toolbar>
@@ -391,7 +391,7 @@
 </template>
 <script>
 export default {
-	
+
   data: function() {
     return {};
   },
@@ -402,7 +402,7 @@ export default {
                 console.log(res)
             },function(res){
                 console.log(res.status);
-            })   
+            })
   }
 };
 </script>

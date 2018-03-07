@@ -42,6 +42,7 @@ import Issue from './pages/my/setSettingUpInstall/issue.vue';
 import Login from './pages/login/login.vue';
 import Register from './pages/login/register.vue';
 import RetrievePassword from './pages/login/retrievePassword.vue';
+import NLiveStreaming from './pages/homes/nLiveStreaming.vue';
 
 export default [{
         path: '/', //首页
@@ -49,6 +50,9 @@ export default [{
     }, {
         path: '/recommended', //推荐课程
         component: Recommended,
+    }, {
+        path: '/nLiveStreaming', //直播
+        component: NLiveStreaming,
     }, {
         path: '/search', //搜索
         component: Search,
