@@ -47,7 +47,7 @@
             <div class="col-20"><f7-link><span></span><p>最新课程</p></f7-link></div>
             <div class="col-20"><f7-link><span></span><p>大礼包</p></f7-link></div>
             <div class="col-20"><f7-link href="/examinationAnalysis/"><span></span><p>考情分析</p></f7-link></div>
-            <div class="col-20"><f7-link href="/questionBank/"><span></span><p>推荐题库</p></f7-link></div>
+            <!--<div class="col-20"><f7-link href="/questionBank/"><span></span><p>推荐题库</p></f7-link></div>-->
           </div>
         </div>
         <f7-link> <img src="../../assets/homeQiang.png" alt=""> </f7-link>
@@ -206,7 +206,7 @@
                     <p>{{limitclass11.name}}</p>
                     <p>{{limitclass11.area}}·{{limitclass11.buyno}}人正在学习</p>
                     <p><i class="iconfont icon-xingxing"></i><i class="iconfont icon-xingxing"></i><i class="iconfont icon-xingxing"></i><i class="iconfont icon-xingxing"></i><i class="iconfont icon-xingxing"></i></p>
-                    <p>￥{{limitclass11.discount_price}}.00 <span><i>24</i> 时 <i>30</i> 分 <i>30</i> 秒</span></p>
+                    <p>￥{{limitclass11.discount_price}}.00 <span>{{xsdaojishi}}</span></p>
                     </f7-link>
                   </div>
                   <ul>
@@ -216,7 +216,7 @@
                           <div>
                             <p>{{limit.name}}</p>
                             <p>{{limit.area}}·{{limit.buyno}}人正在学习 <i class="iconfont icon-xingxing"></i><i class="iconfont icon-xingxing"></i><i class="iconfont icon-xingxing"></i><i class="iconfont icon-xingxing"></i><i class="iconfont icon-xingxing"></i></p>
-                            <p>￥{{limit.discount_price}}.00 <span><i>24</i> 时 <i>30</i> 分 <i>30</i> 秒</span></p>
+                            <p>￥{{limit.discount_price}}.00 <span>{{xsdaojishi}}</span></p>
                           </div>
                         </f7-link>
                       </li>
@@ -248,7 +248,7 @@
                     <p>{{limitclass22.name}}</p>
                     <p>{{limitclass22.area}}·{{limitclass22.buyno}}人正在学习</p>
                     <p><i class="iconfont icon-xingxing"></i><i class="iconfont icon-xingxing"></i><i class="iconfont icon-xingxing"></i><i class="iconfont icon-xingxing"></i><i class="iconfont icon-xingxing"></i></p>
-                    <p>￥{{limitclass22.discount_price}}.00 <span><i>24</i> 时 <i>30</i> 分 <i>30</i> 秒</span></p>
+                    <p>￥{{limitclass22.discount_price}}.00 <span>{{xsdaojishi}}</span></p>
                     </f7-link>
                   </div>
                   <ul>
@@ -258,7 +258,7 @@
                           <div>
                             <p>{{limit.name}}</p>
                             <p>{{limit.area}}·{{limit.buyno}}人正在学习 <i class="iconfont icon-xingxing"></i><i class="iconfont icon-xingxing"></i><i class="iconfont icon-xingxing"></i><i class="iconfont icon-xingxing"></i><i class="iconfont icon-xingxing"></i></p>
-                            <p>￥{{limit.discount_price}}.00 <span><i>24</i> 时 <i>30</i> 分 <i>30</i> 秒</span></p>
+                            <p>￥{{limit.discount_price}}.00 <span>{{xsdaojishi}}</span></p>
                           </div>
                         </f7-link>
                       </li>
@@ -318,7 +318,7 @@
 
             </f7-swiper>
         </div>
-         <div class="midlist midTopic ">
+        <!-- <div class="midlist midTopic ">
            <h3><i></i> 推荐题库<f7-link href="/questionBank/">更多 <i class="iconfont icon-you"></i></f7-link></h3>
             <f7-swiper pagination >
               <f7-swiper-slide>
@@ -370,19 +370,29 @@
               </f7-swiper-slide>
 
             </f7-swiper>
-        </div>
+        </div>-->
         <div class="midlist midLink">
                <h3><i></i> 猜你喜欢</h3>
                   <div>
                     <f7-link>
-                    <p>2018年综合素质现场直播</p>
-                    <p>国版·354人正在学习</p>
+                    <p>{{glike11.name}}</p>
+                    <p>{{glike11.area}}·{{glike11.buyno}}人正在学习</p>
                     <p><i class="iconfont icon-xingxing"></i><i class="iconfont icon-xingxing"></i><i class="iconfont icon-xingxing"></i><i class="iconfont icon-xingxing"></i><i class="iconfont icon-xingxing"></i></p>
-                    <p>￥4886.00</p>
+                    <p>￥{{glike11.discount_price}}.00</p>
                     </f7-link>
                   </div>
                   <ul>
-                      <li class="clearfix link">
+                      <li class="clearfix link" v-for="like in glike1">
+                        <f7-link>
+                          <span></span>
+                          <div>
+                            <p>{{like.name}}</p>
+                            <p>{{like.area}}·{{like.buyno}}人正在学习 <i class="iconfont icon-xingxing"></i><i class="iconfont icon-xingxing"></i><i class="iconfont icon-xingxing"></i><i class="iconfont icon-xingxing"></i><i class="iconfont icon-xingxing"></i></p>
+                            <p>￥{{like.discount_price}}.00</p>
+                          </div>
+                        </f7-link>
+                      </li>
+                      <!--<li class="clearfix link">
                         <f7-link>
                           <span></span>
                           <div>
@@ -401,28 +411,28 @@
                             <p>￥356.00</p>
                           </div>
                         </f7-link>
-                      </li>
-                      <li class="clearfix link">
-                        <f7-link>
-                          <span></span>
-                          <div>
-                            <p>浙江2018年教师招聘教育心理学二期回放</p>
-                            <p>国版·354人正在学习 <i class="iconfont icon-xingxing"></i><i class="iconfont icon-xingxing"></i><i class="iconfont icon-xingxing"></i><i class="iconfont icon-xingxing"></i><i class="iconfont icon-xingxing"></i></p>
-                            <p>￥356.00</p>
-                          </div>
-                        </f7-link>
-                      </li>
+                      </li>-->
                   </ul>
                   <div>
                     <f7-link>
-                    <p>2018年综合素质现场直播</p>
-                    <p>国版·354人正在学习</p>
+                    <p>{{glike22.name}}</p>
+                    <p>{{glike22.area}}·{{glike22.buyno}}人正在学习</p>
                     <p><i class="iconfont icon-xingxing"></i><i class="iconfont icon-xingxing"></i><i class="iconfont icon-xingxing"></i><i class="iconfont icon-xingxing"></i><i class="iconfont icon-xingxing"></i></p>
-                    <p>￥4886.00</p>
+                    <p>￥{{glike22.discount_price}}.00</p>
                     </f7-link>
                   </div>
                   <ul>
-                      <li class="clearfix link">
+                      <li class="clearfix link" v-for="like in glike2">
+                        <f7-link>
+                          <span></span>
+                          <div>
+                            <p>{{like.name}}</p>
+                            <p>{{like.area}}·{{like.buyno}}人正在学习 <i class="iconfont icon-xingxing"></i><i class="iconfont icon-xingxing"></i><i class="iconfont icon-xingxing"></i><i class="iconfont icon-xingxing"></i><i class="iconfont icon-xingxing"></i></p>
+                            <p>￥{{like.discount_price}}.00</p>
+                          </div>
+                        </f7-link>
+                      </li>
+                     <!-- <li class="clearfix link">
                         <f7-link>
                           <span></span>
                           <div>
@@ -441,17 +451,7 @@
                             <p>￥356.00</p>
                           </div>
                         </f7-link>
-                      </li>
-                      <li class="clearfix link">
-                        <f7-link>
-                          <span></span>
-                          <div>
-                            <p>浙江2018年教师招聘教育心理学二期回放</p>
-                            <p>国版·354人正在学习 <i class="iconfont icon-xingxing"></i><i class="iconfont icon-xingxing"></i><i class="iconfont icon-xingxing"></i><i class="iconfont icon-xingxing"></i><i class="iconfont icon-xingxing"></i></p>
-                            <p>￥356.00</p>
-                          </div>
-                        </f7-link>
-                      </li>
+                      </li>-->
                   </ul>
 
         </div>
@@ -472,15 +472,22 @@ export default {
     	limitclass11:"",
     	limitclass2:"",
     	limitclass22:"",
+    	limittime:"",
+    	xsdaojishi:"11",
     	newclass1:"",
     	newclass11:"",
     	newclass2:"",
     	newclass22:"",
     	condition1:"",
     	condition2:"",
+    	glike1:"",
+    	glike11:"",
+    	glike2:"",
+    	glike22:"",
     	Topactive:1,
     	recommendtype:"",
-    	limittype:""
+    	limittype:"",
+    	timer:""
     };
   },
   methods: {
@@ -491,6 +498,36 @@ export default {
         var M = (date.getMonth()+1 < 10 ? '0'+(date.getMonth()+1) : date.getMonth()+1) + '/';
         var D = date.getDate() < 10 ? '0'+date.getDate() : date.getDate();
         return Y+M+D;
+   },
+   Countdown:function(timestamp)
+   {
+   	var that=this;
+   	console.log(timestamp);
+   	console.log(new Date().getTime());
+   	
+    this.timer=setInterval(function()
+{
+	var now=new Date().getTime();
+	var leftTime=timestamp-now;
+	if (leftTime>=0) {  
+                 var d = Math.floor(leftTime/1000/60/60/24);  
+               	var  h = Math.floor(leftTime/1000/60/60%24);  
+                 var m = Math.floor(leftTime/1000/60%60);  
+                 var s = Math.floor(leftTime/1000%60);   
+             //	console.log(666)
+                 
+                 that.xsdaojishi=d+" 天 "+h+" 时 "+m+" 分 "+s+" 秒";
+                // return "<i>"+d+"</i> 天 <i>"+h+"</i> 时 <i>"+m+"</i> 分 <i>"+s+"</i> 秒";
+             } else{
+             	//console.log(777)
+              that.xsdaojishi="已经结束";
+             window.clearInterval(this.timer)
+             }  
+            
+	
+},100)
+   	 	
+   	 	
    },
 
 
@@ -594,9 +631,12 @@ export default {
   			limit:4
   		}
             }).then(function(res){
+            	
                 //console.log(res.data.data)
                 this.limitclass11=res.data.data[0];
-
+               
+								this.limittime=(res.data.data[0].end_time);
+								this.Countdown(this.limittime);
                 //console.log(this.limitclass11)
                 res.data.data.splice(0,1);
                  this.limitclass1=res.data.data;
@@ -634,6 +674,7 @@ export default {
   watch: {
        Topactive(newTopactive, oldTopactive) {
              //console.log(newTopactive, oldTopactive);
+              window.clearInterval(this.timer)
              if(newTopactive==1){
              	this.recommendtype=121100302;
              	this.limittype=35202001;
@@ -751,7 +792,10 @@ export default {
             }).then(function(res){
                 //console.log(res.data.data)
                 this.limitclass11=res.data.data[0];
-
+                /*console.info(res.data.data[0].end_time)*/
+								this.limittime=(res.data.data[0].end_time);
+							
+								this.Countdown(this.limittime);
                 //console.log(this.limitclass11)
                 res.data.data.splice(0,1);
                  this.limitclass1=res.data.data;
@@ -813,8 +857,64 @@ export default {
                 console.log(res.status);
             })
 
+
+//猜你喜欢列表渲染1
+
+        this.$http.get(url+"/sx1211courseAdmin/listJson",{
+  		params:{
+  			page:2,
+  			limit:4
+  		}
+            }).then(function(res){
+                //console.log(res.data.data)
+                this.glike11=res.data.data[0];
+
+                //console.log(this.limitclass11)
+                res.data.data.splice(0,1);
+                 this.glike1=res.data.data;
+                 //console.log(res.data.data)
+
+            },function(res){
+                console.log(res.status);
+            })
+//猜你喜欢列表渲染2
+            this.$http.get(url+"/sx1211courseAdmin/listJson",{
+  		params:{
+  			page:3,
+  			limit:4
+  		}
+            }).then(function(res){
+                //console.log(res.data.data)
+                this.glike22=res.data.data[0];
+
+                //console.log(this.limitclass22)
+                res.data.data.splice(0,1);
+                 this.glike2=res.data.data;
+                // console.log(res.data.data)
+
+            },function(res){
+                console.log(res.status);
+            })
+
+
+
+
+
+
+
+
+
+
+
+
+  },
+  mounted:function()
+  {
+  	
+  	
   }
-};
+  };
+
 </script>
 <style lang="less">
 .navbar {
