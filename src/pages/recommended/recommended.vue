@@ -83,7 +83,7 @@
                     </div>
                     <h4>考试类型</h4>
                     <div class="row">
-                        <div v-for="item in gitCon.exam_type" class="col-33" :class="{active: type.exam_type == item.name_value ?true:false}" @click="type.exam_type = item.name_value">{{item.name}}</div>
+                        <div v-for="item in gitCon.exam_type" class="col-33" :class="{active: type.exam_type == item.name_value ?true:false}" @click="type.exam_type = item.name_value;exam_typeFn(item.name_value)">{{item.name}}</div>
                     </div>
                     <h4>笔面试</h4>
                     <div class="row">
@@ -101,7 +101,7 @@
 
                     <h4>地区</h4>
                     <div class="row">
-                        <div v-for="item in gitCon.province" class="col-33" :class="{active: type.province == item.provinceid ?true:false}" @click="type.province = item.provinceid">{{item.province}}</div>
+                        <div v-for="item in gitCon.province" class="col-33" :class="{active: type.province == item.name_value ?true:false}" @click="type.province = item.name_value">{{item.name}}</div>
                     </div>
                     </div>
                     <div class="off">
@@ -115,7 +115,7 @@
         </f7-subnavbar>
         <div class="mid">
           <ul>
-            <li class="clearfix link" v-for="item in recommend">
+            <li class="clearfix link" v-for="item in recommend" :key="item.id">
              <f7-link :href="'/recommendedParticulars?id=' + item.id ">
                   <span :style="{backgroundImage: 'url(' + item.simg + ')' }"></span>
                    <div>
@@ -143,7 +143,7 @@ export default {
         subject: null,
         course_type: null,
         province: null,
-        exam_type: null
+        exam_type: 121100301
       },
       gitCon: {},
       recommend: {}
@@ -156,7 +156,7 @@ export default {
           .get(this.url + "/sx1211courseAdmin/recommend2", {
             params: {
               page: 1,
-              limit: 10,
+              limit: 50,
               vod_type: this.type.vod_type,
               grade: this.type.grade,
               subject: this.type.subject,
@@ -170,7 +170,7 @@ export default {
           });
       },
       deep: true
-    }
+    },
   },
   methods: {
     onInfiniteScroll: function() {
@@ -178,13 +178,29 @@ export default {
     },
     shareboy: function(data) {
       this.$refs.c1.sharefn();
+    },
+    exam_typeFn: function(e){
+      this.$http
+      .get(this.url + "/sx1211courseAdmin/getCon", {
+        params: {
+          exam_type: e
+        }
+      })
+      .then(function(res) {
+        console.log(res)
+        this.gitCon = res.body.data;
+      });
     }
   },
 
   created() {
     //赛选条件
     this.$http
-      .get(this.url + "/sx1211courseAdmin/getCon", {})
+      .get(this.url + "/sx1211courseAdmin/getCon", {
+        params: {
+          exam_type: 121100301
+        }
+      })
       .then(function(res) {
         this.gitCon = res.body.data;
       });
@@ -193,7 +209,7 @@ export default {
       .get(this.url + "/sx1211courseAdmin/recommend2", {
         params: {
           page: 1,
-          limit: 10,
+          limit: 50,
           vod_type: this.type.vod_type,
           grade: this.type.grade,
           subject: this.type.subject,

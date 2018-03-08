@@ -43,6 +43,7 @@ import Login from './pages/login/login.vue';
 import Register from './pages/login/register.vue';
 import RetrievePassword from './pages/login/retrievePassword.vue';
 import NLiveStreaming from './pages/homes/nLiveStreaming.vue';
+import RecordedBroadcast from './pages/homes/recordedBroadcast.vue';
 
 export default [{
         path: '/', //首页
@@ -53,6 +54,9 @@ export default [{
     }, {
         path: '/nLiveStreaming', //直播
         component: NLiveStreaming,
+    }, {
+        path: '/recordedBroadcast', //录播
+        component: RecordedBroadcast,
     }, {
         path: '/search', //搜索
         component: Search,

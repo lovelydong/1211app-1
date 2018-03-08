@@ -1,7 +1,7 @@
 <template>
   <f7-page class="recommended"  infinite @infinite="onInfiniteScroll">
         <f7-navbar>
-          <f7-nav-title>直播</f7-nav-title>
+          <f7-nav-title>录播</f7-nav-title>
           <f7-nav-right>
             <f7-link class="iconfont icon-sousuo" href="/search/"></f7-link>
             <f7-link class="iconfont icon-gengduo" @click="showTop = !showTop"></f7-link>
@@ -139,7 +139,7 @@ export default {
       shows: false,
       showTop: false,
       type: {
-        vod_type: 121100401,
+        vod_type: 121100402,
         grade: null,
         subject: null,
         course_type: null,

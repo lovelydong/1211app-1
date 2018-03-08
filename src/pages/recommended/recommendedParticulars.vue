@@ -39,18 +39,17 @@
         {{oneJson.descripetion}}
       </div>
       <div class="ZJ" v-if="shows.ZJ">
-        <ul v-for="(value, key) in chap">
+        <ul v-for="(value, key) in chap" :key="key">
           <h3> <i class="iconfont icon-selected-copy"></i> {{key}}</h3>
-          <f7-link v-for="item in value"> <i class="iconfont icon-fasong" :key="item.id"></i> {{item.name}}</f7-link>
+          <f7-link v-for="item in value"  :key="item.id"> <i class="iconfont icon-fasong"></i> {{item.name}}</f7-link>
         </ul>
-
       </div>
       <div class="PJ" v-if="shows.PJ">
           <ul>
-            <li>
+            <li v-for="item in detailCourseJson" :key="item.id">
               <p>
-                <img src="https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1519301525135&di=dd2fed90de9f2622da9e2c6f51d3888b&imgtype=0&src=http%3A%2F%2F5b0988e595225.cdn.sohucs.com%2Fimages%2F20170922%2Fca414a2cf9b34ec49aff78f350b0ec87.gif" alt="">
-                <span>北****育</span>
+                <img :src="url + item.img" alt="">
+                <span>{{item.user_name}}</span>
                 <span>
                   <i class="iconfont icon-xingxing"></i>
                   <i class="iconfont icon-xingxing"></i>
@@ -58,47 +57,10 @@
                   <i class="iconfont icon-xingxing"></i>
                   <i class="iconfont icon-xingxing"></i>
                 </span>
-                <em>2017-10-26</em>
+                <em>{{new Date(item.create_time).toLocaleDateString() }}</em>
               </p>
               <p>
-                很好的卖家，谢谢喽。我的同事们都很喜欢呢。下次再来哦 ！
-                  掌柜人不错，质量还行，服务很算不错的。没想到这...
-              </p>
-            </li>
-            <li>
-              <p>
-                <img src="https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1519301525135&di=dd2fed90de9f2622da9e2c6f51d3888b&imgtype=0&src=http%3A%2F%2F5b0988e595225.cdn.sohucs.com%2Fimages%2F20170922%2Fca414a2cf9b34ec49aff78f350b0ec87.gif" alt="">
-                <span>北****育</span>
-                <span>
-                  <i class="iconfont icon-xingxing"></i>
-                  <i class="iconfont icon-xingxing"></i>
-                  <i class="iconfont icon-xingxing"></i>
-                  <i class="iconfont icon-xingxing"></i>
-                  <i class="iconfont icon-xingxing"></i>
-                </span>
-                <em>2017-10-26</em>
-              </p>
-              <p>
-                很好的卖家，谢谢喽。我的同事们都很喜欢呢。下次再来哦 ！
-                  掌柜人不错，质量还行，服务很算不错的。没想到这...
-              </p>
-            </li>
-            <li>
-              <p>
-                <img src="https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1519301525135&di=dd2fed90de9f2622da9e2c6f51d3888b&imgtype=0&src=http%3A%2F%2F5b0988e595225.cdn.sohucs.com%2Fimages%2F20170922%2Fca414a2cf9b34ec49aff78f350b0ec87.gif" alt="">
-                <span>北****育</span>
-                <span>
-                  <i class="iconfont icon-xingxing"></i>
-                  <i class="iconfont icon-xingxing"></i>
-                  <i class="iconfont icon-xingxing"></i>
-                  <i class="iconfont icon-xingxing"></i>
-                  <i class="iconfont icon-xingxing"></i>
-                </span>
-                <em>2017-10-26</em>
-              </p>
-              <p>
-                很好的卖家，谢谢喽。我的同事们都很喜欢呢。下次再来哦 ！
-                  掌柜人不错，质量还行，服务很算不错的。没想到这...
+                {{item.comment}}
               </p>
             </li>
           </ul>
@@ -108,9 +70,9 @@
       <div class="row">
         <div class="col-33">
           <f7-link><i class="iconfont icon-zaixiankefu"></i> <p>客服</p></f7-link>
-          <f7-link><i class="iconfont icon-shoucang"></i> <p>收藏</p></f7-link>
+          <f7-link :class="{active: iscollect}" @click="iscollectfn"><i class="iconfont icon-shoucang"></i> <p>收藏</p></f7-link>
         </div>
-        <div class="col-33"><f7-link>加入购物车</f7-link></div>
+        <div class="col-33"><f7-link @click="addspc">加入购物车</f7-link></div>
         <div class="col-33"><f7-link>立即购买</f7-link></div>
       </div>
     </div>
@@ -122,6 +84,7 @@
 export default {
   data: function() {
     return {
+      id:this.$f7route.query.id,
       url: "http://localhost:8080/shiro_test",
       showTop: false,
       shows: {
@@ -131,16 +94,9 @@ export default {
       },
       Quantityincart: 0,
       oneJson: {},
-      chap: {
-        category: [
-          {
-            name: "cate0"
-          },
-          {
-            name: "cate1"
-          }
-        ]
-      }
+      chap: {},
+      detailCourseJson: {},
+      iscollect: false
     };
   },
   methods: {
@@ -161,6 +117,25 @@ export default {
     },
     shareboy: function(data) {
       this.$refs.c1.sharefn();
+    },
+    iscollectfn: function() {
+      this.$http
+        .get(this.url + "/sxcollect/add", {
+          params: {
+            courseid:this.id,
+            type:"200",
+          }
+        })
+        .then(function(res) {
+          if(res.body.code == 1){
+            this.iscollect = true;
+          }else{
+            this.iscollect = false;
+          }
+        });
+    },
+    addspc:function(){
+
     }
   },
   created() {
@@ -173,16 +148,22 @@ export default {
       .then(function(res) {
         this.Quantityincart = res.body.count;
       });
-    //收藏
-    // this.$http
-    //   .get(this.url + "/sxcollect/add", {
-    //     params: {
-    //       courseid: id
-    //     }
-    //   })
-    //   .then(function(res) {
-    //     console.log(res);
-    //   });
+    //检测是否收藏
+    this.$http
+      .get(this.url + "/sxcollect/iscollect", {
+        params: {
+          courseid: id,
+          type:"200",
+        }
+      })
+      .then(function(res) {
+        console.log(res)
+        if (res.body.code) {
+          this.iscollect = true;
+        } else {
+          this.iscollect = false;
+        }
+      });
     //详情
     this.$http
       .get(this.url + "/sx1211courseAdmin/oneJson", {
@@ -219,12 +200,12 @@ export default {
       .get(this.url + "/coursedetail/detailCourseJson", {
         params: {
           courseid: id,
-          page:1,
-          limit:99,
+          page: 1,
+          limit: 50
         }
       })
       .then(function(res) {
-        console.log(res.body.data);
+        this.detailCourseJson = res.body.data;
       });
   }
 };
@@ -486,6 +467,9 @@ export default {
             position: absolute;
             bottom: 6px;
           }
+        }
+        > .active {
+          color: #fd5d32;
         }
       }
       > .col-33:nth-of-type(2) {

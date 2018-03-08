@@ -4,11 +4,11 @@
           <f7-nav-title>题库</f7-nav-title>
         </f7-navbar>
         <f7-toolbar>
-          <f7-link class="no-animate"><span></span><p>首页</p></f7-link>
-          <f7-link><span></span><p>直播</p></f7-link>
-          <f7-link><span></span><p>录播</p></f7-link>
-          <f7-link class="no-animate" href="/questionBankhome"><span></span><p>题库</p></f7-link>
-          <f7-link  href="/my" no-animation><span></span><p>我的</p></f7-link>
+        <f7-link  href="/" :reload-all="true" :animate="true"><span></span><p>首页</p></f7-link>
+        <f7-link  href="/nLiveStreaming" :reload-all="true" :animate="true"><span></span><p>直播</p></f7-link>
+        <f7-link href="/recordedBroadcast" :reload-all="true" :animate="true"><span></span><p>录播</p></f7-link>
+        <f7-link href="/questionBankhome" :reload-all="true" :animate="true"><span></span><p>题库</p></f7-link>
+        <f7-link href="/my" :reload-all="true" :animate="true"><span></span><p>我的</p></f7-link>
       </f7-toolbar>
         <div class="mid">
           <div class="row">
