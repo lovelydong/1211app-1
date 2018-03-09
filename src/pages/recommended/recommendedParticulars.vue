@@ -73,7 +73,7 @@
           <f7-link :class="{active: iscollect}" @click="iscollectfn"><i class="iconfont icon-shoucang"></i> <p>收藏</p></f7-link>
         </div>
         <div class="col-33"><f7-link @click="addspc">加入购物车</f7-link></div>
-        <div class="col-33"><f7-link>立即购买</f7-link></div>
+        <div class="col-33"><f7-link href="/live">立即购买</f7-link></div>
       </div>
     </div>
         <Share ref="c1"></Share>
@@ -84,7 +84,7 @@
 export default {
   data: function() {
     return {
-      id:this.$f7route.query.id,
+      id: this.$f7route.query.id,
       url: "http://localhost:8080/shiro_test",
       showTop: false,
       shows: {
@@ -122,20 +122,38 @@ export default {
       this.$http
         .get(this.url + "/sxcollect/add", {
           params: {
-            courseid:this.id,
-            type:"200",
+            courseid: this.id,
+            type: "200"
           }
         })
         .then(function(res) {
-          if(res.body.code == 1){
+          if (res.body.code == 1) {
             this.iscollect = true;
-          }else{
+          } else {
             this.iscollect = false;
           }
         });
     },
-    addspc:function(){
-
+    addspc: function() {
+      this.$http
+        .get(this.url + "/shoppingcart/save", {
+          params: {
+            goodsId: this.id,
+            goodsNum: 1,
+            type: 200
+          }
+        })
+        .then(function(res) {
+          console.log(res);
+          if (res.body.code == 1) {
+            let toastCenter = this.$f7.toast.create({
+              text: "成功加入购物车",
+              position: "center",
+              closeTimeout: 2000
+            });
+            toastCenter.open();
+          }
+        });
     }
   },
   created() {
@@ -153,11 +171,11 @@ export default {
       .get(this.url + "/sxcollect/iscollect", {
         params: {
           courseid: id,
-          type:"200",
+          type: "200"
         }
       })
       .then(function(res) {
-        console.log(res)
+        console.log(res);
         if (res.body.code) {
           this.iscollect = true;
         } else {

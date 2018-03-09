@@ -38,8 +38,9 @@ Vue.component('Share', Share);
 //开关
 import ToggleButton from 'vue-js-toggle-button'
 Vue.use(ToggleButton)
-
+    //接口
 import VueResource from 'vue-resource'
+
 Vue.use(VueResource);
 // Init App
 new Vue({

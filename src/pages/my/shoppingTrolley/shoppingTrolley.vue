@@ -9,55 +9,41 @@
         </f7-navbar>
         <div class="mid">
           <ul>
-            <li class="clearfix">
-                <f7-link class="yuan">
-                  <div>
+            <li class="clearfix" v-for="item in listJson" :key="item.id">
+                <f7-link class="yuan" @click="yuanFn(item.id,item.goodsPrice)">
+                  <div  :class="{active:shopping(item.id)}" :data-goodsPrice="item.goodsPrice">
                     <div></div>
                   </div>
                 </f7-link>
                 <f7-link>
-                    <span></span>
+                  <span :style="{backgroundImage: 'url(' + item.goodsPicture + ')' }"></span>
                     <div>
-                      <p>浙江2018年教师招聘教育心理学二期回放</p>
-                      <p>￥138.00</p>
-                    </div>
-                </f7-link>
-            </li>
-            <li class="clearfix">
-                <f7-link class="yuan">
-                  <div class="active">
-                    <div></div>
-                  </div>
-                </f7-link>
-                <f7-link>
-                    <span></span>
-                    <div>
-                      <p>浙江2018年教师招聘教育心理学二期回放</p>
-                      <p>￥138.00</p>
+                      <p>{{item.goodsName}}</p>
+                      <p>{{item.goodsPrice}}</p>
                     </div>
                 </f7-link>
             </li>
           </ul>
         </div>
         <div class="bot">
-          <f7-link class="yuan">
-                  <div>
+          <f7-link class="yuan" @click="isAll">
+                  <div :class="{active: this.shoppingsid.length == this.shoppingsidAll.length }" >
                     <div></div>
                   </div>
                   <p>全选</p>
           </f7-link>
-          <p>不含运费<span>合计:</span><em>￥138.00</em></p>
-          <f7-link href="/indent">结算（1）</f7-link>
+          <p>不含运费<span>合计:</span><em>￥{{Price}}</em></p>
+          <f7-link @click="Pay">结算（{{shoppingsid.length}}）</f7-link>
         </div>
         <div class="bot"  v-if="shows.bot" >
-          <f7-link class="yuan">
-                  <div>
-                    <div></div>
+          <f7-link class="yuan" @click="isAll">
+                  <div :class="{active: this.shoppingsid.length == this.shoppingsidAll.length }">
+                    <div ></div>
                   </div>
                   <p>全选</p>
           </f7-link>
-          <f7-link class="collect">移至收藏</f7-link>
-          <f7-link class="remove">删除</f7-link>
+          <f7-link class="collect" @click="addscollect">移至收藏</f7-link>
+          <f7-link class="remove" @click="removespc">删除</f7-link>
         </div>
   </f7-page>
 </template>
@@ -65,12 +51,128 @@
 export default {
   data: function() {
     return {
+      url: "http://localhost:8080/shiro_test",
       shows: {
         bot: false
-      }
+      },
+      Price: 0,
+      listJson: {},
+      shoppingsid: [],
+      shoppingsidPrice: [],
+      shoppingsidAll: [],
+      shoppingsidPriceAll: []
     };
   },
-  methods: {}
+  watch: {
+    shoppingsidPrice: {
+      handler: function(val, oldVal) {
+        let p = 0;
+        this.shoppingsidPrice.forEach(element => {
+          p += element;
+        });
+        this.Price = p;
+      },
+      deep: true
+    }
+  },
+  methods: {
+    shopping(id) {
+      let ret = false;
+      this.shoppingsid.forEach(element => {
+        if (element == id) {
+          ret = true;
+        }
+      });
+      return ret;
+    },
+    yuanFn(id, Price) {
+      let is = false;
+      this.shoppingsid.forEach((element, index) => {
+        if (element == id) {
+          is = index;
+        }
+      });
+      if (is || is === 0) {
+        this.shoppingsid.splice(is, 1);
+        this.shoppingsidPrice.splice(is, 1);
+      } else {
+        this.shoppingsid.push(id);
+        this.shoppingsidPrice.push(Price);
+      }
+    },
+    isAll() {
+      if (this.shoppingsid.length < this.shoppingsidAll.length) {
+        this.shoppingsid = [];
+        this.shoppingsidPrice = [];
+        this.shoppingsidAll.forEach(element => {
+          this.shoppingsid.push(element);
+        });
+        this.shoppingsidPriceAll.forEach(element => {
+          this.shoppingsidPrice.push(element);
+        });
+      } else {
+        this.shoppingsid = [];
+        this.shoppingsidPrice = [];
+      }
+    },
+    idsFn() {
+      let stringids = "?ids=";
+      this.shoppingsid.forEach((element, index) => {
+        if (index + 1 == this.shoppingsid.length) {
+          stringids += element;
+        } else {
+          stringids += element + "&ids=";
+        }
+      });
+      console.log(stringids);
+      return stringids;
+    },
+    addscollect() {
+      let data = this.idsFn();
+      this.$http
+        .get(this.url + "/shoppingcart/collect" + data, {})
+        .then(function(res) {
+          console.log(res);
+        });
+    },
+    removespc() {
+      let data = this.idsFn();
+      this.$http
+        .get(this.url + "/shoppingcart/del" + data, {})
+        .then(function(res) {
+          console.log(res);
+        });
+    },
+    Pay() {
+      if (this.shoppingsid.length != 0) {
+        let toastCenter = this.$f7.toast.create({
+          text: "程序猿正在努力生成订单中.....",
+          position: 'top',
+          closeTimeout: 2000
+        });
+        toastCenter.open();
+        let data = this.idsFn();
+        this.$http
+          .get(this.url + "/sxorder/save" + data, {})
+          .then(function(res) {
+            console.log(res)
+            if (res.body.code == 1) {
+              this.$f7router.navigate("/indent?order_number="  + res.body.data.order_number);
+            }
+          });
+      }
+    }
+  },
+  created() {
+    //购物车列表
+    this.$http.get(this.url + "/shoppingcart/listJson", {}).then(function(res) {
+      this.listJson = res.body.data;
+      this.listJson.forEach(element => {
+        this.shoppingsidAll.push(element.id);
+        this.shoppingsidPriceAll.push(element.goodsPrice);
+      });
+    });
+  }
 };
 </script>
 <style lang="less">
@@ -82,6 +184,7 @@ export default {
 .shoppingTrolley {
   .mid {
     padding: 20px 10px;
+    padding-bottom: 60px;
     > ul {
       > li {
         display: block;
@@ -180,6 +283,7 @@ export default {
     left: 0;
     padding-left: 80px;
     padding-right: 110px;
+    z-index: 99;
     > .link {
       font-family: "PingFang-SC-Regular";
       font-size: 16px;

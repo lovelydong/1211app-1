@@ -44,6 +44,7 @@ import Register from './pages/login/register.vue';
 import RetrievePassword from './pages/login/retrievePassword.vue';
 import NLiveStreaming from './pages/homes/nLiveStreaming.vue';
 import RecordedBroadcast from './pages/homes/recordedBroadcast.vue';
+import Live from './pages/recommended/live.vue';
 
 export default [{
         path: '/', //首页
@@ -225,6 +226,9 @@ export default [{
         path: '/retrievePassword', //找回密码
         component: RetrievePassword,
     },
-
+    {
+        path: '/live', //直播
+        component: Live,
+    },
 
 ]

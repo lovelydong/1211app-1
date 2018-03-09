@@ -21,10 +21,10 @@
           </div>
           <div class="pay">
             <h5>选择支付方式</h5>
-            <f7-link class="active"> <i class="iconfont icon-zhifubao"></i> 支付宝 <span><i class="iconfont icon-iconfontcheck"></i></span></f7-link>
-            <f7-link> <i class="iconfont icon-weixin-copy"></i> 微信 <span><i class="iconfont icon-iconfontcheck"></i></span></f7-link>
+            <f7-link :class="{active:Alipay}" @click="Alipay = !Alipay;WeChatPay = false"> <i class="iconfont icon-zhifubao"></i> 支付宝 <span><i class="iconfont icon-iconfontcheck"></i></span></f7-link>
+            <f7-link :class="{active:WeChatPay}" @click="WeChatPay = !WeChatPay;Alipay = false"> <i class="iconfont icon-weixin-copy"></i> 微信 <span><i class="iconfont icon-iconfontcheck"></i></span></f7-link>
           </div>
-          <f7-link class="zjb"><i class="iconfont icon-qian"></i> 招教币抵扣 <em>（最高抵扣15%）</em><span><i class="iconfont icon-iconfontcheck"></i></span></f7-link>
+          <f7-link class="zjb" :class="{active:ForteachingB}" @click="ForteachingB = !ForteachingB;"><i class="iconfont icon-qian"></i> 招教币抵扣 <em>（最高抵扣15%）</em><span><i class="iconfont icon-iconfontcheck"></i></span></f7-link>
           <f7-link class="discount">优惠券 <span> 0 张可用 <i class="iconfont icon-you"></i></span></f7-link>
         </div>
         <div class="bot">
@@ -37,12 +37,24 @@
 export default {
   data: function() {
     return {
-      shows: {
-        bot: false
-      }
+      url: "http://localhost:8080/shiro_test",
+      Alipay:false,
+      WeChatPay:false,
+      ForteachingB:false,
     };
   },
-  methods: {}
+  methods: {},
+  created() {
+    //订单详情
+    this.$http.get(this.url + "/sxorder/listJson", {
+      params: {
+        state:1,
+        order_number: this.$f7route.query.order_number,
+      }
+    }).then(function(res) {
+      console.log(res)
+    });
+  }
 };
 </script>
 <style lang="less">
@@ -277,6 +289,12 @@ export default {
         }
       }
     }
+    > .active {
+        > span {
+          background-color: #00d214;
+          border-color: #00d214;
+        }
+      }
     > .discount {
       display: block;
       height: 44px;

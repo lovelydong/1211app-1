@@ -461,468 +461,476 @@
 </template>
 <script>
 export default {
-
   data: function() {
     return {
-    	recommend1:"",
-    	recommend2:"",
-    	recommend11:"",
-    	recommend22:"",
-    	limitclass1:"",
-    	limitclass11:"",
-    	limitclass2:"",
-    	limitclass22:"",
-    	limittime:"",
-    	xsdaojishi:"11",
-    	newclass1:"",
-    	newclass11:"",
-    	newclass2:"",
-    	newclass22:"",
-    	condition1:"",
-    	condition2:"",
-    	glike1:"",
-    	glike11:"",
-    	glike2:"",
-    	glike22:"",
-    	Topactive:1,
-    	recommendtype:"",
-    	limittype:"",
-    	timer:""
+      recommend1: "",
+      recommend2: "",
+      recommend11: "",
+      recommend22: "",
+      limitclass1: "",
+      limitclass11: "",
+      limitclass2: "",
+      limitclass22: "",
+      limittime: "",
+      xsdaojishi: "11",
+      newclass1: "",
+      newclass11: "",
+      newclass2: "",
+      newclass22: "",
+      condition1: "",
+      condition2: "",
+      glike1: "",
+      glike11: "",
+      glike2: "",
+      glike22: "",
+      Topactive: 1,
+      recommendtype: "",
+      limittype: "",
+      timer: ""
     };
   },
   methods: {
+    timestampToTime: function(timestamp) {
+      var date = new Date(timestamp);
+      var Y = date.getFullYear() + "/";
+      var M =
+        (date.getMonth() + 1 < 10
+          ? "0" + (date.getMonth() + 1)
+          : date.getMonth() + 1) + "/";
+      var D = date.getDate() < 10 ? "0" + date.getDate() : date.getDate();
+      return Y + M + D;
+    },
+    Countdown: function(timestamp) {
+      var that = this;
+      console.log(timestamp);
+      console.log(new Date().getTime());
 
-  	timestampToTime:function (timestamp){
-        var date = new Date(timestamp);
-        var Y = date.getFullYear() + '/';
-        var M = (date.getMonth()+1 < 10 ? '0'+(date.getMonth()+1) : date.getMonth()+1) + '/';
-        var D = date.getDate() < 10 ? '0'+date.getDate() : date.getDate();
-        return Y+M+D;
-   },
-   Countdown:function(timestamp)
-   {
-   	var that=this;
-   	console.log(timestamp);
-   	console.log(new Date().getTime());
-   	
-    this.timer=setInterval(function()
-{
-	var now=new Date().getTime();
-	var leftTime=timestamp-now;
-	if (leftTime>=0) {  
-                 var d = Math.floor(leftTime/1000/60/60/24);  
-               	var  h = Math.floor(leftTime/1000/60/60%24);  
-                 var m = Math.floor(leftTime/1000/60%60);  
-                 var s = Math.floor(leftTime/1000%60);   
-             //	console.log(666)
-                 
-                 that.xsdaojishi=d+" 天 "+h+" 时 "+m+" 分 "+s+" 秒";
-                // return "<i>"+d+"</i> 天 <i>"+h+"</i> 时 <i>"+m+"</i> 分 <i>"+s+"</i> 秒";
-             } else{
-             	//console.log(777)
-              that.xsdaojishi="已经结束";
-             window.clearInterval(this.timer)
-             }  
-            
-	
-},100)
-   	 	
-   	 	
-   },
+      this.timer = setInterval(function() {
+        var now = new Date().getTime();
+        var leftTime = timestamp - now;
+        if (leftTime >= 0) {
+          var d = Math.floor(leftTime / 1000 / 60 / 60 / 24);
+          var h = Math.floor((leftTime / 1000 / 60 / 60) % 24);
+          var m = Math.floor((leftTime / 1000 / 60) % 60);
+          var s = Math.floor((leftTime / 1000) % 60);
+          //	console.log(666)
 
+          that.xsdaojishi = d + " 天 " + h + " 时 " + m + " 分 " + s + " 秒";
+          // return "<i>"+d+"</i> 天 <i>"+h+"</i> 时 <i>"+m+"</i> 分 <i>"+s+"</i> 秒";
+        } else {
+          //console.log(777)
+          that.xsdaojishi = "已经结束";
+          window.clearInterval(this.timer);
+        }
+      }, 100);
+    },
 
+    randerClass: function() {
+      let url = "http://192.168.0.69:8080/shiro_test";
 
-  	randerClass:function()
-  	{
-  		let url="http://192.168.0.69:8080/shiro_test";
+      //最新课程渲染1
 
+      this.$http
+        .get(url + "/sx1211courseAdmin/listJson", {
+          params: {
+            exam_type: this.recommendtype,
+            page: 1,
+            limit: 4
+          }
+        })
+        .then(
+          function(res) {
+            //console.log(res.data.data)
+            this.newclass11 = res.data.data[0];
 
+            res.data.data.splice(0, 1);
+            this.newclass1 = res.data.data;
+            //console.log(res.data.data)
+          },
+          function(res) {
+            console.log(res.status);
+          }
+        );
+      //最新课程渲染2
 
+      this.$http
+        .get(url + "/sx1211courseAdmin/listJson", {
+          params: {
+            exam_type: this.recommendtype,
+            page: 1,
+            limit: 4
+          }
+        })
+        .then(
+          function(res) {
+            //console.log(res.data.data)
+            this.newclass22 = res.data.data[0];
 
+            res.data.data.splice(0, 1);
+            this.newclass2 = res.data.data;
+            // console.log(res.data.data)
+          },
+          function(res) {
+            console.log(res.status);
+          }
+        );
 
-  //最新课程渲染1
+      //推荐课程渲染1
+      this.$http
+        .get(url + "/sx1211courseAdmin/recommend", {
+          params: {
+            type: this.recommendtype,
+            page: 1,
+            limit: 4
+          }
+        })
+        .then(
+          function(res) {
+            //console.log(res.data.data)
+            this.recommend11 = res.data.data[0];
 
-        this.$http.get(url+"/sx1211courseAdmin/listJson",{
-  		params:{
-  			exam_type:this.recommendtype,
-  			page:1,
-  			limit:4
-  		}
-            }).then(function(res){
-                //console.log(res.data.data)
-                this.newclass11=res.data.data[0];
+            //console.log(this.recommend11)
+            res.data.data.splice(0, 1);
+            this.recommend1 = res.data.data;
+            //console.log(res.data.data)
+          },
+          function(res) {
+            console.log(res.status);
+          }
+        );
+      //推荐课程渲染2
+      this.$http
+        .get(url + "/sx1211courseAdmin/recommend", {
+          params: {
+            type: this.recommendtype,
+            page: 1,
+            limit: 4
+          }
+        })
+        .then(
+          function(res) {
+            //console.log(res.data.data)
+            this.recommend22 = res.data.data[0];
+            res.data.data.splice(0, 1);
+            this.recommend2 = res.data.data;
+            //console.log(res.data.data)
+          },
+          function(res) {
+            console.log(res.status);
+          }
+        );
+      //限时课程渲染1
+      this.$http
+        .get(url + "/flashsale/sale", {
+          params: {
+            type: this.limittype,
+            page: 1,
+            limit: 4
+          }
+        })
+        .then(
+          function(res) {
+            //console.log(res.data.data)
+            this.limitclass11 = res.data.data[0];
 
+            this.limittime = res.data.data[0].end_time;
+            this.Countdown(this.limittime);
+            //console.log(this.limitclass11)
+            res.data.data.splice(0, 1);
+            this.limitclass1 = res.data.data;
+            //console.log(res.data.data)
+          },
+          function(res) {
+            console.log(res.status);
+          }
+        );
+      //限时课程渲染2
+      this.$http
+        .get(url + "/flashsale/sale", {
+          params: {
+            type: this.limittype,
+            page: 1,
+            limit: 4
+          }
+        })
+        .then(
+          function(res) {
+            //console.log(res.data.data)
+            this.limitclass22 = res.data.data[0];
 
-                res.data.data.splice(0,1);
-                 this.newclass1=res.data.data;
-                 //console.log(res.data.data)
-
-            },function(res){
-                console.log(res.status);
-            })
-  	//最新课程渲染2
-
-            this.$http.get(url+"/sx1211courseAdmin/listJson",{
-  		params:{
-  			exam_type:this.recommendtype,
-  			page:1,
-  			limit:4
-  		}
-            }).then(function(res){
-                //console.log(res.data.data)
-                this.newclass22=res.data.data[0];
-
-
-                res.data.data.splice(0,1);
-                 this.newclass2=res.data.data;
-                // console.log(res.data.data)
-
-            },function(res){
-                console.log(res.status);
-            })
-
-
-
-
-
-
-
-
-  		//推荐课程渲染1
-  	this.$http.get(url+"/sx1211courseAdmin/recommend",{
-  		params:{
-  			type:this.recommendtype,
-  			page:1,
-  			limit:4
-  		}
-            }).then(function(res){
-                //console.log(res.data.data)
-                this.recommend11=res.data.data[0];
-
-                //console.log(this.recommend11)
-                res.data.data.splice(0,1);
-                 this.recommend1=res.data.data;
-                 //console.log(res.data.data)
-
-            },function(res){
-                console.log(res.status);
-            })
-            //推荐课程渲染2
-            this.$http.get(url+"/sx1211courseAdmin/recommend",{
-  		params:{
-  			type:this.recommendtype,
-  			page:1,
-  			limit:4
-  		}
-            }).then(function(res){
-                //console.log(res.data.data)
-                this.recommend22=res.data.data[0];
-                res.data.data.splice(0,1);
-                 this.recommend2=res.data.data;
-                 //console.log(res.data.data)
-            },function(res){
-                console.log(res.status);
-            })
-           //限时课程渲染1
-        this.$http.get(url+"/flashsale/sale",{
-  		params:{
-  			type:this.limittype,
-  			page:1,
-  			limit:4
-  		}
-            }).then(function(res){
-            	
-                //console.log(res.data.data)
-                this.limitclass11=res.data.data[0];
-               
-								this.limittime=(res.data.data[0].end_time);
-								this.Countdown(this.limittime);
-                //console.log(this.limitclass11)
-                res.data.data.splice(0,1);
-                 this.limitclass1=res.data.data;
-                 //console.log(res.data.data)
-
-            },function(res){
-                console.log(res.status);
-            })
-          //限时课程渲染2
-            this.$http.get(url+"/flashsale/sale",{
-  		params:{
-  			type:this.limittype,
-  			page:1,
-  			limit:4
-  		}
-            }).then(function(res){
-                //console.log(res.data.data)
-                this.limitclass22=res.data.data[0];
-
-                //console.log(this.limitclass22)
-                res.data.data.splice(0,1);
-                 this.limitclass2=res.data.data;
-                // console.log(res.data.data)
-
-            },function(res){
-                console.log(res.status);
-            })
-
-
-
-  	}
+            //console.log(this.limitclass22)
+            res.data.data.splice(0, 1);
+            this.limitclass2 = res.data.data;
+            // console.log(res.data.data)
+          },
+          function(res) {
+            console.log(res.status);
+          }
+        );
+    }
   },
 
   //监听课程切换
   watch: {
-       Topactive(newTopactive, oldTopactive) {
-             //console.log(newTopactive, oldTopactive);
-              window.clearInterval(this.timer)
-             if(newTopactive==1){
-             	this.recommendtype=121100302;
-             	this.limittype=35202001;
-             	this.randerClass();
-             }
-             else if(newTopactive==2){
-             	this.recommendtype=121100301;
-             	this.limittype=35202002;
+    Topactive(newTopactive, oldTopactive) {
+      //console.log(newTopactive, oldTopactive);
+      window.clearInterval(this.timer);
+      if (newTopactive == 1) {
+        this.recommendtype = 121100302;
+        this.limittype = 35202001;
+        this.randerClass();
+      } else if (newTopactive == 2) {
+        this.recommendtype = 121100301;
+        this.limittype = 35202002;
 
-             	this.randerClass();
-             }
-             else if(newTopactive==3){
-             	this.recommendtype=121100303;
-             	this.limittype=35202003;
+        this.randerClass();
+      } else if (newTopactive == 3) {
+        this.recommendtype = 121100303;
+        this.limittype = 35202003;
 
-             	this.randerClass();
-             }
-       }
-   },
+        this.randerClass();
+      }
+    }
+  },
 
+  created: function() {
+    let url = "http://192.168.0.69:8080/shiro_test";
 
+    //最新课程渲染1
 
-  created:function(){
-  	let url="http://192.168.0.69:8080/shiro_test"
+    this.$http
+      .get(url + "/sx1211courseAdmin/listJson", {
+        params: {
+          exam_type: 121100302,
+          page: 1,
+          limit: 4
+        }
+      })
+      .then(
+        function(res) {
+          //console.log(res.data.data)
+          this.newclass11 = res.data.data[0];
 
+          res.data.data.splice(0, 1);
+          this.newclass1 = res.data.data;
+          //console.log(res.data.data)
+        },
+        function(res) {
+          console.log(res.status);
+        }
+      );
+    //最新课程渲染2
 
-  	//最新课程渲染1
+    this.$http
+      .get(url + "/sx1211courseAdmin/listJson", {
+        params: {
+          exam_type: 121100302,
+          page: 1,
+          limit: 4
+        }
+      })
+      .then(
+        function(res) {
+          //console.log(res.data.data)
+          this.newclass22 = res.data.data[0];
 
-        this.$http.get(url+"/sx1211courseAdmin/listJson",{
-  		params:{
-  			exam_type:121100302,
-  			page:1,
-  			limit:4
-  		}
-            }).then(function(res){
-                //console.log(res.data.data)
-                this.newclass11=res.data.data[0];
+          res.data.data.splice(0, 1);
+          this.newclass2 = res.data.data;
+          // console.log(res.data.data)
+        },
+        function(res) {
+          console.log(res.status);
+        }
+      );
 
+    //推荐课程渲染1
+    this.$http
+      .get(url + "/sx1211courseAdmin/recommend", {
+        params: {
+          type: 121100302,
+          page: 1,
+          limit: 4
+        }
+      })
+      .then(
+        function(res) {
+          //console.log(res.data.data)
+          this.recommend11 = res.data.data[0];
 
-                res.data.data.splice(0,1);
-                 this.newclass1=res.data.data;
-                 //console.log(res.data.data)
+          //console.log(this.recommend11)
+          res.data.data.splice(0, 1);
+          this.recommend1 = res.data.data;
+          //console.log(res.data.data)
+        },
+        function(res) {
+          console.log(res.status);
+        }
+      );
+    //推荐课程渲染2
+    this.$http
+      .get(url + "/sx1211courseAdmin/recommend", {
+        params: {
+          type: 121100302,
+          page: 1,
+          limit: 4
+        }
+      })
+      .then(
+        function(res) {
+          //console.log(res.data.data)
+          this.recommend22 = res.data.data[0];
+          res.data.data.splice(0, 1);
+          this.recommend2 = res.data.data;
+          //console.log(res.data.data)
+        },
+        function(res) {
+          console.log(res.status);
+        }
+      );
 
-            },function(res){
-                console.log(res.status);
-            })
-  	//最新课程渲染2
+    //限时课程渲染1
+    this.$http
+      .get(url + "/flashsale/sale", {
+        params: {
+          type: 35202001,
+          page: 1,
+          limit: 4
+        }
+      })
+      .then(
+        function(res) {
+          //console.log(res.data.data)
+          this.limitclass11 = res.data.data[0];
+          /*console.info(res.data.data[0].end_time)*/
+          this.limittime = res.data.data[0].end_time;
 
-            this.$http.get(url+"/sx1211courseAdmin/listJson",{
-  		params:{
-  			exam_type:121100302,
-  			page:1,
-  			limit:4
-  		}
-            }).then(function(res){
-                //console.log(res.data.data)
-                this.newclass22=res.data.data[0];
+          this.Countdown(this.limittime);
+          //console.log(this.limitclass11)
+          res.data.data.splice(0, 1);
+          this.limitclass1 = res.data.data;
+          //console.log(res.data.data)
+        },
+        function(res) {
+          console.log(res.status);
+        }
+      );
+    //限时课程渲染2
+    this.$http
+      .get(url + "/flashsale/sale", {
+        params: {
+          type: 35202001,
+          page: 1,
+          limit: 4
+        }
+      })
+      .then(
+        function(res) {
+          //console.log(res.data.data)
+          this.limitclass22 = res.data.data[0];
 
-
-                res.data.data.splice(0,1);
-                 this.newclass2=res.data.data;
-                // console.log(res.data.data)
-
-            },function(res){
-                console.log(res.status);
-            })
-
-
-
-
-  	//推荐课程渲染1
-  	this.$http.get(url+"/sx1211courseAdmin/recommend",{
-  		params:{
-  			type:121100302,
-  			page:1,
-  			limit:4
-  		}
-            }).then(function(res){
-                //console.log(res.data.data)
-                this.recommend11=res.data.data[0];
-
-                //console.log(this.recommend11)
-                res.data.data.splice(0,1);
-                 this.recommend1=res.data.data;
-                 //console.log(res.data.data)
-
-            },function(res){
-                console.log(res.status);
-            })
-            //推荐课程渲染2
-            this.$http.get(url+"/sx1211courseAdmin/recommend",{
-  		params:{
-  			type:121100302,
-  			page:1,
-  			limit:4
-  		}
-            }).then(function(res){
-                //console.log(res.data.data)
-                this.recommend22=res.data.data[0];
-                res.data.data.splice(0,1);
-                 this.recommend2=res.data.data;
-                 //console.log(res.data.data)
-            },function(res){
-                console.log(res.status);
-            })
-
-
-        //限时课程渲染1
-        this.$http.get(url+"/flashsale/sale",{
-  		params:{
-  			type:35202001,
-  			page:1,
-  			limit:4
-  		}
-            }).then(function(res){
-                //console.log(res.data.data)
-                this.limitclass11=res.data.data[0];
-                /*console.info(res.data.data[0].end_time)*/
-								this.limittime=(res.data.data[0].end_time);
-							
-								this.Countdown(this.limittime);
-                //console.log(this.limitclass11)
-                res.data.data.splice(0,1);
-                 this.limitclass1=res.data.data;
-                 //console.log(res.data.data)
-
-            },function(res){
-                console.log(res.status);
-            })
-          //限时课程渲染2
-            this.$http.get(url+"/flashsale/sale",{
-  		params:{
-  			type:35202001,
-  			page:1,
-  			limit:4
-  		}
-            }).then(function(res){
-                //console.log(res.data.data)
-                this.limitclass22=res.data.data[0];
-
-                //console.log(this.limitclass22)
-                res.data.data.splice(0,1);
-                 this.limitclass2=res.data.data;
-                // console.log(res.data.data)
-
-            },function(res){
-                console.log(res.status);
-            })
+          //console.log(this.limitclass22)
+          res.data.data.splice(0, 1);
+          this.limitclass2 = res.data.data;
+          // console.log(res.data.data)
+        },
+        function(res) {
+          console.log(res.status);
+        }
+      );
 
     //考情分析列表
 
     //考情分析列表渲染1
-        this.$http.get(url+"/examcondition/list",{
-  		params:{
-  			page:1,
-  			limit:4
-  		}
-            }).then(function(res){
-                //console.log(res.data.data)
-                this.condition1=res.data.data;
+    this.$http
+      .get(url + "/examcondition/list", {
+        params: {
+          page: 1,
+          limit: 4
+        }
+      })
+      .then(
+        function(res) {
+          //console.log(res.data.data)
+          this.condition1 = res.data.data;
+        },
+        function(res) {
+          console.log(res.status);
+        }
+      );
+    //考情分析列表渲染2
+    this.$http
+      .get(url + "/examcondition/list", {
+        params: {
+          page: 2,
+          limit: 4
+        }
+      })
+      .then(
+        function(res) {
+          //console.log(res.data.data)
+          this.condition2 = res.data.data;
+        },
+        function(res) {
+          console.log(res.status);
+        }
+      );
 
+    //猜你喜欢列表渲染1
 
+    this.$http
+      .get(url + "/sx1211courseAdmin/listJson", {
+        params: {
+          page: 2,
+          limit: 4
+        }
+      })
+      .then(
+        function(res) {
+          //console.log(res.data.data)
+          this.glike11 = res.data.data[0];
 
-            },function(res){
-                console.log(res.status);
-            })
-             //考情分析列表渲染2
-        this.$http.get(url+"/examcondition/list",{
-  		params:{
-  			page:2,
-  			limit:4
-  		}
-            }).then(function(res){
-                //console.log(res.data.data)
-                this.condition2=res.data.data;
+          //console.log(this.limitclass11)
+          res.data.data.splice(0, 1);
+          this.glike1 = res.data.data;
+          //console.log(res.data.data)
+        },
+        function(res) {
+          console.log(res.status);
+        }
+      );
+    //猜你喜欢列表渲染2
+    this.$http
+      .get(url + "/sx1211courseAdmin/listJson", {
+        params: {
+          page: 3,
+          limit: 4
+        }
+      })
+      .then(
+        function(res) {
+          //console.log(res.data.data)
+          this.glike22 = res.data.data[0];
 
-
-
-            },function(res){
-                console.log(res.status);
-            })
-
-
-//猜你喜欢列表渲染1
-
-        this.$http.get(url+"/sx1211courseAdmin/listJson",{
-  		params:{
-  			page:2,
-  			limit:4
-  		}
-            }).then(function(res){
-                //console.log(res.data.data)
-                this.glike11=res.data.data[0];
-
-                //console.log(this.limitclass11)
-                res.data.data.splice(0,1);
-                 this.glike1=res.data.data;
-                 //console.log(res.data.data)
-
-            },function(res){
-                console.log(res.status);
-            })
-//猜你喜欢列表渲染2
-            this.$http.get(url+"/sx1211courseAdmin/listJson",{
-  		params:{
-  			page:3,
-  			limit:4
-  		}
-            }).then(function(res){
-                //console.log(res.data.data)
-                this.glike22=res.data.data[0];
-
-                //console.log(this.limitclass22)
-                res.data.data.splice(0,1);
-                 this.glike2=res.data.data;
-                // console.log(res.data.data)
-
-            },function(res){
-                console.log(res.status);
-            })
-
-
-
-
-
-
-
-
-
-
-
-
+          //console.log(this.limitclass22)
+          res.data.data.splice(0, 1);
+          this.glike2 = res.data.data;
+          // console.log(res.data.data)
+        },
+        function(res) {
+          console.log(res.status);
+        }
+      );
   },
-  mounted:function()
-  {
-  	
-  	
-  }
-  };
-
+  mounted: function() {}
+};
 </script>
 <style lang="less">
 .navbar {
   background-color: #fff !important;
   .navbar-inner {
-    background-color: #fff  ;
+    background-color: #fff;
     z-index: 10;
-    .iconfont{
+    .iconfont {
       color: #000;
       font-size: 20px;
     }
@@ -930,7 +938,7 @@ export default {
       color: #000;
       font-size: 24px;
     }
-    .title{
+    .title {
       font-weight: 400;
     }
     .lf {
@@ -975,17 +983,17 @@ export default {
 }
 .toolbar {
   height: 50px !important;
-  .link{
+  .link {
     position: relative;
     width: 20%;
-    >span{
+    > span {
       width: 22px;
       height: 22px;
       background-color: #000;
       position: absolute;
       top: 2px;
     }
-    >p{
+    > p {
       font-family: "PingFang-SC-Regular";
       font-size: 12px;
       color: #666666;
@@ -1155,7 +1163,8 @@ export default {
                     > span {
                       width: 120px;
                       height: 86px;
-                      background: url(https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1519301525135&di=dd2fed90de9f2622da9e2c6f51d3888b&imgtype=0&src=http%3A%2F%2F5b0988e595225.cdn.sohucs.com%2Fimages%2F20170922%2Fca414a2cf9b34ec49aff78f350b0ec87.gif) no-repeat center center;
+                      background: url(https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1519301525135&di=dd2fed90de9f2622da9e2c6f51d3888b&imgtype=0&src=http%3A%2F%2F5b0988e595225.cdn.sohucs.com%2Fimages%2F20170922%2Fca414a2cf9b34ec49aff78f350b0ec87.gif)
+                        no-repeat center center;
                       border-radius: 12px;
                       position: absolute;
                       left: 0;
@@ -1187,10 +1196,10 @@ export default {
                         font-size: 12px;
                         line-height: 24px;
                         color: #fd2d44;
-                        >span{
+                        > span {
                           float: right;
                           color: #333333;
-                          >i{
+                          > i {
                             color: #fd2d44;
                             margin: 0;
                           }
@@ -1351,7 +1360,8 @@ export default {
               > span {
                 width: 120px;
                 height: 86px;
-                background: url(https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1519301525135&di=dd2fed90de9f2622da9e2c6f51d3888b&imgtype=0&src=http%3A%2F%2F5b0988e595225.cdn.sohucs.com%2Fimages%2F20170922%2Fca414a2cf9b34ec49aff78f350b0ec87.gif) no-repeat center center;
+                background: url(https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1519301525135&di=dd2fed90de9f2622da9e2c6f51d3888b&imgtype=0&src=http%3A%2F%2F5b0988e595225.cdn.sohucs.com%2Fimages%2F20170922%2Fca414a2cf9b34ec49aff78f350b0ec87.gif)
+                  no-repeat center center;
                 border-radius: 12px;
                 position: absolute;
                 left: 0;
@@ -1383,7 +1393,6 @@ export default {
                   font-size: 12px;
                   line-height: 24px;
                   color: #fd2d44;
-
                 }
               }
             }
