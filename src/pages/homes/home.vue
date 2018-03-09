@@ -277,7 +277,7 @@
                           <span></span>
                           <div>
                             <p>{{condition.file_name}}</p>
-                            <p><i>新</i>  {{condition.create_person}} &nbsp;&nbsp;{{timestampToTime(condition.create_time)}}</p>
+                            <p><i>新</i>  {{condition.create_person}} &nbsp;&nbsp;{{condition.create_time/1000 | moment("YYYY-MM-DD")}}</p>
                           </div>
                         </f7-link>
                       </li>
@@ -309,7 +309,7 @@
                           <span></span>
                           <div>
                             <p>{{condition.file_name}}</p>
-                            <p><i>新</i>  {{condition.create_person}} &nbsp;&nbsp;{{timestampToTime(condition.create_time)}}</p>
+                            <p><i>新</i>  {{condition.create_person}} &nbsp;&nbsp;{{condition.create_time/1000 | moment("YYYY-MM-DD")}}</p>
                           </div>
                         </f7-link>
                       </li>
@@ -492,18 +492,12 @@ export default {
   },
   methods: {
 
-  	timestampToTime:function (timestamp){
-        var date = new Date(timestamp);
-        var Y = date.getFullYear() + '/';
-        var M = (date.getMonth()+1 < 10 ? '0'+(date.getMonth()+1) : date.getMonth()+1) + '/';
-        var D = date.getDate() < 10 ? '0'+date.getDate() : date.getDate();
-        return Y+M+D;
-   },
+  	
    Countdown:function(timestamp)
    {
    	var that=this;
-   	console.log(timestamp);
-   	console.log(new Date().getTime());
+   	//console.log(timestamp);
+   	//console.log(new Date().getTime());
    	
     this.timer=setInterval(function()
 {
@@ -534,7 +528,7 @@ export default {
 
   	randerClass:function()
   	{
-  		let url="http://192.168.0.69:8080/shiro_test";
+  		let url="http://192.168.0.115:8080/shiro_test";
 
 
 
@@ -698,7 +692,10 @@ export default {
 
 
   created:function(){
-  	let url="http://192.168.0.69:8080/shiro_test"
+  	let url="http://192.168.0.115:8080/shiro_test"
+
+		/*var id=this.$f7route.query.id;
+		console.log(id)*/
 
 
   	//最新课程渲染1
