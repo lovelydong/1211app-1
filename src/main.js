@@ -32,16 +32,21 @@ import Less from 'less-loader'
 // Init F7 Vue Plugin
 Vue.use(Framework7Vue, Framework7)
     //分享
+
 import Share from './pages/share.vue';
 
 Vue.component('Share', Share);
 //开关
 import ToggleButton from 'vue-js-toggle-button'
 Vue.use(ToggleButton)
-    //接口
+
+//vue-resource
+
 import VueResource from 'vue-resource'
 
 Vue.use(VueResource);
+//moment 公共类库
+Vue.use(require('vue-moment'));
 // Init App
 new Vue({
     el: '#app',

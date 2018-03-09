@@ -6,35 +6,36 @@
           <f7-nav-title>试卷收藏</f7-nav-title>
         </f7-navbar>
         <div class="mid">
-          <f7-swiper pagination>
-              <f7-swiper-slide>
-                <h3>一、单选题 <span><em>1</em>/15</span></h3>
+          <f7-swiper pagination >
+              <f7-swiper-slide  v-for="(e,key,index) in exam" v-bind:key="index">
+                <h3>{{index+1}}、<i v-html="e.examItemRecList.length>0?'单选题':'简答题'"></i><span><em>{{index+1}}</em>/{{count}}</span></h3>
                 <div class="content">
-                    <p>1、小华家的电灯丝断了，他把灯泡晃了晃使灯丝 又搭上了，再用的时候会发现：</p>
-                    <ul>
-                        <f7-link> <span>A</span>灯比原来亮了</f7-link>
-                        <f7-link class="active"> <span>B</span>灯比原来亮了</f7-link>
-                        <f7-link class="active1"> <span>C</span>灯比原来亮了</f7-link>
+                    <p>{{e.examItem.itemname}}</p>
+                    <ul v-if="(e.examItemRecList.length>0)" v-for="eee in e.examItemRecList"> 
+                        <f7-link class="active2"> <span>A</span>{{eee.optionname}}</f7-link>
+                       <!-- <f7-link class="active"> <span>B</span>灯比原来亮了</f7-link>
+                        <f7-link class="active1"> <span>C</span>灯比原来亮了</f7-link>-->
                     </ul>
+                    <div v-if="(e.examItemRecList.length>0)">{{e.examAnswer.answer}}</div>
                     <div class="bot">
                         <h4>答案解析：</h4>
 
-                        <div>时光总是那么的短暫，给了我们那么多的机会体验人生，可我却浪费了我太多太多的时间，独自一人努力的跳出自己人生最深的角落……</div>
+                        <div>{{e.examAnswer.analysis}}</div>
                     </div>
                 </div>
               </f7-swiper-slide>
-              <f7-swiper-slide>
-                  <h3>一、单选题 <span><em>1</em>/15</span></h3>
+              <!--<f7-swiper-slide v-for="(e, index) in exam" >
+                  <h3>{{index+1}}、简答题 <span><em>{{index+1}}</em>/15</span></h3>
                   <div class="content">
-                      <p>1、小华家的电灯丝断了，他把灯泡晃了晃使灯丝 又搭上了，再用的时候会发现：</p>
-                      <div>可是东方红萨科技的发送快递发看时间说了大富科技奥斯卡了是的发送到发斯蒂芬</div>
+                      <p>{{e.examItem.itemname}}</p>
+                      <div>{{e.examAnswer.answer}}</div>
                       <div class="bot">
                           <h4>答案解析：</h4>
 
-                          <div>时光总是那么的短暫，给了我们那么多的机会体验人生，可我却浪费了我太多太多的时间，独自一人努力的跳出自己人生最深的角落……</div>
+                          <div>{{e.examAnswer.analysis}}</div>
                       </div>
                   </div>
-              </f7-swiper-slide>
+              </f7-swiper-slide>-->
           </f7-swiper>
         </div>
   </f7-page>
@@ -42,10 +43,37 @@
 <script>
 export default {
   data: function() {
-    return {};
+    return {
+    	exam:"",
+    	count:''
+    };
   },
-  methods: {}
-};
+  methods: {},
+  created:function(){
+  	let url="http://192.168.0.115:8080/shiro_test";
+  	var id=this.$f7route.query.id;
+		//console.log(id)
+		 this.$http.get(url+"/sx1211examcollect/detail",{
+  		params:{
+  			id:id
+  		}
+            }).then(function(res){
+            	this.exam=res.data.data;
+            	//this.count=res.data.data.length;
+            	console.log(res.data.data);
+            	var key, counter = 0;
+							for(key in res.data.data)
+							{
+								counter++;
+							}
+							this.count=counter;
+              // console.log(res.data.data.examItemRecList)
+             
+            },function(res){
+                console.log(res.status);
+            })
+  }
+ }
 </script>
 <style lang="less">
 .myCollectParticulars {
@@ -96,7 +124,7 @@ export default {
               color: #333333;
               padding: 10px 0;
               > span {
-                border: solid 1px #fd5d32;
+                border: solid 1px #fff;
                 border-radius: 50%;
                 padding: 0 5px;
                 margin-right: 10px;
@@ -110,12 +138,19 @@ export default {
                 background-color: #fd5d32;
               }
             }
+            > .active2 {
+              color: #000;
+              > span {
+                color: #000;
+                background-color: #fff;
+              }
+            }
             > .active1 {
               color: #22ac38;
               > span {
                 color: #fff;
                 background-color: #22ac38;
-                border: 1px solid #22ac38;
+                
               }
             }
           }

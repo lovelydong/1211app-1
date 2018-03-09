@@ -7,9 +7,9 @@
         </f7-navbar>
         <f7-subnavbar sliding>
           <f7-segmented>
-            <f7-button tab-link="#tab1" tab-link-active>课程收藏</f7-button>
-            <f7-button tab-link="#tab2">试卷收藏</f7-button>
-            <f7-button tab-link="#tab3">试题收藏</f7-button>
+            <f7-button tab-link="#tab1" tab-link-active @click="tab=1">课程收藏</f7-button>
+            <f7-button tab-link="#tab2"  @click="tab=2">试卷收藏</f7-button>
+           <!-- <f7-button tab-link="#tab3"  @click="tab=3">试题收藏</f7-button>-->
           </f7-segmented>
         </f7-subnavbar>
 
@@ -42,7 +42,7 @@
                       <a href="#" class="swipeout-delete">删除</a>
                     </div>
                   </li>
-                  <li class="swipeout">
+                 <!-- <li class="swipeout">
                     <div class="swipeout-content">
                       <a href="" class="item-link">
                         <div class="item-content">
@@ -63,32 +63,32 @@
                       <a href="#" class="swipeout-close color-blue" @click="shareboy">分享</a>
                       <a href="#" class="swipeout-delete">删除</a>
                     </div>
-                  </li>
+                  </li>-->
                 </ul>
               </div>
             </div>
             <div id="tab2" class="tab" >
               <div class="list">
               <ul>
-                <li class="swipeout">
+                <li class="swipeout" v-for="exam in exams">
                   <div class="swipeout-content">
-                    <a href="/myCollectParticulars" class="item-link">
+                    <a :href="'/myCollectParticulars?id='+exam.id" class="item-link">
                       <div class="item-content">
                         <div class="item-inner">
-                          <div class="item-title">2017年上半年中学综合素质真题及答案解析 <p>学习时间：2017-01-02</p></div>
+                          <div class="item-title">{{exam.examname}}<p>学习时间：{{timestampToTime(exam.create_time)}}</p></div>
                         </div>
                       </div>
                     </a>
                   </div>
                   <div class="swipeout-actions-right">
                     <a href="#" class="swipeout-close color-blue" @click="shareboy">分享</a>
-                    <a href="#" class="swipeout-delete">删除</a>
+                    <a href="#" class="swipeout-delete"  @click="examDelete(exam.id)">删除</a>
                   </div>
                 </li>
               </ul>
               </div>
             </div>
-            <div id="tab3" class="tab">
+           <!-- <div id="tab3" class="tab">
               <div class="list">
               <ul>
                 <li class="swipeout">
@@ -108,7 +108,7 @@
                 </li>
               </ul>
               </div>
-            </div>
+            </div>-->
         </div>
         <Share ref="c1"></Share>
 
@@ -117,14 +117,106 @@
 <script>
 export default {
   data: function() {
-    return {};
+    return {
+    	tab:1,
+    	exams:""
+    	
+    };
   },
   methods: {
     shareboy: function(data) {
       this.$refs.c1.sharefn();
-    }
+    },
+    timestampToTime:function (timestamp){
+        var date = new Date(timestamp);
+        var Y = date.getFullYear() + '/';
+        var M = (date.getMonth()+1 < 10 ? '0'+(date.getMonth()+1) : date.getMonth()+1) + '/';
+        var D = date.getDate() < 10 ? '0'+date.getDate() : date.getDate();
+        return Y+M+D;
+   },
+   examDelete:function(id)
+   {
+   	//alert(id);
+   	 this.$http.get("http://192.168.0.115:8080/shiro_test/sx1211examcollect/delexam",{
+  		params:{
+  			id:id
+  		}
+            }).then(function(res){
+               console.log(res)
+             
+            },function(res){
+                console.log(res.status);
+            })
+   }
+    },
+    created:function()
+ {
+ 	let url="http://192.168.0.115:8080/shiro_test";
+ 	//课程收藏渲染
+ 	 this.$http.get(url+"/sx1211courseAdmin/listJson",{
+  		params:{
+  			exam_type:121100302,
+  			page:1,
+  			limit:4
+  		}
+            }).then(function(res){
+                //console.log(res.data.data)
+                this.newclass11=res.data.data[0];
+
+
+                res.data.data.splice(0,1);
+                 this.newclass1=res.data.data;
+                 //console.log(res.data.data)
+
+            },function(res){
+                console.log(res.status);
+            })
+            
+   	//试卷收藏渲染
+ 	 this.$http.get(url+"/sx1211examcollect/listJson",{
+  		params:{
+  			
+  			page:1,
+  			limit:4
+  		}
+            }).then(function(res){
+                console.log(res.data.data)
+               	this.exams=res.data.data;
+                 
+                 //console.log(res.data.data)
+
+            },function(res){
+                console.log(res.status);
+            })         
+            
+            
+            
+            //试题收藏渲染
+ 	 this.$http.get(url+"/sx1211examcollect/listJson",{
+  		params:{
+  			
+  			page:1,
+  			limit:4
+  		}
+            }).then(function(res){
+                //console.log(res.data.data)
+                this.newclass11=res.data.data[0];
+
+
+                res.data.data.splice(0,1);
+                 this.newclass1=res.data.data;
+                 //console.log(res.data.data)
+
+            },function(res){
+                console.log(res.status);
+            })    
+            
+ 
+ 
+ 
+ }
   }
-};
+ 
 </script>
 <style lang="less">
 .myCollect {

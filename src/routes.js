@@ -108,7 +108,7 @@ export default [{
     },
     {
         path: '/my', //我的
-        component: My,
+        component:My,
     },
     {
         path: '/wrongTopicHighlights', //我的错题

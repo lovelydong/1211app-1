@@ -7,7 +7,7 @@
           <h1>登录</h1>
           <input type="text" placeholder="请输入您的用户名/手机号">
           <input type="text" placeholder="请输入您的密码">
-          <f7-link><div>登陆</div></f7-link>
+          <f7-link><div @click="login">登陆</div></f7-link>
           <f7-link href="/register"><span>注册</span></f7-link>
           <f7-link href="/retrievePassword"><em>忘记密码</em></f7-link>
         </div>
@@ -21,7 +21,11 @@ export default {
     };
   },
   methods: {
-
+ 	
+login:function()
+{
+	/* this.$f7router.navigate('/?id=1');*/
+}
   }
 };
 </script>

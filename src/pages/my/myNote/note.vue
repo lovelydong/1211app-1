@@ -8,19 +8,19 @@
          <div class="mid">
             <div class="list">
             <ul>
-              <li class="swipeout">
+              <li class="swipeout" v-for="not in notes">
                 <div class="swipeout-content">
-                  <a href="/noteParticulars" class="item-link">
+                  <a :href="'/noteParticulars?title='+not.note+'&timer='+not.creat_time+'&ext1='+not.ext1" class="item-link">
                     <div class="item-content">
                       <div class="item-inner">
-                        <div class="item-title">2017年上半年中学综合素质真题及答案解析 <p>学习时间：2017-01-02</p></div>
+                        <div class="item-title">{{not.note}} <p>学习时间：{{not.creat_time/1000 | moment("YYYY-MM-DD")}}</p></div>
                       </div>
                     </div>
                   </a>
                 </div>
                 <div class="swipeout-actions-right">
                   <a href="#" class="swipeout-close color-blue" @click="shareboy">分享</a>
-                  <a href="#" class="swipeout-delete">删除</a>
+                  <a href="#" class="swipeout-delete"  @click="noteDelete(not.id)">删除</a>
                 </div>
               </li>
             </ul>
@@ -33,12 +33,51 @@
 <script>
 export default {
   data: function() {
-    return {};
+    return {
+    	notes:""
+    }
   },
   methods: {
     shareboy: function(data) {
       this.$refs.c1.sharefn();
+    },
+    noteDelete:function(id)
+    {
+    	
+    	
+    	let url="http://192.168.0.130:8080/shiro_test";
+  	//笔记列表渲染
+
+        this.$http.post(url+"/booknote/del",{
+  		params:{
+  			id:id
+  		}
+            }).then(function(res){
+                console.log(res)
+                	
+					 },function(res){
+                console.log(res.status);
+            })
+           
+    	
     }
+    
+  },
+  created:function(){
+  	let url="http://192.168.0.130:8080/shiro_test";
+  	//笔记列表渲染
+
+        this.$http.get(url+"/booknote/bookList",{
+  		params:{
+  			page:1,
+  			limit:1000
+  		}
+            }).then(function(res){
+                console.log(res.data.data)
+                	this.notes=res.data.data;
+					 },function(res){
+                console.log(res.status);
+            })
   }
 };
 </script>
