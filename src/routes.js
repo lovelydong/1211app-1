@@ -2,6 +2,7 @@ import HomePage from './pages/homes/home.vue';
 import Recommended from './pages/recommended/recommended.vue';
 import RecommendedParticulars from './pages/recommended/recommendedParticulars.vue';
 import Search from './pages/homes/search.vue';
+import News from './pages/homes/news.vue';
 import SearchResult from './pages/homes/searchresult.vue';
 import ExaminationAnalysis from './pages/examinationAnalysis/examinationAnalysis.vue';
 import ExaminationParticulars from './pages/examinationAnalysis/examinationParticulars.vue';
@@ -23,6 +24,7 @@ import MyCollect from './pages/my/myCollect/myCollect.vue';
 import MyCollectParticulars from './pages/my/myCollect/myCollectParticulars.vue';
 import MyCollectTopicParticulars from './pages/my/myCollect/myCollectTopicParticulars.vue';
 import MyOrder from './pages/my/myOrder/myOrder.vue';
+import CheckTheLogistics from './pages/my/myOrder/checkTheLogistics.vue';
 import DiscountCoupon from './pages/my/discountCoupon/discountCoupon.vue';
 import MyCourses from './pages/my/myCourses/myCourses.vue';
 import WatchTheRecord from './pages/my/watchTheRecord/watchTheRecord.vue';
@@ -61,6 +63,10 @@ export default [{
     }, {
         path: '/search', //搜索
         component: Search,
+    },
+    {
+        path: '/news', //消息
+        component: News,
     },
     {
         path: '/recommendedParticulars', //推荐课程详情
@@ -108,7 +114,7 @@ export default [{
     },
     {
         path: '/my', //我的
-        component:My,
+        component: My,
     },
     {
         path: '/wrongTopicHighlights', //我的错题
@@ -149,6 +155,10 @@ export default [{
     {
         path: '/myOrder', //我的订单
         component: MyOrder,
+    },
+    {
+        path: '/checkTheLogistics', //物流信息
+        component: CheckTheLogistics,
     },
     {
         path: '/discountCoupon', //优惠券

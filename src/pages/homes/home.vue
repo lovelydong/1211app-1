@@ -10,7 +10,7 @@
 				<f7-link>
 					<i class="iconfont icon-saoyisao"></i>
 				</f7-link>
-				<f7-link>
+				<f7-link href="/news">
 					<i class="iconfont icon-xiaoxi"></i>
 				</f7-link>
 			</div>
