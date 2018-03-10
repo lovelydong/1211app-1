@@ -12,10 +12,10 @@
       </f7-toolbar>
         <div class="mid">
           <div class="row">
-            <div class="col-50"><f7-link href="/moduleExam"> <div><p>章节练习</p> </div> <p><span>开始学习</span></p></f7-link></div>
-            <div class="col-50"><f7-link> <div><p>随机练习</p> </div> <p><span>开始学习</span></p></f7-link></div>
-            <div class="col-50"><f7-link> <div><p>模拟估分</p> </div> <p><span>开始学习</span></p></f7-link></div>
-            <div class="col-50"><f7-link> <div><p>真题演练</p> </div> <p><span>开始学习</span></p></f7-link></div>
+            <div class="col-50"><f7-link :href="'/moduleExam?classtype='+classtype+'&qtype=173703'"> <div><p>章节练习</p> </div> <p><span>开始学习</span></p></f7-link></div>
+            <div class="col-50"><f7-link :href="'/moduleExam?classtype='+classtype+'&qtype=173701'"> <div><p>随机练习</p> </div> <p><span>开始学习</span></p></f7-link></div>
+            <div class="col-50"><f7-link :href="'/moduleExam?classtype='+classtype+'&qtype=173702'"> <div><p>模拟估分</p> </div> <p><span>开始学习</span></p></f7-link></div>
+            <div class="col-50"><f7-link :href="'/moduleExam?classtype='+classtype+'&qtype=173704'"> <div><p>真题演练</p> </div> <p><span>开始学习</span></p></f7-link></div>
           </div>
         </div>
   </f7-page>
@@ -23,10 +23,19 @@
 <script>
 export default {
   data: function() {
-    return {};
+    return {
+    	classtype:"",
+    	
+    };
   },
-  methods: {}
-};
+  methods: {},
+  created:function()
+  {
+  	this.classtype=this.$f7route.query.classtype;
+  	
+  }
+ }
+
 </script>
 <style lang="less">
 .questionBankhome {

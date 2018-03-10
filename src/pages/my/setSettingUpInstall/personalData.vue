@@ -8,14 +8,14 @@
           <ul>
             <li>
               <f7-link href="">  头像 <i class="iconfont icon-you"></i></f7-link>
-              <f7-link href="/modificationName">  昵称 <i class="iconfont icon-you"></i><i>愤怒的蜗牛丶</i></f7-link>
-              <f7-link href="">  性别 <i class="iconfont icon-you"></i></f7-link>
+              <f7-link href="/modificationName">  昵称 <i class="iconfont icon-you"></i><i>{{userinfo.user_name}}</i></f7-link>
+              <f7-link href="">  性别 <i class="iconfont icon-you"></i><i v-html='userinfo.sex=="1"?"男":"女"'></i></f7-link>
             </li>
           </ul>
           <ul>
             <li>
-              <f7-link href="">  出生日期 <i class="iconfont icon-you"></i></f7-link>
-              <f7-link href="">  所在地区 <i class="iconfont icon-you"></i></f7-link>
+              <f7-link href="">  出生日期 <i class="iconfont icon-you"></i><i>{{userinfo.birthday}}</i></f7-link>
+              <f7-link href="">  所在地区 <i class="iconfont icon-you"></i><i>{{userinfo.province}}</i></f7-link>
             </li>
           </ul>
         </div>
@@ -23,16 +23,22 @@
   </f7-page>
 </template>
 <script>
+	import global_ from '../../../pages/Global'//引用模块进来
 export default {
   data: function() {
     return {
-
+userinfo:""
     };
   },
   methods: {
 
+  },
+  created:function()
+  {
+  	this.userinfo=global_.userinfo;
   }
-};
+ }
+
 </script>
 <style lang="less">
 .personalData {

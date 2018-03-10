@@ -20,17 +20,17 @@
            <div id="tab1" class="tab tab-active" >
              <div class="list">
                 <ul>
-                  <li class="swipeout">
+                  <li class="swipeout" v-for="c in course">
                     <div class="swipeout-content">
-                      <a href="" class="item-link">
+                      <a :href="'/recommendedParticulars?id='+c.id+'&type='+c.type" class="item-link">
                         <div class="item-content">
                           <div class="item-inner">
                             <div class="item-title">
                               <span></span>
                               <div>
-                                <p>浙江2018年教师招聘教育心理学二期回放</p>
-                                <p>国版·354人正在学习 <i class="iconfont icon-xingxing"></i><i class="iconfont icon-xingxing"></i><i class="iconfont icon-xingxing"></i><i class="iconfont icon-xingxing"></i><i class="iconfont icon-xingxing"></i></p>
-                                <p>￥356.00</p>
+                                <p>{{c.course_details}}</p>
+                                <!--<p>国版·354人正在学习 <i class="iconfont icon-xingxing"></i><i class="iconfont icon-xingxing"></i><i class="iconfont icon-xingxing"></i><i class="iconfont icon-xingxing"></i><i class="iconfont icon-xingxing"></i></p>-->
+                                <p>￥{{c.price}}.00</p>
                               </div>
                             </div>
                           </div>
@@ -39,7 +39,7 @@
                     </div>
                     <div class="swipeout-actions-right">
                       <a href="#" class="swipeout-close color-blue" @click="shareboy">分享</a>
-                      <a href="#" class="swipeout-delete">删除</a>
+                      <a href="#" class="swipeout-delete" @click="courseDelete(c.id)">删除</a>
                     </div>
                   </li>
                  <!-- <li class="swipeout">
@@ -75,7 +75,7 @@
                     <a :href="'/myCollectParticulars?id='+exam.id" class="item-link">
                       <div class="item-content">
                         <div class="item-inner">
-                          <div class="item-title">{{exam.examname}}<p>学习时间：{{timestampToTime(exam.create_time)}}</p></div>
+                          <div class="item-title">{{exam.examname}}<p>学习时间：{{exam.create_time/1000 | moment("YYYY-MM-DD")}}</p></div>
                         </div>
                       </div>
                     </a>
@@ -118,26 +118,34 @@
 export default {
   data: function() {
     return {
-    	tab:1,
-    	exams:""
     	
+    	exams:"",
+    	course:""    	
     };
   },
   methods: {
     shareboy: function(data) {
       this.$refs.c1.sharefn();
     },
-    timestampToTime:function (timestamp){
-        var date = new Date(timestamp);
-        var Y = date.getFullYear() + '/';
-        var M = (date.getMonth()+1 < 10 ? '0'+(date.getMonth()+1) : date.getMonth()+1) + '/';
-        var D = date.getDate() < 10 ? '0'+date.getDate() : date.getDate();
-        return Y+M+D;
-   },
+    
    examDelete:function(id)
    {
    	//alert(id);
    	 this.$http.get("http://192.168.0.115:8080/shiro_test/sx1211examcollect/delexam",{
+  		params:{
+  			id:id
+  		}
+            }).then(function(res){
+               console.log(res)
+             
+            },function(res){
+                console.log(res.status);
+            })
+   },
+    courseDelete:function(id)
+   {
+   	//alert(id);
+   	 this.$http.get("http://192.168.0.130:8080/shiro_test/sxcollect/del",{
   		params:{
   			id:id
   		}
@@ -153,19 +161,14 @@ export default {
  {
  	let url="http://192.168.0.115:8080/shiro_test";
  	//课程收藏渲染
- 	 this.$http.get(url+"/sx1211courseAdmin/listJson",{
+ 	 this.$http.get("http://192.168.0.130:8080/shiro_test/sxcollect/information",{
   		params:{
-  			exam_type:121100302,
-  			page:1,
-  			limit:4
+  		page:1,
+  		limit:100
   		}
             }).then(function(res){
-                //console.log(res.data.data)
-                this.newclass11=res.data.data[0];
-
-
-                res.data.data.splice(0,1);
-                 this.newclass1=res.data.data;
+               // console.log(res.data.data)
+                this.course=res.data.data;
                  //console.log(res.data.data)
 
             },function(res){
@@ -191,25 +194,7 @@ export default {
             
             
             
-            //试题收藏渲染
- 	 this.$http.get(url+"/sx1211examcollect/listJson",{
-  		params:{
-  			
-  			page:1,
-  			limit:4
-  		}
-            }).then(function(res){
-                //console.log(res.data.data)
-                this.newclass11=res.data.data[0];
-
-
-                res.data.data.splice(0,1);
-                 this.newclass1=res.data.data;
-                 //console.log(res.data.data)
-
-            },function(res){
-                console.log(res.status);
-            })    
+     
             
  
  

@@ -226,7 +226,9 @@ export default {
         showSX: false,
         showKM: false,
         showTop: false
-      }
+      },
+      classtype:"",
+      qtype:""
     };
   },
   methods: {
@@ -239,8 +241,35 @@ export default {
     shareboy: function(data) {
       this.$refs.c1.sharefn();
     }
+  },
+  
+  created:function()
+  {
+  	let url = "http://192.168.0.115:8080/shiro_test";
+  	this.classtype=this.$f7route.query.classtype;
+  	this.qtype=this.$f7route.query.qtype;
+  /*	console.log(this.classtype)
+  	console.log(this.qtype)*/
+  	this.$http
+				.get(url + "/exambank/typelist", {
+					params: {
+						
+						type:this.classtype,
+						exam_type:this. qtype
+					}
+				})
+				.then(
+					function(res) {
+						
+						//this.exams = res.data.data;
+						 console.log(res.data.data)
+					},
+					function(res) {
+						console.log(res.status);
+					});
   }
-};
+ }
+
 </script>
 <style lang="less">
  .subnavbar {
