@@ -7,7 +7,7 @@
         <div class="mid">
           <ul>
             <li>
-              <f7-link href="/changeNumber">  手机号 <i class="iconfont icon-you"></i><i>10086111111111</i></f7-link>
+              <f7-link href="/changeNumber">  手机号 <i class="iconfont icon-you"></i><i>{{userinfo.mobile}}</i></f7-link>
               <f7-link href="/changePassword">  修改密码 <i class="iconfont icon-you"></i></f7-link>
             </li>
           </ul>
@@ -15,16 +15,21 @@
   </f7-page>
 </template>
 <script>
+	import global_ from '../../../pages/Global'//引用模块进来
 export default {
   data: function() {
     return {
-
+userinfo:""
     };
   },
   methods: {
 
+  },
+  created:function()
+  {
+  	this.userinfo=global_.userinfo;
   }
-};
+ }
 </script>
 <style lang="less">
 .privacy {

@@ -28,121 +28,104 @@
             <f7-button tab-link="#tab1" tab-link-active>全部</f7-button>
             <f7-button tab-link="#tab2">待付款</f7-button>
             <f7-button tab-link="#tab3">待收货</f7-button>
-            <f7-button tab-link="#tab4">已取消</f7-button>
+            <f7-button tab-link="#tab4">已完成</f7-button>
           </f7-segmented>
         </f7-subnavbar>
         <div class="tabs">
            <div id="tab1" class="tab tab-active">
-             <ul>
-               <li>
-                 <p>订单编号：FG258486485621</p>
-                 <div class="con">
-                    <img src="http://upfile2.asqql.com/upfile/2009pasdfasdfic2009s305985-ts/gif_spic/2018-2/201821820474911302.gif" alt="">
-                    <div>
-                      <p>18教师资格笔试+面试协议班课程</p>
-                      <p>￥138.00 &nbsp;&nbsp;<span>优惠：0.00</span></p>
-                    </div>
-                 </div>
-                 <div class="bot">实付：<span>￥138.00</span>  <div><f7-link>查看物流</f7-link><f7-link>确认收货</f7-link></div></div>
-               </li>
-             </ul>
-             <ul>
-               <li>
-                 <p>订单编号：FG258486485621</p>
-                 <div class="con">
-                    <img src="http://upfile2.asqql.com/upfile/2009pasdfasdfic2009s305985-ts/gif_spic/2018-2/201821820474911302.gif" alt="">
-                    <div>
-                      <p>18教师资格笔试+面试协议班课程</p>
-                      <p>￥138.00 &nbsp;&nbsp;<span>优惠：0.00</span></p>
-                    </div>
-                 </div>
-                 <div class="bot">实付：<span>￥138.00</span>  <div><f7-link>查看物流</f7-link><f7-link>确认收货</f7-link></div></div>
-               </li>
-             </ul>
+             <div v-for="item in tabAll" >
+              <ul v-if="item.state == 2 || item.state == 4">
+                <li>
+                  <p>订单编号：{{item.order_number}}</p>
+                  <div class="con">
+                      <img :src="item.img" alt="" >
+                      <div>
+                        <p>{{item.goodsName}}</p>
+                        <p>￥{{item.price}} &nbsp;&nbsp;<span>优惠：{{item.price - item.pay_amount}}</span></p>
+                      </div>
+                  </div>
+                  <div class="bot">实付：<span>￥{{item.pay_amount}}</span>  <div><f7-link>查看物流</f7-link><f7-link>确认收货</f7-link></div></div>
+                </li>
+              </ul>
+              <ul class="Nopay" v-else-if="item.state == 1 || item.state == 3">
+                <li>
+                  <p>订单编号：{{item.order_number}}</p>
+                  <div class="con">
+                      <img :src="item.img" alt="" >
+                      <div>
+                        <p>{{item.goodsName}}</p>
+                          <p>￥{{item.price}} &nbsp;&nbsp;<span>优惠：{{item.price - item.pay_amount}}</span></p>
+                      </div>
+                  </div>
+                  <div class="bot">实付：<span>￥{{item.pay_amount}}</span>  <div><f7-link>取消订单</f7-link><f7-link>立即付款</f7-link></div></div>
+                </li>
+              </ul>
+              <ul class="Nopay" v-else-if="item.state == 5">
+                <li>
+                  <p>订单编号：{{item.order_number}}</p>
+                  <div class="con">
+                      <img :src="item.img" alt="" >
+                      <div>
+                        <p>{{item.goodsName}}</p>
+                          <p>￥{{item.price}} &nbsp;&nbsp;<span>优惠：{{item.price - item.pay_amount}}</span></p>
+                      </div>
+                  </div>
+                  <div class="bot">实付：<span>￥{{item.pay_amount}}</span>  <div><f7-link>删除订单</f7-link><f7-link>立即评价</f7-link></div></div>
+                </li>
+              </ul>
+            </div>
+
            </div>
            <div id="tab2" class="tab">
-             <ul class="Nopay">
-               <li>
-                 <p>订单编号：FG258486485621</p>
-                 <div class="con">
-                    <img src="http://upfile2.asqql.com/upfile/2009pasdfasdfic2009s305985-ts/gif_spic/2018-2/201821820474911302.gif" alt="">
-                    <div>
-                      <p>18教师资格笔试+面试协议班课程</p>
-                      <p>￥138.00 &nbsp;&nbsp;<span>优惠：0.00</span></p>
-                    </div>
-                 </div>
-                 <div class="bot">实付：<span>￥138.00</span>  <div><f7-link>取消订单</f7-link><f7-link>立即付款</f7-link></div></div>
-               </li>
-             </ul>
-             <ul class="Nopay">
-               <li>
-                 <p>订单编号：FG258486485621</p>
-                 <div class="con">
-                    <img src="http://upfile2.asqql.com/upfile/2009pasdfasdfic2009s305985-ts/gif_spic/2018-2/201821820474911302.gif" alt="">
-                    <div>
-                      <p>18教师资格笔试+面试协议班课程</p>
-                      <p>￥138.00 &nbsp;&nbsp;<span>优惠：0.00</span></p>
-                    </div>
-                 </div>
-                 <div class="bot">实付：<span>￥138.00</span>  <div><f7-link>取消订单</f7-link><f7-link>立即付款</f7-link></div></div>
-               </li>
-             </ul>
+             <div v-for="item in tabAll1">
+               <ul class="Nopay">
+                <li>
+                  <p>订单编号：{{item.order_number}}</p>
+                  <div class="con">
+                      <img :src="item.img" alt="" >
+                      <div>
+                        <p>{{item.goodsName}}</p>
+                          <p>￥{{item.price}} &nbsp;&nbsp;<span>优惠：{{item.price - item.pay_amount}}</span></p>
+                      </div>
+                  </div>
+                  <div class="bot">实付：<span>￥{{item.pay_amount}}</span>  <div><f7-link>取消订单</f7-link><f7-link>立即付款</f7-link></div></div>
+                </li>
+              </ul>
+             </div>
            </div>
            <div id="tab3" class="tab">
-             <ul>
-               <li>
-                 <p>订单编号：FG258486485621</p>
-                 <div class="con">
-                    <img src="http://upfile2.asqql.com/upfile/2009pasdfasdfic2009s305985-ts/gif_spic/2018-2/201821820474911302.gif" alt="">
-                    <div>
-                      <p>18教师资格笔试+面试协议班课程</p>
-                      <p>￥138.00 &nbsp;&nbsp;<span>优惠：0.00</span></p>
-                    </div>
-                 </div>
-                 <div class="bot">实付：<span>￥138.00</span>  <div><f7-link>查看物流</f7-link><f7-link>确认收货</f7-link></div></div>
-               </li>
-             </ul>
-             <ul>
-               <li>
-                 <p>订单编号：FG258486485621</p>
-                 <div class="con">
-                    <img src="http://upfile2.asqql.com/upfile/2009pasdfasdfic2009s305985-ts/gif_spic/2018-2/201821820474911302.gif" alt="">
-                    <div>
-                      <p>18教师资格笔试+面试协议班课程</p>
-                      <p>￥138.00 &nbsp;&nbsp;<span>优惠：0.00</span></p>
-                    </div>
-                 </div>
-                 <div class="bot">实付：<span>￥138.00</span>  <div><f7-link>查看物流</f7-link><f7-link>确认收货</f7-link></div></div>
-               </li>
-             </ul>
+             <div v-for="item in tabAll2">
+               <ul>
+                <li>
+                  <p>订单编号：{{item.order_number}}</p>
+                  <div class="con">
+                      <img :src="item.img" alt="" >
+                      <div>
+                        <p>{{item.goodsName}}</p>
+                          <p>￥{{item.price}} &nbsp;&nbsp;<span>优惠：{{item.price - item.pay_amount}}</span></p>
+                      </div>
+                  </div>
+                  <div class="bot">实付：<span>￥{{item.pay_amount}}</span>  <div><f7-link>查看物流</f7-link><f7-link>确认收货</f7-link></div></div>
+                </li>
+              </ul>
+             </div>
            </div>
            <div id="tab4" class="tab">
-             <ul class="Nopay">
-               <li>
-                 <p>订单编号：FG258486485621</p>
-                 <div class="con">
-                    <img src="http://upfile2.asqql.com/upfile/2009pasdfasdfic2009s305985-ts/gif_spic/2018-2/201821820474911302.gif" alt="">
-                    <div>
-                      <p>18教师资格笔试+面试协议班课程</p>
-                      <p>￥138.00 &nbsp;&nbsp;<span>优惠：0.00</span></p>
-                    </div>
-                 </div>
-                 <div class="bot">实付：<span>￥138.00</span>  <div><f7-link>删除订单</f7-link><f7-link>重新购买</f7-link></div></div>
-               </li>
-             </ul>
-             <ul class="Nopay">
-               <li>
-                 <p>订单编号：FG258486485621</p>
-                 <div class="con">
-                    <img src="http://upfile2.asqql.com/upfile/2009pasdfasdfic2009s305985-ts/gif_spic/2018-2/201821820474911302.gif" alt="">
-                    <div>
-                      <p>18教师资格笔试+面试协议班课程</p>
-                      <p>￥138.00 &nbsp;&nbsp;<span>优惠：0.00</span></p>
-                    </div>
-                 </div>
-                 <div class="bot">实付：<span>￥138.00</span>  <div><f7-link>删除订单</f7-link><f7-link>重新购买</f7-link></div></div>
-               </li>
-             </ul>
+             <div  v-for="(item,index) in tabAll3">
+               <ul class="Nopay" >
+                <li>
+                  <p>订单编号：{{item.order_number}}</p>
+                  <div class="con">
+                      <img :src="item.img" alt="" >
+                      <div>
+                        <p>{{item.goodsName}}</p>
+                          <p>￥{{item.price}} &nbsp;&nbsp;<span>优惠：{{item.price - item.pay_amount}}</span></p>
+                      </div>
+                  </div>
+                  <div class="bot">实付：<span>￥{{item.pay_amount}}</span>  <div><f7-link @click="deleteOrder(item.order_number,index)">删除订单</f7-link><f7-link>立即评价</f7-link></div></div>
+                </li>
+              </ul>
+             </div>
            </div>
         </div>
 
@@ -154,15 +137,83 @@
 export default {
   data: function() {
     return {
+      url: "http://192.168.0.130:8080/shiro_test",
       shows: {
         showTop: false
-      }
+      },
+      tabAll: {},
+      tabAll1: {},
+      tabAll2: {},
+      tabAll3: {}
     };
   },
   methods: {
     shareboy: function(data) {
       this.$refs.c1.sharefn();
+    },
+    deleteOrder:function(num,index)
+    {
+    	this.tabAll3.splice(index,1);
+    	this.$http
+      .get(this.url + "/sxorder/del", {
+        params: {
+         order_number:num
+        }
+      })
+      .then(function(res) {
+       console.log(res)
+      });
     }
+  },
+  created() {
+    //订单详情全部
+    this.$http
+      .get(this.url + "/sxorder/listPage", {
+        params: {
+          state: 0,
+          page: 1,
+          limit: 99
+        }
+      })
+      .then(function(res) {
+        this.tabAll = res.body.data;
+      });
+    //订单代付款
+    this.$http
+      .get(this.url + "/sxorder/listPage", {
+        params: {
+          state: 1,
+          page: 1,
+          limit: 99
+        }
+      })
+      .then(function(res) {
+        this.tabAll1 = res.body.data;
+      });
+    //订单待收货
+    this.$http
+      .get(this.url + "/sxorder/listPage", {
+        params: {
+          state: 2,
+          page: 1,
+          limit: 99
+        }
+      })
+      .then(function(res) {
+        this.tabAll2 = res.body.data;
+      });
+    //订单已取消
+    this.$http
+      .get(this.url + "/sxorder/listPage", {
+        params: {
+          state: 3,
+          page: 1,
+          limit: 99
+        }
+      })
+      .then(function(res) {
+        this.tabAll3 = res.body.data;
+      });
   }
 };
 </script>
@@ -198,93 +249,95 @@ export default {
     .tab {
       padding: 20px 12px;
 
-      > ul {
-        background-color: #fff;
-        border-radius: 10px;
-        margin-bottom: 20px;
-        > li {
-          > p {
-            font-family: "PingFang-SC-Regular";
-            font-size: 14px;
-            line-height: 40px;
-            color: #999999;
-            padding-left: 16px;
-            border-bottom: 1px solid #f5f5f5;
-          }
-          > .con {
-            padding: 15px 0;
-            position: relative;
-            border-bottom: 1px solid #f5f5f5;
-            > img {
-              width: 100px;
-              height: 75px;
-              position: absolute;
-              top: 50%;
-              left: 15px;
-              transform: translateY(-50%);
+      > div {
+        > ul {
+          background-color: #fff;
+          border-radius: 10px;
+          margin-bottom: 20px;
+          > li {
+            > p {
+              font-family: "PingFang-SC-Regular";
+              font-size: 14px;
+              line-height: 40px;
+              color: #999999;
+              padding-left: 16px;
+              border-bottom: 1px solid #f5f5f5;
             }
-            > div {
-              min-height: 75px;
-              padding-left: 128px;
-              > p {
-                font-family: "PingFang-SC-Regular";
-                font-size: 14px;
-                color: #000000;
+            > .con {
+              padding: 15px 0;
+              position: relative;
+              border-bottom: 1px solid #f5f5f5;
+              > img {
+                width: 100px;
+                height: 75px;
+                position: absolute;
+                top: 50%;
+                left: 15px;
+                transform: translateY(-50%);
               }
-              > p:nth-of-type(2) {
-                margin-top: 20px;
-                font-family: "PingFang-SC-Medium";
-                font-size: 14px;
-                color: #fd2d44;
-                > span {
+              > div {
+                min-height: 75px;
+                padding-left: 128px;
+                > p {
                   font-family: "PingFang-SC-Regular";
                   font-size: 14px;
-                  color: #999999;
+                  color: #000000;
+                }
+                > p:nth-of-type(2) {
+                  margin-top: 20px;
+                  font-family: "PingFang-SC-Medium";
+                  font-size: 14px;
+                  color: #fd2d44;
+                  > span {
+                    font-family: "PingFang-SC-Regular";
+                    font-size: 14px;
+                    color: #999999;
+                  }
+                }
+              }
+            }
+            > .bot {
+              height: 56px;
+              line-height: 56px;
+              font-family: "PingFang-SC-Medium";
+              font-size: 14px;
+              color: #333333;
+              padding: 0 15px;
+              > span {
+                color: #fd2d44;
+              }
+              > div {
+                float: right;
+                > .link {
+                  display: inline;
+                  padding: 8px 12px;
+                  border: 1px solid #cccccc;
+                  margin-left: 15px;
+                  border-radius: 37px;
+                  font-family: "PingFang-SC-Regular";
+                  font-size: 14px;
+                  color: #666666;
+                }
+                > .link:nth-of-type(2) {
+                  background-color: #fd2d44;
+                  color: #fff;
+                  border-color: #fd2d44;
                 }
               }
             }
           }
-          > .bot {
-            height: 56px;
-            line-height: 56px;
-            font-family: "PingFang-SC-Medium";
-            font-size: 14px;
-            color: #333333;
-            padding: 0 15px;
-            > span {
+        }
+        > .Nopay {
+          .bot {
+            .link {
+              border-color: #fd2d44;
               color: #fd2d44;
             }
-            > div {
-              float: right;
-              > .link {
-                display: inline;
-                padding: 8px 12px;
-                border: 1px solid #cccccc;
-                margin-left: 15px;
-                border-radius: 37px;
-                font-family: "PingFang-SC-Regular";
-                font-size: 14px;
-                color: #666666;
-              }
-              > .link:nth-of-type(2) {
-                background-color: #fd2d44;
-                color: #fff;
-                border-color: #fd2d44;
-              }
+            .link:nth-of-type(2) {
+              border-color: #fd6600;
+              background-color: #fd6600;
+              color: #fff;
             }
-          }
-        }
-      }
-      > .Nopay {
-        .bot {
-          .link {
-            border-color: #fd2d44;
-            color: #fd2d44;
-          }
-          .link:nth-of-type(2) {
-            border-color: #fd6600;
-            background-color: #fd6600;
-            color: #fff;
           }
         }
       }

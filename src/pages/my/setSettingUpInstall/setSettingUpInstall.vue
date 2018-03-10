@@ -23,12 +23,16 @@
   </f7-page>
 </template>
 <script>
+	import global_ from '../../../pages/Global'//引用模块进来
 export default {
   data: function() {
     return {};
   },
-  methods: {}
-};
+  methods: {},
+  created:function(){
+  	console.log(global_.userinfo)
+  }
+ }
 </script>
 <style lang="less">
 .setSettingUpInstall {

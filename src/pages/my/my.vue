@@ -10,9 +10,9 @@
     <div class="top">
       <div>
         <h5>
-          <img src="http://f.hiphotos.baidu.com/image/pic/item/faedab64034f78f0829cdad175310a55b3191c78.jpg" alt="">
-          <p>奋斗的蜗牛丶</p>
-          <span>招教币：0.00</span>
+          <img :src=url+userinfo.img alt="">
+          <p>{{userinfo.user_name}}</p>
+          <span>招教币：{{userinfo.balance}}</span>
         </h5>
         <div class="row">
           <div class="col-25"> <f7-link href="/myCollect"><span></span><p>我的收藏</p></f7-link> </div>
@@ -27,7 +27,7 @@
         <li>
           <f7-link href="/myOrder"><span></span>  我的订单 <i class="iconfont icon-you"></i></f7-link>
           <f7-link href="/shoppingTrolley"><span></span>  购物车 <i class="iconfont icon-you"></i></f7-link>
-          <f7-link><span></span>  物流详情 <i class="iconfont icon-you"></i></f7-link>
+          <f7-link href="/checkTheLogistics"><span></span>  物流详情 <i class="iconfont icon-you"></i></f7-link>
           <f7-link href="/discountCoupon"><span></span>  优惠券 <i n  class="iconfont icon-you"></i></f7-link>
         </li>
       </ul>
@@ -49,12 +49,30 @@
   </f7-page>
 </template>
 <script>
+	import global_ from '../../pages/Global'//引用模块进来
 export default {
   data: function() {
-    return {};
+    return {
+    	userinfo:"",
+    	url:"http://192.168.0.130:8080/shiro_test"
+    };
   },
-  methods: {}
-};
+  methods: {},
+  created:function()
+  {
+  	
+  	let url="http://192.168.0.130:8080/shiro_test";
+  	 this.$http.get(url+"/personal/loginState",{
+  	
+            }).then(function(res){
+                console.log(res.data.data)
+                	this.userinfo=res.data.data;
+                	global_.userinfo=res.data.data;
+					 },function(res){
+                console.log(res.status);
+            })
+  }
+ }
 </script>
 <style lang="less">
 .my {

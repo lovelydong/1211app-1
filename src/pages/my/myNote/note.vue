@@ -41,23 +41,44 @@ export default {
     shareboy: function(data) {
       this.$refs.c1.sharefn();
     },
-    noteDelete:function(id)
+    noteDelete:function(idd)
     {
     	
     	
+    	console.log(idd)
     	let url="http://192.168.0.130:8080/shiro_test";
-  	//笔记列表渲染
+  	//笔记列表删除
 
-        this.$http.post(url+"/booknote/del",{
+       /* this.$http.get(url+"/booknote/del",{
   		params:{
   			id:id
-  		}
+  		},headers: {
+                'Content-Type': 'x-www-from-urlencoded'
+            }
             }).then(function(res){
                 console.log(res)
                 	
 					 },function(res){
                 console.log(res.status);
-            })
+            })*/
+           this.$http({
+            url: url+"/booknote/del",
+            method: 'POST',
+            // 请求体重发送的数据
+            params: {
+               id:idd
+            },
+            // 设置请求头
+            headers: {
+                'Content-Type':'application/x-www-form-urlencoded'
+            }
+        }).then(function (res) {
+            // 请求成功回调
+             console.log(res)
+                	
+        }, function () {
+            // 请求失败回调
+        });
            
     	
     }
