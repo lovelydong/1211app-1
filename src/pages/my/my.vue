@@ -27,7 +27,7 @@
         <li>
           <f7-link href="/myOrder"><span></span>  我的订单 <i class="iconfont icon-you"></i></f7-link>
           <f7-link href="/shoppingTrolley"><span></span>  购物车 <i class="iconfont icon-you"></i></f7-link>
-          <f7-link><span></span>  物流详情 <i class="iconfont icon-you"></i></f7-link>
+          <f7-link href="/checkTheLogistics"><span></span>  物流详情 <i class="iconfont icon-you"></i></f7-link>
           <f7-link href="/discountCoupon"><span></span>  优惠券 <i n  class="iconfont icon-you"></i></f7-link>
         </li>
       </ul>

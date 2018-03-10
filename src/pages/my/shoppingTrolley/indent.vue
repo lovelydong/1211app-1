@@ -6,19 +6,20 @@
         </f7-navbar>
         <div class="mid">
           <f7-link class="top" href="/myAddress">
-            <h4><i class="iconfont icon-dizhi"></i>收货人：熊老表      15589655241</h4>
-            <p>收货地址：河南省郑州市金水区花园路街道金水路16号中青大厦8楼</p>
+            <h4><i class="iconfont icon-dizhi"></i>收货人：{{receiveraddress.userName}}      {{receiveraddress.phone}}</h4>
+            <p>收货地址：{{receiveraddress.address}}</p>
             <i class="iconfont icon-you"></i>
           </f7-link>
-          <div class="com">
+          <div class="com" v-for="item in listJson.data" :key="item.id">
                 <f7-link>
-                    <span></span>
+                    <span :style="{backgroundImage: 'url(' + item.img + ')' }"></span>
                     <div>
-                      <p>浙江2018年教师招聘教育心理学二期回放</p>
-                      <p>￥138.00</p>
+                      <p>{{item.goodsName}}</p>
+                      <p>￥{{item.pay_amount}}</p>
                     </div>
                 </f7-link>
           </div>
+
           <div class="pay">
             <h5>选择支付方式</h5>
             <f7-link :class="{active:Alipay}" @click="Alipay = !Alipay;WeChatPay = false"> <i class="iconfont icon-zhifubao"></i> 支付宝 <span><i class="iconfont icon-iconfontcheck"></i></span></f7-link>
@@ -28,7 +29,7 @@
           <f7-link class="discount">优惠券 <span> 0 张可用 <i class="iconfont icon-you"></i></span></f7-link>
         </div>
         <div class="bot">
-          <p>不含运费<span>合计:</span><em>￥138.00</em></p>
+          <p>不含运费<span>合计:</span><em>￥{{listJson.msg}}</em></p>
           <f7-link href="">结算（1）</f7-link>
         </div>
   </f7-page>
@@ -41,6 +42,8 @@ export default {
       Alipay:false,
       WeChatPay:false,
       ForteachingB:false,
+      listJson:{},
+      receiveraddress:{},
     };
   },
   methods: {},
@@ -52,13 +55,23 @@ export default {
         order_number: this.$f7route.query.order_number,
       }
     }).then(function(res) {
-      console.log(res)
+      this.listJson = res.body;
+      console.log(this.listJson);
+    });
+    //获取收件人信息接口
+    this.$http.get(this.url + "/receiveraddress/listJson", {
+
+    }).then(function(res) {
+      this.receiveraddress = res.body.data;
     });
   }
 };
 </script>
 <style lang="less">
 .indent {
+  .page-content{
+    padding-bottom: 60px;
+  }
   .mid {
     padding: 20px 14px;
     > .top {
@@ -327,6 +340,7 @@ export default {
       left: 0;
       padding-left: 12px;
       padding-right: 110px;
+      z-index: 99;
       > .link {
         font-family: "PingFang-SC-Regular";
         font-size: 16px;

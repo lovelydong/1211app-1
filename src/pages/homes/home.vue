@@ -10,7 +10,9 @@
 				<f7-link>
 					<i class="iconfont icon-saoyisao"></i>
 				</f7-link>
-				<f7-link>
+
+				<f7-link href="/news">
+
 					<i class="iconfont icon-xiaoxi"></i>
 				</f7-link>
 			</div>
@@ -26,7 +28,9 @@
 			<f7-link href="/recordedBroadcast" :reload-all="true" :animate="true"><span></span>
 				<p>录播</p>
 			</f7-link>
+
 			<f7-link :href="'/questionBankhome?classtype='+limittype" :reload-all="true" :animate="true"><span></span>
+
 				<p>题库</p>
 			</f7-link>
 			<f7-link href="/my" :reload-all="true" :animate="true"><span></span>
@@ -73,7 +77,10 @@
 							<p>考情分析</p>
 						</f7-link>
 					</div>
+
 					<div class="col-20"><f7-link href="/questionBank/"><span></span><p>推荐题库</p></f7-link></div>
+
+
 				</div>
 			</div>
 			<f7-link> <img src="../../assets/homeQiang.png" alt=""> </f7-link>
@@ -343,7 +350,9 @@
 
 				</f7-swiper>
 			</div>
-			<div class="midlist midTopic ">
+
+			<!-- <div class="midlist midTopic ">
+
            <h3><i></i> 推荐题库<f7-link href="/questionBank/">更多 <i class="iconfont icon-you"></i></f7-link></h3>
             <f7-swiper pagination >
               <f7-swiper-slide>
@@ -373,7 +382,11 @@
               </f7-swiper-slide>
 
             </f7-swiper>
-        </div>
+
+        
+
+        </div>-->
+
 			<div class="midlist midLink">
 				<h3><i></i> 猜你喜欢</h3>
 				<div>
@@ -490,6 +503,7 @@
 				glike22: "",
 				Topactive: 1,
 				recommendtype: "",
+
 				limittype:35202001,
 				timer: ""
 			};
@@ -915,6 +929,7 @@
 					},
 					function(res) {
 						console.log(res.status);
+
 					});
 					
 					
@@ -942,6 +957,8 @@
 					
 					
 					
+
+
 		},
 		mounted: function() {}
 	};
@@ -1002,7 +1019,7 @@
 			}
 		}
 	}
-	
+
 	.toolbar {
 		height: 50px !important;
 		.link {
@@ -1025,11 +1042,13 @@
 			}
 		}
 	}
+
 	
 	.page-content {
 		// padding-bottom: 50px !important;
 	}
 	
+
 	.home {
 		.page-content {
 			.top {
@@ -1419,4 +1438,5 @@
 			}
 		}
 	}
+
 </style>
