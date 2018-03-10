@@ -525,10 +525,7 @@ export default {
       }, 100);
     },
 
-<<<<<<< HEAD
-    randerClass: function() {
-      let url = "http://192.168.0.69:8080/shiro_test";
-=======
+
   	
    Countdown:function(timestamp)
    {
@@ -696,7 +693,7 @@ export default {
                 console.log(res.status);
             })
 
->>>>>>> b78a5a1f68afc2b70faa279e2c8fcab914500219
+
 
       //最新课程渲染1
 
@@ -842,28 +839,7 @@ export default {
 
   //监听课程切换
   watch: {
-<<<<<<< HEAD
-    Topactive(newTopactive, oldTopactive) {
-      //console.log(newTopactive, oldTopactive);
-      window.clearInterval(this.timer);
-      if (newTopactive == 1) {
-        this.recommendtype = 121100302;
-        this.limittype = 35202001;
-        this.randerClass();
-      } else if (newTopactive == 2) {
-        this.recommendtype = 121100301;
-        this.limittype = 35202002;
 
-        this.randerClass();
-      } else if (newTopactive == 3) {
-        this.recommendtype = 121100303;
-        this.limittype = 35202003;
-
-        this.randerClass();
-      }
-    }
-  },
-=======
        Topactive(newTopactive, oldTopactive) {
              //console.log(newTopactive, oldTopactive);
               window.clearInterval(this.timer)
@@ -889,114 +865,7 @@ export default {
 
 
 
-  created:function(){
-  	let url="http://192.168.0.115:8080/shiro_test"
-
-		/*var id=this.$f7route.query.id;
-		console.log(id)*/
-
-
-  	//最新课程渲染1
-
-        this.$http.get(url+"/sx1211courseAdmin/listJson",{
-  		params:{
-  			exam_type:121100302,
-  			page:1,
-  			limit:4
-  		}
-            }).then(function(res){
-                //console.log(res.data.data)
-                this.newclass11=res.data.data[0];
-
-
-                res.data.data.splice(0,1);
-                 this.newclass1=res.data.data;
-                 //console.log(res.data.data)
-
-            },function(res){
-                console.log(res.status);
-            })
-  	//最新课程渲染2
-
-            this.$http.get(url+"/sx1211courseAdmin/listJson",{
-  		params:{
-  			exam_type:121100302,
-  			page:1,
-  			limit:4
-  		}
-            }).then(function(res){
-                //console.log(res.data.data)
-                this.newclass22=res.data.data[0];
-
-
-                res.data.data.splice(0,1);
-                 this.newclass2=res.data.data;
-                // console.log(res.data.data)
-
-            },function(res){
-                console.log(res.status);
-            })
-
-
-
-
-  	//推荐课程渲染1
-  	this.$http.get(url+"/sx1211courseAdmin/recommend",{
-  		params:{
-  			type:121100302,
-  			page:1,
-  			limit:4
-  		}
-            }).then(function(res){
-                //console.log(res.data.data)
-                this.recommend11=res.data.data[0];
-
-                //console.log(this.recommend11)
-                res.data.data.splice(0,1);
-                 this.recommend1=res.data.data;
-                 //console.log(res.data.data)
-
-            },function(res){
-                console.log(res.status);
-            })
-            //推荐课程渲染2
-            this.$http.get(url+"/sx1211courseAdmin/recommend",{
-  		params:{
-  			type:121100302,
-  			page:1,
-  			limit:4
-  		}
-            }).then(function(res){
-                //console.log(res.data.data)
-                this.recommend22=res.data.data[0];
-                res.data.data.splice(0,1);
-                 this.recommend2=res.data.data;
-                 //console.log(res.data.data)
-            },function(res){
-                console.log(res.status);
-            })
-
-
-        //限时课程渲染1
-        this.$http.get(url+"/flashsale/sale",{
-  		params:{
-  			type:35202001,
-  			page:1,
-  			limit:4
-  		}
-            }).then(function(res){
-                //console.log(res.data.data)
-                this.limitclass11=res.data.data[0];
-                /*console.info(res.data.data[0].end_time)*/
-								this.limittime=(res.data.data[0].end_time);
-							
-								this.Countdown(this.limittime);
-                //console.log(this.limitclass11)
-                res.data.data.splice(0,1);
-                 this.limitclass1=res.data.data;
-                 //console.log(res.data.data)
->>>>>>> b78a5a1f68afc2b70faa279e2c8fcab914500219
-
+ 
   created: function() {
     let url = "http://192.168.0.69:8080/shiro_test";
 
