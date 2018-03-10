@@ -6,9 +6,9 @@
         </f7-navbar>
         <div class="mid">
           <ul>
-            <f7-link>
-              <p>教师资格证特惠大礼包上线啦！<span>18/05/02</span></p>
-              <div>特惠大礼包上线啦！大礼包在2018-05-01正式上线了,您可以在首页查询购买，优惠哦！</div>
+            <f7-link v-for="tab in tabAll">
+              <p>{{tab.title}}<span>{{tab.send_time/1000 | moment("YYYY-MM-DD")}}</span></p>
+              <div v-html="tab.content"></div>
               <span>消息来自：山香教育</span>
             </f7-link>
           </ul>
@@ -19,11 +19,12 @@
 export default {
   data: function() {
     return {
-      url: "http://localhost:8080/shiro_test"
+      url: "http://192.168.0.130:8080/shiro_test",
+      tabAll:""
     };
   },
   methods: {},
-  created() {
+  created:function() {
     //消息
     this.$http
       .get(this.url + "/sxsystempersonadmin/listJson", {
@@ -33,7 +34,8 @@ export default {
         }
       })
       .then(function(res) {
-        this.tabAll = res.body.data;
+      	//console.log(res.data.data)
+        this.tabAll = res.data.data;
       });
   }
 };

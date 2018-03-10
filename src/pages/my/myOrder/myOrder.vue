@@ -111,7 +111,7 @@
              </div>
            </div>
            <div id="tab4" class="tab">
-             <div  v-for="item in tabAll3">
+             <div  v-for="(item,index) in tabAll3">
                <ul class="Nopay" >
                 <li>
                   <p>订单编号：{{item.order_number}}</p>
@@ -122,7 +122,7 @@
                           <p>￥{{item.price}} &nbsp;&nbsp;<span>优惠：{{item.price - item.pay_amount}}</span></p>
                       </div>
                   </div>
-                  <div class="bot">实付：<span>￥{{item.pay_amount}}</span>  <div><f7-link>删除订单</f7-link><f7-link>立即评价</f7-link></div></div>
+                  <div class="bot">实付：<span>￥{{item.pay_amount}}</span>  <div><f7-link @click="deleteOrder(item.order_number,index)">删除订单</f7-link><f7-link>立即评价</f7-link></div></div>
                 </li>
               </ul>
              </div>
@@ -137,7 +137,7 @@
 export default {
   data: function() {
     return {
-      url: "http://localhost:8080/shiro_test",
+      url: "http://192.168.0.130:8080/shiro_test",
       shows: {
         showTop: false
       },
@@ -150,6 +150,19 @@ export default {
   methods: {
     shareboy: function(data) {
       this.$refs.c1.sharefn();
+    },
+    deleteOrder:function(num,index)
+    {
+    	this.tabAll3.splice(index,1);
+    	this.$http
+      .get(this.url + "/sxorder/del", {
+        params: {
+         order_number:num
+        }
+      })
+      .then(function(res) {
+       console.log(res)
+      });
     }
   },
   created() {

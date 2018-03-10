@@ -964,6 +964,11 @@
 	};
 </script>
 <style lang="less">
+	.iconfont {
+   
+    font-size: 12px;
+    
+}
 	.navbar {
 		background-color: #fff !important;
 		.navbar-inner {
