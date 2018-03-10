@@ -54,22 +54,22 @@
 				<div class="row">
 
 					<div class="col-20">
-						<f7-link href="/recommended/"><span></span>
+						<f7-link href="/recommended/"><span class="tuBiao"></span>
 							<p>推荐课程</p>
 						</f7-link>
 					</div>
 					<div class="col-20">
-						<f7-link><span></span>
+						<f7-link><span class="tuBiao_01"></span>
 							<p>最新课程</p>
 						</f7-link>
 					</div>
 					<div class="col-20">
-						<f7-link><span></span>
+						<f7-link><span class="tuBiao_02"></span>
 							<p>大礼包</p>
 						</f7-link>
 					</div>
 					<div class="col-20">
-						<f7-link href="/examinationAnalysis/"><span></span>
+						<f7-link href="/examinationAnalysis/"><span class="tuBiao_03"></span>
 							<p>考情分析</p>
 						</f7-link>
 					</div>
@@ -942,6 +942,18 @@
 	};
 </script>
 <style lang="less">
+.tuBiao{
+background: url(../../assets/jingling.png) no-repeat -9px -6px !important;
+}
+.tuBiao_01{
+  background: url(../../assets/jingling.png) no-repeat -89px -6px !important;
+}
+.tuBiao_02{
+  background: url(../../assets/jingling.png) no-repeat -174px -6px !important;
+}
+.tuBiao_03{
+  background: url(../../assets/jingling.png) no-repeat -261px -6px !important;
+}
 	.navbar {
 		background-color: #fff !important;
 		.navbar-inner {
@@ -1008,7 +1020,8 @@
 				height: 22px;
 				background-color: #000;
 				position: absolute;
-				top: 2px;
+        top: 2px;
+
 			}
 			>p {
 				font-family: "PingFang-SC-Regular";
@@ -1083,7 +1096,8 @@
 									display: inline-block;
 									width: 50px;
 									height: 50px;
-									background-color: #000;
+                  background-color: #000;
+
 								}
 								>p {
 									margin: 0;
