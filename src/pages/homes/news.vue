@@ -6,7 +6,7 @@
         </f7-navbar>
         <div class="mid">
           <ul>
-            <f7-link v-for="tab in tabAll">
+            <f7-link v-for="tab in tabAll" :key="tab.id">
               <p>{{tab.title}}<span>{{tab.send_time/1000 | moment("YYYY-MM-DD")}}</span></p>
               <div v-html="tab.content"></div>
               <span>消息来自：山香教育</span>
@@ -34,7 +34,7 @@ export default {
         }
       })
       .then(function(res) {
-      	//console.log(res.data.data)
+      	console.log(res.data.data)
         this.tabAll = res.data.data;
       });
   }

@@ -244,14 +244,35 @@ export default {
         .then(
           function(res) {
             this.gitCon.areaList = res.data.data;
-            console.log(res)
+            console.log(res);
           },
-          function(res) {
-          }
+          function(res) {}
         );
     }
   },
-
+  // watch: {
+  //   type: {
+  //     handler: function(val, oldVal) {
+  //       this.$http
+  //         .get(this.url + "/exambank/jsonlist", {
+  //           params: {
+  //             page: 1,
+  //             limit: 50,
+  //             vod_type: this.type.vod_type,
+  //             grade: this.type.grade,
+  //             subject: this.type.subject,
+  //             course_type: this.type.course_type,
+  //             area: this.type.province,
+  //             exam_type: this.type.exam_type
+  //           }
+  //         })
+  //         .then(function(res) {
+  //           this.recommend = res.body.data;
+  //         });
+  //     },
+  //     deep: true
+  //   }
+  // },
   created: function() {
     let url = "http://192.168.0.115:8080/shiro_test";
     this.classtype = this.$f7route.query.classtype;
@@ -269,8 +290,7 @@ export default {
         function(res) {
           this.gitCon = res.data.data;
         },
-        function(res) {
-        }
+        function(res) {}
       );
   }
 };
