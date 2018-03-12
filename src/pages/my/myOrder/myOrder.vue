@@ -105,7 +105,7 @@
                           <p>￥{{item.price}} &nbsp;&nbsp;<span>优惠：{{item.price - item.pay_amount}}</span></p>
                       </div>
                   </div>
-                  <div class="bot">实付：<span>￥{{item.pay_amount}}</span>  <div><f7-link>查看物流</f7-link><f7-link>确认收货</f7-link></div></div>
+                  <div class="bot">实付：<span>￥{{item.pay_amount}}</span>  <div><f7-link :href="'/checkTheLogistics?orderno='+item.order_number">查看物流</f7-link><f7-link>确认收货</f7-link></div></div>
                 </li>
               </ul>
              </div>
