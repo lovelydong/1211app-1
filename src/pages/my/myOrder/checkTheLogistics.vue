@@ -10,12 +10,12 @@
         <div class="top">
           <img src="https://ss0.baidu.com/6ONWsjip0QIZ8tyhnq/it/u=2587749150,2354422269&fm=58" alt="">
           <p>物流状态：<span>运输中</span></p>
-          <p>运单号：4565879523</p>
-          <p>信息来源：中通快递</p>
+          <p>运单号：{{info.trackingNo}}</p>
+          <p>信息来源：{{express(info.express)}}</p>
         </div>
         <div class="mid">
           <ul>
-            <li v-for="i in info">{{i.state}}<p>&nbsp;&nbsp;{{i.time}}</p><span></span></li>
+            <li v-for="i in info.data">{{i.state}}<p>&nbsp;&nbsp;{{i.time}}</p><span></span></li>
             <!--<li>【郑州市】中转站已发货 <p>&nbsp;&nbsp;2017-09-06    21:45:31</p><span></span></li>
             <li>【郑州市】中转站已发货 <p>&nbsp;&nbsp;2017-09-06    21:45:31</p><span></span></li>
             <li>【郑州市】中转站已发货 <p>&nbsp;&nbsp;2017-09-06    21:45:31</p><span></span></li>
@@ -32,7 +32,32 @@ export default {
       info:""
     };
   },
-  methods: {},
+  methods: {
+  	express:function(e)
+  	{
+  		if(e=="zhongtong"){
+  			return "中通快递";
+  		}
+  		else if(e=="shunfeng"){
+  			return "顺丰快递";
+  		}
+  		else if(e=="yuantong"){
+  			return "圆通速递";
+  		}
+  		else if(e=="shentong"){
+  			return "申通快递";
+  		}
+  		else if(e=="youzhengguonei"){
+  			return "邮政快递";
+  		}
+  		else if(e=="yunda"){
+  			return "yunda";
+  		}
+  		else{
+  			return e;
+  		}
+  	}
+  },
   created:function() {
   	var orderNo=this.$f7route.query.orderno;
   	console.log(orderNo)
@@ -44,7 +69,8 @@ export default {
         }
        })
       .then(function(res) {
-         console.log(res.data.data)
+         console.log(eval('(' +res.data.data+ ')'));
+         this.info=eval('(' +res.data.data+ ')');
          /*this.info=JSON.stringify(res.data.data.data);*/
      });
   }
