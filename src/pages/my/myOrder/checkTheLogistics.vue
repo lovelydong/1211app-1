@@ -15,11 +15,11 @@
         </div>
         <div class="mid">
           <ul>
+            <li v-for="i in info">{{i.state}}<p>&nbsp;&nbsp;{{i.time}}</p><span></span></li>
+            <!--<li>【郑州市】中转站已发货 <p>&nbsp;&nbsp;2017-09-06    21:45:31</p><span></span></li>
             <li>【郑州市】中转站已发货 <p>&nbsp;&nbsp;2017-09-06    21:45:31</p><span></span></li>
             <li>【郑州市】中转站已发货 <p>&nbsp;&nbsp;2017-09-06    21:45:31</p><span></span></li>
-            <li>【郑州市】中转站已发货 <p>&nbsp;&nbsp;2017-09-06    21:45:31</p><span></span></li>
-            <li>【郑州市】中转站已发货 <p>&nbsp;&nbsp;2017-09-06    21:45:31</p><span></span></li>
-            <li>【郑州市】中转站已发货 <p>&nbsp;&nbsp;2017-09-06    21:45:31</p><span></span></li>
+            <li>【郑州市】中转站已发货 <p>&nbsp;&nbsp;2017-09-06    21:45:31</p><span></span></li>-->
           </ul>
         </div>
   </f7-page>
@@ -28,23 +28,25 @@
 export default {
   data: function() {
     return {
-      url: "http://localhost:8080/shiro_test"
+      url: "http://192.168.0.130:8080/shiro_test",
+      info:""
     };
   },
   methods: {},
-  created() {
+  created:function() {
+  	var orderNo=this.$f7route.query.orderno;
+  	console.log(orderNo)
     //订单详情全部
-    // this.$http
-    //   .get(this.url + "/sxorder/listPage", {
-    //     params: {
-    //       state: 0,
-    //       page: 1,
-    //       limit: 99
-    //     }
-    //   })
-    //   .then(function(res) {
-    //     this.tabAll = res.body.data;
-    //   });
+     this.$http
+      .get(this.url + "/deliverinfor/infor", {
+       params: {
+         orderNo:orderNo
+        }
+       })
+      .then(function(res) {
+         console.log(res.data.data)
+         /*this.info=JSON.stringify(res.data.data.data);*/
+     });
   }
 };
 </script>
