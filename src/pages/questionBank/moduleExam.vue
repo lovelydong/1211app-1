@@ -101,103 +101,14 @@
         <div class="mid">
 
           <ul class="tab4">
-                      <li class="clearfix link">
+                      <li class="clearfix link" v-for="item in recommend" :key="item.id" >
                         <f7-link href="/questionBankParticulars">
                           <div>
-                            <p>2017年上半年中学综合素质真题及答案解析</p>
-                            <p><span>热</span> 试试手气，马上开始做题</p>
+                            <p>{{item.name}}</p>
+                            <p><span v-if="item.ext2">热</span> 试试手气，马上开始做题</p>
                           </div>
                         </f7-link>
                       </li>
-                      <li class="clearfix link">
-                        <f7-link>
-                          <div>
-                            <p>2017年上半年中学综合素质真题及答案解析</p>
-                            <p>试试手气，马上开始做题</p>
-                          </div>
-                        </f7-link>
-                      </li>
-                      <li class="clearfix link">
-                        <f7-link>
-                          <div>
-                            <p>2017年上半年中学综合素质真题及答案解析</p>
-                            <p>试试手气，马上开始做题</p>
-                          </div>
-                        </f7-link>
-                      </li>
-                      <li class="clearfix link">
-                        <f7-link>
-                          <div>
-                            <p>2017年上半年中学综合素质真题及答案解析</p>
-                            <p>试试手气，马上开始做题</p>
-                          </div>
-                        </f7-link>
-                      </li>
-                      <li class="clearfix link">
-                        <f7-link>
-                          <div>
-                            <p>2017年上半年中学综合素质真题及答案解析</p>
-                            <p>试试手气，马上开始做题</p>
-                          </div>
-                        </f7-link>
-                      </li>
-                      <li class="clearfix link">
-                        <f7-link>
-                          <div>
-                            <p>2017年上半年中学综合素质真题及答案解析</p>
-                            <p>试试手气，马上开始做题</p>
-                          </div>
-                        </f7-link>
-                      </li>
-                      <li class="clearfix link">
-                        <f7-link>
-                          <div>
-                            <p>2017年上半年中学综合素质真题及答案解析</p>
-                            <p>试试手气，马上开始做题</p>
-                          </div>
-                        </f7-link>
-                      </li>
-                      <li class="clearfix link">
-                        <f7-link>
-                          <div>
-                            <p>2017年上半年中学综合素质真题及答案解析</p>
-                            <p>试试手气，马上开始做题</p>
-                          </div>
-                        </f7-link>
-                      </li>
-                      <li class="clearfix link">
-                        <f7-link>
-                          <div>
-                            <p>2017年上半年中学综合素质真题及答案解析</p>
-                            <p>试试手气，马上开始做题</p>
-                          </div>
-                        </f7-link>
-                      </li>
-                      <li class="clearfix link">
-                        <f7-link>
-                          <div>
-                            <p>2017年上半年中学综合素质真题及答案解析</p>
-                            <p>试试手气，马上开始做题</p>
-                          </div>
-                        </f7-link>
-                      </li>
-                      <li class="clearfix link">
-                        <f7-link>
-                          <div>
-                            <p>2017年上半年中学综合素质真题及答案解析</p>
-                            <p>试试手气，马上开始做题</p>
-                          </div>
-                        </f7-link>
-                      </li>
-                      <li class="clearfix link">
-                        <f7-link>
-                          <div>
-                            <p>2017年上半年中学综合素质真题及答案解析</p>
-                            <p>试试手气，马上开始做题</p>
-                          </div>
-                        </f7-link>
-                      </li>
-
                   </ul>
         </div>
         <Share ref="c1"></Share>
@@ -244,35 +155,35 @@ export default {
         .then(
           function(res) {
             this.gitCon.areaList = res.data.data;
-            console.log(res);
           },
           function(res) {}
         );
     }
   },
-  // watch: {
-  //   type: {
-  //     handler: function(val, oldVal) {
-  //       this.$http
-  //         .get(this.url + "/exambank/jsonlist", {
-  //           params: {
-  //             page: 1,
-  //             limit: 50,
-  //             vod_type: this.type.vod_type,
-  //             grade: this.type.grade,
-  //             subject: this.type.subject,
-  //             course_type: this.type.course_type,
-  //             area: this.type.province,
-  //             exam_type: this.type.exam_type
-  //           }
-  //         })
-  //         .then(function(res) {
-  //           this.recommend = res.body.data;
-  //         });
-  //     },
-  //     deep: true
-  //   }
-  // },
+  watch: {
+    type: {
+      handler: function(val, oldVal) {
+        this.$http
+          .get(this.url + "/exambank/jsonlist", {
+            params: {
+              page: 1,
+              limit: 50,
+              exam_type: this.qtype,
+              type: this.type.type,
+              writeorface: this.type.writeorfaceList,
+              grade: this.type.gradeList,
+              app_subject: this.type.subjectList,
+              area: this.type.areaList,
+            }
+          })
+          .then(function(res) {
+            this.recommend = res.body.data;
+            console.log(res)
+          });
+      },
+      deep: true
+    }
+  },
   created: function() {
     let url = "http://192.168.0.115:8080/shiro_test";
     this.classtype = this.$f7route.query.classtype;
@@ -292,6 +203,23 @@ export default {
         },
         function(res) {}
       );
+        this.$http
+          .get(this.url + "/exambank/jsonlist", {
+            params: {
+              page: 1,
+              limit: 50,
+              exam_type: this.qtype,
+              type: this.type.type,
+              writeorface: this.type.writeorfaceList,
+              grade: this.type.gradeList,
+              app_subject: this.type.subjectList,
+              area: this.type.areaList,
+            }
+          })
+          .then(function(res) {
+            this.recommend = res.body.data;
+            console.log(res)
+          });
   }
 };
 </script>
