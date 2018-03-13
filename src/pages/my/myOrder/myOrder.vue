@@ -16,10 +16,10 @@
           <div class="TopsZ" v-if="shows.showTop" >
             <em></em>
             <ul>
-              <f7-link><i class="iconfont icon-xiaoxi1"></i> 系统消息</f7-link>
-              <f7-link><i class="iconfont icon-shouye"></i> 返回首页</f7-link>
+              <f7-link href="/news"><i class="iconfont icon-xiaoxi1"></i> 系统消息</f7-link>
+              <f7-link href="/"><i class="iconfont icon-shouye"></i> 返回首页</f7-link>
               <f7-link><i class="iconfont icon-saoyisao"></i> 扫一扫</f7-link>
-              <f7-link><i class="iconfont icon-gouwuche"></i> 购物车</f7-link>
+              <f7-link href="/shoppingTrolley"><i class="iconfont icon-gouwuche"></i> 购物车</f7-link>
               <f7-link  @click="shareboy"><i class="iconfont icon-fenxiang"></i> 分享</f7-link>
             </ul>
           </div>
@@ -33,7 +33,7 @@
         </f7-subnavbar>
         <div class="tabs">
            <div id="tab1" class="tab tab-active">
-             <div v-for="item in tabAll" >
+             <div v-for="(item,index) in tabAll" >
               <ul v-if="item.state == 2 || item.state == 4">
                 <li>
                   <p>订单编号：{{item.order_number}}</p>
@@ -44,7 +44,7 @@
                         <p>￥{{item.price}} &nbsp;&nbsp;<span>优惠：{{item.price - item.pay_amount}}</span></p>
                       </div>
                   </div>
-                  <div class="bot">实付：<span>￥{{item.pay_amount}}</span>  <div><f7-link>查看物流</f7-link><f7-link>确认收货</f7-link></div></div>
+                  <div class="bot">实付：<span>￥{{item.pay_amount}}</span>  <div><f7-link :href="'/checkTheLogistics?orderno='+item.id">查看物流</f7-link><f7-link>确认收货</f7-link></div></div>
                 </li>
               </ul>
               <ul class="Nopay" v-else-if="item.state == 1 || item.state == 3">
@@ -57,7 +57,7 @@
                           <p>￥{{item.price}} &nbsp;&nbsp;<span>优惠：{{item.price - item.pay_amount}}</span></p>
                       </div>
                   </div>
-                  <div class="bot">实付：<span>￥{{item.pay_amount}}</span>  <div><f7-link>取消订单</f7-link><f7-link>立即付款</f7-link></div></div>
+                  <div class="bot">实付：<span>￥{{item.pay_amount}}</span>  <div><f7-link @click="deleteOrderw(1,item.id,index)">取消订单</f7-link><f7-link>立即付款</f7-link></div></div>
                 </li>
               </ul>
               <ul class="Nopay" v-else-if="item.state == 5">
@@ -70,14 +70,14 @@
                           <p>￥{{item.price}} &nbsp;&nbsp;<span>优惠：{{item.price - item.pay_amount}}</span></p>
                       </div>
                   </div>
-                  <div class="bot">实付：<span>￥{{item.pay_amount}}</span>  <div><f7-link>删除订单</f7-link><f7-link>立即评价</f7-link></div></div>
+                  <div class="bot">实付：<span>￥{{item.pay_amount}}</span>  <div><f7-link @click="deleteOrder(1,item.id,index)">删除订单</f7-link><f7-link>立即评价</f7-link></div></div>
                 </li>
               </ul>
             </div>
 
            </div>
            <div id="tab2" class="tab">
-             <div v-for="item in tabAll1">
+             <div v-for="(item,index) in tabAll1">
                <ul class="Nopay">
                 <li>
                   <p>订单编号：{{item.order_number}}</p>
@@ -88,7 +88,7 @@
                           <p>￥{{item.price}} &nbsp;&nbsp;<span>优惠：{{item.price - item.pay_amount}}</span></p>
                       </div>
                   </div>
-                  <div class="bot">实付：<span>￥{{item.pay_amount}}</span>  <div><f7-link>取消订单</f7-link><f7-link>立即付款</f7-link></div></div>
+                  <div class="bot">实付：<span>￥{{item.pay_amount}}</span>  <div><f7-link  @click="deleteOrderw(0,item.id,index)">取消订单</f7-link><f7-link>立即付款</f7-link></div></div>
                 </li>
               </ul>
              </div>
@@ -105,7 +105,7 @@
                           <p>￥{{item.price}} &nbsp;&nbsp;<span>优惠：{{item.price - item.pay_amount}}</span></p>
                       </div>
                   </div>
-                  <div class="bot">实付：<span>￥{{item.pay_amount}}</span>  <div><f7-link :href="'/checkTheLogistics?orderno='+item.order_number">查看物流</f7-link><f7-link>确认收货</f7-link></div></div>
+                  <div class="bot">实付：<span>￥{{item.pay_amount}}</span>  <div><f7-link :href="'/checkTheLogistics?orderno='+item.id">查看物流</f7-link><f7-link>确认收货</f7-link></div></div>
                 </li>
               </ul>
              </div>
@@ -122,7 +122,7 @@
                           <p>￥{{item.price}} &nbsp;&nbsp;<span>优惠：{{item.price - item.pay_amount}}</span></p>
                       </div>
                   </div>
-                  <div class="bot">实付：<span>￥{{item.pay_amount}}</span>  <div><f7-link @click="deleteOrder(item.order_number,index)">删除订单</f7-link><f7-link>立即评价</f7-link></div></div>
+                  <div class="bot">实付：<span>￥{{item.pay_amount}}</span>  <div><f7-link @click="deleteOrder(0,item.id,index)">删除订单</f7-link><f7-link>立即评价</f7-link></div></div>
                 </li>
               </ul>
              </div>
@@ -151,9 +151,11 @@ export default {
     shareboy: function(data) {
       this.$refs.c1.sharefn();
     },
-    deleteOrder:function(num,index)
+    deleteOrder:function(a,num,index)
     {
-    	this.tabAll3.splice(index,1);
+    	if(a==1)
+    	{
+    		this.tabAll.splice(index,1);
     	this.$http
       .get(this.url + "/sxorder/del", {
         params: {
@@ -163,6 +165,49 @@ export default {
       .then(function(res) {
        console.log(res)
       });
+    	}
+    	else{
+    		this.tabAll3.splice(index,1);
+    	this.$http
+      .get(this.url + "/sxorder/del", {
+        params: {
+         order_number:num
+        }
+      })
+      .then(function(res) {
+       console.log(res)
+      });
+    	}
+    	
+    },
+    deleteOrderw:function(a,num,index)
+    {
+    	if(a==1)
+    	{
+    		this.tabAll.splice(index,1);
+    	this.$http
+      .get(this.url + "/sxorder/godel", {
+        params: {
+         order_number:num
+        }
+      })
+      .then(function(res) {
+       console.log(res)
+      });
+    	}
+    	else{
+    		this.tabAll1.splice(index,1);
+    	this.$http
+      .get(this.url + "/sxorder/godel", {
+        params: {
+         order_number:num
+        }
+      })
+      .then(function(res) {
+       console.log(res)
+      });
+    	}
+    	
     }
   },
   created() {

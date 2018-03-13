@@ -4,11 +4,11 @@
           <f7-nav-left sliding><f7-link class="iconfont icon-zuo" @click="$f7router.back()"></f7-link></f7-nav-left>
           <f7-nav-title>物流信息</f7-nav-title>
           <f7-nav-right>
-            <f7-link class="iconfont icon-xiaoxi1"></f7-link>
+            <f7-link class="iconfont icon-xiaoxi1" href="/news"></f7-link>
           </f7-nav-right>
         </f7-navbar>
         <div class="top">
-          <img src="https://ss0.baidu.com/6ONWsjip0QIZ8tyhnq/it/u=2587749150,2354422269&fm=58" alt="">
+          <img src="../../../assets/post.jpg" alt="">
           <p>物流状态：<span>运输中</span></p>
           <p>运单号：{{info.trackingNo}}</p>
           <p>信息来源：{{express(info.express)}}</p>
@@ -61,7 +61,7 @@ export default {
   created:function() {
   	var orderNo=this.$f7route.query.orderno;
   	console.log(orderNo)
-    //订单详情全部
+    //物流详情全部
      this.$http
       .get(this.url + "/deliverinfor/infor", {
        params: {
@@ -69,7 +69,7 @@ export default {
         }
        })
       .then(function(res) {
-         console.log(eval('(' +res.data.data+ ')'));
+        // console.log(eval('(' +res.data.data+ ')'));
          this.info=eval('(' +res.data.data+ ')');
          /*this.info=JSON.stringify(res.data.data.data);*/
      });
