@@ -158,6 +158,7 @@ export default {
   },
   created() {
   	window.localStorage.setItem("classname",666666);
+  	
     let id = this.$f7route.query.id;
     //购物车数量
     this.$http
@@ -167,7 +168,7 @@ export default {
       .then(function(res) {
         this.Quantityincart = res.body.count;
       });
-    //检测是否收藏
+          //检测是否收藏/*/
     this.$http
       .get(this.url + "/sxcollect/iscollect", {
         params: {
