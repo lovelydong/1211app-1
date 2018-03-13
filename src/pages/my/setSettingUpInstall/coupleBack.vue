@@ -4,15 +4,15 @@
           <f7-nav-left sliding><f7-link class="iconfont icon-zuo" @click="$f7router.back()"></f7-link></f7-nav-left>
           <f7-nav-title>意见反馈</f7-nav-title>
           <f7-nav-right>
-              <f7-link class="navbrleft">提交</f7-link>
+              <f7-link class="navbrleft" @click="advice()">提交</f7-link>
           </f7-nav-right>
         </f7-navbar>
         <div class="mid">
           <textarea placeholder="请输入您的反馈意见或者建议"></textarea>
         </div>
-        <div class="mid">
+        <!--<div class="mid">
           <f7-link> <i class="iconfont icon-plus-add"></i>  <p>相册/相机</p></f7-link>
-        </div>
+        </div>-->
   </f7-page>
 </template>
 <script>
@@ -23,7 +23,12 @@ export default {
     };
   },
   methods: {
+advice:function()
+{
+	alert("谢谢您宝贵的意见！");
+	 this.$f7router.navigate('/setSettingUpInstall');
 
+}
   }
 };
 </script>
