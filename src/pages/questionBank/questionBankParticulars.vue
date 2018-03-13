@@ -3,7 +3,7 @@
 
         <f7-navbar>
           <f7-nav-left sliding><f7-link class="iconfont icon-zuo" @click="$f7router.back()"></f7-link></f7-nav-left>
-          <f7-nav-title>推荐题库</f7-nav-title>
+          <f7-nav-title>{{navbar}}</f7-nav-title>
           <f7-nav-right>
             <f7-link class="iconfont icon-gengduo" @click="shows.showTop = !shows.showTop"></f7-link>
           </f7-nav-right>
@@ -18,30 +18,35 @@
             <ul>
               <f7-link  ><i class="iconfont icon-shoucang"></i> 收藏本题</f7-link>
               <f7-link  @click="shareboy"><i class="iconfont icon-fenxiang"></i> 分享本题</f7-link>
-              <f7-link  href="/myGrade"><i class="iconfont icon-tijiaodingdan"></i> 提交试卷</f7-link>
+              <f7-link  href="/myGrade" @click="gitpush"><i class="iconfont icon-tijiaodingdan"></i> 提交试卷</f7-link>
             </ul>
           </div>
           </transition>
         <div class="mid">
-          <f7-swiper pagination>
-              <f7-swiper-slide>
-                <h3>一、单选题 <span><em>1</em>/15</span></h3>
+          <f7-swiper pagination v-if="getExam">
+              <f7-swiper-slide  v-if="getExam.dx" v-for="(item,index) in getExam.dx" :key="item.id">
+                <h3>单选题 <span><em>{{item.ind}}</em>/{{code}}</span></h3>
                 <div class="content">
-                  <p>1、小华家的电灯丝断了，他把灯泡晃了晃使灯丝
-                  又搭上了，再用的时候会发现：</p>
+                  <p>{{item.itemname}}</p>
                   <ul>
-                    <f7-link> <span>A</span>灯比原来亮了</f7-link>
-                    <f7-link class="active"> <span>B</span>灯比原来亮了</f7-link>
-                    <f7-link> <span>C</span>灯比原来亮了</f7-link>
+                    <f7-link v-for="(k,index1) in getExam.dxa" v-if="k.itemid == item.id" :key="k.id" :class="{active : dan[item.id] == k.id ? true:false }"  @click="dan[item.id] = k.id"> <span>{{k.indx}}</span>{{k.optionname}}</f7-link>
                   </ul>
                 </div>
               </f7-swiper-slide>
-              <f7-swiper-slide>
-                 <h3>一、单选题 <span><em>1</em>/15</span></h3>
+              <f7-swiper-slide v-if="getExam.dx" v-for="(item,index) in getExam.dxs" :key="item.id">
+                <h3>多选题 <span><em>{{item.ind}}</em>/{{code}}</span></h3>
+                <div class="content">
+                  <p>{{item.itemname}}</p>
+                  <ul>
+                    <f7-link v-for="(k,idnex1) in getExam.dxsa" v-if="k.itemid == item.id" :key="k.id" :class="{active : duo[item.id].indexOf(k.id) !== -1 ? true:false }" @click="duofn(item.id,k.id)"> <span>{{k.indx}}</span>{{k.optionname}}</f7-link>
+                  </ul>
+                </div>
+              </f7-swiper-slide>
+              <f7-swiper-slide v-if="getExam.dx" v-for="item in getExam.jd" :key="item.id">
+                 <h3> 简答题 <span><em>{{item.ind}}</em>/{{code}}</span></h3>
                   <div class="content">
-                    <p>1、小华家的电灯丝断了，他把灯泡晃了晃使灯丝
-                    又搭上了，再用的时候会发现：</p>
-                    <textarea placeholder="你的答案....."></textarea>
+                    <p>{{item.itemname}}：</p>
+                    <textarea v-model="jd[item.id]" placeholder="你的答案....." @click="es"> </textarea>
                   </div>
               </f7-swiper-slide>
           </f7-swiper>
@@ -53,9 +58,21 @@
 export default {
   data: function() {
     return {
+      url: "http://192.168.0.115:8080/shiro_test",
+      id: this.$f7route.query.id,
       shows: {
         showTop: false
-      }
+      },
+      getExam: null,
+      qtype: this.$f7route.query.qtype,
+      navbar: "题库",
+      code: 0,
+      codeindex: 1,
+      indx: ["A", "B", "C", "D", "E", "F", "G", "H"],
+      dan:{},
+      duo:{},
+      jd:{},
+      
     };
   },
   methods: {
@@ -67,8 +84,97 @@ export default {
     },
     shareboy: function(data) {
       this.$refs.c1.sharefn();
+    },
+    es(){
+      console.log(this.jd)
+    },
+    gitpush(){
+      console.log(JSON.stringify(this.dan),JSON.stringify(this.duo),JSON.stringify(this.jd))
+
+      // this.$http
+      // .get(this.url + "/exambank/selfGrade", {
+      //   params: {
+      //     dan: JSON.stringify(this.dan),
+      //     duo: JSON.stringify(this.duo),
+      //     jd: JSON.stringify(this.jd)
+      //   }
+      // })
+      // .then(function(res) {
+      //   console.log(res)
+      // });
+
+    },
+    duofn(t,a){
+      if(this.duo[t].indexOf(a) == -1 ){
+        this.duo[t].push(a);
+      }else{
+        this.duo[t].splice(this.duo[t].indexOf(a), 1)
+      }
     }
-  }
+  },
+  created: function() {
+
+    if (this.qtype == 173701) {
+      this.navbar = "随机练习";
+    } else if (this.qtype == 173702) {
+      this.navbar = "模拟估分";
+    } else if (this.qtype == 173703) {
+      this.navbar = "章节练习";
+    } else if (this.qtype == 173704) {
+      this.navbar = "真题演练";
+    }
+    this.$http
+      .get(this.url + "/exambank/getExam", {
+        params: {
+          id: this.id
+        }
+      })
+      .then(function(res) {
+        let arr = res.body.data;
+        let ind = 0;
+        if (arr.dx) {
+          arr.dx.forEach(element => {
+            this.$set(this.dan,element.id,null)
+            ind++;
+            element["ind"] = ind;
+            let indx = 0;
+            arr.dxa.forEach(k => {
+              if(k.itemid == element.id){
+                k["indx"] = this.indx[indx];
+                indx++;
+              }
+            });
+          });
+
+        }
+        if (arr.dxs) {
+          arr.dxs.forEach(element => {
+            this.$set(this.duo,element.id,[ ])
+            console.log(this.duo)
+            ind++;
+            element["ind"] = ind;
+            let indx = 0;
+            arr.dxsa.forEach(k => {
+              if(k.itemid == element.id){
+                k["indx"] = this.indx[indx];
+                indx++;
+              }
+            });
+          });
+        }
+        if (arr.jd) {
+          arr.jd.forEach(element => {
+            this.$set(this.jd,element.id,"")
+            ind++;
+            element["ind"] = ind;
+          });
+        }
+        this.getExam = arr;
+        this.code =this.getExam.dx.length +this.getExam.dxs.length +this.getExam.jd.length;
+      });
+  },
+
+
 };
 </script>
 <style lang="less">
@@ -118,7 +224,7 @@ export default {
             }
             > .active {
               color: #fd5d32;
-              >span{
+              > span {
                 color: #fff;
                 background-color: #fd5d32;
               }

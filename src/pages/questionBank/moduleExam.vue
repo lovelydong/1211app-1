@@ -3,14 +3,28 @@
 
         <f7-navbar>
           <f7-nav-left sliding><f7-link class="iconfont icon-zuo" @click="$f7router.back()"></f7-link></f7-nav-left>
-          <f7-nav-title>章节练习</f7-nav-title>
+          <f7-nav-title>{{navbar}}</f7-nav-title>
           <f7-nav-right>
-            <f7-link class="iconfont icon-gengduo" @click="shows.showTop = !shows.showTop"></f7-link>
+            <f7-link class="iconfont icon-gengduo" @click="showTop = !showTop"></f7-link>
           </f7-nav-right>
 
         </f7-navbar>
         <f7-subnavbar>
-        </transition>
+           <transition
+                  name="custom-classes-transition"
+                  enter-active-class="animated pulse"
+                >
+          <div class="TopsZ" v-if="showTop" >
+            <em></em>
+            <ul>
+              <f7-link><i class="iconfont icon-xiaoxi1"></i> 系统消息</f7-link>
+              <f7-link><i class="iconfont icon-shouye"></i> 返回首页</f7-link>
+              <f7-link><i class="iconfont icon-saoyisao"></i> 扫一扫</f7-link>
+              <f7-link><i class="iconfont icon-gouwuche"></i> 购物车</f7-link>
+              <f7-link  @click="shareboy"><i class="iconfont icon-fenxiang"></i> 分享</f7-link>
+            </ul>
+          </div>
+          </transition>
             <div class="row">
                 <div class="col-20" :class="{active: shows == 1?true:false}" @click="shows = 1">类型<i class="iconfont icon-icon--"></i></div>
                 <div class="col-20" :class="{active: shows == 2?true:false}" @click="shows = 2">学段<i class="iconfont icon-icon--"></i></div>
@@ -102,7 +116,7 @@
 
           <ul class="tab4">
                       <li class="clearfix link" v-for="item in recommend" :key="item.id" >
-                        <f7-link href="/questionBankParticulars">
+                        <f7-link :href="'/questionBankParticulars?id='+item.id+'&qtype='+qtype">
                           <div>
                             <p>{{item.name}}</p>
                             <p><span v-if="item.ext2">热</span> 试试手气，马上开始做题</p>
@@ -131,7 +145,8 @@ export default {
       gitCon: {},
       recommend: {},
       classtype: "",
-      qtype: ""
+      qtype: "",
+      navbar:"题库"
     };
   },
   methods: {
@@ -189,12 +204,23 @@ export default {
     this.classtype = this.$f7route.query.classtype;
     this.qtype = this.$f7route.query.qtype;
     /*	console.log(this.classtype)
-  	console.log(this.qtype)*/
+    console.log(this.qtype)*/
+    if(this.qtype == 173701){
+          this.navbar =  "随机练习";
+    }else if(this.qtype == 173702){
+          this.navbar =  "模拟估分";
+    }else if(this.qtype == 173703){
+          this.navbar =  "章节练习";
+    }else if(this.qtype == 173704){
+          this.navbar =  "真题演练";
+    }
+
+
     this.$http
       .get(url + "/exambank/typelist", {
         params: {
           type: 3,
-          exam_type: this.qtype
+          exam_type: this.qtype,
         }
       })
       .then(
