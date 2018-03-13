@@ -40,7 +40,7 @@
                 >
               <div class="lx" v-if="shows == 1?true:false">
                   <ul>
-                    <li v-for="item in gitCon.exam_type" class="col-33" :class="{active: type.exam_type == item.name_value ?true:false}" @click="type.exam_type = item.name_value"> {{item.name}} <i v-if="type.exam_type == item.name_value ?true:false" class="iconfont icon-selected-copy"></i></li>
+                    <li v-for="item in gitCon.province" class="col-33" :class="{active: type.province == item.provinceid ?true:false}" @click="type.province = item.provinceid"> {{item.province}} <i v-if="type.province == item.provinceid ?true:false" class="iconfont icon-selected-copy"></i></li>
                   </ul>
               </div>
             </transition>
@@ -51,7 +51,7 @@
                 >
               <div class="lx" v-if="shows == 2?true:false">
                   <ul>
-                    <li v-for="item in gitCon.grade" class="col-33" :class="{active: type.grade == item.name_value ?true:false}" @click="type.grade = item.name_value"> {{item.name}} <i v-if="type.grade == item.name_value ?true:false" class="iconfont icon-selected-copy"></i></li>
+                    <li v-for="item in gitCon.city" class="col-33" :class="{active: type.city == item.cityid ?true:false}" @click="type.city = item.cityid"> {{item.name}} <i v-if="type.city == item.cityid ?true:false" class="iconfont icon-selected-copy"></i></li>
                   </ul>
               </div>
             </transition>
@@ -62,26 +62,11 @@
                 >
               <div class="lx" v-if="shows == 3?true:false">
                   <ul>
-                    <li v-for="item in gitCon.subject" class="col-33" :class="{active: type.subject == item.name_value ?true:false}" @click="type.subject = item.name_value"> {{item.name}} <i v-if="type.subject == item.name_value ?true:false" class="iconfont icon-selected-copy"></i></li>
+                    <li v-for="item in gitCon.ext1" class="col-33" :class="{active: type.ext1 == item.name_value ?true:false}" @click="type.ext1 = item.name_value"> {{item.name}} <i v-if="type.ext1 == item.name_value ?true:false" class="iconfont icon-selected-copy"></i></li>
                   </ul>
               </div>
             </transition>
         </f7-subnavbar>
-        <transition
-                  name="custom-classes-transition"
-                  enter-active-class="animated pulse"
-                >
-          <div class="TopsZ" v-if="shows.showTop" >
-            <em></em>
-            <ul>
-              <f7-link><i class="iconfont icon-xiaoxi1"></i> 系统消息</f7-link>
-              <f7-link><i class="iconfont icon-shouye"></i> 返回首页</f7-link>
-              <f7-link><i class="iconfont icon-saoyisao"></i> 扫一扫</f7-link>
-              <f7-link><i class="iconfont icon-gouwuche"></i> 购物车</f7-link>
-              <f7-link  @click="shareboy"><i class="iconfont icon-fenxiang"></i> 分享</f7-link>
-            </ul>
-          </div>
-          </transition>
         <div class="mid">
           <ul>
                       <li class="clearfix link">
@@ -147,10 +132,46 @@
 export default {
   data: function() {
     return {
-      shows: {
-        showTop: false
+      url: "http://localhost:8080/shiro_test",
+      shows: null,
+      showTop: false,
+      gitCon: {},
+      getCondition: {},
+      type: {
+        province: null,
+        city: null,
+        ext1: null
       }
     };
+  },
+  watch: {
+    type: {
+      handler: function(val, oldVal) {
+        this.$http
+          .get(this.url + "/getCityByProvinceId", {
+            params: {
+              id: this.type.province
+            }
+          })
+          .then(function(res) {
+            this.gitCon.city = res.body.data;
+          });
+
+        this.$http
+          .get(this.url + "/examcondition/applist", {
+            params: {
+              province: this.type.province,
+              city: this.type.city,
+              ext1: this.type.ext1
+            }
+          })
+          .then(function(res) {
+            this.getCondition = res.body.data;
+            console.log(res)
+          });
+      },
+      deep: true
+    }
   },
   methods: {
     OnshowKM: function(e) {
@@ -162,150 +183,163 @@ export default {
     shareboy: function(data) {
       this.$refs.c1.sharefn();
     }
+  },
+  created() {
+    //赛选条件
+    this.$http
+      .get(this.url + "/examcondition/getCondition", {
+        params: {}
+      })
+      .then(function(res) {
+        this.gitCon = res.body.data;
+        console.log(res);
+      });
   }
 };
 </script>
 <style lang="less">
 .subnavbar {
-    .subnavbar-inner {
+  .subnavbar-inner {
+    > .row {
+      height: 100%;
+      line-height: 44px;
+    }
+    .active {
+      color: #fd2d44;
+      > .iconfont {
+        display: inline-block;
+        transition: transform 0.5s ease-in-out;
+        transform: rotate(-180deg);
+        -ms-transform: rotate(-180deg); /* IE 9 */
+        -webkit-transform: rotate(-180deg); /* Safari and Chrome */
+        -o-transform: rotate(-180deg); /* Opera */
+        -moz-transform: rotate(-180deg); /* Firefox */
+      }
+    }
+  }
+  .row {
+    width: 100%;
+    .col-20 {
+      text-align: center;
+      height: 100%;
+    }
+  }
+  .screen1 {
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    left: 0;
+    top: 88px;
+    z-index: 99;
+    background-color: rgba(0, 0, 0, 0.3);
+  }
+  .screen {
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    left: 0;
+    top: 0;
+    z-index: 99;
+    background-color: rgba(0, 0, 0, 0.3);
+  }
+  .screen-but {
+    background-color: #fff;
+    z-index: 99;
+    width: 80%;
+    height: 80%;
+    position: fixed;
+    top: 44px;
+    right: 0;
+    border-bottom-left-radius: 20px;
+    border-top-left-radius: 20px;
+    padding-bottom: 50px;
+    overflow: hidden;
+    > div {
+      overflow: scroll;
+      height: 100%;
+      > h3 {
+        font-weight: 400;
+        padding: 15px;
+        background-color: #f2f2f2;
+        border-top-left-radius: 20px;
+      }
+      > h4 {
+        font-size: 14px;
+        padding: 15px;
+        font-weight: 400;
+      }
       > .row {
-        height: 100%;
-        line-height: 44px;
-      }
-      .active {
-        color: #fd2d44;
-        > .iconfont {
-          display: inline-block;
-          transition: transform 0.5s ease-in-out;
-          transform: rotate(-180deg);
-          -ms-transform: rotate(-180deg); /* IE 9 */
-          -webkit-transform: rotate(-180deg); /* Safari and Chrome */
-          -o-transform: rotate(-180deg); /* Opera */
-          -moz-transform: rotate(-180deg); /* Firefox */
-        }
-      }
-    }
-    .row {
-      width: 100%;
-      .col-20 {
         text-align: center;
-        height: 100%;
-      }
-    }
-    .screen1 {
-      position: fixed;
-      width: 100%;
-      height: 100%;
-      left: 0;
-      top: 88px;
-      z-index: 99;
-      background-color: rgba(0, 0, 0, 0.3);
-    }
-    .screen {
-      position: fixed;
-      width: 100%;
-      height: 100%;
-      left: 0;
-      top: 0;
-      z-index: 99;
-      background-color: rgba(0, 0, 0, 0.3);
-    }
-    .screen-but {
-      background-color: #fff;
-      z-index: 99;
-      width: 80%;
-      height: 80%;
-      position: fixed;
-      top: 44px;
-      right: 0;
-      border-bottom-left-radius: 20px;
-      border-top-left-radius: 20px;
-      padding-bottom: 50px;
-      overflow: hidden;
-      > div {
-        overflow: scroll;
-        height: 100%;
-        > h3 {
-          font-weight: 400;
-          padding: 15px;
+        padding: 0 15px;
+        padding-bottom: 10px;
+        border-bottom: 1px solid #f2f2f2;
+        > .col-33 {
+          padding: 5px 0;
+          border: 1px solid #f2f2f2;
           background-color: #f2f2f2;
-          border-top-left-radius: 20px;
-        }
-        > h4 {
-          font-size: 14px;
-          padding: 15px;
-          font-weight: 400;
-        }
-        > .row {
-          text-align: center;
-          padding: 0 15px;
-          padding-bottom: 10px;
-          border-bottom: 1px solid #f2f2f2;
-          > .col-33 {
-            padding: 5px 0;
-            border: 1px solid #f2f2f2;
-            background-color: #f2f2f2;
-            border-radius: 5px;
-            margin: 5px 0;
-          }
-          > .active {
-            border-color: #fd2d44;
-            color: #fd2d44;
-            background-color: #fff;
-          }
-        }
-      }
-      > .off {
-        height: 50px;
-        position: absolute;
-        bottom: 0;
-        width: 100%;
-        > .row {
-          text-align: center;
-          line-height: 50px;
-          width: 100%;
-          font-size: 16px;
-          padding: 0;
-          background-color: #fff;
-          -ms-filter: "progid:DXImageTransform.Microsoft.Shadow(Strength=34, Direction=256, Color=#454545)"; /*IE 8*/
-          -moz-box-shadow: 1px -4px 34px rgba(69, 69, 69, 0.5); /*FF 3.5+*/
-          -webkit-box-shadow: 1px -4px 34px rgba(69, 69, 69, 0.5); /*Saf3-4, Chrome, iOS 4.0.2-4.2, Android 2.3+*/
-          box-shadow: 1px -4px 34px rgba(69, 69, 69, 0.5); /* FF3.5+, Opera 9+, Saf1+, Chrome, IE10 */
-          filter: progid:DXImageTransform.Microsoft.Shadow(
-              Strength=34,
-              Direction=135,
-              Color=#454545
-            ); /*IE 5.5-7*/
-          > .col-50:nth-of-type(2) {
-            background-color: #fd2d44;
-            color: #fff;
-          }
-        }
-      }
-    }
-    .lx {
-      position: fixed;
-      width: 100%;
-      left: 0;
-      top: 88px;
-      background-color: #fff;
-      z-index: 99;
-      padding: 10px;
-
-      > ul {
-        > li {
-          font-size: 14px;
-          line-height: 30px;
-          > i {
-            float: right;
-          }
+          border-radius: 5px;
+          margin: 5px 0;
         }
         > .active {
+          border-color: #fd2d44;
           color: #fd2d44;
+          background-color: #fff;
+        }
+      }
+    }
+    > .off {
+      height: 50px;
+      position: absolute;
+      bottom: 0;
+      width: 100%;
+      > .row {
+        text-align: center;
+        line-height: 50px;
+        width: 100%;
+        font-size: 16px;
+        padding: 0;
+        background-color: #fff;
+        -ms-filter: "progid:DXImageTransform.Microsoft.Shadow(Strength=34, Direction=256, Color=#454545)"; /*IE 8*/
+        -moz-box-shadow: 1px -4px 34px rgba(69, 69, 69, 0.5); /*FF 3.5+*/
+        -webkit-box-shadow: 1px -4px 34px rgba(69, 69, 69, 0.5); /*Saf3-4, Chrome, iOS 4.0.2-4.2, Android 2.3+*/
+        box-shadow: 1px -4px 34px rgba(69, 69, 69, 0.5); /* FF3.5+, Opera 9+, Saf1+, Chrome, IE10 */
+        filter: progid:DXImageTransform.Microsoft.Shadow(
+            Strength=34,
+            Direction=135,
+            Color=#454545
+          ); /*IE 5.5-7*/
+        > .col-50:nth-of-type(2) {
+          background-color: #fd2d44;
+          color: #fff;
         }
       }
     }
   }
+  .lx {
+    position: fixed;
+    width: 100%;
+    left: 0;
+    top: 88px;
+    background-color: #fff;
+    z-index: 99;
+    padding: 10px;
+    max-height: 200px;
+    overflow: auto;
+
+    > ul {
+      > li {
+        font-size: 14px;
+        line-height: 30px;
+        > i {
+          float: right;
+        }
+      }
+      > .active {
+        color: #fd2d44;
+      }
+    }
+  }
+}
 .examinationAnalysis {
   .mid {
     padding: 10px;

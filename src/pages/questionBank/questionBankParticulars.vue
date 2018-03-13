@@ -72,7 +72,7 @@ export default {
       dan:{},
       duo:{},
       jd:{},
-      
+
     };
   },
   methods: {
@@ -94,6 +94,7 @@ export default {
       this.$http
       .get(this.url + "/exambank/selfGrade", {
         params: {
+          id:this.id,
           dan: JSON.stringify(this.dan),
           duo: JSON.stringify(this.duo),
           jd: JSON.stringify(this.jd)
