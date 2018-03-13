@@ -91,17 +91,17 @@ export default {
     gitpush(){
       console.log(JSON.stringify(this.dan),JSON.stringify(this.duo),JSON.stringify(this.jd))
 
-      // this.$http
-      // .get(this.url + "/exambank/selfGrade", {
-      //   params: {
-      //     dan: JSON.stringify(this.dan),
-      //     duo: JSON.stringify(this.duo),
-      //     jd: JSON.stringify(this.jd)
-      //   }
-      // })
-      // .then(function(res) {
-      //   console.log(res)
-      // });
+      this.$http
+      .get(this.url + "/exambank/selfGrade", {
+        params: {
+          dan: JSON.stringify(this.dan),
+          duo: JSON.stringify(this.duo),
+          jd: JSON.stringify(this.jd)
+        }
+      })
+      .then(function(res) {
+        console.log(res)
+      });
 
     },
     duofn(t,a){
