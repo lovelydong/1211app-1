@@ -49,6 +49,9 @@
 						this.$f7router.navigate('/home');
 	
 						}
+						else{
+							alert("用户名或者密码错误");
+						}
 						
 						//this.$f7router.navigate('/login');
 

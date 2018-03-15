@@ -10,13 +10,13 @@
             <ul>
               <li class="swipeout" v-for="e in exam"> 
                 <div class="swipeout-content">
-                  <a :href="'/examinationPaperParticulars?id='+e.examid" class="item-link">
+                  <f7-link :href="'/examinationPaperParticulars?id='+e.examid" class="item-link">
                     <div class="item-content">
                       <div class="item-inner">
                         <div class="item-title">{{e.examname}} <p>学习时间：{{nowtime | moment("YYYY-MM-DD")}}</p></div>
                       </div>
                     </div>
-                  </a>
+                  </f7-link>
                 </div>
                 <div class="swipeout-actions-right">
                   <a href="#" class="swipeout-close color-blue" @click="shareboy">分享</a>

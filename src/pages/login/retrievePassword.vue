@@ -166,7 +166,7 @@ export default {
   		else{
   			
   		console.log(this.mobile)
-  	/*this.$http.get(this.url+"/doCode",{
+  	this.$http.get(this.url+"/doCode",{
   	 		params:{
   			mobile:this.mobile
   		}
@@ -177,7 +177,7 @@ export default {
                 
 					 },function(res){
                 console.log(res.status);
-            })	*/
+            })
   		this.code=60;
   		this.statu=0;
   		var that=this;
@@ -228,6 +228,7 @@ export default {
   	
             }).then(function(res){
                console.log(res);
+              
                //this.global_.mobile=this.mobile;
                this.$f7router.navigate('/login');
                 

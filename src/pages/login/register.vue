@@ -5,10 +5,10 @@
         </f7-navbar>
         <div class="mid">
           <h1>注册</h1>
-          <input type="text" placeholder="请输入您的用户名/手机号">
-          <div><input type="text" placeholder="请输入验证码"> <f7-link>获取验证码</f7-link></div>
-          <div><input type="text" placeholder="请输入您的密码"><f7-link> <i class="iconfont icon-chakan"></i> </f7-link></div>
-          <f7-link><div>注册</div></f7-link>
+          <input type="tel" placeholder="请输入您的手机号" v-model="mobile">
+          <div><input type="text" placeholder="请输入验证码" v-model="incode"> <f7-link class="yzm" :id="statu==1?'code':'code1'"  @click="getcode()" v-html="code">获取验证码</f7-link></div>
+          <div><input :type="status==1?'password':'text'"  v-model="pwd" placeholder="请输入您的密码"><f7-link> <i class="iconfont icon-chakan" @click="show()"></i> </f7-link></div>
+          <f7-link :id="registera==1?'register':''" @click="register"><div>注册</div></f7-link>
           <f7-link href="/login"><span>已有账号？去登录</span></f7-link>
           <f7-link href="/retrievePassword"><em>忘记密码</em></f7-link>
         </div>
@@ -18,15 +18,191 @@
 export default {
   data: function() {
     return {
-
+url:"http://192.168.0.130:8080/shiro_test",   	
+statu:1,
+status:1,
+code:"获取验证码",
+incode:"",
+pwd:"",
+mobile:"",
+yanzheng:"",
+registera:""
     };
   },
   methods: {
+  	checkPassword:function(pp)
+  	{
+  	var pwdReg = /^(?![0-9]+$)(?![a-zA-Z]+$)[0-9A-Za-z]{8,16}$/;//8到16位数字与字母组合
+  	if(!pwdReg.test(pp)){
+             return 0;
+            }else{
+              return 1;
+            }
+  	},
+	isPoneAvailable: function (pone) {  
+   var myreg = /^[1][3,4,5,7,8][0-9]{9}$/;  
+   if (!myreg.test(pone)) {  
+     return false;  
+   } else {  
+     return true;  
+   }  
+ },getcode:function()
+  	{
+  		if(this.isPoneAvailable(this.mobile))
+  		{
+  		if(this.statu==0)
+  		{
+  			return;
+  		}
+  		else{
+  			
+  		console.log(this.mobile)
+  	this.$http.get(this.url+"/doCode",{
+  	 		params:{
+  			mobile:this.mobile
+  		}
+  	
+            }).then(function(res){
+            	console.log(res.body.msg)
+               this.yanzheng=res.body.msg;
+                
+					 },function(res){
+                console.log(res.status);
+            })
+  		this.code=60;
+  		this.statu=0;
+  		var that=this;
+  		var num=59;
+  		var timer=setInterval(function()
+  		{
+  			that.code=num;
+  			if(num>0)
+  			{
+  				num--;
+  			}
+  			else{
+  				clearInterval(timer);
+  				that.code="获取验证码";
+  				that.statu=1;
+  			}
+  			
+  		},1000)
+  	}
+  		}
+  	else{
+  		alert("请输入有效的手机号！");	
+  	}
+  	},
+  	show:function()
+  	{
+  		this.oldpwd=this.pwd;
+  		if(this.status==1)
+  		{
+  			this.pwd=this.oldpwd;
+  			this.status=0;
+  		}
+  		else{
+  			this.status=1;
+  			this.pwd=this.oldpwd;
+  		}
+  	},
+  	register: function() {
+				
+				if(this.mobile == "" || this.pwd == ""||this.incode == "") {
+					//alert("用户名或者密码不能为空");
+					return;
+				} else {
+					
+					console.log(this.checkPassword(this.pwd))
+					if(this.checkPassword(this.pwd)==1)
+					{
+						
+					
+					if(this.incode==this.yanzheng)
+					{
+							this.$http.get(this.url + "/user/appRegister", {
+						params: {
+							mobile: this.mobile,
+							password: this.pwd
+						}
+						
 
-  }
+					}).then(function(res) {
+						console.log(res);
+						if(res.body.code==1)
+						{
+						this.$f7router.navigate('/login');
+	
+						}
+						else if(res.body.code==3){
+							alert("该手机号已经注册!");
+						}
+						
+						//this.$f7router.navigate('/login');
+
+					}, function(res) {
+						console.log(res);
+					})
+					
+					}
+					else{
+						alert("验证码错误！");
+					}
+				}
+					else{
+						alert("用户密码不合法！密码为8到16位数字与字母组合")
+					}
+				}
+
+			}
+  },
+  watch: {
+			pwd(newpwd, oldpwd) {
+				if(this.mobile != "" && this.pwd != ""&& this.incode != "") {
+
+					this.registera = 1;
+				} else {
+					this.registera = 0;
+				}
+			},
+			mobile(newmobile, oldumobile) {
+				if(this.mobile != "" && this.pwd != ""&& this.incode != "") {
+
+					this.registera = 1;
+				} else {
+					this.registera = 0;
+				}
+			},
+			incode(newincode, oldincode) {
+				if(this.mobile != "" && this.pwd != ""&& this.incode != "") {
+
+					this.registera = 1;
+				} else {
+					this.registera = 0;
+				}
+			}
+		}
 };
 </script>
 <style lang="less">
+	#code1{
+	width: 80px;
+	height: 32px;
+	font-size: 12px;
+	color: #fff;
+	background-color: #666;
+}
+#code{
+	width: 80px;
+	height: 32px;
+	font-size: 12px;
+	color: #fff;
+	background-color: #00AAEE;
+	
+}
+#register div {
+		background-color: #00AAEE;
+	}
 .register{
   .page-content{
     background-color: #fff;

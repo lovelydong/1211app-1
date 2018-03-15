@@ -50,8 +50,10 @@ import Live from './pages/recommended/live.vue';
 
 export default [{
         path: '/', //首页
-        component: HomePage,
-        //component: Login,
+        //component: HomePage,
+        component: Login,
+       
+        
     }, {path: '/home', //首页
         component: HomePage,
         
