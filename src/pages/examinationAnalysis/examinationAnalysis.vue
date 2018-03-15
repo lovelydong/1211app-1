@@ -69,16 +69,16 @@
         </f7-subnavbar>
         <div class="mid">
           <ul>
-                      <li class="clearfix link">
-                        <f7-link href="/examinationParticulars">
+                      <li class="clearfix link" v-for="con in getCondition">
+                        <f7-link :href="'/examinationParticulars?id='+con.id">
                           <span></span>
                           <div>
-                            <p>浙江2018年教师招聘教育心理学二期回放</p>
-                            <p><i>新</i>  中国招教网 &nbsp;&nbsp;2018/13/30</p>
+                            <p>{{con.file_name}}</p>
+                            <p><i>新</i>  {{con.wfrom}} &nbsp;&nbsp;{{con.create_time/1000 | moment("YYYY-MM-DD")}}</p>
                           </div>
                         </f7-link>
                       </li>
-                      <li class="clearfix link">
+                      <!--<li class="clearfix link">
                         <f7-link>
                           <span></span>
                           <div>
@@ -122,7 +122,7 @@
                             <p><i>新</i>  中国招教网 &nbsp;&nbsp;2018/13/30</p>
                           </div>
                         </f7-link>
-                      </li>
+                      </li>-->
                   </ul>
         </div>
         <Share ref="c1"></Share>
@@ -160,6 +160,8 @@ export default {
         this.$http
           .get(this.url + "/examcondition/applist", {
             params: {
+            	page:1,
+            	limit:100,
               province: this.type.province,
               city: this.type.city,
               ext1: this.type.ext1
@@ -194,6 +196,22 @@ export default {
         this.gitCon = res.body.data;
         console.log(res);
       });
+      this.$http
+          .get(this.url + "/examcondition/applist", {
+            params: {
+            	page:1,
+            	limit:100,
+              province: this.type.province,
+              city: this.type.city,
+              ext1: this.type.ext1
+            }
+          })
+          .then(function(res) {
+            this.getCondition = res.body.data;
+            console.log(res)
+          });
+      
+      
   }
 };
 </script>

@@ -8,19 +8,19 @@
          <div class="mid">
             <div class="list">
             <ul>
-              <li class="swipeout">
+              <li class="swipeout" v-for="e in exam"> 
                 <div class="swipeout-content">
-                  <a href="/examinationPaperParticulars" class="item-link">
+                  <a :href="'/examinationPaperParticulars?id='+e.examid" class="item-link">
                     <div class="item-content">
                       <div class="item-inner">
-                        <div class="item-title">2017年上半年中学综合素质真题及答案解析 <p>学习时间：2017-01-02</p></div>
+                        <div class="item-title">{{e.examname}} <p>学习时间：{{nowtime | moment("YYYY-MM-DD")}}</p></div>
                       </div>
                     </div>
                   </a>
                 </div>
                 <div class="swipeout-actions-right">
                   <a href="#" class="swipeout-close color-blue" @click="shareboy">分享</a>
-                  <a href="#" class="swipeout-delete">删除</a>
+                  <a href="#" class="swipeout-delete" @click="Edelete(e.id)">删除</a>
                 </div>
               </li>
             </ul>
@@ -33,13 +33,35 @@
 <script>
 export default {
   data: function() {
-    return {};
+    return {
+    	url:"http://192.168.0.115:8080/shiro_test",
+    	exam:"",
+    	nowtime:""
+    	
+    };
   },
   methods: {
     shareboy: function(data) {
       this.$refs.c1.sharefn();
+    },
+    Edelete:function(id)
+    {
+    	console.log(id)
     }
-  }
+    
+  },
+  created:function()
+    {
+    	this.nowtime=new Date().getTime()/1000;
+    	this.$http
+          .get(this.url + "/myexam/list", {
+            
+          })
+          .then(function(res) {
+            this.exam = res.body.data;
+            //console.log(this.exam)
+          });
+    }
 };
 </script>
 <style lang="less">

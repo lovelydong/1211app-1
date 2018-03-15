@@ -24,13 +24,12 @@
           </div>
           </transition>
         <div class="top">
-          <h3>2017下半年教师资格笔试准考证打印入口</h3>
-          <p>中国招教网-2017年10月20日</p>
+          <h3>{{detail.file_name}}</h3>
+          <p>{{detail.wfrom}}-{{detail.create_time/1000 | moment("YYYY-MM-DD")}}</p>
           <div class="com">
-            <img src="https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1519471941955&di=4fd8e5a340c3f28d7d2e5d2841aa3833&imgtype=0&src=http%3A%2F%2Fimage.uczzd.cn%2F15591592136517073431.gif%3Fid%3D0%26from%3Dexport" alt="">
-            <p>      根据国家有关规定，中小学教师资格考试合格者人员还需要向相应的教师资格认定机构(即教育局)申请认定教师资格，才能获得相应的教师资格证书。现就中小学教师资格考试合格人员申请认定相应教师资格的有关事项通知如下:
-                    1.请申请人登录所在省份教师资格认定网站，或根据拟申请认定的教育局通知要求，了解认定政策、认定流程、网上报名时间、报名网址、现场确认时间、确认地点、普通话测试、体检和需要提交的材料等规定2.根据申请人户籍所在地，或者申请人的人事档案关系所在地(应届毕业生向就读学校所在地)教育局公布的教师资格认定申请网上报名时间和报名网址，及时进行教师资格认定网报，以防错过认定。上海市的申请人报名时间及报名网址请关注“上海教育人才网”(www.shehr.cn)，其他省份的申请人报名网址为“中国教师资格网”(www.jszg.edu.cn)。
-                    3.具体申报流程和需要提交的材料除问询拟申请认定的教育局外，还可在“中国教师资格网”-“常见问题”栏目中查看“国考合格人员如何获得教师资格证书”等问题解答。</p>
+          	
+            <img :src="detail.img" alt="">
+            <p>{{detail.file_content}}</p>
           </div>
         </div>
         <div class="mid">
@@ -38,7 +37,16 @@
 
           <ul>
 
-                      <li class="clearfix link">
+                      <li class="clearfix link" v-for="x in xiangguan">
+                        <f7-link :href="'/examinationParticulars?id='+x.id">
+                          <span></span>
+                          <div>
+                            <p>{{x.file_name}}</p>
+                            <p><i>新</i> {{x.wfrom}} &nbsp;&nbsp;{{x.create_time/1000 | moment("YYYY-MM-DD")}}</p>
+                          </div>
+                        </f7-link>
+                      </li>
+                      <!--<li class="clearfix link">
                         <f7-link>
                           <span></span>
                           <div>
@@ -55,16 +63,7 @@
                             <p><i>新</i>  中国招教网 &nbsp;&nbsp;2018/13/30</p>
                           </div>
                         </f7-link>
-                      </li>
-                      <li class="clearfix link">
-                        <f7-link>
-                          <span></span>
-                          <div>
-                            <p>浙江2018年教师招聘教育心理学二期回放</p>
-                            <p><i>新</i>  中国招教网 &nbsp;&nbsp;2018/13/30</p>
-                          </div>
-                        </f7-link>
-                      </li>
+                      </li>-->
                   </ul>
         </div>
         <Share ref="c1"></Share>
@@ -77,7 +76,9 @@ export default {
     return {
       shows: {
         showTop: false
-      }
+      },
+      detail:"",
+      xiangguan:""
     };
   },
   methods: {
@@ -87,8 +88,57 @@ export default {
     shareboy: function(data) {
       this.$refs.c1.sharefn();
     }
+  },
+  created:function()
+  {
+  	var id=this.$f7route.query.id;
+  	//详情渲染
+  	//console.log(id)
+  	this.$http
+					.get("http://localhost:8080/shiro_test/examcondition/detail", {
+						params: {
+						
+							id:id
+						}
+					})
+					.then(
+						function(res) {
+							//console.log(res.data.data)
+						this.detail=res.data.data;
+						
+
+						
+						
+						},
+						function(res) {
+							console.log(res.status);
+						}
+					);	
+					
+					//相关考情渲染
+					this.$http
+					.get("http://localhost:8080/shiro_test/examcondition/appXgCon", {
+						params: {
+						
+							id:id
+						}
+					})
+					.then(
+						function(res) {
+							console.log(res.data.data)
+							this.xiangguan=res.data.data;
+						
+
+						
+						
+						},
+						function(res) {
+							console.log(res.status);
+						}
+					);
+  	
   }
-};
+ }
 </script>
 <style lang="less">
 .examinationParticulars {

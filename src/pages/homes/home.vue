@@ -305,11 +305,11 @@
 					<f7-swiper-slide>
 						<ul>
 							<li class="clearfix link" v-for="condition in condition1">
-								<f7-link>
-									<span></span>
+								<f7-link :href="'/examinationParticulars?id='+condition.id">
+									<span  :style="{backgroundImage: 'url(' + condition.img + ')' }"></span>
 									<div>
 										<p>{{condition.file_name}}</p>
-										<p><i>新</i> {{condition.create_person}} &nbsp;&nbsp;{{condition.create_time/1000 | moment("YYYY-MM-DD")}}</p>
+										<p><i>新</i> {{condition.wfrom}} &nbsp;&nbsp;{{condition.create_time/1000 | moment("YYYY-MM-DD")}}</p>
 									</div>
 								</f7-link>
 							</li>
@@ -337,11 +337,11 @@
 						<!--<img src="../../assets/homebar.png" alt="">-->
 						<ul>
 							<li class="clearfix link" v-for="condition in condition2">
-								<f7-link>
-									<span></span>
+								<f7-link :href="'/examinationParticulars?id='+condition.id">
+									<span :style="{backgroundImage: 'url(' + condition.img + ')' }"></span>
 									<div>
 										<p>{{condition.file_name}}</p>
-										<p><i>新</i> {{condition.create_person}} &nbsp;&nbsp;{{condition.create_time/1000 | moment("YYYY-MM-DD")}}</p>
+										<p><i>新</i> {{condition.wfrom}} &nbsp;&nbsp;{{condition.create_time/1000 | moment("YYYY-MM-DD")}}</p>
 									</div>
 								</f7-link>
 							</li>
@@ -853,7 +853,7 @@
 
 			//考情分析列表渲染1
 			this.$http
-				.get(url + "/examcondition/list", {
+				.get("http://localhost:8080/shiro_test/examcondition/applist", {
 					params: {
 						page: 1,
 						limit: 4
@@ -870,7 +870,7 @@
 				);
 			//考情分析列表渲染2
 			this.$http
-				.get(url + "/examcondition/list", {
+				.get("http://localhost:8080/shiro_test/examcondition/applist", {
 					params: {
 						page: 2,
 						limit: 4
