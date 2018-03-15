@@ -19,7 +19,7 @@
 
 		</f7-navbar>
 		<f7-toolbar>
-			<f7-link href="/" :reload-all="true" :animate="true"><span></span>
+			<f7-link href="/home" :reload-all="true" :animate="true"><span></span>
 				<p>首页</p>
 			</f7-link>
 			<f7-link href="/nLiveStreaming" :reload-all="true" :animate="true"><span></span>

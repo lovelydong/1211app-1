@@ -7,30 +7,49 @@
           <f7-nav-right>
             <f7-link style="font-family: PingFang-SC-Regular;
             font-size: 14px;
-            color: #fd2d44;">删除</f7-link>
+            color: #fd2d44;"></f7-link>
           </f7-nav-right>
         </f7-navbar>
         <div class="mid">
           <f7-swiper pagination>
-              <f7-swiper-slide>
-                <h3>一、单选题 </h3>
+              <f7-swiper-slide v-for="(e,index) in errordetail.dx" v-if="errordetail.dx.length" :key="e.id">
+                <h3>单选题</h3>
 
                 <div class="content">
-                    <p>1、小华家的电灯丝断了，他把灯泡晃了晃使灯丝 又搭上了，再用的时候会发现：</p>
+                    <p>{{e.itemname}}</p>
                     <ul>
-                        <f7-link> <span>A</span>灯比原来亮了</f7-link>
-                        <f7-link class="active"> <span>B</span>灯比原来亮了</f7-link>
-                        <f7-link class="active1"> <span>C</span>灯比原来亮了</f7-link>
+                        <f7-link v-for="(ee,index) in errordetail.dxa" v-if="e.id==ee.itemid" :key="ee.id"> <span>A</span>{{ee.optionname}}</f7-link>
+                       <!-- <f7-link class="active"> <span>B</span>灯比原来亮了</f7-link>
+                        <f7-link class="active1"> <span>C</span>灯比原来亮了</f7-link>-->
                     </ul>
                     <div class="bot">
                         <h4>答案解析：</h4>
 
-                        <div>时光总是那么的短暫，给了我们那么多的机会体验人生，可我却浪费了我太多太多的时间，独自一人努力的跳出自己人生最深的角落……</div>
+                        <div v-for="(eee,index) in errordetail.dxanswer" v-if="e.id==eee.itemid" :key="e.id">{{eee.analysis}}</div>
                     </div>
                 </div>
               </f7-swiper-slide>
-              <f7-swiper-slide>
-                  <h3>一、单选题 </h3>
+
+              <f7-swiper-slide v-for="(e,index) in errordetail.dxs" v-if="errordetail.dxs.length" :key="e.id">
+                <h3>多选题</h3>
+
+                <div class="content">
+                    <p>{{e.itemname}}</p>
+                    <ul>
+                        <f7-link v-for="(ee,index) in errordetail.dxsa" v-if="e.id==ee.itemid" :key="ee.id"> <span>A</span>{{ee.optionname}}</f7-link>
+                       <!-- <f7-link class="active"> <span>B</span>灯比原来亮了</f7-link>
+                        <f7-link class="active1"> <span>C</span>灯比原来亮了</f7-link>-->
+                    </ul>
+                    <div class="bot">
+                        <h4>答案解析：</h4>
+
+                        <div v-for="(eee,index) in errordetail.dxsanswer" v-if="e.id==eee.itemid" :key="eee.id">{{eee.analysis}}</div>
+                    </div>
+                </div>
+              </f7-swiper-slide>
+
+              <!--<f7-swiper-slide>
+                  <h3>多选题 </h3>
                   <div class="content">
                       <p>1、小华家的电灯丝断了，他把灯泡晃了晃使灯丝 又搭上了，再用的时候会发现：</p>
                       <div>可是东方红萨科技的发送快递发看时间说了大富科技奥斯卡了是的发送到发斯蒂芬</div>
@@ -40,7 +59,7 @@
                           <div>时光总是那么的短暫，给了我们那么多的机会体验人生，可我却浪费了我太多太多的时间，独自一人努力的跳出自己人生最深的角落……</div>
                       </div>
                   </div>
-              </f7-swiper-slide>
+              </f7-swiper-slide>-->
           </f7-swiper>
         </div>
   </f7-page>
@@ -48,10 +67,33 @@
 <script>
 export default {
   data: function() {
-    return {};
+    return {
+    	url:"http://192.168.0.115:8080/shiro_test",
+    	errordetail:""
+    };
   },
-  methods: {}
-};
+  methods: {},
+  created:function()
+  {
+  	//var examid=this.$f7route.query.examid;
+  	//console.log(examid)
+
+
+  		this.$http.get(this.url+"/exambank/errordetail",{
+  	 		params:{
+  			examid:96
+  		}
+
+            }).then(function(res){
+            	console.log(res.body.data)
+            	this.errordetail=res.body.data;
+
+
+					 },function(res){
+                console.log(res.status);
+            })
+  }
+ }
 </script>
 <style lang="less">
 .wrongTopicHighlightsParticulars {

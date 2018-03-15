@@ -6,7 +6,9 @@
   {
     userinfo:"",
     jdaninfo:{},
-    jdaninfo1:{}
+    jdaninfo1:{},
+    mobile:""
+
   }
 </script>
 

@@ -9,8 +9,8 @@
           <div><input type="text" placeholder="请输入验证码"> <f7-link>获取验证码</f7-link></div>
           <div><input type="text" placeholder="请输入您的密码"><f7-link> <i class="iconfont icon-chakan"></i> </f7-link></div>
           <f7-link><div>注册</div></f7-link>
-          <f7-link><span>已有账号？去登录</span></f7-link>
-          <f7-link><em>忘记密码</em></f7-link>
+          <f7-link href="/login"><span>已有账号？去登录</span></f7-link>
+          <f7-link href="/retrievePassword"><em>忘记密码</em></f7-link>
         </div>
   </f7-page>
 </template>

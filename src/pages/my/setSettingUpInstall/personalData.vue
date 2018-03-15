@@ -8,7 +8,7 @@
           <ul>
             <li>
               <f7-link href="">  头像 <i class="iconfont icon-you"></i></f7-link>
-              <f7-link href="/modificationName">  昵称 <i class="iconfont icon-you"></i><i>{{userinfo.user_name}}</i></f7-link>
+              <f7-link>  昵称 <i class="iconfont icon-you"></i><i>{{userinfo.user_name}}</i></f7-link>
               <f7-link href="">  性别 <i class="iconfont icon-you"></i><i v-html='userinfo.sex=="1"?"男":"女"'></i></f7-link>
             </li>
           </ul>
@@ -24,6 +24,7 @@
 </template>
 <script>
 	import global_ from '../../../pages/Global'//引用模块进来
+	
 export default {
   data: function() {
     return {
