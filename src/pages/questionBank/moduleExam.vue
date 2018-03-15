@@ -205,6 +205,7 @@ export default {
     this.qtype = this.$f7route.query.qtype;
     /*	console.log(this.classtype)
     console.log(this.qtype)*/
+    let ext = 2;
     if(this.qtype == 173701){
           this.navbar =  "随机练习";
     }else if(this.qtype == 173702){
@@ -213,6 +214,10 @@ export default {
           this.navbar =  "章节练习";
     }else if(this.qtype == 173704){
           this.navbar =  "真题演练";
+    }else if(this.qtype == 666){
+          this.navbar =  "推荐题库";
+          ext = 1;
+          this.qtype=null;
     }
 
 
@@ -227,13 +232,13 @@ export default {
         function(res) {
           this.gitCon = res.data.data;
         },
-        function(res) {}
       );
         this.$http
           .get(this.url + "/exambank/jsonlist", {
             params: {
               page: 1,
               limit: 50,
+              ext1:ext,
               exam_type: this.qtype,
               type: this.type.type,
               writeorface: this.type.writeorfaceList,

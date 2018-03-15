@@ -120,14 +120,16 @@ export default {
   },
   created: function() {
     console.log(new  Date().getTime())
-    if (this.qtype == 173701) {
-      this.navbar = "随机练习";
-    } else if (this.qtype == 173702) {
-      this.navbar = "模拟估分";
-    } else if (this.qtype == 173703) {
-      this.navbar = "章节练习";
-    } else if (this.qtype == 173704) {
-      this.navbar = "真题演练";
+    if(this.qtype == 173701){
+          this.navbar =  "随机练习";
+    }else if(this.qtype == 173702){
+          this.navbar =  "模拟估分";
+    }else if(this.qtype == 173703){
+          this.navbar =  "章节练习";
+    }else if(this.qtype == 173704){
+          this.navbar =  "真题演练";
+    }else if(this.qtype == 666){
+          this.navbar =  "推荐题库";
     }
     this.$http
       .get(this.url + "/exambank/getExam", {

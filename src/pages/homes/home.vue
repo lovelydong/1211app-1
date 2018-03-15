@@ -78,7 +78,7 @@
 						</f7-link>
 					</div>
 
-					<div class="col-20"><f7-link href="/questionBank/"><span></span><p>推荐题库</p></f7-link></div>
+					<div class="col-20"><f7-link :href="'/moduleExam?classtype=null&qtype=666'"><span></span><p>推荐题库</p></f7-link></div>
 
 
 				</div>
@@ -90,7 +90,7 @@
 				<f7-swiper pagination>
 					<f7-swiper-slide>
 						<div>
-							<f7-link>
+							<f7-link @click="$f7router.navigate('/recommendedParticulars?id='+recommend11.id )" >
 								<p>{{recommend11.name}}</p>
 								<p>{{recommend11.area}}·{{recommend11.buyno}}人正在学习</p>
 								<p><i class="iconfont icon-xingxing"></i><i class="iconfont icon-xingxing"></i><i class="iconfont icon-xingxing"></i><i class="iconfont icon-xingxing"></i><i class="iconfont icon-xingxing"></i></p>
@@ -99,7 +99,7 @@
 						</div>
 						<ul>
 							<li class="clearfix link" v-for="cl in recommend1">
-								<f7-link>
+								<f7-link  @click="$f7router.navigate('/recommendedParticulars?id='+cl.id )" >
 									<span></span>
 									<div>
 										<p>{{cl.name}}</p>
@@ -132,7 +132,7 @@
 					</f7-swiper-slide>
 					<f7-swiper-slide>
 						<div>
-							<f7-link>
+							<f7-link  @click="$f7router.navigate('/recommendedParticulars?id='+recommend22.id )"  >
 								<p>{{recommend22.name}}</p>
 								<p>{{recommend22.area}}·{{recommend22.buyno}}人正在学习</p>
 								<p><i class="iconfont icon-xingxing"></i><i class="iconfont icon-xingxing"></i><i class="iconfont icon-xingxing"></i><i class="iconfont icon-xingxing"></i><i class="iconfont icon-xingxing"></i></p>
@@ -141,7 +141,7 @@
 						</div>
 						<ul>
 							<li class="clearfix link" v-for="cl in recommend2">
-								<f7-link>
+								<f7-link @click="$f7router.navigate('/recommendedParticulars?id='+cl.id )"  >
 									<span></span>
 									<div>
 										<p>{{cl.name}}</p>
@@ -163,7 +163,7 @@
 				<f7-swiper pagination>
 					<f7-swiper-slide>
 						<div>
-							<f7-link>
+							<f7-link @click="$f7router.navigate('/recommendedParticulars?id='+newclass11.id )"  >
 								<p>{{newclass11.name}}</p>
 								<p>{{newclass11.area}}·{{newclass11.buyno}}人正在学习</p>
 								<p><i class="iconfont icon-xingxing"></i><i class="iconfont icon-xingxing"></i><i class="iconfont icon-xingxing"></i><i class="iconfont icon-xingxing"></i><i class="iconfont icon-xingxing"></i></p>
@@ -172,7 +172,7 @@
 						</div>
 						<ul>
 							<li class="clearfix link" v-for="newclass in newclass1">
-								<f7-link>
+								<f7-link  @click="$f7router.navigate('/recommendedParticulars?id='+newclass.id )" >
 									<span></span>
 									<div>
 										<p>{{newclass.name}}</p>
@@ -206,7 +206,7 @@
 					<f7-swiper-slide>
 						<!--<img src="../../assets/homebar.png" alt="">-->
 						<div>
-							<f7-link>
+							<f7-link  @click="$f7router.navigate('/recommendedParticulars?id='+newclass22.id )" >
 								<p>{{newclass22.name}}</p>
 								<p>{{newclass22.area}}·{{newclass22.buyno}}人正在学习</p>
 								<p><i class="iconfont icon-xingxing"></i><i class="iconfont icon-xingxing"></i><i class="iconfont icon-xingxing"></i><i class="iconfont icon-xingxing"></i><i class="iconfont icon-xingxing"></i></p>
@@ -215,7 +215,7 @@
 						</div>
 						<ul>
 							<li class="clearfix link" v-for="newclass in newclass2">
-								<f7-link>
+								<f7-link @click="$f7router.navigate('/recommendedParticulars?id='+newclass.id )" >
 									<span></span>
 									<div>
 										<p>{{newclass.name}}</p>
@@ -242,8 +242,8 @@
 							</f7-link>
 						</div>
 						<ul>
-							<li class="clearfix link" v-for="limit in limitclass1">
-								<f7-link>
+							<li class="clearfix link" v-for="limit in limitclass1" >
+								<f7-link @click="$f7router.navigate('/recommendedParticulars?id='+limit.id )" >
 									<span></span>
 									<div>
 										<p>{{limit.name}}</p>
@@ -276,7 +276,7 @@
 					</f7-swiper-slide>
 					<f7-swiper-slide>
 						<div>
-							<f7-link>
+							<f7-link  @click="$f7router.navigate('/recommendedParticulars?id='+limitclass22.id )"  >
 								<p>{{limitclass22.name}}</p>
 								<p>{{limitclass22.area}}·{{limitclass22.buyno}}人正在学习</p>
 								<p><i class="iconfont icon-xingxing"></i><i class="iconfont icon-xingxing"></i><i class="iconfont icon-xingxing"></i><i class="iconfont icon-xingxing"></i><i class="iconfont icon-xingxing"></i></p>
@@ -285,7 +285,7 @@
 						</div>
 						<ul>
 							<li class="clearfix link" v-for="limit in limitclass2">
-								<f7-link>
+								<f7-link @click="$f7router.navigate('/recommendedParticulars?id='+limit.id )"   >
 									<span></span>
 									<div>
 										<p>{{limit.name}}</p>
@@ -305,7 +305,7 @@
 					<f7-swiper-slide>
 						<ul>
 							<li class="clearfix link" v-for="condition in condition1">
-								<f7-link :href="'/examinationParticulars?id='+condition.id">
+								<f7-link @click="$f7router.navigate('/examinationParticulars?id='+condition.id )"  >
 									<span  :style="{backgroundImage: 'url(' + condition.img + ')' }"></span>
 									<div>
 										<p>{{condition.file_name}}</p>
@@ -337,7 +337,7 @@
 						<!--<img src="../../assets/homebar.png" alt="">-->
 						<ul>
 							<li class="clearfix link" v-for="condition in condition2">
-								<f7-link :href="'/examinationParticulars?id='+condition.id">
+								<f7-link  @click="$f7router.navigate('/examinationParticulars?id='+condition.id )"  >
 									<span :style="{backgroundImage: 'url(' + condition.img + ')' }"></span>
 									<div>
 										<p>{{condition.file_name}}</p>
@@ -390,7 +390,7 @@
 			<div class="midlist midLink">
 				<h3><i></i> 猜你喜欢</h3>
 				<div>
-					<f7-link>
+					<f7-link  @click="$f7router.navigate('/recommendedParticulars?id='+glike11.id )"  >
 						<p>{{glike11.name}}</p>
 						<p>{{glike11.area}}·{{glike11.buyno}}人正在学习</p>
 						<p><i class="iconfont icon-xingxing"></i><i class="iconfont icon-xingxing"></i><i class="iconfont icon-xingxing"></i><i class="iconfont icon-xingxing"></i><i class="iconfont icon-xingxing"></i></p>
@@ -399,7 +399,7 @@
 				</div>
 				<ul>
 					<li class="clearfix link" v-for="like in glike1">
-						<f7-link>
+						<f7-link @click="$f7router.navigate('/recommendedParticulars?id='+like.id )" >
 							<span></span>
 							<div>
 								<p>{{like.name}}</p>
@@ -430,7 +430,7 @@
                       </li>-->
 				</ul>
 				<div>
-					<f7-link>
+					<f7-link @click="$f7router.navigate('/recommendedParticulars?id='+glike22.id )"  >
 						<p>{{glike22.name}}</p>
 						<p>{{glike22.area}}·{{glike22.buyno}}人正在学习</p>
 						<p><i class="iconfont icon-xingxing"></i><i class="iconfont icon-xingxing"></i><i class="iconfont icon-xingxing"></i><i class="iconfont icon-xingxing"></i><i class="iconfont icon-xingxing"></i></p>
@@ -439,7 +439,7 @@
 				</div>
 				<ul>
 					<li class="clearfix link" v-for="like in glike2">
-						<f7-link>
+						<f7-link  @click="$f7router.navigate('/recommendedParticulars?id='+like.id )">
 							<span></span>
 							<div>
 								<p>{{like.name}}</p>
