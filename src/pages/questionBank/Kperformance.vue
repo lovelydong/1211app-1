@@ -7,32 +7,34 @@
 
         </f7-navbar>
 
-        <div class="mid">
+         <div class="mid">
           <div class="t">
-            <p>才高八斗</p>
+            <p>{{tact}}</p>
           </div>
           <div class="m">
-            <p>96<span>分</span></p>
+            <p>{{jdaninfo.score}}<span>分</span></p>
           </div>
           <div class="b">
             <div class="link" @click="shareboy">炫耀一下</div>
           </div>
         </div>
-        <f7-link href="/AnswerKeys">
+        <f7-link :href="'/AnswerKeys?id='+jdaninfo.exam_id">
           <p>答案解析</p>
           <div><i class="iconfont icon-xiala3"></i></div>
         </f7-link>
-        <Share ref="c1"></Share>
+      <Share ref="c1"></Share>
+
   </f7-page>
 </template>
 <script>
+import global_ from "../../pages/Global";
 
 export default {
   data: function() {
     return {
-      shows: {
-        showTop: false,
-      }
+      jdaninfo : global_.jdaninfo1,
+      tact:"天女下凡",
+
     };
   },
   methods: {
@@ -44,6 +46,18 @@ export default {
     },
     shareboy: function(data) {
       this.$refs.c1.sharefn();
+    }
+  },
+  created:function(){
+    console.log(this.jdaninfo)
+    if(this.jdaninfo.score >= 0 && this.jdaninfo.score <= 10){
+      this.tact = "需要努力"
+    }else if (this.jdaninfo.score >= 11 && this.jdaninfo.score <= 50){
+      this.tact = "加油吧"
+    }else if (this.jdaninfo.score >= 51 && this.jdaninfo.score <= 80){
+      this.tact = "很棒了"
+    }else if (this.jdaninfo.score >= 81 && this.jdaninfo.score <= 100){
+      this.tact = "才高八斗"
     }
   }
 };

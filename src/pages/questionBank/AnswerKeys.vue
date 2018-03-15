@@ -21,33 +21,43 @@
           </div>
           </transition>
          <div class="mid">
-    <div>
-         <h3>一、单选题 </h3>
+      <div v-if="getExamJx.dx" v-for="item in getExamJx.dx" :key="item.id">
+          <h3>单选题</h3>
+
+          <div class="content">
+              <p>1、小华家的电灯丝断了，他把灯泡晃了晃使灯丝 又搭上了，再用的时候会发现：</p>
+              <ul>
+                  <f7-link v-for="k in getExamJx.dxa" v-if="k.itemid == item.id" :key="k.id"> <span>{{k.indx}}</span>{{k.optionname}}</f7-link>
+              </ul>
+              <div class="bot">
+                  <h4>答案解析：</h4>
+                  <div v-for="k in getExamJx.dxanswer" v-if="k.itemid == item.id" :key="k.id">{{k.analysis}}</div>
+              </div>
+          </div>
+      </div>
+      <div v-if="getExamJx.dxs" v-for="item in getExamJx.dxs" :key="item.id">
+          <h3>多选题</h3>
+
+          <div class="content">
+              <p>1、小华家的电灯丝断了，他把灯泡晃了晃使灯丝 又搭上了，再用的时候会发现：</p>
+              <ul>
+                  <f7-link v-for="k in getExamJx.dxsa" v-if="k.itemid == item.id" :key="k.id"> <span>{{k.indx}}</span>{{k.optionname}}</f7-link>
+              </ul>
+              <div class="bot">
+                  <h4>答案解析：</h4>
+                  <div v-for="k in getExamJx.dxsanswer" v-if="k.itemid == item.id" :key="k.id">{{k.analysis}}</div>
+              </div>
+          </div>
+      </div>
+    <div v-if="getExamJx.jd" v-for="item in getExamJx.jd" :key="item.id">
+         <h3>简答题 </h3>
 
         <div class="content">
-            <p>1、小华家的电灯丝断了，他把灯泡晃了晃使灯丝 又搭上了，再用的时候会发现：</p>
-            <ul>
-                <f7-link> <span>A</span>灯比原来亮了</f7-link>
-                <f7-link class="active"> <span>B</span>灯比原来亮了</f7-link>
-                <f7-link class="active1"> <span>C</span>灯比原来亮了</f7-link>
-            </ul>
-            <div class="bot">
-                 <h4>答案解析：</h4>
-
-                <div>时光总是那么的短暫，给了我们那么多的机会体验人生，可我却浪费了我太多太多的时间，独自一人努力的跳出自己人生最深的角落……</div>
-            </div>
-        </div>
-    </div>
-    <div>
-         <h3>一、单选题 </h3>
-
-        <div class="content">
-            <p>1、小华家的电灯丝断了，他把灯泡晃了晃使灯丝 又搭上了，再用的时候会发现：</p>
-            <div>可是东方红萨科技的发送快递发看时间说了大富科技奥斯卡了是的发送到发斯蒂芬</div>
+            <p>{{item.itemname}}</p>
             <div class="bot">
                 <h4>答案解析：</h4>
 
-                <div>时光总是那么的短暫，给了我们那么多的机会体验人生，可我却浪费了我太多太多的时间，独自一人努力的跳出自己人生最深的角落……</div>
+                <div  v-for="k in getExamJx.jdanswer" v-if="k.itemid == item.id" :key="k.id">{{k.analysis}}</div>
             </div>
         </div>
 
@@ -57,24 +67,20 @@
   </f7-page>
 </template>
 <script>
-import vueSlider from "vue-slider-component";
+
 
 export default {
-  components: {
-    vueSlider
-  },
+
   data: function() {
     return {
-      vSlider: {
-        value: 0,
-        width: "80%",
-        min: 0,
-        max: 10,
-        dotSize: 30
-      },
+      url: "http://192.168.0.115:8080/shiro_test",
+      id: this.$f7route.query.id,
       shows: {
         showTop: false
-      }
+      },
+      getExamJx:{},
+      indx: ["A", "B", "C", "D", "E", "F", "G", "H"],
+
     };
   },
   methods: {
@@ -87,6 +93,44 @@ export default {
     shareboy: function(data) {
       this.$refs.c1.sharefn();
     }
+  },
+  created:function(){
+    console.log("解析开始-----------------------------")
+    this.$http
+      .get(this.url + "/exambank/getExamJx", {
+        params: {
+          id: this.id
+        }
+      })
+      .then(function(res) {
+        console.log(res)
+        let arr = res.body.data;
+        let ind = 0;
+        if (arr.dx) {
+          arr.dx.forEach(element => {
+            let indx = 0;
+            arr.dxa.forEach(k => {
+              if (k.itemid == element.id) {
+                k["indx"] = this.indx[indx];
+                indx++;
+              }
+            });
+          });
+        }
+        if (arr.dxs) {
+          arr.dxs.forEach(element => {
+            let indx = 0;
+            arr.dxsa.forEach(k => {
+              if (k.itemid == element.id) {
+                k["indx"] = this.indx[indx];
+                indx++;
+              }
+            });
+          });
+        }
+        this.getExamJx = arr;
+        console.log(arr)
+      })
   }
 };
 </script>

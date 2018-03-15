@@ -18,7 +18,7 @@
             <ul>
               <f7-link  ><i class="iconfont icon-shoucang"></i> 收藏本题</f7-link>
               <f7-link  @click="shareboy"><i class="iconfont icon-fenxiang"></i> 分享本题</f7-link>
-              <f7-link  href="/myGrade" @click="gitpush"><i class="iconfont icon-tijiaodingdan"></i> 提交试卷</f7-link>
+              <f7-link  @click="gitpush"><i class="iconfont icon-tijiaodingdan"></i> 提交试卷</f7-link>
             </ul>
           </div>
           </transition>
@@ -55,6 +55,7 @@
   </f7-page>
 </template>
 <script>
+import global_ from "../../pages/Global";
 export default {
   data: function() {
     return {
@@ -69,10 +70,9 @@ export default {
       code: 0,
       codeindex: 1,
       indx: ["A", "B", "C", "D", "E", "F", "G", "H"],
-      dan:{},
-      duo:{},
-      jd:{},
-
+      dan: {},
+      duo: {},
+      jd: {}
     };
   },
   methods: {
@@ -85,36 +85,41 @@ export default {
     shareboy: function(data) {
       this.$refs.c1.sharefn();
     },
-    es(){
-      console.log(this.jd)
+    es() {
+      console.log(this.jd);
     },
-    gitpush(){
-      console.log(JSON.stringify(this.dan),JSON.stringify(this.duo),JSON.stringify(this.jd))
+    gitpush() {
+      console.log(
+        JSON.stringify(this.dan),
+        JSON.stringify(this.duo),
+        JSON.stringify(this.jd)
+      );
 
       this.$http
-      .get(this.url + "/exambank/selfGrade", {
-        params: {
-          id:this.id,
-          dan: JSON.stringify(this.dan),
-          duo: JSON.stringify(this.duo),
-          jd: JSON.stringify(this.jd)
-        }
-      })
-      .then(function(res) {
-        console.log(res)
-      });
-
+        .get(this.url + "/exambank/selfGrade", {
+          params: {
+            id: this.id,
+            dan: JSON.stringify(this.dan),
+            duo: JSON.stringify(this.duo),
+            jd: JSON.stringify(this.jd)
+          }
+        })
+        .then(function(res) {
+          global_.jdaninfo = res.body.data;
+          console.log( global_.jdaninfo)
+          this.$f7router.navigate('/myGrade/')
+        });
     },
-    duofn(t,a){
-      if(this.duo[t].indexOf(a) == -1 ){
+    duofn(t, a) {
+      if (this.duo[t].indexOf(a) == -1) {
         this.duo[t].push(a);
-      }else{
-        this.duo[t].splice(this.duo[t].indexOf(a), 1)
+      } else {
+        this.duo[t].splice(this.duo[t].indexOf(a), 1);
       }
     }
   },
   created: function() {
-
+    console.log(new  Date().getTime())
     if (this.qtype == 173701) {
       this.navbar = "随机练习";
     } else if (this.qtype == 173702) {
@@ -135,28 +140,27 @@ export default {
         let ind = 0;
         if (arr.dx) {
           arr.dx.forEach(element => {
-            this.$set(this.dan,element.id,null)
+            this.$set(this.dan, element.id, null);
             ind++;
             element["ind"] = ind;
             let indx = 0;
             arr.dxa.forEach(k => {
-              if(k.itemid == element.id){
+              if (k.itemid == element.id) {
                 k["indx"] = this.indx[indx];
                 indx++;
               }
             });
           });
-
         }
         if (arr.dxs) {
           arr.dxs.forEach(element => {
-            this.$set(this.duo,element.id,[ ])
-            console.log(this.duo)
+            this.$set(this.duo, element.id, []);
+            console.log(this.duo);
             ind++;
             element["ind"] = ind;
             let indx = 0;
             arr.dxsa.forEach(k => {
-              if(k.itemid == element.id){
+              if (k.itemid == element.id) {
                 k["indx"] = this.indx[indx];
                 indx++;
               }
@@ -165,21 +169,60 @@ export default {
         }
         if (arr.jd) {
           arr.jd.forEach(element => {
-            this.$set(this.jd,element.id,"")
+            this.$set(this.jd, element.id, "");
             ind++;
             element["ind"] = ind;
           });
         }
         this.getExam = arr;
-        this.code =this.getExam.dx.length +this.getExam.dxs.length +this.getExam.jd.length;
+        this.code =
+          this.getExam.dx.length +
+          this.getExam.dxs.length +
+          this.getExam.jd.length;
       });
-  },
-
-
+  }
 };
 </script>
 <style lang="less">
 .questionBankParticulars {
+  .TopsZ {
+    position: fixed;
+    top: 56px;
+    right: 10px;
+    padding: 10px 20px;
+    background-color: #fff;
+    line-height: 30px;
+    vertical-align: middle;
+    border-radius: 20px;
+    -ms-filter: "progid:DXImageTransform.Microsoft.Shadow(Strength=50, Direction=27, Color=#454545)"; /*IE 8*/
+    -moz-box-shadow: -2px 1px 50px 8px rgba(69, 69, 69, 0.5); /*FF 3.5+*/
+    -webkit-box-shadow: -2px 1px 50px 8px rgba(69, 69, 69, 0.5); /*Saf3-4, Chrome, iOS 4.0.2-4.2, Android 2.3+*/
+    box-shadow: -2px 1px 50px 8px rgba(69, 69, 69, 0.5); /* FF3.5+, Opera 9+, Saf1+, Chrome, IE10 */
+    filter: progid:DXImageTransform.Microsoft.Shadow(
+        Strength=50,
+        Direction=135,
+        Color=#454545
+      ); /*IE 5.5-7*/
+    > em {
+      position: absolute;
+      width: 20px;
+      height: 20px;
+      background-color: #fff;
+      transform: rotate(45deg);
+      -ms-transform: rotate(45deg); /* IE 9 */
+      -webkit-transform: rotate(45deg); /* Safari and Chrome */
+      -o-transform: rotate(45deg); /* Opera */
+      -moz-transform: rotate(45deg);
+      top: -5px;
+      right: 20px;
+    }
+    .link {
+      color: #000;
+      i {
+        margin-right: 10px;
+      }
+    }
+  }
   .mid {
     padding: 20px 12px;
     background-color: #fff;

@@ -15,21 +15,18 @@
   </f7-page>
 </template>
 <script>
-	import global_ from '../../../pages/Global'//引用模块进来
+import global_ from "../../../pages/Global"; //引用模块进来
 export default {
   data: function() {
     return {
-userinfo:""
+      userinfo: ""
     };
   },
-  methods: {
-
-  },
-  created:function()
-  {
-  	this.userinfo=global_.userinfo;
+  methods: {},
+  created: function() {
+    this.userinfo = global_.userinfo;
   }
- }
+};
 </script>
 <style lang="less">
 .privacy {

@@ -4,8 +4,9 @@
 <script>
 	 export default
   {
-    userinfo:""
-    
+    userinfo:"",
+    jdaninfo:{},
+    jdaninfo1:{}
   }
 </script>
 

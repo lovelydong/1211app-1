@@ -20,46 +20,47 @@
             </ul>
           </div>
           </transition>
-        <div class="mid">
+        <div class="mid" v-for="item in jdaninfo.jdanswer">
                   <div>
-                    <h3>一、单选题 </h3>
+                    <h3>简答题 </h3>
                     <div class="content">
-                      <p>1、小华家的电灯丝断了，他把灯泡晃了晃使灯丝
-                      又搭上了，再用的时候会发现：</p>
-                      <div>可是东方红萨科技的发送快递发看时间说了大富科技奥斯卡了是的发送到发斯蒂芬</div>
+                      <p>{{item.itemname}}</p>
+                      <div>{{item.ad}}</div>
                     </div>
                   </div>
                   <div class="bot">
                     <h4>答案解析：</h4>
-                    <div>时光总是那么的短暫，给了我们那么多的机会体验人生，可我却浪费了我太多太多的时间，独自一人努力的跳出自己人生最深的角落……</div>
+                    <div>{{item.analysis}}</div>
                   </div>
-                  <div class="hyB">
-                    <vue-slider v-model="vSlider.value" :width="vSlider.width" :min="vSlider.min" :max="vSlider.max" :dot-size="vSlider.dotSize"></vue-slider>
-                  </div>
-                  <f7-link href="/Kperformance">确定</f7-link>
         </div>
+
+                <f7-range
+                  :min="0"
+                  :max="max"
+                  :step="1"
+                  :value="val"
+                  :label="true"
+                  color="orange"
+                ></f7-range>
+
+                  <f7-link class="link1" @click="gitpush">确定</f7-link>
       <Share ref="c1"></Share>
   </f7-page>
 </template>
 <script>
-import vueSlider from "vue-slider-component";
+import global_ from "../../pages/Global";
 
 export default {
-  components: {
-    vueSlider
-  },
   data: function() {
     return {
-      vSlider: {
-        value: 0,
-        width: "80%",
-        min: 0,
-        max: 10,
-        dotSize: 30,
-      },
+      url: "http://192.168.0.115:8080/shiro_test",
+      val:0,
+      max:10,
       shows: {
         showTop: false
-      }
+      },
+      jdaninfo : {}
+
     };
   },
   methods: {
@@ -71,12 +72,58 @@ export default {
     },
     shareboy: function(data) {
       this.$refs.c1.sharefn();
+    },
+
+    gitpush: function(){
+      const range = this.$f7.range.get('.range-slider');
+      this.val =  range.getValue();
+      this.$http
+      .get(this.url + "/exambank/getScore", {
+        params: {
+          id: this.jdaninfo.id,
+          score:this.val,
+        }
+      })
+      .then(function(res) {
+        global_.jdaninfo1 = res.body.data;
+        this.$f7router.navigate('/Kperformance/');
+
+      })
+    }
+  },
+  created:function(){
+    this.jdaninfo = global_.jdaninfo;
+    this.max = this.jdaninfo.jdanswer.length * 10;
+    let jdme = JSON.parse(this.jdaninfo.jd);
+    console.log(jdme)
+    for (const key in jdme) {
+      this.jdaninfo.jdanswer.forEach(element => {
+        if(element.itemid == key){
+          element["ad"] = jdme[key]
+        }
+      });
     }
   }
 };
 </script>
 <style lang="less">
+
 .myGrade {
+  .page-content{
+    padding-bottom: 50px;
+  }
+   .link1 {
+      display: block;
+      width: 80%;
+      margin: 0 auto;
+      height: 44px;
+      background-color: #fd5d32;
+      color: #fff;
+      text-align: center;
+      line-height: 44px;
+      font-family: "PingFang-SC-Regular";
+      margin-top: 20px;
+    }
   .mid {
     > div {
       padding: 20px 12px;
@@ -140,18 +187,7 @@ export default {
         background-color: #fd2d44;
       }
     }
-    >.link{
-      display: block;
-      width: 80%;
-      margin: 0 auto;
-      height: 44px;
-      background-color: #fd5d32;
-      color: #fff;
-      text-align: center;
-      line-height: 44px;
-      font-family: "PingFang-SC-Regular";
-      margin-top: 20px;
-    }
+
     .swiper-pagination-bullet-active {
       background: #fd2d44;
     }
