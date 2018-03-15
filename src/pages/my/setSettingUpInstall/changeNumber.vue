@@ -105,7 +105,7 @@ export default {
   	
             }).then(function(res){
                console.log(res);
-               this.global_.mobile=this.mobile;
+               this.global_.userinfo.mobile=this.mobile;
                this.$f7router.navigate('/privacy');
                 
 					 },function(res){

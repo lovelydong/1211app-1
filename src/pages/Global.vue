@@ -4,7 +4,8 @@
 <script>
 	 export default
   {
-    userinfo:""
+    userinfo:"",
+    mobile:""
     
   }
 </script>
