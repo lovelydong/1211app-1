@@ -17,7 +17,7 @@
 	export default {
 		data: function() {
 			return {
-				url: "http://192.168.0.130:8080/shiro_test",
+        url: "http://localhost:8080/shiro_test",
 				username: '',
 				pwd: '',
 				logina: 0

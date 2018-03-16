@@ -122,7 +122,7 @@
                           <p>￥{{item.price}} &nbsp;&nbsp;<span>优惠：{{item.price - item.pay_amount}}</span></p>
                       </div>
                   </div>
-                  <div class="bot">实付：<span>￥{{item.pay_amount}}</span>  <div><f7-link @click="deleteOrder(0,item.id,index)">删除订单</f7-link><f7-link>立即评价</f7-link></div></div>
+                  <div class="bot">实付：<span>￥{{item.pay_amount}}</span>  <div><f7-link @click="deleteOrder(0,item.id,index)">删除订单</f7-link><f7-link :href="'/evaluate?id='+item.id">立即评价</f7-link></div></div>
                 </li>
               </ul>
              </div>
@@ -178,7 +178,7 @@ export default {
        console.log(res)
       });
     	}
-    	
+
     },
     deleteOrderw:function(a,num,index)
     {
@@ -207,7 +207,7 @@ export default {
        console.log(res)
       });
     	}
-    	
+
     }
   },
   created() {

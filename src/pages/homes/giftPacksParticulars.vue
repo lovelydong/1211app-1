@@ -1,7 +1,7 @@
 <template>
-  <f7-page class="recommendedParticulars">
+  <f7-page class="giftPacksParticulars">
     <div class="top">
-      <div class="img" :style="{backgroundImage: 'url(' + oneJson.img + ')' }">
+      <div class="img" :style="{backgroundImage: 'url('+url + oneJson.img + ')' }">
         <h3>
           <f7-link  @click="$f7router.back()"><i class="iconfont icon-zuo"></i></f7-link>
           <f7-link><i class="iconfont icon-gouwuche1"></i><span>{{Quantityincart}}</span></f7-link>
@@ -25,25 +25,25 @@
       <div class="text">
         <p>{{oneJson.name}}</p>
         <p v-show="oneJson.is_send_book == 1 || oneJson.is_send_file == 1">赠送<span v-if="oneJson.is_send_book == 1">配套图书</span>、<span v-if="oneJson.is_send_file == 1">配套资料</span> </p>
-        <p>￥{{oneJson.discount_price}} <span>￥{{oneJson.price}}</span></p>
-        <p>{{oneJson.area}} · {{oneJson.buyno}}人已学习 <em>有效期限：{{oneJson.expiry_date}}天</em></p>
+        <p>￥{{oneJson.price}} <!-- <span>￥{{oneJson.price}}</span> --></p>
+        <p>{{oneJson.download_num}}人已浏览 <!-- <em>有效期限：{{oneJson.expiry_date}}天</em> --></p>
       </div>
     </div>
     <h4 class="tabh4">
       <span :class="{active:shows.XQ}" @click="XQ">详情</span>
-      <span :class="{active:shows.ZJ}" @click="ZJ">章节</span>
       <span :class="{active:shows.PJ}" @click="PJ">评价</span>
     </h4>
     <div class="mid">
       <div class="XQ" v-if="shows.XQ">
-        {{oneJson.descripetion}}
+        <ul>
+            <li class="clearfix link" v-for="item in chap" :key="item.id">
+                  <f7-link :href="'/recommendedParticulars?id=' + item.id ">
+                   <p>{{item.name}}</p>
+                  </f7-link>
+                </li>
+          </ul>
       </div>
-      <div class="ZJ" v-if="shows.ZJ">
-        <ul v-for="(value, key) in chap" :key="key">
-          <h3> <i class="iconfont icon-selected-copy"></i> {{key}}</h3>
-          <f7-link v-for="item in value"  :key="item.id"> <i class="iconfont icon-fasong"></i> {{item.name}}</f7-link>
-        </ul>
-      </div>
+
       <div class="PJ" v-if="shows.PJ">
           <ul>
             <li v-for="item in detailCourseJson" :key="item.id">
@@ -105,11 +105,7 @@ export default {
       this.shows.ZJ = false;
       this.shows.PJ = false;
     },
-    ZJ() {
-      this.shows.XQ = false;
-      this.shows.ZJ = true;
-      this.shows.PJ = false;
-    },
+
     PJ() {
       this.shows.XQ = false;
       this.shows.ZJ = false;
@@ -166,7 +162,7 @@ export default {
       .then(function(res) {
         this.Quantityincart = res.body.count;
       });
-          //检测是否收藏/*/
+    //检测是否收藏/*/
     this.$http
       .get(this.url + "/sxcollect/iscollect", {
         params: {
@@ -184,35 +180,27 @@ export default {
       });
     //详情
     this.$http
-      .get(this.url + "/sx1211courseAdmin/oneJson", {
+      .get(this.url + "/curriculumcombAdmin/edit", {
         params: {
           id: id
         }
       })
       .then(function(res) {
         this.oneJson = res.body.data;
-
+        console.log(this.oneJson);
       });
     //章节
     this.$http
-      .get(this.url + "/sx1211courseAdmin/chap", {
+      .get(this.url + "/curriculumcourseAdmin/listJson", {
         params: {
-          id: id
+          id: id,
+          page: 1,
+          limit: 99
         }
       })
       .then(function(res) {
-        let obj = {};
-        let key = "";
-        res.body.data.forEach(element => {
-          if (element.ext1) {
-            key = element.ext1;
-            obj[key] = [];
-            obj[key].push(element);
-          } else {
-            obj[key].push(element);
-          }
-        });
-        this.chap = obj;
+        console.log(res);
+        this.chap = res.body.data;
       });
     //评论
     this.$http
@@ -260,7 +248,7 @@ export default {
     }
   }
 }
-.recommendedParticulars {
+.giftPacksParticulars {
   .page-content {
     padding-top: 0 !important;
     padding-bottom: 70px;
@@ -371,9 +359,13 @@ export default {
       border-radius: 10px;
     }
     > .XQ {
-      padding: 10px 0;
+      padding: 10px ;
       > img {
         width: 100%;
+      }
+      .link{
+        display: block;
+        line-height: 30px;
       }
     }
     > .ZJ {

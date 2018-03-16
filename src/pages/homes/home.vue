@@ -12,7 +12,6 @@
 				</f7-link>
 
 				<f7-link href="/news">
-
 					<i class="iconfont icon-xiaoxi"></i>
 				</f7-link>
 			</div>
@@ -68,7 +67,7 @@
 						</f7-link>
 					</div>
 					<div class="col-20">
-						<f7-link><span></span>
+						<f7-link href="/giftPacks"><span></span>
 							<p>大礼包</p>
 						</f7-link>
 					</div>

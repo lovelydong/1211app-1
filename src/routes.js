@@ -24,6 +24,7 @@ import MyCollect from './pages/my/myCollect/myCollect.vue';
 import MyCollectParticulars from './pages/my/myCollect/myCollectParticulars.vue';
 import MyCollectTopicParticulars from './pages/my/myCollect/myCollectTopicParticulars.vue';
 import MyOrder from './pages/my/myOrder/myOrder.vue';
+import Evaluate from './pages/my/myOrder/evaluate.vue';
 import CheckTheLogistics from './pages/my/myOrder/checkTheLogistics.vue';
 import DiscountCoupon from './pages/my/discountCoupon/discountCoupon.vue';
 import MyCourses from './pages/my/myCourses/myCourses.vue';
@@ -48,6 +49,9 @@ import NLiveStreaming from './pages/homes/nLiveStreaming.vue';
 import RecordedBroadcast from './pages/homes/recordedBroadcast.vue';
 import Live from './pages/recommended/live.vue';
 import GiftPacks from './pages/homes/giftPacks.vue';
+import GiftPacksParticulars from './pages/homes/giftPacksParticulars.vue';
+
+
 
 
 export default [{
@@ -62,11 +66,14 @@ export default [{
 
     }, {
         path: '/giftPacks', //大礼包
-
         component: GiftPacks,
+    }, {
+        path: '/giftPacksParticulars', //大礼包详情
 
+        component: GiftPacksParticulars,
 
     }, {
+
 
         path: '/recommended', //推荐课程
         component: Recommended,
@@ -172,6 +179,11 @@ export default [{
         path: '/myOrder', //我的订单
         component: MyOrder,
     },
+    {
+        path: '/evaluate', //订单评价
+        component: Evaluate,
+    },
+
     {
         path: '/checkTheLogistics', //物流信息
         component: CheckTheLogistics,
