@@ -47,17 +47,27 @@ import RetrievePassword from './pages/login/retrievePassword.vue';
 import NLiveStreaming from './pages/homes/nLiveStreaming.vue';
 import RecordedBroadcast from './pages/homes/recordedBroadcast.vue';
 import Live from './pages/recommended/live.vue';
+import GiftPacks from './pages/homes/giftPacks.vue';
+
 
 export default [{
         path: '/', //首页
-        //component: HomePage,
-        component: Login,
-       
-        
-    }, {path: '/home', //首页
         component: HomePage,
-        
+        // component: Login,
+
+
     }, {
+        path: '/home', //首页
+        component: HomePage,
+
+    }, {
+        path: '/giftPacks', //大礼包
+
+        component: GiftPacks,
+
+
+    }, {
+
         path: '/recommended', //推荐课程
         component: Recommended,
     }, {
