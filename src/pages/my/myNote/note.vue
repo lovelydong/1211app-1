@@ -46,7 +46,7 @@ export default {
     	
     	
     	console.log(idd)
-    	let url="http://192.168.0.130:8080/shiro_test";
+    	let url="http://localhost:8080/shiro_test";
   	//笔记列表删除
 
        /* this.$http.get(url+"/booknote/del",{
@@ -85,7 +85,7 @@ export default {
     
   },
   created:function(){
-  	let url="http://192.168.0.130:8080/shiro_test";
+  	let url="http://localhost:8080/shiro_test";
   	//笔记列表渲染
 
         this.$http.get(url+"/booknote/bookList",{

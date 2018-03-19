@@ -83,7 +83,7 @@
 
 				</div>
 			</div>
-			<f7-link> <img src="../../assets/homeQiang.png" alt=""> </f7-link>
+			<f7-link href="/xsmore"> <img src="../../assets/homeQiang.png" alt=""> </f7-link>
 			<div class="midlist midRecommend">
 				<h3><i></i> 推荐课程 <f7-link href="/recommended/">更多 <i class="iconfont icon-you"></i></f7-link></h3>
 
@@ -158,7 +158,7 @@
 
 			</div>
 			<div class="midlist midNew ">
-				<h3><i></i> 最新课程 <f7-link>更多 <i class="iconfont icon-you"></i></f7-link></h3>
+				<h3><i></i> 最新课程 <f7-link href="/newmore/">更多 <i class="iconfont icon-you"></i></f7-link></h3>
 
 				<f7-swiper pagination>
 					<f7-swiper-slide>
@@ -230,11 +230,11 @@
 				</f7-swiper>
 			</div>
 			<div class="midlist midTime ">
-				<h3><i></i> 限时抢购 <f7-link>更多 <i class="iconfont icon-you"></i></f7-link></h3>
+				<h3><i></i> 限时抢购 <f7-link href="/xsmore">更多 <i class="iconfont icon-you"></i></f7-link></h3>
 				<f7-swiper pagination>
 					<f7-swiper-slide>
 						<div>
-							<f7-link>
+							<f7-link @click="$f7router.navigate('/recommendedParticulars?id='+limitclass11.id+'&isxs=1')">
 								<p>{{limitclass11.name}}</p>
 								<p>{{limitclass11.area}}·{{limitclass11.buyno}}人正在学习</p>
 								<p><i class="iconfont icon-xingxing"></i><i class="iconfont icon-xingxing"></i><i class="iconfont icon-xingxing"></i><i class="iconfont icon-xingxing"></i><i class="iconfont icon-xingxing"></i></p>
@@ -243,7 +243,7 @@
 						</div>
 						<ul>
 							<li class="clearfix link" v-for="limit in limitclass1" >
-								<f7-link @click="$f7router.navigate('/recommendedParticulars?id='+limit.id )" >
+								<f7-link @click="$f7router.navigate('/recommendedParticulars?id='+limit.id+'&isxs=1')" >
 									<span></span>
 									<div>
 										<p>{{limit.name}}</p>
@@ -276,7 +276,7 @@
 					</f7-swiper-slide>
 					<f7-swiper-slide>
 						<div>
-							<f7-link  @click="$f7router.navigate('/recommendedParticulars?id='+limitclass22.id )"  >
+							<f7-link  @click="$f7router.navigate('/recommendedParticulars?id='+limitclass22.id+'&isxs=1')"  >
 								<p>{{limitclass22.name}}</p>
 								<p>{{limitclass22.area}}·{{limitclass22.buyno}}人正在学习</p>
 								<p><i class="iconfont icon-xingxing"></i><i class="iconfont icon-xingxing"></i><i class="iconfont icon-xingxing"></i><i class="iconfont icon-xingxing"></i><i class="iconfont icon-xingxing"></i></p>
@@ -285,7 +285,7 @@
 						</div>
 						<ul>
 							<li class="clearfix link" v-for="limit in limitclass2">
-								<f7-link @click="$f7router.navigate('/recommendedParticulars?id='+limit.id )"   >
+								<f7-link @click="$f7router.navigate('/recommendedParticulars?id='+limit.id+'&isxs=1')"    >
 									<span></span>
 									<div>
 										<p>{{limit.name}}</p>
@@ -536,7 +536,7 @@
 			},
 
 			randerClass: function() {
-				let url = "http://192.168.0.115:8080/shiro_test";
+				let url = "http://localhost:8080/shiro_test";
 
 				//最新课程渲染1
 
@@ -705,7 +705,7 @@
 		},
 
 		created: function() {
-			let url = "http://192.168.0.115:8080/shiro_test";
+			let url = "http://localhost:8080/shiro_test";
 
 			//最新课程渲染1
 
@@ -967,6 +967,7 @@
 	.iconfont {
 
     font-size: 12px;
+    
 
 }
 	.navbar {
@@ -1218,7 +1219,7 @@
 												vertical-align: top;
 												width: 100%;
 												float: left;
-												padding-left: 130px;
+												padding-left: 128px;
 												>p {
 													font-family: "PingFang-SC-Regular";
 													font-size: 16px;

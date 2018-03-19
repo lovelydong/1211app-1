@@ -23,6 +23,7 @@
           </div>
           </transition>
       <div class="text">
+      	<div>{{xsdaojishi}}</div>
         <p>{{oneJson.name}}</p>
         <p v-show="oneJson.is_send_book == 1 || oneJson.is_send_file == 1">赠送<span v-if="oneJson.is_send_book == 1">配套图书</span>、<span v-if="oneJson.is_send_file == 1">配套资料</span> </p>
         <p>￥{{oneJson.discount_price}} <span>￥{{oneJson.price}}</span></p>
@@ -84,6 +85,7 @@
 export default {
   data: function() {
     return {
+    	xsdaojishi:"",
       id: this.$f7route.query.id,
       url: "http://localhost:8080/shiro_test",
       showTop: false,
@@ -100,6 +102,30 @@ export default {
     };
   },
   methods: {
+  	Countdown: function(timestamp) {
+				var that = this;
+				console.log(timestamp);
+				console.log(new Date().getTime());
+
+				this.timer = setInterval(function() {
+					var now = new Date().getTime();
+					var leftTime = timestamp - now;
+					if(leftTime >= 0) {
+						var d = Math.floor(leftTime / 1000 / 60 / 60 / 24);
+						var h = Math.floor((leftTime / 1000 / 60 / 60) % 24);
+						var m = Math.floor((leftTime / 1000 / 60) % 60);
+						var s = Math.floor((leftTime / 1000) % 60);
+						//	console.log(666)
+
+						that.xsdaojishi = d + " 天 " + h + " 时 " + m + " 分 " + s + " 秒";
+						// return "<i>"+d+"</i> 天 <i>"+h+"</i> 时 <i>"+m+"</i> 分 <i>"+s+"</i> 秒";
+					} else {
+						//console.log(777)
+						that.xsdaojishi = "已经结束";
+						window.clearInterval(this.timer);
+					}
+				}, 800);
+			},
     XQ() {
       this.shows.XQ = true;
       this.shows.ZJ = false;
@@ -157,9 +183,79 @@ export default {
     }
   },
   created() {
-  	window.localStorage.setItem("classname",666666);
+  
   	
     let id = this.$f7route.query.id;
+    let isxs=this.$f7route.query.isxs;
+    if(isxs==1)
+    {
+       //详情
+    this.$http
+      .get(this.url + "/flashsale/detail", {
+        params: {
+          id: id
+        }
+      })
+      .then(function(res) {
+        this.oneJson = res.body.data;
+        this.Countdown(res.body.data.end_time);
+        
+      });
+    //章节
+    this.$http
+      .get(this.url + "/sx1211courseAdmin/chap", {
+        params: {
+          pid: id
+        }
+      })
+      .then(function(res) {
+        let obj = {};
+        let key = "";
+        res.body.data.forEach(element => {
+          if (element.ext1) {
+            key = element.ext1;
+            obj[key] = [];
+            obj[key].push(element);
+          } else {
+            obj[key].push(element);
+          }
+        });
+        this.chap = obj;
+      });
+    }else{
+    	   //详情
+    this.$http
+      .get(this.url + "/sx1211courseAdmin/oneJson", {
+        params: {
+          id: id
+        }
+      })
+      .then(function(res) {
+        this.oneJson = res.body.data;
+        
+      });
+    //章节
+    this.$http
+      .get(this.url + "/sx1211courseAdmin/chap", {
+        params: {
+          id: id
+        }
+      })
+      .then(function(res) {
+        let obj = {};
+        let key = "";
+        res.body.data.forEach(element => {
+          if (element.ext1) {
+            key = element.ext1;
+            obj[key] = [];
+            obj[key].push(element);
+          } else {
+            obj[key].push(element);
+          }
+        });
+        this.chap = obj;
+      });
+    }
     //购物车数量
     this.$http
       .get(this.url + "/shoppingcart/selectShoppingCount", {

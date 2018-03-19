@@ -50,7 +50,7 @@ export default {
   },
   methods: {},
   created:function(){
-  	let url="http://192.168.0.115:8080/shiro_test";
+  	let url="http://localhost:8080/shiro_test";
   	var id=this.$f7route.query.id;
 		//console.log(id)
 		 this.$http.get(url+"/sx1211examcollect/detail",{

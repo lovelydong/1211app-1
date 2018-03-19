@@ -54,14 +54,14 @@ export default {
   data: function() {
     return {
     	userinfo:"",
-    	url:"http://192.168.0.130:8080/shiro_test"
+    	url:"http://localhost:8080/shiro_test"
     };
   },
   methods: {},
   created:function()
   {
   	
-  	let url="http://192.168.0.130:8080/shiro_test";
+  	let url="http://localhost:8080/shiro_test";
   	 this.$http.get(url+"/personal/loginState",{
   	
             }).then(function(res){

@@ -120,7 +120,8 @@ export default {
     return {
     	
     	exams:"",
-    	course:""    	
+    	course:"",    	
+    	url:"http://localhost:8080/shiro_test"
     };
   },
   methods: {
@@ -131,7 +132,7 @@ export default {
    examDelete:function(id)
    {
    	//alert(id);
-   	 this.$http.get("http://192.168.0.115:8080/shiro_test/sx1211examcollect/delexam",{
+   	 this.$http.get(this.url+"/sx1211examcollect/delexam",{
   		params:{
   			id:id
   		}
@@ -145,7 +146,7 @@ export default {
     courseDelete:function(id)
    {
    	//alert(id);
-   	 this.$http.get("http://192.168.0.130:8080/shiro_test/sxcollect/del",{
+   	 this.$http.get(this.url+"/sxcollect/del",{
   		params:{
   			id:id
   		}
@@ -159,9 +160,9 @@ export default {
     },
     created:function()
  {
- 	let url="http://192.168.0.115:8080/shiro_test";
+ 	let url="http://localhost:8080/shiro_test";
  	//课程收藏渲染
- 	 this.$http.get("http://192.168.0.130:8080/shiro_test/sxcollect/information",{
+ 	 this.$http.get(url+"/sxcollect/information",{
   		params:{
   		page:1,
   		limit:100

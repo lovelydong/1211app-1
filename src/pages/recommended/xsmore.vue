@@ -1,16 +1,17 @@
 <template>
-  <f7-page class="moduleExam"  infinite @infinite="onInfiniteScroll">
-
+  <f7-page class="xsmore"  infinite @infinite="onInfiniteScroll">
         <f7-navbar>
           <f7-nav-left sliding><f7-link class="iconfont icon-zuo" @click="$f7router.back()"></f7-link></f7-nav-left>
-          <f7-nav-title>{{navbar}}</f7-nav-title>
+          <f7-nav-title>限时课程</f7-nav-title>
           <f7-nav-right>
+            <f7-link class="iconfont icon-sousuo" href="/search/"></f7-link>
             <f7-link class="iconfont icon-gengduo" @click="showTop = !showTop"></f7-link>
           </f7-nav-right>
 
         </f7-navbar>
+
         <f7-subnavbar>
-           <transition
+            <transition
                   name="custom-classes-transition"
                   enter-active-class="animated pulse"
                 >
@@ -42,9 +43,7 @@
                 >
               <div class="lx" v-if="shows == 1?true:false">
                   <ul>
-                    <li class="col-33" :class="{active: type.type == 2 ?true:false}" @click="type.type = 2 ;typeFn(2)"> 教师招聘 <i v-if="type.type == 2 ?true:false" class="iconfont icon-selected-copy"></i></li>
-                    <li class="col-33" :class="{active: type.type == 3 ?true:false}" @click="type.type = 3 ;typeFn(3)"> 教师资格证 <i v-if="type.type == 3 ?true:false" class="iconfont icon-selected-copy"></i></li>
-                    <li class="col-33" :class="{active: type.type == 4 ?true:false}" @click="type.type = 4 ;typeFn(4)"> 特岗教师 <i v-if="type.type == 4 ?true:false" class="iconfont icon-selected-copy"></i></li>
+                    <li v-for="item in gitCon.coursetypeList" class="col-33" :class="{active: type.vod_type == item.name_value ?true:false}" @click="type.vod_type = item.name_value"> {{item.name}} <i v-if="type.vod_type == item.name_value ?true:false" class="iconfont icon-selected-copy"></i></li>
                   </ul>
               </div>
             </transition>
@@ -55,7 +54,7 @@
                 >
               <div class="lx" v-if="shows == 2?true:false">
                   <ul>
-                    <li v-for="item in gitCon.gradeList" class="col-33" :class="{active: type.gradeList == item.name_value ?true:false}" @click="type.gradeList = item.name_value"> {{item.name}} <i v-if="type.gradeList == item.name_value ?true:false" class="iconfont icon-selected-copy"></i></li>
+                    <li v-for="item in gitCon.gradeList" class="col-33" :class="{active: type.grade == item.name_value ?true:false}" @click="type.grade = item.name_value"> {{item.name}} <i v-if="type.grade == item.name_value ?true:false" class="iconfont icon-selected-copy"></i></li>
                   </ul>
               </div>
             </transition>
@@ -66,7 +65,7 @@
                 >
               <div class="lx" v-if="shows == 3?true:false">
                   <ul>
-                    <li v-for="item in gitCon.subjectList" class="col-33" :class="{active: type.subjectList == item.name_value ?true:false}" @click="type.subjectList = item.name_value"> {{item.name}} <i v-if="type.subjectList == item.name_value ?true:false" class="iconfont icon-selected-copy"></i></li>
+                    <li v-for="item in gitCon.subjectList" class="col-33" :class="{active: type.subject == item.name_value ?true:false}" @click="type.subject = item.name_value"> {{item.name}} <i v-if="type.subject == item.name_value ?true:false" class="iconfont icon-selected-copy"></i></li>
                   </ul>
               </div>
             </transition>
@@ -78,34 +77,36 @@
                   <div class="screen-but" v-if="shows == 4?true:false">
                     <div>
                       <h3>筛选</h3>
+                    <h4>课程类型</h4>
+                    <div class="row">
+                        <div v-for="item in gitCon.coursetypeList" class="col-33" :class="{active: type.vod_type == item.name_value ?true:false}" @click="type.vod_type = item.name_value">{{item.name}}</div>
+                    </div>
                     <h4>考试类型</h4>
                     <div class="row">
-                        <div  class="col-33" :class="{active: type.type == 2 ?true:false}" @click="type.type = 2;typeFn(2)">教师招聘</div>
-                        <div  class="col-33" :class="{active: type.type == 3 ?true:false}" @click="type.type = 3;typeFn(3)">教师资格证</div>
-                        <div  class="col-33" :class="{active: type.type == 4 ?true:false}" @click="type.type = 4;typeFn(4)">特岗教师</div>
+                        <div v-for="item in gitCon.typeList" class="col-33" :class="{active: type.exam_type == item.name_value ?true:false}" @click="type.exam_type = item.name_value;exam_typeFn(item.name_value)">{{item.name}}</div>
                     </div>
                     <h4>笔面试</h4>
                     <div class="row">
-                        <div v-for="item in gitCon.writeorfaceList" class="col-33" :class="{active: type.writeorfaceList == item.name_value ?true:false}" @click="type.writeorfaceList = item.name_value">{{item.name}}</div>
+                        <div v-for="item in gitCon.classtypeList" class="col-33" :class="{active: type.course_type == item.name_value ?true:false}" @click="type.course_type = item.name_value">{{item.name}}</div>
                     </div>
                     <h4>学段</h4>
                     <div class="row">
-                        <div v-for="item in gitCon.gradeList" class="col-33" :class="{active: type.gradeList == item.name_value ?true:false}" @click="type.gradeList = item.name_value">{{item.name}}</div>
+                        <div v-for="item in gitCon.gradeList" class="col-33" :class="{active: type.grade == item.name_value ?true:false}" @click="type.grade = item.name_value">{{item.name}}</div>
                     </div>
                     <h4>科目</h4>
                     <div class="row">
-                        <div v-for="item in gitCon.subjectList" class="col-33" :class="{active: type.subjectList == item.name_value ?true:false}" @click="type.subjectList = item.name_value">{{item.name}}</div>
+                        <div v-for="item in gitCon.subjectList" class="col-33" :class="{active: type.subject == item.name_value ?true:false}" @click="type.subject = item.name_value">{{item.name}}</div>
 
                     </div>
 
                     <h4>地区</h4>
                     <div class="row">
-                        <div v-for="item in gitCon.areaList" class="col-33" :class="{active: type.areaList == item.name_value ?true:false}" @click="type.areaList = item.name_value">{{item.name}}</div>
+                        <div v-for="item in gitCon.areaList" class="col-33" :class="{active: type.province == item.name_value ?true:false}" @click="type.province = item.name_value">{{item.name}}</div>
                     </div>
                     </div>
                     <div class="off">
                       <div class="row">
-                          <div class="col-50" @click="type.type =null;type.gradeList =null;type.subjectList =null;type.writeorfaceList =null;type.areaList =null;type.exam_type =null;">重置</div>
+                          <div class="col-50" @click="type.vod_type =null;type.grade =null;type.subject =null;type.course_type =null;type.province =null;type.exam_type =null;">重置</div>
                           <div class="col-50" @click="shows = false">确定</div>
                       </div>
                     </div>
@@ -113,17 +114,31 @@
               </transition>
         </f7-subnavbar>
         <div class="mid">
-
-          <ul class="tab4">
-                      <li class="clearfix link" v-for="item in recommend" :key="item.id" >
-                        <f7-link :href="'/questionBankParticulars?id='+item.id+'&qtype='+qtype">
-                          <div>
-                            <p>{{item.name}}</p>
-                            <p><span v-if="item.ext2">热</span> 试试手气，马上开始做题</p>
-                          </div>
-                        </f7-link>
-                      </li>
-                  </ul>
+          <ul>
+          	<li class="clearfix link" v-for="limit in limitclass" :key="limit.id">
+								<f7-link @click="$f7router.navigate('/recommendedParticulars?id='+limit.id+'&isxs=1')" >
+									<span></span>
+									<div>
+										<p>{{limit.name}}</p>
+										<p>{{limit.area}}·{{limit.buyno}}人正在学习 <i class="iconfont icon-xingxing"></i><i class="iconfont icon-xingxing"></i><i class="iconfont icon-xingxing"></i><i class="iconfont icon-xingxing"></i><i class="iconfont icon-xingxing"></i></p>
+										<p>￥{{limit.discount_price}}.00 <span>{{xsdaojishi}}</span></p>
+									</div>
+								</f7-link>
+							</li>
+          	
+          	
+          	
+           <!-- <li class="clearfix link" v-for="item in recommend" :key="item.id">
+             <f7-link :href="'/recommendedParticulars?id=' + item.id ">
+                  <span :style="{backgroundImage: 'url(' + item.simg + ')' }"></span>
+                   <div>
+                   <p>{{item.name}}</p>
+                    <p>{{item.area}}·{{item.buyno}}人正在学习 <i class="iconfont icon-xingxing"></i><i class="iconfont icon-xingxing"></i><i class="iconfont icon-xingxing"></i><i class="iconfont icon-xingxing"></i><i class="iconfont icon-xingxing"></i></p>
+                    <p>{{item.discount_price}}</p>
+                    </div>
+                  </f7-link>
+                </li>-->
+          </ul>
         </div>
         <Share ref="c1"></Share>
   </f7-page>
@@ -132,133 +147,174 @@
 export default {
   data: function() {
     return {
-      url: "http://localhost:8080/shiro_test",
+   
+      url:"http://localhost:8080/shiro_test",
       shows: false,
+      limitclass:"",
+       xsdaojishi:"",
       showTop: false,
       type: {
-        type: 2,
-        gradeList: null,
-        subjectList: null,
-        writeorfaceList: null,
-        areaList: null
+        vod_type: null,
+        grade: null,
+        subject: null,
+        course_type: null,
+        province: null,
+       
+       
+        
       },
       gitCon: {},
-      recommend: {},
-      classtype: "",
-      qtype: "",
-      navbar:"题库"
+      recommend: {}
     };
   },
-  methods: {
-    OnshowKM: function(e) {
-      this.shows.showKM = true;
+  watch: {
+    type: {
+      handler: function(val, oldVal) {
+      	window.clearInterval(this.timer);
+        this.$http
+          .get(this.url + "/flashsale/sale", {
+            params: {
+              page: 1,
+              limit: 50,
+             course_type: this.type.vod_type,
+              grade: this.type.grade,
+              subject: this.type.subject,
+              class_type : this.type.course_type,
+              area: this.type.province,
+              type : this.type.exam_type
+            }
+          })
+          .then(function(res) {
+            this.limittime = res.data.data[0].end_time;
+							this.Countdown(this.limittime);
+							//console.log(this.limitclass11)
+							
+							this.limitclass = res.data.data;
+          });
+      },
+      deep: true
     },
+  },
+  methods: {
+  	Countdown: function(timestamp) {
+				var that = this;
+				console.log(timestamp);
+				console.log(new Date().getTime());
+
+				this.timer = setInterval(function() {
+					var now = new Date().getTime();
+					var leftTime = timestamp - now;
+					if(leftTime >= 0) {
+						var d = Math.floor(leftTime / 1000 / 60 / 60 / 24);
+						var h = Math.floor((leftTime / 1000 / 60 / 60) % 24);
+						var m = Math.floor((leftTime / 1000 / 60) % 60);
+						var s = Math.floor((leftTime / 1000) % 60);
+						//	console.log(666)
+
+						that.xsdaojishi = d + " 天 " + h + " 时 " + m + " 分 " + s + " 秒";
+						// return "<i>"+d+"</i> 天 <i>"+h+"</i> 时 <i>"+m+"</i> 分 <i>"+s+"</i> 秒";
+					} else {
+						//console.log(777)
+						that.xsdaojishi = "已经结束";
+						window.clearInterval(this.timer);
+					}
+				}, 800);
+			},
     onInfiniteScroll: function() {
       console.log(1);
     },
     shareboy: function(data) {
       this.$refs.c1.sharefn();
     },
-    typeFn(e) {
+    exam_typeFn: function(e){
       this.$http
-        .get(this.url + "/exambank/changearea", {
-          params: {
-            type: e,
-            exam_type: this.qtype
-          }
-        })
-        .then(
-          function(res) {
-            this.gitCon.areaList = res.data.data;
-          },
-          function(res) {}
-        );
-    }
-  },
-  watch: {
-    type: {
-      handler: function(val, oldVal) {
-        this.$http
-          .get(this.url + "/exambank/jsonlist", {
-            params: {
-              page: 1,
-              limit: 50,
-              exam_type: this.qtype,
-              type: this.type.type,
-              writeorface: this.type.writeorfaceList,
-              grade: this.type.gradeList,
-              app_subject: this.type.subjectList,
-              area: this.type.areaList,
-            }
-          })
-          .then(function(res) {
-            this.recommend = res.body.data;
-            console.log(res)
-          });
-      },
-      deep: true
-    }
-  },
-  created: function() {
-    let url = "http://192.168.0.115:8080/shiro_test";
-    this.classtype = this.$f7route.query.classtype;
-    this.qtype = this.$f7route.query.qtype;
-    /*	console.log(this.classtype)
-    console.log(this.qtype)*/
-    let ext = 2;
-    if(this.qtype == 173701){
-          this.navbar =  "随机练习";
-    }else if(this.qtype == 173702){
-          this.navbar =  "模拟估分";
-    }else if(this.qtype == 173703){
-          this.navbar =  "章节练习";
-    }else if(this.qtype == 173704){
-          this.navbar =  "真题演练";
-    }else if(this.qtype == 666){
-          this.navbar =  "推荐题库";
-          ext = 1;
-          this.qtype=null;
-    }
-
-
-    this.$http
-      .get(url + "/exambank/typelist", {
+      .get(this.url + "/flashsale/moretype", {
         params: {
-          type: 3,
-          exam_type: this.qtype,
+          type: e
         }
       })
-      .then(
-        function(res) {
-          this.gitCon = res.data.data;
-        },
-      );
-        this.$http
-          .get(this.url + "/exambank/jsonlist", {
-            params: {
-              page: 1,
-              limit: 50,
-              ext1:ext,
-              exam_type: this.qtype,
-              type: this.type.type,
-              writeorface: this.type.writeorfaceList,
-              grade: this.type.gradeList,
-              app_subject: this.type.subjectList,
-              area: this.type.areaList,
-            }
-          })
-          .then(function(res) {
-            this.recommend = res.body.data;
-            console.log(res)
-          });
+      .then(function(res) {
+        console.log(res)
+        this.gitCon = res.body.data;
+      });
+    }
+  },
+
+  created() {
+    //赛选条件
+    this.$http
+      .get(this.url + "/flashsale/moretype", {
+       
+      })
+      .then(function(res) {
+        this.gitCon = res.body.data;
+      });
+    //列表
+    this.$http
+      .get(this.url + "/flashsale/sale", {
+        params: {
+          page: 1,
+          limit: 50,
+          /*vod_type: this.type.vod_type,
+          grade: this.type.grade,
+          subject: this.type.subject,
+          course_type: this.type.course_type,
+          province: this.type.province,
+          exam_type: this.type.exam_type*/
+        }
+      })
+      .then(function(res) {
+        this.limittime = res.data.data[0].end_time;
+							this.Countdown(this.limittime);
+							//console.log(this.limitclass11)
+							
+							this.limitclass = res.data.data;
+      });
   }
 };
 </script>
 <style lang="less">
-.moduleExam {
+.TopsZ {
+  position: fixed;
+  top: 56px;
+  right: 10px;
+  padding: 10px 20px;
+  background-color: #fff;
+  line-height: 30px;
+  vertical-align: middle;
+  border-radius: 20px;
+  -ms-filter: "progid:DXImageTransform.Microsoft.Shadow(Strength=50, Direction=27, Color=#454545)"; /*IE 8*/
+  -moz-box-shadow: -2px 1px 50px 8px rgba(69, 69, 69, 0.5); /*FF 3.5+*/
+  -webkit-box-shadow: -2px 1px 50px 8px rgba(69, 69, 69, 0.5); /*Saf3-4, Chrome, iOS 4.0.2-4.2, Android 2.3+*/
+  box-shadow: -2px 1px 50px 8px rgba(69, 69, 69, 0.5); /* FF3.5+, Opera 9+, Saf1+, Chrome, IE10 */
+  filter: progid:DXImageTransform.Microsoft.Shadow(
+      Strength=50,
+      Direction=135,
+      Color=#454545
+    ); /*IE 5.5-7*/
+  > em {
+    position: absolute;
+    width: 20px;
+    height: 20px;
+    background-color: #fff;
+    transform: rotate(45deg);
+    -ms-transform: rotate(45deg); /* IE 9 */
+    -webkit-transform: rotate(45deg); /* Safari and Chrome */
+    -o-transform: rotate(45deg); /* Opera */
+    -moz-transform: rotate(45deg);
+    top: -5px;
+    right: 20px;
+  }
+  .link {
+    color: #000;
+    i {
+      margin-right: 10px;
+    }
+  }
+}
+.xsmore {
   .mid {
     padding: 10px;
-
     > ul {
       > li {
         display: block;
@@ -303,29 +359,6 @@ export default {
               font-size: 12px;
               line-height: 24px;
               color: #fd2d44;
-            }
-          }
-        }
-      }
-    }
-    > ul {
-      > li {
-        min-height: 70px;
-        > .link {
-          > div {
-            padding: 0;
-            > p:nth-of-type(2) {
-              font-size: 12px;
-              line-height: 28px;
-              > span {
-                font-family: "PingFang-SC-Regular";
-                font-size: 10px;
-                color: #fd5d32;
-                border: 1px solid #fd5d32;
-                padding: 0 2px;
-                border-radius: 5px;
-                margin-right: 5px;
-              }
             }
           }
         }

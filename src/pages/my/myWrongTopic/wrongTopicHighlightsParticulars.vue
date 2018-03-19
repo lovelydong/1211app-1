@@ -68,7 +68,7 @@
 export default {
   data: function() {
     return {
-    	url:"http://192.168.0.115:8080/shiro_test",
+    	url:"http://localhost:8080/shiro_test",
     	errordetail:""
     };
   },

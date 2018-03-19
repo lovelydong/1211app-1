@@ -6,20 +6,20 @@
         </f7-navbar>
         <div class="mid">
           <ul>
-            <li>
+            <li v-for="c in coupon">
+              <span>券</span>
+              <p>{{c.name}}</p>
+              <em>有效期至：{{c.over_time/1000 | moment("YYYY/MM/DD")}}</em>
+              <p class="p1">{{c.amount}} <span>{{c.type}}</span></p>
+              <f7-link  id="gg" :class="(c.state==1&&c.over_time>nowtime)?'':'gg' "  :html="(c.state==1&&c.over_time)>nowtime?state='立即使用':(c.state==2?state='已使用':(c.state==3?state='已失效':state='已过期'))">{{state}}</f7-link>
+            </li>
+           <!-- <li>
               <span>券</span>
               <p>限教师资格品类直播课程使用</p>
               <em>有效期至：2018-08-25</em>
               <p class="p1">100 <span>满10000可用</span></p>
               <f7-link>立即使用</f7-link>
-            </li>
-            <li>
-              <span>券</span>
-              <p>限教师资格品类直播课程使用</p>
-              <em>有效期至：2018-08-25</em>
-              <p class="p1">100 <span>满10000可用</span></p>
-              <f7-link>立即使用</f7-link>
-            </li>
+            </li>-->
           </ul>
         </div>
   </f7-page>
@@ -27,12 +27,30 @@
 <script>
 export default {
   data: function() {
-    return {};
+    return {
+    	 url: "http://localhost:8080/shiro_test",
+    	 coupon:"",
+    	 nowtime:""
+    };
   },
-  methods: {}
-};
+  methods: {},
+  created:function()
+  {
+  	this.nowtime=new Date().getTime();
+  	console.log(this.nowtime)
+  	this.$http
+        .get(this.url + "/sxcouponsend/getAllCoupon", {
+          
+        })
+        .then(function(res) {
+          console.log(res);
+         this.coupon=res.body.data;
+        });
+  }
+ }
 </script>
 <style lang="less">
+	
 .discountCoupon {
   .mid {
     min-height: 100%;
@@ -123,6 +141,9 @@ export default {
     }
   }
 }
+#gg.gg{
+		color: #666666;
+	}
 </style>
 
 

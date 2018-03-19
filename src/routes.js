@@ -1,5 +1,7 @@
 import HomePage from './pages/homes/home.vue';
 import Recommended from './pages/recommended/recommended.vue';
+import Newmore from './pages/recommended/newmore.vue';
+import Xsmore from './pages/recommended/xsmore.vue';
 import RecommendedParticulars from './pages/recommended/recommendedParticulars.vue';
 import Search from './pages/homes/search.vue';
 import News from './pages/homes/news.vue';
@@ -50,8 +52,8 @@ import Live from './pages/recommended/live.vue';
 
 export default [{
         path: '/', //首页
-        //component: HomePage,
-        component: Login,
+        component: HomePage,
+        //component: Login,
        
         
     }, {path: '/home', //首页
@@ -60,6 +62,12 @@ export default [{
     }, {
         path: '/recommended', //推荐课程
         component: Recommended,
+    },{
+        path: '/xsmore', //推荐课程
+        component: Xsmore,
+    },{
+        path: '/newmore', //推荐课程
+        component: Newmore,
     }, {
         path: '/nLiveStreaming', //直播
         component: NLiveStreaming,
