@@ -33,6 +33,7 @@ import MyCourses from './pages/my/myCourses/myCourses.vue';
 import WatchTheRecord from './pages/my/watchTheRecord/watchTheRecord.vue';
 import ShoppingTrolley from './pages/my/shoppingTrolley/shoppingTrolley.vue';
 import Indent from './pages/my/shoppingTrolley/indent.vue';
+import ShoppingdiscountCoupon from './pages/my/shoppingTrolley/shoppingdiscountCoupon.vue';
 import MyAddress from './pages/my/shoppingTrolley/myAddress/myAddress.vue';
 import NewAddress from './pages/my/shoppingTrolley/myAddress/newAddress.vue';
 import SetSettingUpInstall from './pages/my/setSettingUpInstall/setSettingUpInstall.vue';
@@ -220,6 +221,10 @@ export default [{
     {
         path: '/shoppingTrolley', //购物车
         component: ShoppingTrolley,
+    },
+    {
+        path: '/shoppingdiscountCoupon', //购物车可用优惠券
+        component: ShoppingdiscountCoupon,
     },
     {
         path: '/indent', //提交订单

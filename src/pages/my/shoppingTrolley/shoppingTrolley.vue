@@ -48,6 +48,8 @@
   </f7-page>
 </template>
 <script>
+import Global from '../../Global.vue';
+
 export default {
   data: function() {
     return {
@@ -151,13 +153,15 @@ export default {
           closeTimeout: 2000
         });
         toastCenter.open();
+        Global.usershoppingIDS= [];
+        Global.usershoppingID= null;
         let data = this.idsFn();
         this.$http
           .get(this.url + "/sxorder/save" + data, {})
           .then(function(res) {
             console.log(res)
             if (res.body.code == 1) {
-              this.$f7router.navigate("/indent?order_number="  + res.body.data.order_number);
+              this.$f7router.navigate("/indent?order_number=" + res.body.data.order_number);
             }
           });
       }

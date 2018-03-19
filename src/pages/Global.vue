@@ -7,7 +7,9 @@
     userinfo:"",
     jdaninfo:{},
     jdaninfo1:{},
-    mobile:""
+    mobile:"",
+    usershoppingIDS:[],
+    usershoppingID:null,
 
   }
 </script>
