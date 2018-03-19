@@ -60,10 +60,12 @@ export default {
   methods: {},
   created:function()
   {
-  	
-  	let url="http://localhost:8080/shiro_test";
+
+
+  	let url="http://192.168.0.130:8080/shiro_test";
+
   	 this.$http.get(url+"/personal/loginState",{
-  	
+
             }).then(function(res){
                 console.log(res.data.data)
                 	this.userinfo=res.data.data;

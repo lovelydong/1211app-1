@@ -1,10 +1,6 @@
 <template>
 	<f7-page class="login">
-		<f7-navbar>
-			<f7-nav-left sliding>
-				<f7-link class="iconfont icon-zuo" @click="$f7router.back()"></f7-link>
-			</f7-nav-left>
-		</f7-navbar>
+
 		<div class="mid">
 			<h1>登录</h1>
 			<input type="text" placeholder="请输入您的用户名/手机号" v-model="username" >
@@ -21,7 +17,7 @@
 	export default {
 		data: function() {
 			return {
-				url: "http://192.168.0.130:8080/shiro_test",
+        url: "http://localhost:8080/shiro_test",
 				username: '',
 				pwd: '',
 				logina: 0
@@ -40,25 +36,25 @@
 							userName: this.username,
 							passWord: this.pwd
 						}
-						
+
 
 					}).then(function(res) {
 						//console.log(res.body.code);
 						if(res.body.code==1)
 						{
 						this.$f7router.navigate('/home');
-	
+
 						}
 						else{
 							alert("用户名或者密码错误");
 						}
-						
+
 						//this.$f7router.navigate('/login');
 
 					}, function(res) {
 						console.log(res.status);
 					})
-					
+
 				}
 
 			}
@@ -87,7 +83,7 @@
 	#login div {
 		background-color: #00AAEE;
 	}
-	
+
 	.login {
 		.page-content {
 			background-color: #fff;
@@ -99,7 +95,7 @@
 					font-size: 24px;
 					color: #333333;
 					font-weight: 400;
-					margin-bottom: 70px;
+					margin: 70px 0;
 				}
 				>input {
 					width: 100%;
