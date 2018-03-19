@@ -42,6 +42,7 @@ import ModificationName from './pages/my/setSettingUpInstall/modificationName.vu
 import Privacy from './pages/my/setSettingUpInstall/privacy.vue';
 import ChangePassword from './pages/my/setSettingUpInstall/changePassword.vue';
 import ChangeNumber from './pages/my/setSettingUpInstall/changeNumber.vue';
+import Conversion from './pages/my/setSettingUpInstall/conversion.vue';
 import coupleBack from './pages/my/setSettingUpInstall/coupleBack.vue';
 import Issue from './pages/my/setSettingUpInstall/issue.vue';
 import Login from './pages/login/login.vue';
@@ -61,9 +62,10 @@ export default [{
 
         component: HomePage,
         //component: Login,
-       
-        
-    }, {path: '/home', //首页
+
+
+    }, {
+        path: '/home', //首页
 
         component: HomePage,
         // component: Login,
@@ -86,10 +88,10 @@ export default [{
 
         path: '/recommended', //推荐课程
         component: Recommended,
-    },{
+    }, {
         path: '/xsmore', //推荐课程
         component: Xsmore,
-    },{
+    }, {
         path: '/newmore', //推荐课程
         component: Newmore,
     }, {
@@ -258,6 +260,10 @@ export default [{
     {
         path: '/changeNumber', //修改手机号
         component: ChangeNumber,
+    },
+    {
+        path: '/conversion', //招教币兑换
+        component: Conversion,
     },
     {
         path: '/coupleBack', //意见反馈

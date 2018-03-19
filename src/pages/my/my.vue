@@ -35,13 +35,14 @@
         <li>
           <f7-link href="/myCourses"><span></span>  我的课程 <i class="iconfont icon-you"></i></f7-link>
           <f7-link href="/watchTheRecord"><span></span>  观看记录 <i class="iconfont icon-you"></i></f7-link>
-          <f7-link><span></span>  离线缓存 <i class="iconfont icon-you"></i></f7-link>
+          <!-- <f7-link><span></span>  离线缓存 <i class="iconfont icon-you"></i></f7-link> -->
         </li>
       </ul>
       <ul>
         <li>
           <f7-link><span></span>  邀请好友 <i class="iconfont icon-you"></i></f7-link>
           <f7-link><span></span>  在线客服 <i class="iconfont icon-you"></i></f7-link>
+          <f7-link href="/conversion"><span></span>  招教币兑换 <i class="iconfont icon-you"></i></f7-link>
           <f7-link href="/setSettingUpInstall"><span></span>  设置 <i class="iconfont icon-you"></i></f7-link>
         </li>
       </ul>
@@ -49,32 +50,30 @@
   </f7-page>
 </template>
 <script>
-	import global_ from '../../pages/Global'//引用模块进来
+import global_ from "../../pages/Global"; //引用模块进来
 export default {
   data: function() {
     return {
-    	userinfo:"",
-    	url:"http://localhost:8080/shiro_test"
+      userinfo: "",
+      url: "http://localhost:8080/shiro_test"
     };
   },
   methods: {},
-  created:function()
-  {
+  created: function() {
+    let url = "http://192.168.0.130:8080/shiro_test";
 
-
-  	let url="http://192.168.0.130:8080/shiro_test";
-
-  	 this.$http.get(url+"/personal/loginState",{
-
-            }).then(function(res){
-                console.log(res.data.data)
-                	this.userinfo=res.data.data;
-                	global_.userinfo=res.data.data;
-					 },function(res){
-                console.log(res.status);
-            })
+    this.$http.get(url + "/personal/loginState", {}).then(
+      function(res) {
+        console.log(res.data.data);
+        this.userinfo = res.data.data;
+        global_.userinfo = res.data.data;
+      },
+      function(res) {
+        console.log(res.status);
+      }
+    );
   }
- }
+};
 </script>
 <style lang="less">
 .my {
@@ -92,11 +91,15 @@ export default {
       background-color: #fff;
       border-radius: 10px;
       padding-bottom: 20px;
-      -ms-filter: "progid:DXImageTransform.Microsoft.Shadow(Strength=28, Direction=143, Color=#454545)";/*IE 8*/
-      -moz-box-shadow: 4px 3px 28px -8px rgba(69,69,69,0.5);/*FF 3.5+*/
-      -webkit-box-shadow: 4px 3px 28px -8px rgba(69,69,69,0.5);/*Saf3-4, Chrome, iOS 4.0.2-4.2, Android 2.3+*/
-      box-shadow: 4px 3px 28px -8px rgba(69,69,69,0.5);/* FF3.5+, Opera 9+, Saf1+, Chrome, IE10 */
-      filter: progid:DXImageTransform.Microsoft.Shadow(Strength=28, Direction=135, Color=#454545); /*IE 5.5-7*/
+      -ms-filter: "progid:DXImageTransform.Microsoft.Shadow(Strength=28, Direction=143, Color=#454545)"; /*IE 8*/
+      -moz-box-shadow: 4px 3px 28px -8px rgba(69, 69, 69, 0.5); /*FF 3.5+*/
+      -webkit-box-shadow: 4px 3px 28px -8px rgba(69, 69, 69, 0.5); /*Saf3-4, Chrome, iOS 4.0.2-4.2, Android 2.3+*/
+      box-shadow: 4px 3px 28px -8px rgba(69, 69, 69, 0.5); /* FF3.5+, Opera 9+, Saf1+, Chrome, IE10 */
+      filter: progid:DXImageTransform.Microsoft.Shadow(
+          Strength=28,
+          Direction=135,
+          Color=#454545
+        ); /*IE 5.5-7*/
       > h5 {
         font-weight: 400;
         position: relative;
@@ -139,15 +142,15 @@ export default {
       }
     }
   }
-  .mid{
-    padding:0 12px;
-    >ul{
+  .mid {
+    padding: 0 12px;
+    > ul {
       background-color: #fff;
       border-radius: 10px;
       margin-bottom: 20px;
-      >li{
+      > li {
         padding: 0 20px;
-        >.link{
+        > .link {
           padding-left: 26px;
           display: block;
           font-family: "PingFang-SC-Regular";
@@ -155,7 +158,7 @@ export default {
           color: #333333;
           position: relative;
           line-height: 40px;
-          >span{
+          > span {
             position: absolute;
             top: 50%;
             left: 0;
@@ -165,7 +168,7 @@ export default {
             height: 16px;
             background-color: #000;
           }
-          >i{
+          > i {
             float: right;
           }
         }
