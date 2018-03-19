@@ -62,7 +62,7 @@
 						</f7-link>
 					</div>
 					<div class="col-20">
-						<f7-link><span></span>
+						<f7-link href="/newmore"><span></span>
 							<p>最新课程</p>
 						</f7-link>
 					</div>

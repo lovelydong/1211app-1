@@ -6,12 +6,12 @@
         </f7-navbar>
         <div class="mid">
           <ul>
-            <li v-for="c in coupon">
+            <li v-for="(c,index) in coupon">
               <span>券</span>
               <p>{{c.name}}</p>
               <em>有效期至：{{c.over_time/1000 | moment("YYYY/MM/DD")}}</em>
               <p class="p1">{{c.amount}} <span>{{c.type}}</span></p>
-              <f7-link  id="gg" :class="(c.state==1&&c.over_time>nowtime)?'':'gg' "  :html="(c.state==1&&c.over_time)>nowtime?state='立即使用':(c.state==2?state='已使用':(c.state==3?state='已失效':state='已过期'))">{{state}}</f7-link>
+              <f7-link :href="state='立即使用'?'/home':''" id="gg" :class="(c.state==1&&c.over_time>nowtime)?'':'gg' "  :html="(c.state==1&&c.over_time)>nowtime?state='立即使用':(c.state==2?state='已使用':(c.state==3?state='已失效':state='已过期'))">{{state}}</f7-link>
             </li>
            <!-- <li>
               <span>券</span>
@@ -30,10 +30,13 @@ export default {
     return {
     	 url: "http://localhost:8080/shiro_test",
     	 coupon:"",
-    	 nowtime:""
+    	 nowtime:"",
+    	
     };
   },
-  methods: {},
+  methods: {
+  	
+  },
   created:function()
   {
   	this.nowtime=new Date().getTime();
