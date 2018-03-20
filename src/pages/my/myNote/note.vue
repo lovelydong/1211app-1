@@ -75,6 +75,12 @@ export default {
         }).then(function (res) {
             // 请求成功回调
              console.log(res)
+             let toastCenter = this.$f7.toast.create({
+								text: "删除成功！",
+								position: "center",
+								closeTimeout: 2000
+							});
+							toastCenter.open();
                 	
         }, function () {
             // 请求失败回调

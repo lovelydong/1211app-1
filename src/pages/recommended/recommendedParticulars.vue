@@ -74,7 +74,7 @@
           <f7-link :class="{active: iscollect}" @click="iscollectfn"><i class="iconfont icon-shoucang"></i> <p>收藏</p></f7-link>
         </div>
         <div class="col-33"><f7-link @click="addspc">加入购物车</f7-link></div>
-        <div class="col-33"><f7-link href="/live">立即购买</f7-link></div>
+        <div class="col-33"><f7-link :href="(isornot==1&&type==1)?'/vod':(isornot==1&&type==2?'/vod':(isornot==1&&type==3?'/vod':'/indent'))" :html="isornot==1?flag='立即播放':flag='立即购买'">{{flag}}</f7-link></div>
       </div>
     </div>
         <Share ref="c1"></Share>
@@ -89,6 +89,9 @@ export default {
       id: this.$f7route.query.id,
       url: "http://localhost:8080/shiro_test",
       showTop: false,
+      isornot:"",
+      type:'',
+      flag:"",
       shows: {
         XQ: true,
         ZJ: false,
@@ -180,6 +183,38 @@ export default {
             toastCenter.open();
           }
         });
+    },
+    xstype:function(t)
+    {
+    	if(t==35202044)
+    	{
+    		return 1;
+    	}
+    	else if(t==35202045)
+    	{
+    		return 2;
+    		
+    	}else if(t==35202046)
+    	{
+    		return 3;
+    		
+    	}
+    },
+    kctype:function(t)
+    {
+    	if(t==121100401)
+    	{
+    		return 1;
+    	}
+    	else if(t==121100402)
+    	{
+    		return 2;
+    		
+    	}else if(t==121100403)
+    	{
+    		return 3;
+    		
+    	}
     }
   },
   created() {
@@ -188,6 +223,22 @@ export default {
     let isxs=this.$f7route.query.isxs;
     if(isxs==1)
     {
+    	 	
+       //是否购买
+    this.$http
+      .get(this.url + "/sx1211courseAdmin/buyornot", {
+        params: {
+          id: id,
+          ext2:2
+        }
+      })
+      .then(function(res) {
+        console.log(res.data)
+        this.isornot=res.data.data;
+        
+      });
+    	
+    	
        //详情
     this.$http
       .get(this.url + "/flashsale/detail", {
@@ -198,6 +249,8 @@ export default {
       .then(function(res) {
         this.oneJson = res.body.data;
         this.Countdown(res.body.data.end_time);
+        this.type=this.xstype(res.body.data.course_type);
+       
         
       });
     //章节
@@ -222,6 +275,22 @@ export default {
         this.chap = obj;
       });
     }else{
+    	
+    		 	
+       //是否购买
+    this.$http
+      .get(this.url + "/sx1211courseAdmin/buyornot", {
+        params: {
+          id: id,
+          ext2:1
+        }
+      })
+      .then(function(res) {
+        console.log(res.data)
+        this.isornot=res.data.data;
+        
+      });
+    	
     	   //详情
     this.$http
       .get(this.url + "/sx1211courseAdmin/oneJson", {
@@ -231,6 +300,7 @@ export default {
       })
       .then(function(res) {
         this.oneJson = res.body.data;
+         this.type=this.kctype(res.body.data.vod_type);
         
       });
     //章节

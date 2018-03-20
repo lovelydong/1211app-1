@@ -91,7 +91,13 @@ export default {
   	}
   		}
   	else{
-  		alert("请输入有效的手机号！");	
+  		 let toastCenter = this.$f7.toast.create({
+              text: "请输入有效的手机号！",
+              position: "center",
+              closeTimeout: 2000
+            });
+            toastCenter.open();
+  		
   	}
   	},
   	done:function()
@@ -107,11 +113,23 @@ export default {
                console.log(res);
                if(res.body.code==3)
                {
-               	alert("改手机号已经注册！")
+               	let toastCenter = this.$f7.toast.create({
+              text: "该手机号已经注册！",
+              position: "center",
+              closeTimeout: 2000
+            });
+            toastCenter.open();
+               
                }
                else if(res.body.code==1)
                {
                	this.global_.userinfo.mobile=this.mobile;
+               	let toastCenter = this.$f7.toast.create({
+								text: "手机号修改成功！",
+								position: "center",
+								closeTimeout: 2000
+							});
+							toastCenter.open();
                this.$f7router.navigate('/privacy');
                }
                
@@ -121,7 +139,13 @@ export default {
             })	
   		}
   		else{
-  			alert("验证码错误！")
+  			
+  			let toastCenter = this.$f7.toast.create({
+              text: "验证码错误！",
+              position: "center",
+              closeTimeout: 2000
+            });
+            toastCenter.open();
   		}
   	}
   	

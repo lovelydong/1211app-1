@@ -3,8 +3,8 @@
 
 		<div class="mid">
 			<h1>登录</h1>
-			<input type="text" placeholder="请输入您的用户名/手机号" v-model="username" >
-			<input type="password" placeholder="请输入您的密码" v-model="pwd" >
+			<input type="text" placeholder="请输入您的用户名/手机号" v-model="username">
+			<input type="password" placeholder="请输入您的密码" v-model="pwd">
 			<f7-link :id="logina==1?'login':''">
 				<div @click="login">登陆</div>
 			</f7-link>
@@ -17,7 +17,7 @@
 	export default {
 		data: function() {
 			return {
-        url: "http://localhost:8080/shiro_test",
+				url: "http://localhost:8080/shiro_test",
 				username: '',
 				pwd: '',
 				logina: 0
@@ -37,16 +37,25 @@
 							passWord: this.pwd
 						}
 
-
 					}).then(function(res) {
 						//console.log(res.body.code);
-						if(res.body.code==1)
-						{
-						this.$f7router.navigate('/home');
+						if(res.body.code == 1) {
+							let toastCenter = this.$f7.toast.create({
+								text: "登录成功！",
+								position: "center",
+								closeTimeout: 2000
+							});
+							toastCenter.open();
+							this.$f7router.navigate('/home');
 
-						}
-						else{
-							alert("用户名或者密码错误");
+						} else {
+
+							let toastCenter = this.$f7.toast.create({
+								text: "用户名或者密码错误！",
+								position: "center",
+								closeTimeout: 2000
+							});
+							toastCenter.open();
 						}
 
 						//this.$f7router.navigate('/login');
@@ -83,7 +92,7 @@
 	#login div {
 		background-color: #00AAEE;
 	}
-
+	
 	.login {
 		.page-content {
 			background-color: #fff;

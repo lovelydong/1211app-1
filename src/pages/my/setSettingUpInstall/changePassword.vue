@@ -94,7 +94,13 @@ export default {
   	}
   		}
   	else{
-  		alert("请输入有效的手机号！");	
+  	
+  		let toastCenter = this.$f7.toast.create({
+              text: "请输入有效的手机号！",
+              position: "center",
+              closeTimeout: 2000
+            });
+            toastCenter.open();
   	}
   	},
   	show:function()
@@ -122,6 +128,12 @@ export default {
   	
             }).then(function(res){
                console.log(res);
+               	let toastCenter = this.$f7.toast.create({
+								text: "密码修改成功！",
+								position: "center",
+								closeTimeout: 2000
+							});
+							toastCenter.open();
                //this.global_.mobile=this.mobile;
                this.$f7router.navigate('/privacy');
                 
@@ -130,7 +142,13 @@ export default {
             })	
   		}
   		else{
-  			alert("验证码错误！")
+  			
+  			let toastCenter = this.$f7.toast.create({
+              text: "验证码错误！",
+              position: "center",
+              closeTimeout: 2000
+            });
+            toastCenter.open();
   		}
   	}
   }

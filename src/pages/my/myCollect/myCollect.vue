@@ -138,6 +138,12 @@ export default {
   		}
             }).then(function(res){
                console.log(res)
+               	let toastCenter = this.$f7.toast.create({
+								text: "删除成功！",
+								position: "center",
+								closeTimeout: 2000
+							});
+							toastCenter.open();
              
             },function(res){
                 console.log(res.status);
@@ -152,6 +158,12 @@ export default {
   		}
             }).then(function(res){
                console.log(res)
+               let toastCenter = this.$f7.toast.create({
+								text: "删除成功！",
+								position: "center",
+								closeTimeout: 2000
+							});
+							toastCenter.open();
              
             },function(res){
                 console.log(res.status);

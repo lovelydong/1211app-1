@@ -51,6 +51,7 @@ import RetrievePassword from './pages/login/retrievePassword.vue';
 import NLiveStreaming from './pages/homes/nLiveStreaming.vue';
 import RecordedBroadcast from './pages/homes/recordedBroadcast.vue';
 import Live from './pages/recommended/live.vue';
+import Vod from './pages/recommended/vod.vue';
 import GiftPacks from './pages/homes/giftPacks.vue';
 import GiftPacksParticulars from './pages/homes/giftPacksParticulars.vue';
 
@@ -288,6 +289,10 @@ export default [{
     {
         path: '/live', //直播
         component: Live,
+    },
+    {
+        path: '/vod', //回放
+        component: Vod,
     },
 
 ]

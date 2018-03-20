@@ -90,7 +90,13 @@ registera:""
   	}
   		}
   	else{
-  		alert("请输入有效的手机号！");	
+  		
+  		let toastCenter = this.$f7.toast.create({
+								text: "请输入有效的手机号！",
+								position: "center",
+								closeTimeout: 2000
+							});
+							toastCenter.open();
   	}
   	},
   	show:function()
@@ -131,11 +137,23 @@ registera:""
 						console.log(res);
 						if(res.body.code==1)
 						{
+								let toastCenter = this.$f7.toast.create({
+								text: "注册成功，快去登录吧！",
+								position: "center",
+								closeTimeout: 2000
+							});
+							toastCenter.open();
 						this.$f7router.navigate('/login');
 	
 						}
 						else if(res.body.code==3){
-							alert("该手机号已经注册!");
+							
+								let toastCenter = this.$f7.toast.create({
+								text: "该手机号已经注册！",
+								position: "center",
+								closeTimeout: 2000
+							});
+							toastCenter.open();
 						}
 						
 						//this.$f7router.navigate('/login');
@@ -146,11 +164,24 @@ registera:""
 					
 					}
 					else{
-						alert("验证码错误！");
+					
+						
+						let toastCenter = this.$f7.toast.create({
+								text: "验证码错误！",
+								position: "center",
+								closeTimeout: 2000
+							});
+							toastCenter.open();
 					}
 				}
 					else{
-						alert("用户密码不合法！密码为8到16位数字与字母组合")
+						
+						let toastCenter = this.$f7.toast.create({
+								text: "密码请设为8到16位数字与字母组合",
+								position: "center",
+								closeTimeout: 2000
+							});
+							toastCenter.open();
 					}
 				}
 

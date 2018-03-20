@@ -46,7 +46,22 @@ export default {
     },
     Edelete:function(id)
     {
-    	console.log(id)
+    	this.$http
+          .get(this.url +"/myexam/delete", {
+          params: {
+        id:id
+        }   
+          })
+          .then(function(res) {
+           
+            console.log(res)
+            let toastCenter = this.$f7.toast.create({
+								text: "删除成功！",
+								position: "center",
+								closeTimeout: 2000
+							});
+							toastCenter.open();
+          });
     }
     
   },
