@@ -5,19 +5,9 @@
           <f7-nav-title>地址管理</f7-nav-title>
         </f7-navbar>
         <div class="mid">
-          <f7-link class="top active" href="/newAddress">
-            <h4><i class="iconfont icon-dizhi"></i>收货人：熊老表      15589655241</h4>
-            <p>收货地址：河南省郑州市金水区花园路街道金水路16号中青大厦8楼</p>
-            <i class="iconfont icon-icon6"></i>
-          </f7-link>
-          <f7-link class="top">
-            <h4><i class="iconfont icon-dizhi"></i>收货人：熊老表      15589655241</h4>
-            <p>收货地址：河南省郑州市金水区花园路街道金水路16号中青大厦8楼</p>
-            <i class="iconfont icon-icon6"></i>
-          </f7-link>
-          <f7-link class="top">
-            <h4><i class="iconfont icon-dizhi"></i>收货人：熊老表      15589655241</h4>
-            <p>收货地址：河南省郑州市金水区花园路街道金水路16号中青大厦8楼</p>
+          <f7-link class="top " :class="{active:item.state == 1}" href="/newAddress" v-for="item in list" :key="item.id">
+            <h4><i class="iconfont icon-dizhi"></i>收货人：{{item.userName}}      {{item.phone}}</h4>
+            <p>收货地址：{{item.address}}</p>
             <i class="iconfont icon-icon6"></i>
           </f7-link>
         </div>
@@ -30,12 +20,26 @@
 export default {
   data: function() {
     return {
-      shows: {
-        bot: false
-      }
+      url: "http://localhost:8080/shiro_test",
+      list:{},
     };
   },
-  methods: {}
+  methods: {
+  },
+  created(){
+    //获取收货地址列表
+    this.$http
+        .get(this.url + "/receiveraddress/listJsons", {
+          params: {
+
+          }
+        })
+        .then(function(res) {
+          this.list = res.body.data;
+          console.log(res);
+          console.log(res);
+        });
+  }
 };
 </script>
 <style lang="less">

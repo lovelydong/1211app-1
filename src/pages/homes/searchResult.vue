@@ -2,9 +2,9 @@
   <f7-page class="searchResult">
         <f7-navbar>
           <f7-nav-left sliding><f7-link class="iconfont icon-zuo" @click="$f7router.back()"></f7-link></f7-nav-left>
-          <f7-nav-title class="inpt"> <i class="iconfont icon-sousuo"></i> <input type="text" name="" id=""> </f7-nav-title>
+          <f7-nav-title class="inpt"> <i class="iconfont icon-sousuo"></i> <input type="text" name="" id="" v-model="val"> </f7-nav-title>
           <f7-nav-right>
-            <f7-link class="inptfont">搜索</f7-link>
+            <f7-link class="inptfont" @click="git()">搜索</f7-link>
           </f7-nav-right>
         </f7-navbar>
         <f7-subnavbar sliding>
@@ -23,33 +23,13 @@
            <div id="tab1" class="tab tab-active" >
               <div class="content-block">
                   <ul>
-                      <li class="clearfix link">
-                        <f7-link>
-                          <span></span>
+                      <li class="clearfix link" v-for="item in list1" :key="item.id">
+                        <f7-link :href="'/recommendedParticulars?id=' + item.id ">
+                          <span :style="{backgroundImage: 'url(' +url +  item.img + ')' }"></span>
                           <div>
-                            <p>浙江2018年教师招聘教育心理学二期回放</p>
-                            <p>国版·354人正在学习 <i class="iconfont icon-xingxing"></i><i class="iconfont icon-xingxing"></i><i class="iconfont icon-xingxing"></i><i class="iconfont icon-xingxing"></i><i class="iconfont icon-xingxing"></i></p>
-                            <p>￥356.00</p>
-                          </div>
-                        </f7-link>
-                      </li>
-                      <li class="clearfix link">
-                        <f7-link>
-                          <span></span>
-                          <div>
-                            <p>浙江2018年教师招聘教育心理学二期回放</p>
-                            <p>国版·354人正在学习 <i class="iconfont icon-xingxing"></i><i class="iconfont icon-xingxing"></i><i class="iconfont icon-xingxing"></i><i class="iconfont icon-xingxing"></i><i class="iconfont icon-xingxing"></i></p>
-                            <p>￥356.00</p>
-                          </div>
-                        </f7-link>
-                      </li>
-                      <li class="clearfix link">
-                        <f7-link>
-                          <span></span>
-                          <div>
-                            <p>浙江2018年教师招聘教育心理学二期回放</p>
-                            <p>国版·354人正在学习 <i class="iconfont icon-xingxing"></i><i class="iconfont icon-xingxing"></i><i class="iconfont icon-xingxing"></i><i class="iconfont icon-xingxing"></i><i class="iconfont icon-xingxing"></i></p>
-                            <p>￥356.00</p>
+                            <p>{{item.name}}</p>
+                            <p>{{item.area}}·{{item.buyno}}人正在学习 <i class="iconfont icon-xingxing"></i><i class="iconfont icon-xingxing"></i><i class="iconfont icon-xingxing"></i><i class="iconfont icon-xingxing"></i><i class="iconfont icon-xingxing"></i></p>
+                            <p>￥{{item.discount_price}}</p>
                           </div>
                         </f7-link>
                       </li>
@@ -59,33 +39,13 @@
             <div id="tab2" class="tab">
               <div class="content-block">
                 <ul>
-                      <li class="clearfix link">
-                        <f7-link>
-                          <span></span>
+                     <li class="clearfix link" v-for="item in list2" :key="item.id">
+                        <f7-link :href="'/recommendedParticulars?id=' + item.id ">
+                          <span :style="{backgroundImage: 'url(' +url + item.img + ')' }"></span>
                           <div>
-                            <p>浙江2018年教师招聘教育心理学二期回放</p>
-                            <p>国版·354人正在学习 <i class="iconfont icon-xingxing"></i><i class="iconfont icon-xingxing"></i><i class="iconfont icon-xingxing"></i><i class="iconfont icon-xingxing"></i><i class="iconfont icon-xingxing"></i></p>
-                            <p>￥356.00</p>
-                          </div>
-                        </f7-link>
-                      </li>
-                      <li class="clearfix link">
-                        <f7-link>
-                          <span></span>
-                          <div>
-                            <p>浙江2018年教师招聘教育心理学二期回放</p>
-                            <p>国版·354人正在学习 <i class="iconfont icon-xingxing"></i><i class="iconfont icon-xingxing"></i><i class="iconfont icon-xingxing"></i><i class="iconfont icon-xingxing"></i><i class="iconfont icon-xingxing"></i></p>
-                            <p>￥356.00</p>
-                          </div>
-                        </f7-link>
-                      </li>
-                      <li class="clearfix link">
-                        <f7-link>
-                          <span></span>
-                          <div>
-                            <p>浙江2018年教师招聘教育心理学二期回放</p>
-                            <p>国版·354人正在学习 <i class="iconfont icon-xingxing"></i><i class="iconfont icon-xingxing"></i><i class="iconfont icon-xingxing"></i><i class="iconfont icon-xingxing"></i><i class="iconfont icon-xingxing"></i></p>
-                            <p>￥356.00</p>
+                            <p>{{item.name}}</p>
+                            <p>{{item.area}}·{{item.buyno}}人正在学习 <i class="iconfont icon-xingxing"></i><i class="iconfont icon-xingxing"></i><i class="iconfont icon-xingxing"></i><i class="iconfont icon-xingxing"></i><i class="iconfont icon-xingxing"></i></p>
+                            <p>￥{{item.discount_price}}</p>
                           </div>
                         </f7-link>
                       </li>
@@ -95,57 +55,12 @@
             <div id="tab3" class="tab">
               <div class="content-block">
                  <ul class="tab3">
-                      <li class="clearfix link">
-                        <f7-link href="/examinationParticulars">
-                          <span></span>
+                      <li class="clearfix link" v-for="(item,index) in list3">
+                        <f7-link :href="'/examinationParticulars?id='+item.id">
+                          <span :style="{backgroundImage: 'url(' +url+ item.img + ')' }"></span>
                           <div>
-                            <p>浙江2018年教师招聘教育心理学二期回放</p>
-                            <p><i>新</i>  中国招教网 &nbsp;&nbsp;2018/13/30</p>
-                          </div>
-                        </f7-link>
-                      </li>
-                      <li class="clearfix link">
-                        <f7-link>
-                          <span></span>
-                          <div>
-                            <p>浙江2018年教师招聘教育心理学二期回放</p>
-                            <p><i>新</i>  中国招教网 &nbsp;&nbsp;2018/13/30</p>
-                          </div>
-                        </f7-link>
-                      </li>
-                      <li class="clearfix link">
-                        <f7-link>
-                          <span></span>
-                          <div>
-                            <p>浙江2018年教师招聘教育心理学二期回放</p>
-                            <p><i>新</i>  中国招教网 &nbsp;&nbsp;2018/13/30</p>
-                          </div>
-                        </f7-link>
-                      </li>
-                      <li class="clearfix link">
-                        <f7-link>
-                          <span></span>
-                          <div>
-                            <p>浙江2018年教师招聘教育心理学二期回放</p>
-                            <p><i>新</i>  中国招教网 &nbsp;&nbsp;2018/13/30</p>
-                          </div>
-                        </f7-link>
-                      </li>
-                      <li class="clearfix link">
-                        <f7-link>
-                          <span></span>
-                          <div>
-                            <p>浙江2018年教师招聘教育心理学二期回放</p>
-                            <p><i>新</i>  中国招教网 &nbsp;&nbsp;2018/13/30</p>
-                          </div>
-                        </f7-link>
-                      </li>
-                      <li class="clearfix link">
-                        <f7-link>
-                          <span></span>
-                          <div>
-                            <p>浙江2018年教师招聘教育心理学二期回放</p>
-                            <p><i>新</i>  中国招教网 &nbsp;&nbsp;2018/13/30</p>
+                            <p>{{item.file_name}}</p>
+                            <p><i v-if="index <= 10">新</i>   {{item.wfrom}} &nbsp;&nbsp;{{item.create_time/1000 | moment("YYYY-MM-DD")}}</p>
                           </div>
                         </f7-link>
                       </li>
@@ -155,42 +70,10 @@
             <div id="tab4" class="tab">
               <div class="content-block">
                 <ul class="tab4">
-                      <li class="clearfix link">
-                        <f7-link>
+                      <li class="clearfix link" v-for="item in list4">
+                        <f7-link :href="'/questionBankParticulars?qtype=null&id='+ item.id">
                           <div>
-                            <p>2017年上半年中学综合素质真题及答案解析</p>
-                            <p>试试手气，马上开始做题</p>
-                          </div>
-                        </f7-link>
-                      </li>
-                      <li class="clearfix link">
-                        <f7-link>
-                          <div>
-                            <p>2017年上半年中学综合素质真题及答案解析</p>
-                            <p>试试手气，马上开始做题</p>
-                          </div>
-                        </f7-link>
-                      </li>
-                      <li class="clearfix link">
-                        <f7-link>
-                          <div>
-                            <p>2017年上半年中学综合素质真题及答案解析</p>
-                            <p>试试手气，马上开始做题</p>
-                          </div>
-                        </f7-link>
-                      </li>
-                      <li class="clearfix link">
-                        <f7-link>
-                          <div>
-                            <p>2017年上半年中学综合素质真题及答案解析</p>
-                            <p>试试手气，马上开始做题</p>
-                          </div>
-                        </f7-link>
-                      </li>
-                      <li class="clearfix link">
-                        <f7-link>
-                          <div>
-                            <p>2017年上半年中学综合素质真题及答案解析</p>
+                            <p>{{item.name}}</p>
                             <p>试试手气，马上开始做题</p>
                           </div>
                         </f7-link>
@@ -210,9 +93,80 @@
 <script>
 export default {
   data: function() {
-    return {};
+    return {
+      url: "http://localhost:8080/shiro_test",
+      val: this.$f7route.query.val,
+      list1: {},
+      list2: {},
+      list3: {},
+      list4: {}
+    };
   },
-  methods: {}
+  methods: {
+    git() {
+      this.$http
+        .get(this.url + "/sx1211courseAdmin/SearchJson", {
+          params: {
+            sname: this.val,
+            type: 1,
+            page: 1,
+            limit: 99
+          }
+        })
+        .then(function(res) {
+          this.list1 = res.body.data;
+          console.log(this.list1);
+        });
+      this.$http
+        .get(this.url + "/sx1211courseAdmin/SearchJson", {
+          params: {
+            sname: this.val,
+            type: 2,
+            page: 1,
+            limit: 99
+          }
+        })
+        .then(function(res) {
+          this.list2 = res.body.data;
+        });
+      this.$http
+        .get(this.url + "/sx1211courseAdmin/SearchJson", {
+          params: {
+            sname: this.val,
+            type: 3,
+            page: 1,
+            limit: 99
+          }
+        })
+        .then(function(res) {
+          this.list3 = res.body.data;
+        });
+      this.$http
+        .get(this.url + "/sx1211courseAdmin/SearchJson", {
+          params: {
+            sname: this.val,
+            type: 4,
+            page: 1,
+            limit: 99
+          }
+        })
+        .then(function(res) {
+          this.list4 = res.body.data;
+        });
+      this.$http
+        .get(this.url + "/sx1211courseAdmin/addSearch", {
+          params: {
+            sname: this.val,
+          }
+        })
+        .then(function(res) {
+          console.log(res)
+        });
+    }
+  },
+  created() {
+    this.git();
+  }
 };
 </script>
 <style lang="less">

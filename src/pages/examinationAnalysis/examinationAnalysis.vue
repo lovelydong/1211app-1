@@ -69,12 +69,12 @@
         </f7-subnavbar>
         <div class="mid">
           <ul>
-                      <li class="clearfix link" v-for="con in getCondition">
+                      <li class="clearfix link" v-for="(con,index) in getCondition">
                         <f7-link :href="'/examinationParticulars?id='+con.id">
                           <span></span>
                           <div>
                             <p>{{con.file_name}}</p>
-                            <p><i>新</i>  {{con.wfrom}} &nbsp;&nbsp;{{con.create_time/1000 | moment("YYYY-MM-DD")}}</p>
+                            <p><i v-if="index <= 10">新</i>  {{con.wfrom}} &nbsp;&nbsp;{{con.create_time/1000 | moment("YYYY-MM-DD")}}</p>
                           </div>
                         </f7-link>
                       </li>
@@ -210,8 +210,8 @@ export default {
             this.getCondition = res.body.data;
             console.log(res)
           });
-      
-      
+
+
   }
 };
 </script>

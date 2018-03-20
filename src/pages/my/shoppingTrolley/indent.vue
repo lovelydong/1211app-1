@@ -45,7 +45,11 @@ export default {
       WeChatPay: false,
       ForteachingB: false,
       listJson: {},
-      receiveraddress: {},
+      receiveraddress: {
+        userName:"***",
+        phone:"*****",
+        address:"******"
+      },
       listJsonLength: 0,
       shoppingsid:[],
       balance:0,
@@ -102,8 +106,6 @@ export default {
         this.$http
           .get(this.url + "/sxcouponsend/getCoupon" + ids + "&amount=" + this.listJson.msg, {})
           .then(function(res) {
-            console.log("-------------")
-            console.log(res)
             this.you = res.body.data.length;
             if(Global.usershoppingID){
               res.body.data.forEach(element => {
@@ -136,7 +138,11 @@ export default {
     this.$http
       .get(this.url + "/receiveraddress/listJson", {})
       .then(function(res) {
-        this.receiveraddress = res.body.data;
+        if(res.body.data){
+          this.receiveraddress = res.body.data;
+        }
+        console.log("---------------------------------------");
+        console.log(res);
       });
   }
 };

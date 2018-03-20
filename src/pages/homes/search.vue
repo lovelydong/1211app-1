@@ -2,24 +2,15 @@
   <f7-page class="search">
         <f7-navbar>
           <f7-nav-left sliding><f7-link class="iconfont icon-zuo" @click="$f7router.back()"></f7-link></f7-nav-left>
-          <f7-nav-title class="inpt"> <i class="iconfont icon-sousuo"></i> <input type="text" name="" id=""> </f7-nav-title>
+          <f7-nav-title class="inpt"> <i class="iconfont icon-sousuo"></i> <input type="text" name="" id="" v-model="val"> </f7-nav-title>
           <f7-nav-right>
-            <f7-link class="inptfont" href="/searchResult/">搜索</f7-link>
+            <f7-link class="inptfont" @click="gitpush">搜索</f7-link>
           </f7-nav-right>
         </f7-navbar>
         <div class="mid">
           <h3>最近搜索 <f7-link><i class="iconfont icon-shanchu"></i></f7-link> </h3>
           <ul>
-            <f7-link>课程</f7-link>
-            <f7-link>课程</f7-link>
-            <f7-link>课2131程</f7-link>
-            <f7-link>课程</f7-link>
-            <f7-link>课123程</f7-link>
-            <f7-link>课123程</f7-link>
-            <f7-link>课程</f7-link>
-            <f7-link>课312程</f7-link>
-            <f7-link>课12程</f7-link>
-            <f7-link>课333程</f7-link>
+            <f7-link v-for="item in getSearchFg" @click="add(item.sname)" :key="item.id">{{item.sname}}</f7-link>
           </ul>
           <h3>热门搜索</h3>
           <ul>
@@ -41,9 +32,34 @@
 <script>
 export default {
   data: function() {
-    return {};
+    return {
+      url: "http://localhost:8080/shiro_test",
+      val: "",
+      getSearchFg:"",
+    };
   },
-  methods: {}
+  methods: {
+    gitpush() {
+      this.$f7router.navigate("/searchResult?val=" + this.val);
+    },
+    add(e) {
+      this.val = e;
+      this.$f7router.navigate("/searchResult?val=" + this.val);
+    },
+  },
+  created() {
+    this.$http
+      .get(this.url + "/sx1211courseAdmin/getSearchFg", {
+        params: {
+          page:1,
+          limit:10
+        }
+      })
+      .then(function(res) {
+        console.log(res);
+        this.getSearchFg = res.body.data;
+      });
+  }
 };
 </script>
 <style lang="less">
