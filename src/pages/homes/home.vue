@@ -503,7 +503,7 @@ export default {
       glike2: "",
       glike22: "",
       Topactive: 1,
-      recommendtype: "",
+      recommendtype: 121100302,
       limittype: 35202001,
       timer: "",
       tjtkrecommend: [],
@@ -537,269 +537,266 @@ export default {
     },
 
     randerClass: function() {
-    let url = "http://localhost:8080/shiro_test";
+      let url = "http://localhost:8080/shiro_test";
 
-    //最新课程渲染1
+      //最新课程渲染1
 
-    this.$http
-      .get(url + "/sx1211courseAdmin/listJson", {
-        params: {
-          exam_type: 121100302,
-          page: 1,
-          limit: 4
-        }
-      })
-      .then(
-        function(res) {
-          //console.log(res.data.data)
-          this.newclass11 = res.data.data[0];
+      this.$http
+        .get(url + "/sx1211courseAdmin/listJson", {
+          params: {
+            exam_type: this.recommendtype,
+            page: 1,
+            limit: 4
+          }
+        })
+        .then(
+          function(res) {
+            //console.log(res.data.data)
+            this.newclass11 = res.data.data[0];
 
-          res.data.data.splice(0, 1);
-          this.newclass1 = res.data.data;
-          //console.log(res.data.data)
-        },
-        function(res) {
-          console.log(res.status);
-        }
-      );
-    //最新课程渲染2
+            res.data.data.splice(0, 1);
+            this.newclass1 = res.data.data;
+            //console.log(res.data.data)
+          },
+          function(res) {
+            console.log(res.status);
+          }
+        );
+      //最新课程渲染2
 
-    this.$http
-      .get(url + "/sx1211courseAdmin/listJson", {
-        params: {
-          exam_type: 121100302,
-          page: 1,
-          limit: 4
-        }
-      })
-      .then(
-        function(res) {
-          //console.log(res.data.data)
-          this.newclass22 = res.data.data[0];
+      this.$http
+        .get(url + "/sx1211courseAdmin/listJson", {
+          params: {
+            exam_type: this.recommendtype,
+            page: 1,
+            limit: 4
+          }
+        })
+        .then(
+          function(res) {
+            //console.log(res.data.data)
+            this.newclass22 = res.data.data[0];
 
-          res.data.data.splice(0, 1);
-          this.newclass2 = res.data.data;
-          // console.log(res.data.data)
-        },
-        function(res) {
-          console.log(res.status);
-        }
-      );
+            res.data.data.splice(0, 1);
+            this.newclass2 = res.data.data;
+            // console.log(res.data.data)
+          },
+          function(res) {
+            console.log(res.status);
+          }
+        );
 
-    //推荐课程渲染1
-    this.$http
-      .get(url + "/sx1211courseAdmin/recommend", {
-        params: {
-          type: 121100302,
-          page: 1,
-          limit: 4
-        }
-      })
-      .then(
-        function(res) {
-          //console.log(res.data.data)
-          this.recommend11 = res.data.data[0];
+      //推荐课程渲染1
+      this.$http
+        .get(url + "/sx1211courseAdmin/recommend", {
+          params: {
+            type: this.recommendtype,
+            page: 1,
+            limit: 4
+          }
+        })
+        .then(
+          function(res) {
+            //console.log(res.data.data)
+            this.recommend11 = res.data.data[0];
 
-          //console.log(this.recommend11)
-          res.data.data.splice(0, 1);
-          this.recommend1 = res.data.data;
-          //console.log(res.data.data)
-        },
-        function(res) {
-          console.log(res.status);
-        }
-      );
-    //推荐课程渲染2
-    this.$http
-      .get(url + "/sx1211courseAdmin/recommend", {
-        params: {
-          type: 121100302,
-          page: 1,
-          limit: 4
-        }
-      })
-      .then(
-        function(res) {
-          //console.log(res.data.data)
-          this.recommend22 = res.data.data[0];
-          res.data.data.splice(0, 1);
-          this.recommend2 = res.data.data;
-          //console.log(res.data.data)
-        },
-        function(res) {
-          console.log(res.status);
-        }
-      );
+            //console.log(this.recommend11)
+            res.data.data.splice(0, 1);
+            this.recommend1 = res.data.data;
+            //console.log(res.data.data)
+          },
+          function(res) {
+            console.log(res.status);
+          }
+        );
+      //推荐课程渲染2
+      this.$http
+        .get(url + "/sx1211courseAdmin/recommend", {
+          params: {
+            type: this.recommendtype,
+            page: 1,
+            limit: 4
+          }
+        })
+        .then(
+          function(res) {
+            //console.log(res.data.data)
+            this.recommend22 = res.data.data[0];
+            res.data.data.splice(0, 1);
+            this.recommend2 = res.data.data;
+            //console.log(res.data.data)
+          },
+          function(res) {
+            console.log(res.status);
+          }
+        );
 
-    //限时课程渲染1
-    this.$http
-      .get(url + "/flashsale/sale", {
-        params: {
-          type: 35202001,
-          page: 1,
-          limit: 4
-        }
-      })
-      .then(
-        function(res) {
-          //console.log(res.data.data)
-          this.limitclass11 = res.data.data[0];
-          /*console.info(res.data.data[0].end_time)*/
-          this.limittime = res.data.data[0].end_time;
+      //限时课程渲染1
+      this.$http
+        .get(url + "/flashsale/sale", {
+          params: {
+            type: this.limittype,
+            page: 1,
+            limit: 4
+          }
+        })
+        .then(
+          function(res) {
+            //console.log(res.data.data)
+            this.limitclass11 = res.data.data[0];
+            /*console.info(res.data.data[0].end_time)*/
+            this.limittime = res.data.data[0].end_time;
 
-          this.Countdown(this.limittime);
-          //console.log(this.limitclass11)
-          res.data.data.splice(0, 1);
-          this.limitclass1 = res.data.data;
-          //console.log(res.data.data)
-        },
-        function(res) {
-          console.log(res.status);
-        }
-      );
-    //限时课程渲染2
-    this.$http
-      .get(url + "/flashsale/sale", {
-        params: {
-          type: 35202001,
-          page: 1,
-          limit: 4
-        }
-      })
-      .then(
-        function(res) {
-          //console.log(res.data.data)
-          this.limitclass22 = res.data.data[0];
+            this.Countdown(this.limittime);
+            //console.log(this.limitclass11)
+            res.data.data.splice(0, 1);
+            this.limitclass1 = res.data.data;
+            //console.log(res.data.data)
+          },
+          function(res) {
+            console.log(res.status);
+          }
+        );
+      //限时课程渲染2
+      this.$http
+        .get(url + "/flashsale/sale", {
+          params: {
+            type: this.limittype,
+            page: 1,
+            limit: 4
+          }
+        })
+        .then(
+          function(res) {
+            //console.log(res.data.data)
+            this.limitclass22 = res.data.data[0];
 
-          //console.log(this.limitclass22)
-          res.data.data.splice(0, 1);
-          this.limitclass2 = res.data.data;
-          // console.log(res.data.data)
-        },
-        function(res) {
-          console.log(res.status);
-        }
-      );
+            //console.log(this.limitclass22)
+            res.data.data.splice(0, 1);
+            this.limitclass2 = res.data.data;
+            // console.log(res.data.data)
+          },
+          function(res) {
+            console.log(res.status);
+          }
+        );
 
-    //推荐题库1
-    this.$http
-      .get(url + "/exambank/jsonlist", {
-        params: {
-          page: 1,
-          limit: 4,
-          type: this.Topactive,
-          ext1: 1,
-          exam_type: null,
-          writeorface: null,
-          grade: null,
-          app_subject: null,
-          area: null
-        }
-      })
-      .then(function(res) {
-        this.tjtkrecommend = res.body.data;
-      });
-    //推荐题库2
-    this.$http
-      .get(url + "/exambank/jsonlist", {
-        params: {
-          page: 1,
-          limit: 4,
-          type: this.Topactive,
-          ext1: 1,
-          exam_type: null,
-          writeorface: null,
-          grade: null,
-          app_subject: null,
-          area: null
-        }
-      })
-      .then(function(res) {
-        this.tjtkrecommend1 = res.body.data;
-      });
-    //考情分析列表渲染1
-    this.$http
-      .get("http://localhost:8080/shiro_test/examcondition/applist", {
-        params: {
-          page: 1,
-          limit: 4
-        }
-      })
-      .then(
-        function(res) {
-          //console.log(res.data.data)
-          this.condition1 = res.data.data;
-        },
-        function(res) {
-          console.log(res.status);
-        }
-      );
-    //考情分析列表渲染2
-    this.$http
-      .get("http://localhost:8080/shiro_test/examcondition/applist", {
-        params: {
-          page: 2,
-          limit: 4
-        }
-      })
-      .then(
-        function(res) {
-          //console.log(res.data.data)
-          this.condition2 = res.data.data;
-        },
-        function(res) {
-          console.log(res.status);
-        }
-      );
+      //推荐题库1
+      this.$http
+        .get(url + "/exambank/jsonlist", {
+          params: {
+            page: 1,
+            limit: 4,
+            type: this.Topactive,
+            ext1: 1,
+            exam_type: null,
+            writeorface: null,
+            grade: null,
+            app_subject: null,
+            area: null
+          }
+        })
+        .then(function(res) {
+          this.tjtkrecommend = res.body.data;
+        });
+      //推荐题库2
+      this.$http
+        .get(url + "/exambank/jsonlist", {
+          params: {
+            page: 1,
+            limit: 4,
+            type: this.Topactive,
+            ext1: 1,
+            exam_type: null,
+            writeorface: null,
+            grade: null,
+            app_subject: null,
+            area: null
+          }
+        })
+        .then(function(res) {
+          this.tjtkrecommend1 = res.body.data;
+        });
+      //考情分析列表渲染1
+      this.$http
+        .get("http://localhost:8080/shiro_test/examcondition/applist", {
+          params: {
+            page: 1,
+            limit: 4
+          }
+        })
+        .then(
+          function(res) {
+            //console.log(res.data.data)
+            this.condition1 = res.data.data;
+          },
+          function(res) {
+            console.log(res.status);
+          }
+        );
+      //考情分析列表渲染2
+      this.$http
+        .get("http://localhost:8080/shiro_test/examcondition/applist", {
+          params: {
+            page: 2,
+            limit: 4
+          }
+        })
+        .then(
+          function(res) {
+            //console.log(res.data.data)
+            this.condition2 = res.data.data;
+          },
+          function(res) {
+            console.log(res.status);
+          }
+        );
 
-    //猜你喜欢列表渲染1
+      //猜你喜欢列表渲染1
+      this.$http
+        .get(url + "/sx1211courseAdmin/listJson", {
+          params: {
+            page: 2,
+            limit: 4
+          }
+        })
+        .then(
+          function(res) {
+            //console.log(res.data.data)
+            this.glike11 = res.data.data[0];
 
-    this.$http
-      .get(url + "/sx1211courseAdmin/listJson", {
-        params: {
-          page: 2,
-          limit: 4
-        }
-      })
-      .then(
-        function(res) {
-          //console.log(res.data.data)
-          this.glike11 = res.data.data[0];
+            //console.log(this.limitclass11)
+            res.data.data.splice(0, 1);
+            this.glike1 = res.data.data;
+            //console.log(res.data.data)
+          },
+          function(res) {
+            console.log(res.status);
+          }
+        );
+      //猜你喜欢列表渲染2
+      this.$http
+        .get(url + "/sx1211courseAdmin/listJson", {
+          params: {
+            page: 3,
+            limit: 4
+          }
+        })
+        .then(
+          function(res) {
+            //console.log(res.data.data)
+            this.glike22 = res.data.data[0];
 
-          //console.log(this.limitclass11)
-          res.data.data.splice(0, 1);
-          this.glike1 = res.data.data;
-          //console.log(res.data.data)
-        },
-        function(res) {
-          console.log(res.status);
-        }
-      );
-    //猜你喜欢列表渲染2
-    this.$http
-      .get(url + "/sx1211courseAdmin/listJson", {
-        params: {
-          page: 3,
-          limit: 4
-        }
-      })
-      .then(
-        function(res) {
-          //console.log(res.data.data)
-          this.glike22 = res.data.data[0];
-
-          //console.log(this.limitclass22)
-          res.data.data.splice(0, 1);
-          this.glike2 = res.data.data;
-          // console.log(res.data.data)
-        },
-        function(res) {
-          console.log(res.status);
-        }
-      );
-
-
-  },
+            //console.log(this.limitclass22)
+            res.data.data.splice(0, 1);
+            this.glike2 = res.data.data;
+            // console.log(res.data.data)
+          },
+          function(res) {
+            console.log(res.status);
+          }
+        );
+    }
   },
 
   //监听课程切换
