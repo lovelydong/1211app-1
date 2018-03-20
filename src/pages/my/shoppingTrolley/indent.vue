@@ -106,6 +106,8 @@ export default {
         this.$http
           .get(this.url + "/sxcouponsend/getCoupon" + ids + "&amount=" + this.listJson.msg, {})
           .then(function(res) {
+            console.log(res)
+            console.log("分界线————————————————————————————————————————————————————————")
             this.you = res.body.data.length;
             if(Global.usershoppingID){
               res.body.data.forEach(element => {

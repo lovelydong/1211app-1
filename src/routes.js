@@ -36,6 +36,7 @@ import Indent from './pages/my/shoppingTrolley/indent.vue';
 import ShoppingdiscountCoupon from './pages/my/shoppingTrolley/shoppingdiscountCoupon.vue';
 import MyAddress from './pages/my/shoppingTrolley/myAddress/myAddress.vue';
 import NewAddress from './pages/my/shoppingTrolley/myAddress/newAddress.vue';
+import UpdateAddress from './pages/my/shoppingTrolley/myAddress/updateAddress.vue';
 import SetSettingUpInstall from './pages/my/setSettingUpInstall/setSettingUpInstall.vue';
 import PersonalData from './pages/my/setSettingUpInstall/personalData.vue';
 import AboutUs from './pages/my/setSettingUpInstall/AboutUs.vue';
@@ -238,6 +239,10 @@ export default [{
     {
         path: '/newAddress', //新增地址管理
         component: NewAddress,
+    },
+    {
+        path: '/updateAddress', //修改地址管理
+        component: UpdateAddress,
     },
     {
         path: '/setSettingUpInstall', //设置

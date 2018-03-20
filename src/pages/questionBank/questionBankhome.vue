@@ -4,12 +4,23 @@
           <f7-nav-title>题库</f7-nav-title>
         </f7-navbar>
         <f7-toolbar>
-        <f7-link  href="/home" :reload-all="true" :animate="true"><span></span><p>首页</p></f7-link>
-        <f7-link  href="/nLiveStreaming" :reload-all="true" :animate="true"><span></span><p>直播</p></f7-link>
-        <f7-link href="/recordedBroadcast" :reload-all="true" :animate="true"><span></span><p>录播</p></f7-link>
-        <f7-link href="/questionBankhome" :reload-all="true" :animate="true"><span></span><p>题库</p></f7-link>
-        <f7-link href="/my" :reload-all="true" :animate="true"><span></span><p>我的</p></f7-link>
-      </f7-toolbar>
+          <f7-link href="/home" :reload-all="true" :animate="true"><span class="toolbarlog1"></span>
+            <p>首页</p>
+          </f7-link>
+          <f7-link href="/nLiveStreaming" :reload-all="true" :animate="true"><span class="toolbarlog2"></span>
+            <p>直播</p>
+          </f7-link>
+          <f7-link href="/recordedBroadcast" :reload-all="true" :animate="true"><span class="toolbarlog3"></span>
+            <p>录播</p>
+          </f7-link>
+
+          <f7-link  :reload-all="true" :animate="true"><span class="toolbarlog4"></span>
+            <p   style="color: #fd2d44;">题库</p>
+          </f7-link>
+          <f7-link href="/my" :reload-all="true" :animate="true"><span class="toolbarlog5"></span>
+            <p>我的</p>
+          </f7-link>
+        </f7-toolbar>
         <div class="mid">
           <div class="row">
             <div class="col-50"><f7-link :href="'/moduleExam?classtype='+classtype+'&qtype=173703'"> <div><p>章节练习</p> </div> <p><span>开始学习</span></p></f7-link></div>
@@ -24,21 +35,37 @@
 export default {
   data: function() {
     return {
-    	classtype:"",
-
+      classtype: ""
     };
   },
   methods: {},
-  created:function()
-  {
-  	this.classtype=this.$f7route.query.classtype;
-
+  created: function() {
+    this.classtype = this.$f7route.query.classtype;
   }
- }
-
+};
 </script>
 <style lang="less">
 .questionBankhome {
+  .toolbarlog1 {
+    background: url(../../assets/jingling.png) no-repeat 0px -137px;
+    background-color: transparent !important;
+  }
+  .toolbarlog2 {
+    background: url(../../assets/jingling.png) no-repeat -116px -137px;
+    background-color: transparent !important;
+  }
+  .toolbarlog3 {
+    background: url(../../assets/jingling.png) no-repeat -39px -137px;
+    background-color: transparent !important;
+  }
+  .toolbarlog4 {
+    background: url(../../assets/jingling.png) no-repeat -94px -87px;
+    background-color: transparent !important;
+  }
+  .toolbarlog5 {
+    background: url(../../assets/jingling.png) no-repeat -155px -137px;
+    background-color: transparent !important;
+  }
   .mid {
     padding: 20px 12px;
     .row {
@@ -53,7 +80,7 @@ export default {
             height: 118px;
             background-color: pink;
             position: relative;
-            >p{
+            > p {
               position: absolute;
               top: 50%;
               width: 100%;

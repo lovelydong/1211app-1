@@ -2,7 +2,7 @@
   <f7-page class="newAddress">
         <f7-navbar>
           <f7-nav-left sliding><f7-link class="iconfont icon-zuo" @click="$f7router.back()"></f7-link></f7-nav-left>
-          <f7-nav-title>新增收货地址</f7-nav-title>
+          <f7-nav-title>修改收货地址</f7-nav-title>
         </f7-navbar>
         <f7-list inline-labels no-hairlines-md>
         <f7-list-item>
@@ -41,33 +41,36 @@ export default {
         address: "",
         phone: "",
         default: false,
-      }
+      },
+      id: null,
+
     };
   },
   methods: {
-    Onchange(){
-      console.log(this.forms.default)
+    Onchange() {
+      console.log(this.forms.default);
     },
     update() {
       let state = 2;
       if (this.forms.default) {
         state = 1;
       }
-      //新增收货地址列表
+      //修改收货地址列表
       this.$http
-        .get(this.url + "/receiveraddress/save", {
+        .get(this.url + "/receiveraddress/update", {
           params: {
             state: state,
             userName: this.forms.userName,
             phone: this.forms.phone,
             address: this.forms.address,
+            id: this.id
           }
         })
         .then(function(res) {
           console.log(res);
           if(res.body.code == 1){
             let toastCenter = this.$f7.toast.create({
-              text: '添加成功',
+              text: '修改成功',
               position: 'center',
               closeTimeout: 2000,
             });
@@ -83,16 +86,34 @@ export default {
           }
         });
     }
+  },
+  created() {
+    this.id = this.$f7route.query.id;
+    //查询
+    this.$http
+      .get(this.url + "/receiveraddress/findId", {
+        params: {
+          id: this.id
+        }
+      })
+      .then(function(res) {
+        console.log(res);
+        this.forms.userName = res.body.data.userName;
+        this.forms.phone = res.body.data.phone;
+        this.forms.address = res.body.data.address;
+        if(res.body.data.state == 1){
+          this.forms.default = true;
+        }
+      });
   }
 };
 </script>
 <style lang="less">
 .newAddress {
-  .item-inner:after{
+  .item-inner:after {
     transform: scaleY(0.6) !important;
   }
   .mid {
-
   }
   .bot {
     width: 80%;

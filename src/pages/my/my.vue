@@ -1,12 +1,23 @@
 <template>
   <f7-page class="my">
   <f7-toolbar>
-        <f7-link  href="/home" :reload-all="true" :animate="true"><span></span><p>首页</p></f7-link>
-        <f7-link  href="/nLiveStreaming" :reload-all="true" :animate="true"><span></span><p>直播</p></f7-link>
-        <f7-link href="/recordedBroadcast" :reload-all="true" :animate="true"><span></span><p>录播</p></f7-link>
-        <f7-link href="/questionBankhome" :reload-all="true" :animate="true"><span></span><p>题库</p></f7-link>
-        <f7-link href="/my" :reload-all="true" :animate="true"><span></span><p>我的</p></f7-link>
-      </f7-toolbar>
+			<f7-link href="/home" :reload-all="true" :animate="true"><span class="toolbarlog1"></span>
+				<p>首页</p>
+			</f7-link>
+			<f7-link href="/nLiveStreaming" :reload-all="true" :animate="true"><span class="toolbarlog2"></span>
+				<p >直播</p>
+			</f7-link>
+			<f7-link href="/recordedBroadcast" :reload-all="true" :animate="true"><span class="toolbarlog3"></span>
+				<p>录播</p>
+			</f7-link>
+
+			<f7-link :href="'/questionBankhome?classtype='+limittype" :reload-all="true" :animate="true"><span class="toolbarlog4"></span>
+				<p>题库</p>
+			</f7-link>
+			<f7-link href="/my" :reload-all="true" :animate="true"><span class="toolbarlog5"></span>
+				<p  style="color: #fd2d44;">我的</p>
+			</f7-link>
+		</f7-toolbar>
     <div class="top">
       <div>
         <h5>
@@ -15,35 +26,35 @@
           <span>招教币：{{userinfo.balance}}</span>
         </h5>
         <div class="row">
-          <div class="col-25"> <f7-link href="/myCollect"><span></span><p>我的收藏</p></f7-link> </div>
-          <div class="col-25"> <f7-link href="/examinationPaper"><span></span><p>我的试卷</p></f7-link> </div>
-          <div class="col-25"> <f7-link href="/note"><span></span><p>我的笔记</p></f7-link> </div>
-          <div class="col-25"> <f7-link href="/wrongTopicHighlights"><span></span><p>我的错题</p></f7-link> </div>
+          <div class="col-25"> <f7-link href="/myCollect"><span class="bgtop1"></span><p>我的收藏</p></f7-link> </div>
+          <div class="col-25"> <f7-link href="/examinationPaper"><span  class="bgtop2"></span><p>我的试卷</p></f7-link> </div>
+          <div class="col-25"> <f7-link href="/note"><span  class="bgtop3"></span><p>我的笔记</p></f7-link> </div>
+          <div class="col-25"> <f7-link href="/wrongTopicHighlights"><span  class="bgtop4"></span><p>我的错题</p></f7-link> </div>
         </div>
       </div>
     </div>
     <div class="mid">
       <ul>
         <li>
-          <f7-link href="/myOrder"><span></span>  我的订单 <i class="iconfont icon-you"></i></f7-link>
-          <f7-link href="/shoppingTrolley"><span></span>  购物车 <i class="iconfont icon-you"></i></f7-link>
+          <f7-link href="/myOrder"><span class="bgmid1"></span>  我的订单 <i class="iconfont icon-you"></i></f7-link>
+          <f7-link href="/shoppingTrolley"><span class="bgmid2"></span>  购物车 <i class="iconfont icon-you"></i></f7-link>
           <!--<f7-link href="/checkTheLogistics"><span></span>  物流详情 <i class="iconfont icon-you"></i></f7-link>-->
-          <f7-link href="/discountCoupon"><span></span>  优惠券 <i n  class="iconfont icon-you"></i></f7-link>
+          <f7-link href="/discountCoupon"><span class="bgmid3"></span>  优惠券 <i n  class="iconfont icon-you"></i></f7-link>
         </li>
       </ul>
       <ul>
         <li>
-          <f7-link href="/myCourses"><span></span>  我的课程 <i class="iconfont icon-you"></i></f7-link>
-          <f7-link href="/watchTheRecord"><span></span>  观看记录 <i class="iconfont icon-you"></i></f7-link>
-          <f7-link href="/conversion"><span></span>  招教币兑换 <i class="iconfont icon-you"></i></f7-link>
+          <f7-link href="/myCourses"><span class="bgmid4"></span>  我的课程 <i class="iconfont icon-you"></i></f7-link>
+          <f7-link href="/watchTheRecord"><span class="bgmid5"></span>  观看记录 <i class="iconfont icon-you"></i></f7-link>
+          <f7-link href="/conversion"><span class="bgmid6"></span>  招教币兑换 <i class="iconfont icon-you"></i></f7-link>
           <!-- <f7-link><span></span>  离线缓存 <i class="iconfont icon-you"></i></f7-link> -->
         </li>
       </ul>
       <ul>
         <li>
-          <f7-link><span></span>  邀请好友 <i class="iconfont icon-you"></i></f7-link>
-          <f7-link><span></span>  在线客服 <i class="iconfont icon-you"></i></f7-link>
-          <f7-link href="/setSettingUpInstall"><span></span>  设置 <i class="iconfont icon-you"></i></f7-link>
+          <f7-link><span class="bgmid7"></span >  邀请好友 <i class="iconfont icon-you"></i></f7-link>
+          <f7-link><span  class="bgmid8"></span>  在线客服 <i class="iconfont icon-you"></i></f7-link>
+          <f7-link href="/setSettingUpInstall"><span class="bgmid9"></span>  设置 <i class="iconfont icon-you"></i></f7-link>
         </li>
       </ul>
     </div>
@@ -51,11 +62,13 @@
 </template>
 <script>
 import global_ from "../../pages/Global"; //引用模块进来
+
 export default {
   data: function() {
     return {
       userinfo: "",
-      url: "http://localhost:8080/shiro_test"
+      url: "http://localhost:8080/shiro_test",
+      limittype: global_.limittype
     };
   },
   methods: {},
@@ -77,6 +90,86 @@ export default {
 </script>
 <style lang="less">
 .my {
+  .bgmid1 {
+    background: url(../../assets/jingling.png) no-repeat -136px -297px;
+    background-color: transparent !important;
+  }
+  .bgmid2 {
+    background: url(../../assets/jingling.png) no-repeat -36px -297px;
+    background-color: transparent !important;
+  }
+  .bgmid3 {
+    background: url(../../assets/jingling.png) no-repeat -1px -297px;
+    background-color: transparent !important;
+  }
+  .bgmid4 {
+    background: url(../../assets/jingling.png) no-repeat -102px -297px;
+    background-color: transparent !important;
+  }
+  .bgmid5 {
+    background: url(../../assets/jingling.png) no-repeat -237px -297px;
+    background-color: transparent !important;
+  }
+  .bgmid6 {
+    background: url(../../assets/jingling.png) no-repeat -302px -297px;
+    background-color: transparent !important;
+  }
+  .bgmid7 {
+    background: url(../../assets/jingling.png) no-repeat -68px -297px;
+    background-color: transparent !important;
+  }
+  .bgmid8 {
+    background: url(../../assets/jingling.png) no-repeat -204px -297px;
+    background-color: transparent !important;
+  }
+  .bgmid9 {
+    background: url(../../assets/jingling.png) no-repeat -272px -297px;
+    background-color: transparent !important;
+  }
+  .bgtop1 {
+    background: url(../../assets/jingling.png) no-repeat -116px -238px;
+    background-color: transparent !important;
+    width: 24px !important;
+    height: 24px !important;
+  }
+  .bgtop2 {
+    background: url(../../assets/jingling.png) no-repeat -78px -238px;
+    background-color: transparent !important;
+    width: 24px !important;
+    height: 24px !important;
+  }
+  .bgtop3 {
+    background: url(../../assets/jingling.png) no-repeat -38px -238px;
+    background-color: transparent !important;
+    width: 24px !important;
+    height: 24px !important;
+  }
+  .bgtop4 {
+    background: url(../../assets/jingling.png) no-repeat 0px -238px;
+    background-color: transparent !important;
+    width: 24px !important;
+    height: 24px !important;
+  }
+  .toolbarlog1 {
+    background: url(../../assets/jingling.png) no-repeat 0px -137px;
+    background-color: transparent !important;
+  }
+  .toolbarlog2 {
+    background: url(../../assets/jingling.png) no-repeat -116px -137px;
+    background-color: transparent !important;
+  }
+  .toolbarlog3 {
+    background: url(../../assets/jingling.png) no-repeat -39px -137px;
+    background-color: transparent !important;
+  }
+  .toolbarlog4 {
+    background: url(../../assets/jingling.png) no-repeat -77px -137px;
+    background-color: transparent !important;
+  }
+  .toolbarlog5 {
+    background: url(../../assets/jingling.png) no-repeat -182px -87px;
+    background-color: transparent !important;
+  }
   .page-content {
     padding-bottom: 60px !important;
   }

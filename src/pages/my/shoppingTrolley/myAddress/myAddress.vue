@@ -5,13 +5,13 @@
           <f7-nav-title>地址管理</f7-nav-title>
         </f7-navbar>
         <div class="mid">
-          <f7-link class="top " :class="{active:item.state == 1}" href="/newAddress" v-for="item in list" :key="item.id">
+          <f7-link class="top" :href="'/updateAddress?id='+item.id" :class="{active:item.state == 1}"  v-for="item in list" :key="item.id">
             <h4><i class="iconfont icon-dizhi"></i>收货人：{{item.userName}}      {{item.phone}}</h4>
             <p>收货地址：{{item.address}}</p>
             <i class="iconfont icon-icon6"></i>
           </f7-link>
         </div>
-        <f7-link class="bot">
+        <f7-link href="/newAddress" class="bot">
           新增收货地址
         </f7-link>
   </f7-page>

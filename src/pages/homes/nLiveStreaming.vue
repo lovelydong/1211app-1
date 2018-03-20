@@ -1,5 +1,5 @@
 <template>
-  <f7-page class="recommended"  infinite @infinite="onInfiniteScroll">
+  <f7-page class="nLiveStreaming"  infinite @infinite="onInfiniteScroll">
         <f7-navbar>
           <f7-nav-title>直播</f7-nav-title>
           <f7-nav-right>
@@ -9,12 +9,23 @@
 
         </f7-navbar>
       <f7-toolbar>
-        <f7-link  href="/home" :reload-all="true" :animate="true"><span></span><p>首页</p></f7-link>
-        <f7-link  href="/nLiveStreaming" :reload-all="true" :animate="true"><span></span><p>直播</p></f7-link>
-        <f7-link href="/recordedBroadcast" :reload-all="true" :animate="true"><span></span><p>录播</p></f7-link>
-        <f7-link href="/questionBankhome" :reload-all="true" :animate="true"><span></span><p>题库</p></f7-link>
-        <f7-link href="/my" :reload-all="true" :animate="true"><span></span><p>我的</p></f7-link>
-      </f7-toolbar>
+			<f7-link href="/home" :reload-all="true" :animate="true"><span class="toolbarlog1"></span>
+				<p>首页</p>
+			</f7-link>
+			<f7-link href="/nLiveStreaming" :reload-all="true" :animate="true"><span class="toolbarlog2"></span>
+				<p  style="color: #fd2d44;">直播</p>
+			</f7-link>
+			<f7-link href="/recordedBroadcast" :reload-all="true" :animate="true"><span class="toolbarlog3"></span>
+				<p>录播</p>
+			</f7-link>
+
+			<f7-link :href="'/questionBankhome?classtype='+limittype" :reload-all="true" :animate="true"><span class="toolbarlog4"></span>
+				<p>题库</p>
+			</f7-link>
+			<f7-link href="/my" :reload-all="true" :animate="true"><span class="toolbarlog5"></span>
+				<p>我的</p>
+			</f7-link>
+		</f7-toolbar>
         <f7-subnavbar>
             <transition
                   name="custom-classes-transition"
@@ -132,6 +143,8 @@
   </f7-page>
 </template>
 <script>
+import Global from '../Global.vue';
+
 export default {
   data: function() {
     return {
@@ -147,7 +160,8 @@ export default {
         exam_type: 121100301
       },
       gitCon: {},
-      recommend: {}
+      recommend: {},
+      limittype:Global.limittype,
     };
   },
   watch: {
@@ -180,17 +194,17 @@ export default {
     shareboy: function(data) {
       this.$refs.c1.sharefn();
     },
-    exam_typeFn: function(e){
+    exam_typeFn: function(e) {
       this.$http
-      .get(this.url + "/sx1211courseAdmin/getCon", {
-        params: {
-          exam_type: e
-        }
-      })
-      .then(function(res) {
-        console.log(res)
-        this.gitCon = res.body.data;
-      });
+        .get(this.url + "/sx1211courseAdmin/getCon", {
+          params: {
+            exam_type: e
+          }
+        })
+        .then(function(res) {
+          console.log(res);
+          this.gitCon = res.body.data;
+        });
     }
   },
 
@@ -198,7 +212,7 @@ export default {
     //赛选条件
     this.$http
       .get(this.url + "/sx1211courseAdmin/getCon", {
-         params: {
+        params: {
           exam_type: 121100301
         }
       })
@@ -226,6 +240,7 @@ export default {
 };
 </script>
 <style lang="less">
+
 .TopsZ {
   position: fixed;
   top: 56px;
@@ -264,7 +279,27 @@ export default {
     }
   }
 }
-.recommended {
+.nLiveStreaming {
+  .toolbarlog1{
+     background: url(../../assets/jingling.png) no-repeat 0px -137px;
+     background-color: transparent !important;
+  }
+  .toolbarlog2{
+     background: url(../../assets/jingling.png) no-repeat -138px -87px;
+     background-color: transparent !important;
+  }
+  .toolbarlog3{
+     background: url(../../assets/jingling.png) no-repeat -39px -137px;
+     background-color: transparent !important;
+  }
+  .toolbarlog4{
+     background: url(../../assets/jingling.png) no-repeat -77px -137px;
+     background-color: transparent !important;
+  }
+  .toolbarlog5{
+     background: url(../../assets/jingling.png) no-repeat -155px -137px;
+     background-color: transparent !important;
+  }
   .mid {
     padding: 10px;
     > ul {
