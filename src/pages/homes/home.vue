@@ -351,14 +351,14 @@
 
 			<div class="midlist midTopic ">
 
-           <h3><i class="lefth35"></i> 推荐题库<f7-link href="/questionBank/">更多 <i class="iconfont icon-you"></i></f7-link></h3>
+           <h3><i class="lefth35"></i> 推荐题库<f7-link href="/moduleExam?classtype=null&qtype=666">更多 <i class="iconfont icon-you"></i></f7-link></h3>
             <f7-swiper pagination >
               <f7-swiper-slide>
                   <ul>
-                      <li class="clearfix link">
-                        <f7-link>
+                      <li class="clearfix link" v-for="item in tjtkrecommend" :key="item.id">
+                        <f7-link @click="$f7router.navigate('/questionBankParticulars?id='+item.id+'&qtype=null')">
                           <div>
-                            <p>2017年上半年中学综合素质真题及答案解析</p>
+                            <p>{{item.name}}</p>
                             <p>试试手气，马上开始做题</p>
                           </div>
                         </f7-link>
@@ -368,14 +368,15 @@
               </f7-swiper-slide>
               <f7-swiper-slide>
                <ul>
-                      <li class="clearfix link">
-                        <f7-link>
+                      <li class="clearfix link" v-for="item in tjtkrecommend1" :key="item.id">
+                        <f7-link @click="$f7router.navigate('/questionBankParticulars?id='+item.id+'&qtype=null')">
                           <div>
-                            <p>2017年上半年中学综合素质真题及答案解析</p>
+                            <p>{{item.name}}</p>
                             <p>试试手气，马上开始做题</p>
                           </div>
                         </f7-link>
                       </li>
+
                       </ul>
               </f7-swiper-slide>
 
@@ -504,7 +505,9 @@ export default {
       Topactive: 1,
       recommendtype: "",
       limittype: 35202001,
-      timer: ""
+      timer: "",
+      tjtkrecommend: [],
+      tjtkrecommend1: []
     };
   },
   methods: {
@@ -534,176 +537,6 @@ export default {
     },
 
     randerClass: function() {
-      let url = "http://localhost:8080/shiro_test";
-
-      //最新课程渲染1
-
-      this.$http
-        .get(url + "/sx1211courseAdmin/listJson", {
-          params: {
-            exam_type: this.recommendtype,
-            page: 1,
-            limit: 4
-          }
-        })
-        .then(
-          function(res) {
-            //console.log(res.data.data)
-            this.newclass11 = res.data.data[0];
-
-            res.data.data.splice(0, 1);
-            this.newclass1 = res.data.data;
-            //console.log(res.data.data)
-          },
-          function(res) {
-            console.log(res.status);
-          }
-        );
-      //最新课程渲染2
-
-      this.$http
-        .get(url + "/sx1211courseAdmin/listJson", {
-          params: {
-            exam_type: this.recommendtype,
-            page: 1,
-            limit: 4
-          }
-        })
-        .then(
-          function(res) {
-            //console.log(res.data.data)
-            this.newclass22 = res.data.data[0];
-
-            res.data.data.splice(0, 1);
-            this.newclass2 = res.data.data;
-            // console.log(res.data.data)
-          },
-          function(res) {
-            console.log(res.status);
-          }
-        );
-
-      //推荐课程渲染1
-      this.$http
-        .get(url + "/sx1211courseAdmin/recommend", {
-          params: {
-            type: this.recommendtype,
-            page: 1,
-            limit: 4
-          }
-        })
-        .then(
-          function(res) {
-            //console.log(res.data.data)
-            this.recommend11 = res.data.data[0];
-
-            //console.log(this.recommend11)
-            res.data.data.splice(0, 1);
-            this.recommend1 = res.data.data;
-            //console.log(res.data.data)
-          },
-          function(res) {
-            console.log(res.status);
-          }
-        );
-      //推荐课程渲染2
-      this.$http
-        .get(url + "/sx1211courseAdmin/recommend", {
-          params: {
-            type: this.recommendtype,
-            page: 1,
-            limit: 4
-          }
-        })
-        .then(
-          function(res) {
-            //console.log(res.data.data)
-            this.recommend22 = res.data.data[0];
-            res.data.data.splice(0, 1);
-            this.recommend2 = res.data.data;
-            //console.log(res.data.data)
-          },
-          function(res) {
-            console.log(res.status);
-          }
-        );
-      //限时课程渲染1
-      this.$http
-        .get(url + "/flashsale/sale", {
-          params: {
-            type: this.limittype,
-            page: 1,
-            limit: 4
-          }
-        })
-        .then(
-          function(res) {
-            //console.log(res.data.data)
-            this.limitclass11 = res.data.data[0];
-
-            this.limittime = res.data.data[0].end_time;
-            this.Countdown(this.limittime);
-            //console.log(this.limitclass11)
-            res.data.data.splice(0, 1);
-            this.limitclass1 = res.data.data;
-            //console.log(res.data.data)
-          },
-          function(res) {
-            console.log(res.status);
-          }
-        );
-      //限时课程渲染2
-      this.$http
-        .get(url + "/flashsale/sale", {
-          params: {
-            type: this.limittype,
-            page: 1,
-            limit: 4
-          }
-        })
-        .then(
-          function(res) {
-            //console.log(res.data.data)
-            this.limitclass22 = res.data.data[0];
-
-            //console.log(this.limitclass22)
-            res.data.data.splice(0, 1);
-            this.limitclass2 = res.data.data;
-            // console.log(res.data.data)
-          },
-          function(res) {
-            console.log(res.status);
-          }
-        );
-    }
-  },
-
-  //监听课程切换
-  watch: {
-    Topactive(newTopactive, oldTopactive) {
-      //console.log(newTopactive, oldTopactive);
-      window.clearInterval(this.timer);
-      if (newTopactive == 1) {
-        this.recommendtype = 121100302;
-        this.limittype = 35202001;
-        Global.limittype = 35202001;
-        this.randerClass();
-      } else if (newTopactive == 2) {
-        this.recommendtype = 121100301;
-        this.limittype = 35202002;
-        Global.limittype = 35202002;
-        this.randerClass();
-      } else if (newTopactive == 3) {
-        this.recommendtype = 121100303;
-        this.limittype = 35202003;
-        Global.limittype = 35202003;
-
-        this.randerClass();
-      }
-    }
-  },
-
-  created: function() {
     let url = "http://localhost:8080/shiro_test";
 
     //最新课程渲染1
@@ -848,8 +681,42 @@ export default {
         }
       );
 
-    //考情分析列表
-
+    //推荐题库1
+    this.$http
+      .get(url + "/exambank/jsonlist", {
+        params: {
+          page: 1,
+          limit: 4,
+          type: this.Topactive,
+          ext1: 1,
+          exam_type: null,
+          writeorface: null,
+          grade: null,
+          app_subject: null,
+          area: null
+        }
+      })
+      .then(function(res) {
+        this.tjtkrecommend = res.body.data;
+      });
+    //推荐题库2
+    this.$http
+      .get(url + "/exambank/jsonlist", {
+        params: {
+          page: 1,
+          limit: 4,
+          type: this.Topactive,
+          ext1: 1,
+          exam_type: null,
+          writeorface: null,
+          grade: null,
+          app_subject: null,
+          area: null
+        }
+      })
+      .then(function(res) {
+        this.tjtkrecommend1 = res.body.data;
+      });
     //考情分析列表渲染1
     this.$http
       .get("http://localhost:8080/shiro_test/examcondition/applist", {
@@ -931,25 +798,37 @@ export default {
         }
       );
 
-    /*
-				//推荐题库列表渲染1
-			this.$http
-				.get(url + "/exambank/typelist", {
-					params: {
 
-						type:35202001
-					}
-				})
-				.then(
-					function(res) {
+  },
+  },
 
-						this.tiku1 = res.data.data;
-						// console.log(res.data.data)
-					},
-					function(res) {
-						console.log(res.status);
-					});
-					*/
+  //监听课程切换
+  watch: {
+    Topactive(newTopactive, oldTopactive) {
+      //console.log(newTopactive, oldTopactive);
+      window.clearInterval(this.timer);
+      if (newTopactive == 1) {
+        this.recommendtype = 121100302;
+        this.limittype = 35202001;
+        Global.limittype = 35202001;
+        this.randerClass();
+      } else if (newTopactive == 2) {
+        this.recommendtype = 121100301;
+        this.limittype = 35202002;
+        Global.limittype = 35202002;
+        this.randerClass();
+      } else if (newTopactive == 3) {
+        this.recommendtype = 121100303;
+        this.limittype = 35202003;
+        Global.limittype = 35202003;
+
+        this.randerClass();
+      }
+    }
+  },
+
+  created: function() {
+    this.randerClass();
   },
   mounted: function() {}
 };

@@ -9,17 +9,18 @@
            <div id="tab1" class="tab tab-active" >
              <div class="list">
                 <ul>
-                  <li class="swipeout">
+                  <li class="swipeout" v-for="item in list" :key="item.id">
                     <div class="swipeout-content">
                       <a href="" class="item-link">
                         <div class="item-content">
                           <div class="item-inner">
-                            <div class="item-title">
-                              <span><em>直播中</em></span>
+                            <div class="item-title" >
+                              <span :style="{backgroundImage: 'url(' + url + item.img + ')' }"><em v-if="item.course_type == 121100401 || item.course_type == 35202044 " v-text="item.start_time <= new Date()?'直播中':'未开始'"></em></span>
                               <div>
-                                <p>浙江2018年教师招聘教育心理学二期回放</p>
-                                <p>开课时间：2018-05-15</p>
-                                <p>已学习21%</p>
+                                <p>{{item.coursename}}</p>
+                                <p v-if="item.course_type == 121100401 || item.course_type == 35202044 ">开课时间：{{item.start_time/1000 | moment("YYYY-MM-DD") }}</p>
+                                <p v-else>有效期至：{{item.expiry_date/1000 | moment("YYYY-MM-DD") }}</p>
+                                <!-- <p>已学习21%</p> -->
                               </div>
                             </div>
                           </div>
@@ -27,28 +28,7 @@
                       </a>
                     </div>
                     <div class="swipeout-actions-right">
-                      <a href="#" class="swipeout-delete">删除</a>
-                    </div>
-                  </li>
-                  <li class="swipeout">
-                    <div class="swipeout-content">
-                      <a href="" class="item-link">
-                        <div class="item-content">
-                          <div class="item-inner">
-                            <div class="item-title">
-                              <span></span>
-                              <div>
-                                <p>浙江2018年教师招聘教育心理学二期回放</p>
-                                <p>开课时间：2018-05-15</p>
-                                <p>已学习21%</p>
-                              </div>
-                            </div>
-                          </div>
-                        </div>
-                      </a>
-                    </div>
-                    <div class="swipeout-actions-right">
-                      <a href="#" class="swipeout-delete">删除</a>
+                      <a href="#" class="swipeout-delete" @click="remove(item.id)">删除</a>
                     </div>
                   </li>
                 </ul>
@@ -61,12 +41,51 @@
 <script>
 export default {
   data: function() {
-    return {};
+    return {
+      url: "http://localhost:8080/shiro_test",
+      list: []
+    };
   },
   methods: {
-    shareboy: function(data) {
-      this.$refs.c1.sharefn();
+    remove(id) {
+      this.$http
+        .get(this.url + "/playrecord/delete", {
+          params: {
+            id: id
+          }
+        })
+        .then(function(res) {
+          if (res.body.code == 1) {
+            let toastCenter = this.$f7.toast.create({
+              text: "删除成功",
+              position: "center",
+              closeTimeout: 2000
+            });
+            toastCenter.open();
+          }else{
+            let toastCenter = this.$f7.toast.create({
+              text: "服务器抽风了，请稍后再试 ┭┮﹏┭┮",
+              position: "center",
+              closeTimeout: 2000
+            });
+            toastCenter.open();
+          }
+        });
     }
+  },
+  created() {
+    //列表
+    this.$http
+      .get(this.url + "/playrecord/jsonlist", {
+        params: {
+          page: 1,
+          limit: 50
+        }
+      })
+      .then(function(res) {
+        this.list = res.body.data;
+        console.log(res);
+      });
   }
 };
 </script>

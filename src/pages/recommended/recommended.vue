@@ -117,7 +117,7 @@
           <ul>
             <li class="clearfix link" v-for="item in recommend" :key="item.id">
              <f7-link :href="'/recommendedParticulars?id=' + item.id ">
-                  <span :style="{backgroundImage: 'url(' + item.simg + ')' }"></span>
+                  <span :style="{backgroundImage: 'url(' + url + item.simg + ')' }"></span>
                    <div>
                    <p>{{item.name}}</p>
                     <p>{{item.area}}·{{item.buyno}}人正在学习 <i class="iconfont icon-xingxing"></i><i class="iconfont icon-xingxing"></i><i class="iconfont icon-xingxing"></i><i class="iconfont icon-xingxing"></i><i class="iconfont icon-xingxing"></i></p>
