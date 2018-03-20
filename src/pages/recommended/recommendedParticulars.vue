@@ -74,7 +74,7 @@
           <f7-link :class="{active: iscollect}" @click="iscollectfn"><i class="iconfont icon-shoucang"></i> <p>收藏</p></f7-link>
         </div>
         <div class="col-33"><f7-link @click="addspc">加入购物车</f7-link></div>
-        <div class="col-33"><f7-link :href="(isornot==1&&type==1)?'/vod':(isornot==1&&type==2?'/vod':(isornot==1&&type==3?'/vod':'/indent'))" :html="isornot==1?flag='立即播放':flag='立即购买'">{{flag}}</f7-link></div>
+        <div class="col-33"><f7-link :href="(isornot==1&&type==1)?'/live?id='+oneJson.id+'&type='+isxs:(isornot==1&&(type==2||type==3))?'/vod?id='+oneJson.id+'&type='+isxs:'/indent'" :html="isornot==1?flag='立即播放':flag='立即购买'">{{flag}}</f7-link></div>
       </div>
     </div>
         <Share ref="c1"></Share>
@@ -91,6 +91,7 @@ export default {
       showTop: false,
       isornot:"",
       type:'',
+      isxs:"",
       flag:"",
       shows: {
         XQ: true,
@@ -148,11 +149,12 @@ export default {
       this.$refs.c1.sharefn();
     },
     iscollectfn: function() {
-      this.$http
+    	if(this.isxs==1){
+    		this.$http
         .get(this.url + "/sxcollect/add", {
           params: {
             courseid: this.id,
-            type: "200"
+            type: 200
           }
         })
         .then(function(res) {
@@ -162,9 +164,52 @@ export default {
             this.iscollect = false;
           }
         });
+    	}
+    	else 
+    	{
+    		this.$http
+        .get(this.url + "/sxcollect/add", {
+          params: {
+            courseid: this.id,
+            type: 100
+          }
+        })
+        .then(function(res) {
+          if (res.body.code == 1) {
+            this.iscollect = true;
+          } else {
+            this.iscollect = false;
+          }
+        });
+    	}
+    	
+      
     },
     addspc: function() {
-      this.$http
+    	if(this.isxs==1)
+    	{
+    		this.$http
+        .get(this.url + "/shoppingcart/save", {
+          params: {
+            goodsId: this.id,
+            goodsNum: 1,
+            type: 100
+          }
+        })
+        .then(function(res) {
+          console.log(res);
+          if (res.body.code == 1) {
+            let toastCenter = this.$f7.toast.create({
+              text: "成功加入购物车",
+              position: "center",
+              closeTimeout: 2000
+            });
+            toastCenter.open();
+          }
+        });
+    	}
+    	else{
+    			this.$http
         .get(this.url + "/shoppingcart/save", {
           params: {
             goodsId: this.id,
@@ -183,6 +228,8 @@ export default {
             toastCenter.open();
           }
         });
+    	}
+      
     },
     xstype:function(t)
     {
@@ -220,8 +267,8 @@ export default {
   created() {
 
     let id = this.$f7route.query.id;
-    let isxs=this.$f7route.query.isxs;
-    if(isxs==1)
+    this.isxs=this.$f7route.query.isxs;
+    if(this.isxs==1)
     {
     	 	
        //是否购买
@@ -274,7 +321,7 @@ export default {
         });
         this.chap = obj;
       });
-    }else{
+    }else if(this.isxs!=1){
     	
     		 	
        //是否购买

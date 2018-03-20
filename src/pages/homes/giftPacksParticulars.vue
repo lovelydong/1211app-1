@@ -119,7 +119,7 @@ export default {
         .get(this.url + "/sxcollect/add", {
           params: {
             courseid: this.id,
-            type: "200"
+            type: 300
           }
         })
         .then(function(res) {
@@ -136,7 +136,7 @@ export default {
           params: {
             goodsId: this.id,
             goodsNum: 1,
-            type: 200
+            type: 300
           }
         })
         .then(function(res) {
