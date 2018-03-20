@@ -35,6 +35,7 @@
         <li>
           <f7-link href="/myCourses"><span></span>  我的课程 <i class="iconfont icon-you"></i></f7-link>
           <f7-link href="/watchTheRecord"><span></span>  观看记录 <i class="iconfont icon-you"></i></f7-link>
+          <f7-link href="/conversion"><span></span>  招教币兑换 <i class="iconfont icon-you"></i></f7-link>
           <!-- <f7-link><span></span>  离线缓存 <i class="iconfont icon-you"></i></f7-link> -->
         </li>
       </ul>
@@ -42,7 +43,6 @@
         <li>
           <f7-link><span></span>  邀请好友 <i class="iconfont icon-you"></i></f7-link>
           <f7-link><span></span>  在线客服 <i class="iconfont icon-you"></i></f7-link>
-          <f7-link href="/conversion"><span></span>  招教币兑换 <i class="iconfont icon-you"></i></f7-link>
           <f7-link href="/setSettingUpInstall"><span></span>  设置 <i class="iconfont icon-you"></i></f7-link>
         </li>
       </ul>

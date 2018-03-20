@@ -18,21 +18,21 @@
 
 		</f7-navbar>
 		<f7-toolbar>
-			<f7-link href="/home" :reload-all="true" :animate="true"><span></span>
-				<p>首页</p>
+			<f7-link href="/home" :reload-all="true" :animate="true"><span class="toolbarlog1"></span>
+				<p style="color: #fd2d44;">首页</p>
 			</f7-link>
-			<f7-link href="/nLiveStreaming" :reload-all="true" :animate="true"><span></span>
+			<f7-link href="/nLiveStreaming" :reload-all="true" :animate="true"><span class="toolbarlog2"></span>
 				<p>直播</p>
 			</f7-link>
-			<f7-link href="/recordedBroadcast" :reload-all="true" :animate="true"><span></span>
+			<f7-link href="/recordedBroadcast" :reload-all="true" :animate="true"><span class="toolbarlog3"></span>
 				<p>录播</p>
 			</f7-link>
 
-			<f7-link :href="'/questionBankhome?classtype='+limittype" :reload-all="true" :animate="true"><span></span>
+			<f7-link :href="'/questionBankhome?classtype='+limittype" :reload-all="true" :animate="true"><span class="toolbarlog4"></span>
 
 				<p>题库</p>
 			</f7-link>
-			<f7-link href="/my" :reload-all="true" :animate="true"><span></span>
+			<f7-link href="/my" :reload-all="true" :animate="true"><span class="toolbarlog5"></span>
 				<p>我的</p>
 			</f7-link>
 		</f7-toolbar>
@@ -84,7 +84,7 @@
 			</div>
 			<f7-link href="/xsmore"> <img src="../../assets/homeQiang.png" alt=""> </f7-link>
 			<div class="midlist midRecommend">
-				<h3><i></i> 推荐课程 <f7-link href="/recommended/">更多 <i class="iconfont icon-you"></i></f7-link></h3>
+				<h3><i class="lefth31"></i> 推荐课程 <f7-link href="/recommended/">更多 <i class="iconfont icon-you"></i></f7-link></h3>
 
 				<f7-swiper pagination>
 					<f7-swiper-slide>
@@ -156,8 +156,8 @@
 				</f7-swiper>
 
 			</div>
-			<div class="midlist midNew ">
-				<h3><i></i> 最新课程 <f7-link href="/newmore/">更多 <i class="iconfont icon-you"></i></f7-link></h3>
+			<div class="midlist midNew">
+				<h3><i class="lefth32"></i> 最新课程 <f7-link href="/newmore/">更多 <i class="iconfont icon-you"></i></f7-link></h3>
 
 				<f7-swiper pagination>
 					<f7-swiper-slide>
@@ -229,7 +229,7 @@
 				</f7-swiper>
 			</div>
 			<div class="midlist midTime ">
-				<h3><i></i> 限时抢购 <f7-link href="/xsmore">更多 <i class="iconfont icon-you"></i></f7-link></h3>
+				<h3><i class="lefth33"></i> 限时抢购 <f7-link href="/xsmore">更多 <i class="iconfont icon-you"></i></f7-link></h3>
 				<f7-swiper pagination>
 					<f7-swiper-slide>
 						<div>
@@ -299,7 +299,7 @@
 				</f7-swiper>
 			</div>
 			<div class="midlist midAnalyze ">
-				<h3><i></i> 考情分析<f7-link href="/examinationAnalysis/">更多 <i class="iconfont icon-you"></i></f7-link></h3>
+				<h3><i class="lefth34"></i> 考情分析<f7-link href="/examinationAnalysis/">更多 <i class="iconfont icon-you"></i></f7-link></h3>
 				<f7-swiper pagination>
 					<f7-swiper-slide>
 						<ul>
@@ -350,9 +350,9 @@
 				</f7-swiper>
 			</div>
 
-			<!-- <div class="midlist midTopic ">
+			<div class="midlist midTopic ">
 
-           <h3><i></i> 推荐题库<f7-link href="/questionBank/">更多 <i class="iconfont icon-you"></i></f7-link></h3>
+           <h3><i class="lefth35"></i> 推荐题库<f7-link href="/questionBank/">更多 <i class="iconfont icon-you"></i></f7-link></h3>
             <f7-swiper pagination >
               <f7-swiper-slide>
                   <ul>
@@ -384,10 +384,10 @@
 
 
 
-        </div>-->
+        </div>
 
 			<div class="midlist midLink">
-				<h3><i></i> 猜你喜欢</h3>
+				<h3><i class="lefth36"></i> 猜你喜欢</h3>
 				<div>
 					<f7-link  @click="$f7router.navigate('/recommendedParticulars?id='+glike11.id )"  >
 						<p>{{glike11.name}}</p>
@@ -502,7 +502,6 @@
 				glike22: "",
 				Topactive: 1,
 				recommendtype: "",
-
 				limittype:35202001,
 				timer: ""
 			};
@@ -964,11 +963,57 @@
 </script>
 <style lang="less">
 	.iconfont {
-
     font-size: 12px;
-    
+  }
+  .lefth31{
+     background: url(../../assets/jingling.png) no-repeat -32px -188px;
+     background-color: transparent !important;
+  }
+  .lefth32{
+     background: url(../../assets/jingling.png) no-repeat -51px -514px;
+     background-color: transparent !important;
+  }
+  .lefth33{
+     background: url(../../assets/jingling.png) no-repeat 0px -188px;
+     background-color: transparent !important;
+  }
+  .lefth34{
+     background: url(../../assets/jingling.png) no-repeat -129px -188px;
+     background-color: transparent !important;
+  }
+  .lefth35{
+     background: url(../../assets/jingling.png) no-repeat -66px -188px;
+     background-color: transparent !important;
+  }
+  .lefth36{
+     background: url(../../assets/jingling.png) no-repeat -98px -188px;
+     background-color: transparent !important;
+  }
+  .toolbarlog1{
+     background: url(../../assets/jingling.png) no-repeat -50px -87px;
+     background-color: transparent !important;
+  }
+  .toolbarlog2{
+     background: url(../../assets/jingling.png) no-repeat -116px -137px;
+     background-color: transparent !important;
+  }
+  .toolbarlog3{
+     background: url(../../assets/jingling.png) no-repeat -39px -137px;
+     background-color: transparent !important;
+  }
+  .toolbarlog4{
+     background: url(../../assets/jingling.png) no-repeat -77px -137px;
+     background-color: transparent !important;
+  }
+  .toolbarlog5{
+     background: url(../../assets/jingling.png) no-repeat -155px -137px;
+     background-color: transparent !important;
+  }
 
-}
+
+
+
+
 	.navbar {
 		background-color: #fff !important;
 		.navbar-inner {
@@ -1110,15 +1155,51 @@
 								color: #000;
 								>span {
 									display: inline-block;
-									width: 50px;
-									height: 50px;
-									background-color: #000;
-								}
+									width: 60px;
+                  height: 60px;
+                  background: url(../../assets/jingling.png) no-repeat 0 0;
+                }
 								>p {
 									margin: 0;
 								}
-							}
-						}
+              }
+
+            }
+            .col-20:nth-of-type(1){
+              .link{
+                >span{
+                  background: url(../../assets/jingling.png) no-repeat -256px -1px;
+                }
+              }
+            }
+            .col-20:nth-of-type(2){
+              .link{
+                >span{
+                  background: url(../../assets/jingling.png) no-repeat -83px -1px;
+                }
+              }
+            }
+            .col-20:nth-of-type(3){
+              .link{
+                >span{
+                  background: url(../../assets/jingling.png) no-repeat -3px -1px;
+                }
+              }
+            }
+            .col-20:nth-of-type(4){
+              .link{
+                >span{
+                  background: url(../../assets/jingling.png) no-repeat -169px -1px;
+                }
+              }
+            }
+            .col-20:nth-of-type(5){
+              .link{
+                >span{
+                  background: url(../../assets/jingling.png) no-repeat -343px -1px;
+                }
+              }
+            }
 					}
 				}
 				>.link {

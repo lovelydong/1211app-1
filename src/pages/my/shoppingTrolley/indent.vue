@@ -25,51 +25,131 @@
             <f7-link :class="{active:Alipay}" @click="Alipay = !Alipay;WeChatPay = false"> <i class="iconfont icon-zhifubao"></i> 支付宝 <span><i class="iconfont icon-iconfontcheck"></i></span></f7-link>
             <f7-link :class="{active:WeChatPay}" @click="WeChatPay = !WeChatPay;Alipay = false"> <i class="iconfont icon-weixin-copy"></i> 微信 <span><i class="iconfont icon-iconfontcheck"></i></span></f7-link>
           </div>
-          <f7-link class="zjb" :class="{active:ForteachingB}" @click="ForteachingB = !ForteachingB;"><i class="iconfont icon-qian"></i> 招教币抵扣 <em>（最高抵扣15%）</em><span><i class="iconfont icon-iconfontcheck"></i></span></f7-link>
-          <f7-link class="discount">优惠券 <span> 0 张可用 <i class="iconfont icon-you"></i></span></f7-link>
+          <f7-link class="zjb" :class="{active:ForteachingB}" @click="ForteachingB = !ForteachingB; dik()"><i class="iconfont icon-qian"></i> 招教币抵扣 <em>（最高抵扣15%）</em><span><i class="iconfont icon-iconfontcheck"></i></span></f7-link>
+          <f7-link :href="'/shoppingdiscountCoupon?order_number='+ $f7route.query.order_number" class="discount">优惠券 <span> {{yhq}} <i class="iconfont icon-you"></i></span></f7-link>
         </div>
         <div class="bot">
-          <p>不含运费<span>合计:</span><em>￥{{listJson.msg}}</em></p>
-          <f7-link href="">结算（1）</f7-link>
+          <p>招教币已抵扣{{msg}}<span>合计:</span><em>￥{{pay}}</em></p>
+          <f7-link href="">结算（{{listJsonLength}}）</f7-link>
         </div>
   </f7-page>
 </template>
 <script>
+import Global from '../../Global.vue';
+
 export default {
   data: function() {
     return {
       url: "http://localhost:8080/shiro_test",
-      Alipay:false,
-      WeChatPay:false,
-      ForteachingB:false,
-      listJson:{},
-      receiveraddress:{},
+      Alipay: false,
+      WeChatPay: false,
+      ForteachingB: false,
+      listJson: {},
+      receiveraddress: {
+        userName:"***",
+        phone:"*****",
+        address:"******"
+      },
+      listJsonLength: 0,
+      shoppingsid:[],
+      balance:0,
+      msg:0,
+      pay:0,
+      you:0,
+      yhq:"",
     };
   },
-  methods: {},
-  created() {
-    //订单详情
-    this.$http.get(this.url + "/sxorder/listJson", {
-      params: {
-        state:1,
-        order_number: this.$f7route.query.order_number,
+  methods: {
+    idsFn() {
+      let stringids = "?ids=";
+      this.shoppingsid.forEach((element, index) => {
+        if (index + 1 == this.shoppingsid.length) {
+          stringids += element;
+        } else {
+          stringids += element + "&ids=";
+        }
+      });
+      console.log(stringids);
+      return stringids;
+    },
+    dik(){
+      if(this.ForteachingB){
+        this.msg = this.balance;
+        this.pay = this.listJson.msg - this.balance;
+      }else{
+        this.msg = 0;
+        this.pay =  this.listJson.msg;
       }
-    }).then(function(res) {
-      this.listJson = res.body;
-      console.log(this.listJson);
-    });
-    //获取收件人信息接口
-    this.$http.get(this.url + "/receiveraddress/listJson", {
+    }
+  },
+  created() {
 
-    }).then(function(res) {
-      this.receiveraddress = res.body.data;
-    });
+    //订单详情
+    this.$http
+      .get(this.url + "/sxorder/listJson", {
+        params: {
+          state: 1,
+          order_number: this.$f7route.query.order_number
+        }
+      })
+      .then(function(res) {
+        this.listJson = res.body;
+        this.pay = this.listJson.msg;
+        this.listJsonLength = res.body.data.length;
+        res.body.data.forEach(element => {
+          this.shoppingsid.push(element.id)
+        });
+
+        //获取可用优惠券
+        let ids = this.idsFn();
+        Global.usershoppingIDS = ids + "&amount=" + this.listJson.msg;
+        this.$http
+          .get(this.url + "/sxcouponsend/getCoupon" + ids + "&amount=" + this.listJson.msg, {})
+          .then(function(res) {
+            this.you = res.body.data.length;
+            if(Global.usershoppingID){
+              res.body.data.forEach(element => {
+                if(element.id == Global.usershoppingID){
+                  this.yhq = "- " + element.amount;
+                  this.listJson.msg = this.listJson.msg - element.amount;
+                  this.pay = this.listJson.msg;
+                }
+              });
+            }else{
+                  this.yhq = this.you +"张可用";
+            }
+          });
+        //获取招教币
+        this.$http
+          .get(this.url + "/personal/loginState", {})
+          .then(function(res) {
+            console.log(res)
+            let balance = res.body.data.balance;
+            let msg = this.listJson.msg * 0.15;
+            if(msg < balance  ){
+              this.balance = msg;
+            }else{
+              this.balance = balance;
+            }
+            console.log(balance)
+          });
+      });
+    //获取收件人信息接口
+    this.$http
+      .get(this.url + "/receiveraddress/listJson", {})
+      .then(function(res) {
+        if(res.body.data){
+          this.receiveraddress = res.body.data;
+        }
+        console.log("---------------------------------------");
+        console.log(res);
+      });
   }
 };
 </script>
 <style lang="less">
 .indent {
-  .page-content{
+  .page-content {
     padding-bottom: 60px;
   }
   .mid {
@@ -303,11 +383,11 @@ export default {
       }
     }
     > .active {
-        > span {
-          background-color: #00d214;
-          border-color: #00d214;
-        }
+      > span {
+        background-color: #00d214;
+        border-color: #00d214;
       }
+    }
     > .discount {
       display: block;
       height: 44px;
@@ -329,50 +409,49 @@ export default {
         float: right;
       }
     }
-
   }
   .bot {
-      height: 50px;
-      background-color: #fff;
-      position: fixed;
-      width: 100%;
-      bottom: 0;
-      left: 0;
-      padding-left: 12px;
-      padding-right: 110px;
-      z-index: 99;
-      > .link {
-        font-family: "PingFang-SC-Regular";
-        font-size: 16px;
-        color: #ffffff;
-        background-color: #fd2d44;
-        height: 100%;
-        width: 110px;
-        position: absolute;
-        right: 0;
-        top: 0;
-      }
+    height: 50px;
+    background-color: #fff;
+    position: fixed;
+    width: 100%;
+    bottom: 0;
+    left: 0;
+    padding-left: 12px;
+    padding-right: 110px;
+    z-index: 99;
+    > .link {
+      font-family: "PingFang-SC-Regular";
+      font-size: 16px;
+      color: #ffffff;
+      background-color: #fd2d44;
+      height: 100%;
+      width: 110px;
+      position: absolute;
+      right: 0;
+      top: 0;
+    }
 
-      > p {
-        height: 100%;
-        line-height: 50px;
-        font-family: "PingFang-SC-Regular";
-        font-size: 12px;
-        color: #999999;
-        min-width: 162px;
-        > span {
-          font-family: "PingFang-SC-Medium";
-          font-size: 16px;
-          color: #333333;
-          margin-left: 5px;
-        }
-        > em {
-          font-family: "PingFang-SC-Medium";
-          font-size: 16px;
-          color: #fd5d32;
-        }
+    > p {
+      height: 100%;
+      line-height: 50px;
+      font-family: "PingFang-SC-Regular";
+      font-size: 12px;
+      color: #999999;
+      min-width: 162px;
+      > span {
+        font-family: "PingFang-SC-Medium";
+        font-size: 16px;
+        color: #333333;
+        margin-left: 5px;
+      }
+      > em {
+        font-family: "PingFang-SC-Medium";
+        font-size: 16px;
+        color: #fd5d32;
       }
     }
+  }
 }
 </style>
 
