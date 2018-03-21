@@ -167,7 +167,7 @@ export default {
       .get(this.url + "/sxcollect/iscollect", {
         params: {
           courseid: id,
-          type: "200"
+          type: 300
         }
       })
       .then(function(res) {

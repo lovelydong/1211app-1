@@ -270,6 +270,22 @@ export default {
     this.isxs=this.$f7route.query.isxs;
     if(this.isxs==1)
     {
+    	      //检测是否收藏/*/
+    this.$http
+      .get(this.url + "/sxcollect/iscollect", {
+        params: {
+          courseid: id,
+          type: 100
+        }
+      })
+      .then(function(res) {
+        console.log(res);
+        if (res.body.code) {
+          this.iscollect = true;
+        } else {
+          this.iscollect = false;
+        }
+      });
     	 	
        //是否购买
     this.$http
@@ -323,7 +339,22 @@ export default {
       });
     }else if(this.isxs!=1){
     	
-    		 	
+    		      //检测是否收藏/*/
+    this.$http
+      .get(this.url + "/sxcollect/iscollect", {
+        params: {
+          courseid: id,
+          type: 200
+        }
+      })
+      .then(function(res) {
+        console.log(res);
+        if (res.body.code) {
+          this.iscollect = true;
+        } else {
+          this.iscollect = false;
+        }
+      }); 	
        //是否购买
     this.$http
       .get(this.url + "/sx1211courseAdmin/buyornot", {
@@ -380,22 +411,7 @@ export default {
       .then(function(res) {
         this.Quantityincart = res.body.count;
       });
-          //检测是否收藏/*/
-    this.$http
-      .get(this.url + "/sxcollect/iscollect", {
-        params: {
-          courseid: id,
-          type: "200"
-        }
-      })
-      .then(function(res) {
-        console.log(res);
-        if (res.body.code) {
-          this.iscollect = true;
-        } else {
-          this.iscollect = false;
-        }
-      });
+    
     //详情
     this.$http
       .get(this.url + "/sx1211courseAdmin/oneJson", {

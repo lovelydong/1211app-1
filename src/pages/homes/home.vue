@@ -236,7 +236,8 @@
 								<p>{{limitclass11.name}}</p>
 								<p>{{limitclass11.area}}·{{limitclass11.buyno}}人正在学习</p>
 								<p><i class="iconfont icon-xingxing"></i><i class="iconfont icon-xingxing"></i><i class="iconfont icon-xingxing"></i><i class="iconfont icon-xingxing"></i><i class="iconfont icon-xingxing"></i></p>
-								<p>￥{{limitclass11.discount_price}}.00 <span>{{xsdaojishi}}</span></p>
+								<p>￥{{limitclass11.discount_price}}.00 <span >{{Countdown(limitclass11.end_time)}}</span></p>
+								<!--$event,limitclass11.end_time-->
 							</f7-link>
 						</div>
 						<ul>
@@ -246,7 +247,7 @@
 									<div>
 										<p>{{limit.name}}</p>
 										<p>{{limit.area}}·{{limit.buyno}}人正在学习 <i class="iconfont icon-xingxing"></i><i class="iconfont icon-xingxing"></i><i class="iconfont icon-xingxing"></i><i class="iconfont icon-xingxing"></i><i class="iconfont icon-xingxing"></i></p>
-										<p>￥{{limit.discount_price}}.00 <span>{{xsdaojishi}}</span></p>
+										<p>￥{{limit.discount_price}}.00 <span>{{Countdown(limit.end_time)}}</span></p>
 									</div>
 								</f7-link>
 							</li>
@@ -512,11 +513,13 @@ export default {
   },
   methods: {
     Countdown: function(timestamp) {
+    	
+    	
       var that = this;
-      console.log(timestamp);
-      console.log(new Date().getTime());
-
-      this.timer = setInterval(function() {
+      //console.log(timestamp);
+      //console.log(new Date().getTime());
+	
+      that.timer = setInterval(function() {
         var now = new Date().getTime();
         var leftTime = timestamp - now;
         if (leftTime >= 0) {
@@ -526,17 +529,30 @@ export default {
           var s = Math.floor((leftTime / 1000) % 60);
           //	console.log(666)
 
-          that.xsdaojishi = d + " 天 " + h + " 时 " + m + " 分 " + s + " 秒";
-          // return "<i>"+d+"</i> 天 <i>"+h+"</i> 时 <i>"+m+"</i> 分 <i>"+s+"</i> 秒";
+         // that.tt = d + " 天 " + h + " 时 " + m + " 分 " + s + " 秒";
+           //return "<i>"+d+"</i> 天 <i>"+h+"</i> 时 <i>"+m+"</i> 分 <i>"+s+"</i> 秒";
+            that.cc("<i>"+d+"</i> 天 <i>"+h+"</i> 时 <i>"+m+"</i> 分 <i>"+s+"</i> 秒");
+          
         } else {
           //console.log(777)
-          that.xsdaojishi = "已经结束";
-          window.clearInterval(this.timer);
+         that.cc("已经结束");
+          window.clearInterval(that.timer);
         }
-      }, 100);
+      }, 1000);
+   
+/*  return this.cc(timestamp,function(v){return v;});*/
+	
+    },
+    cc:function(tt)
+    {
+    	//return tt;
+    	//alert(tt)
+   	//console.log(tt)
+    
     },
 
     randerClass: function() {
+    	
       let url = "http://localhost:8080/shiro_test";
 
       //最新课程渲染1
@@ -645,9 +661,9 @@ export default {
             //console.log(res.data.data)
             this.limitclass11 = res.data.data[0];
             /*console.info(res.data.data[0].end_time)*/
-            this.limittime = res.data.data[0].end_time;
+           // this.limittime = res.data.data[0].end_time;
 
-            this.Countdown(this.limittime);
+            //this.Countdown(this.limittime);
             //console.log(this.limitclass11)
             res.data.data.splice(0, 1);
             this.limitclass1 = res.data.data;
@@ -825,6 +841,7 @@ export default {
   },
 
   created: function() {
+	
     this.randerClass();
   },
   mounted: function() {}
