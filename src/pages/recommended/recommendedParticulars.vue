@@ -42,7 +42,7 @@
       <div class="ZJ" v-if="shows.ZJ">
         <ul v-for="(value, key) in chap" :key="key">
           <h3> <i class="iconfont icon-selected-copy"></i> {{key}}</h3>
-          <f7-link v-for="item in value"  :key="item.id"> <i class="iconfont icon-fasong"></i> {{item.name}}</f7-link>
+          <f7-link v-for="item in value"  :key="item.id" :href="(isornot==1)?'/vod?id='+item.id+'&type='+isxs+'&iszj=1':''"> <i class="iconfont icon-fasong"></i> {{item.name}}</f7-link>
         </ul>
       </div>
       <div class="PJ" v-if="shows.PJ">
@@ -231,6 +231,7 @@ export default {
     	}
       
     },
+   
     xstype:function(t)
     {
     	if(t==35202044)

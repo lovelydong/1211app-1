@@ -236,8 +236,9 @@
 								<p>{{limitclass11.name}}</p>
 								<p>{{limitclass11.area}}·{{limitclass11.buyno}}人正在学习</p>
 								<p><i class="iconfont icon-xingxing"></i><i class="iconfont icon-xingxing"></i><i class="iconfont icon-xingxing"></i><i class="iconfont icon-xingxing"></i><i class="iconfont icon-xingxing"></i></p>
-								<p>￥{{limitclass11.discount_price}}.00 <span >{{Countdown(limitclass11.end_time)}}</span></p>
-								<!--$event,limitclass11.end_time-->
+
+								<p>￥{{limitclass11.discount_price}}.00 <span>{{arr[limitclass11.id]}}</span></p>
+
 							</f7-link>
 						</div>
 						<ul>
@@ -247,7 +248,9 @@
 									<div>
 										<p>{{limit.name}}</p>
 										<p>{{limit.area}}·{{limit.buyno}}人正在学习 <i class="iconfont icon-xingxing"></i><i class="iconfont icon-xingxing"></i><i class="iconfont icon-xingxing"></i><i class="iconfont icon-xingxing"></i><i class="iconfont icon-xingxing"></i></p>
-										<p>￥{{limit.discount_price}}.00 <span>{{Countdown(limit.end_time)}}</span></p>
+
+										<p>￥{{limit.discount_price}}.00 <span>{{arr[limit.id]}}</span></p>
+
 									</div>
 								</f7-link>
 							</li>
@@ -279,7 +282,7 @@
 								<p>{{limitclass22.name}}</p>
 								<p>{{limitclass22.area}}·{{limitclass22.buyno}}人正在学习</p>
 								<p><i class="iconfont icon-xingxing"></i><i class="iconfont icon-xingxing"></i><i class="iconfont icon-xingxing"></i><i class="iconfont icon-xingxing"></i><i class="iconfont icon-xingxing"></i></p>
-								<p>￥{{limitclass22.discount_price}}.00 <span>{{xsdaojishi}}</span></p>
+								<p>￥{{limitclass22.discount_price}}.00 <span>{{arr[limitclass22.id]}}</span></p>
 							</f7-link>
 						</div>
 						<ul>
@@ -289,7 +292,7 @@
 									<div>
 										<p>{{limit.name}}</p>
 										<p>{{limit.area}}·{{limit.buyno}}人正在学习 <i class="iconfont icon-xingxing"></i><i class="iconfont icon-xingxing"></i><i class="iconfont icon-xingxing"></i><i class="iconfont icon-xingxing"></i><i class="iconfont icon-xingxing"></i></p>
-										<p>￥{{limit.discount_price}}.00 <span>{{xsdaojishi}}</span></p>
+										<p>￥{{limit.discount_price}}.00 <span>{{arr[limit.id]}}</span></p>
 									</div>
 								</f7-link>
 							</li>
@@ -508,20 +511,19 @@ export default {
       limittype: 35202001,
       timer: "",
       tjtkrecommend: [],
-      tjtkrecommend1: []
+      tjtkrecommend1: [],
+      arr:[],
     };
   },
   methods: {
-    Countdown: function(timestamp) {
-    	
-    	
+
+    Countdown: function(element,index) {
       var that = this;
-      //console.log(timestamp);
-      //console.log(new Date().getTime());
-	
-      that.timer = setInterval(function() {
+      let text = "";
+      let timer = setInterval(function() {
+
         var now = new Date().getTime();
-        var leftTime = timestamp - now;
+        var leftTime = element.end_time - now;
         if (leftTime >= 0) {
           var d = Math.floor(leftTime / 1000 / 60 / 60 / 24);
           var h = Math.floor((leftTime / 1000 / 60 / 60) % 24);
@@ -529,26 +531,16 @@ export default {
           var s = Math.floor((leftTime / 1000) % 60);
           //	console.log(666)
 
-         // that.tt = d + " 天 " + h + " 时 " + m + " 分 " + s + " 秒";
-           //return "<i>"+d+"</i> 天 <i>"+h+"</i> 时 <i>"+m+"</i> 分 <i>"+s+"</i> 秒";
-            that.cc("<i>"+d+"</i> 天 <i>"+h+"</i> 时 <i>"+m+"</i> 分 <i>"+s+"</i> 秒");
-          
+
+          that.$set(that.arr,element.id,d + " 天 " + h + " 时 " + m + " 分 " + s + " 秒") ;
+          // return "<i>"+d+"</i> 天 <i>"+h+"</i> 时 <i>"+m+"</i> 分 <i>"+s+"</i> 秒";
         } else {
           //console.log(777)
-         that.cc("已经结束");
-          window.clearInterval(that.timer);
+          that.$set(that.arr,element.id,"已经结束");
+          window.clearInterval(timer);
         }
-      }, 1000);
-   
-/*  return this.cc(timestamp,function(v){return v;});*/
-	
-    },
-    cc:function(tt)
-    {
-    	//return tt;
-    	//alert(tt)
-   	//console.log(tt)
-    
+      }, 800);
+
     },
 
     randerClass: function() {
@@ -662,12 +654,15 @@ export default {
             this.limitclass11 = res.data.data[0];
             /*console.info(res.data.data[0].end_time)*/
            // this.limittime = res.data.data[0].end_time;
+ 		res.data.data.forEach((element,index) => {
 
-            //this.Countdown(this.limittime);
+              this.Countdown(element,index)
+            });
             //console.log(this.limitclass11)
             res.data.data.splice(0, 1);
             this.limitclass1 = res.data.data;
             //console.log(res.data.data)
+           
           },
           function(res) {
             console.log(res.status);
@@ -686,11 +681,15 @@ export default {
           function(res) {
             //console.log(res.data.data)
             this.limitclass22 = res.data.data[0];
+			res.data.data.forEach((element,index) => {
 
+              this.Countdown(element,index)
+            });
             //console.log(this.limitclass22)
             res.data.data.splice(0, 1);
             this.limitclass2 = res.data.data;
             // console.log(res.data.data)
+            
           },
           function(res) {
             console.log(res.status);

@@ -121,13 +121,13 @@
 									<div>
 										<p>{{limit.name}}</p>
 										<p>{{limit.area}}·{{limit.buyno}}人正在学习 <i class="iconfont icon-xingxing"></i><i class="iconfont icon-xingxing"></i><i class="iconfont icon-xingxing"></i><i class="iconfont icon-xingxing"></i><i class="iconfont icon-xingxing"></i></p>
-										<p>￥{{limit.discount_price}}.00 <span>{{xsdaojishi}}</span></p>
+										<p>￥{{limit.discount_price}}.00 <span style="color:#000;float:right">{{arr[limit.id]}}</span></p>
 									</div>
 								</f7-link>
 							</li>
-          	
-          	
-          	
+
+
+
            <!-- <li class="clearfix link" v-for="item in recommend" :key="item.id">
              <f7-link :href="'/recommendedParticulars?id=' + item.id ">
                   <span :style="{backgroundImage: 'url(' + item.simg + ')' }"></span>
@@ -147,114 +147,105 @@
 export default {
   data: function() {
     return {
-   
-      url:"http://localhost:8080/shiro_test",
+      url: "http://localhost:8080/shiro_test",
       shows: false,
-      limitclass:"",
-       xsdaojishi:"",
+      limitclass: "",
+      xsdaojishi: "",
       showTop: false,
       type: {
         vod_type: null,
         grade: null,
         subject: null,
         course_type: null,
-        province: null,
-       
-       
-        
+        province: null
       },
       gitCon: {},
-      recommend: {}
+      recommend: {},
+      arr : []
     };
   },
   watch: {
     type: {
       handler: function(val, oldVal) {
-      	window.clearInterval(this.timer);
+        window.clearInterval(this.timer);
         this.$http
           .get(this.url + "/flashsale/sale", {
             params: {
               page: 1,
               limit: 50,
-             course_type: this.type.vod_type,
+              course_type: this.type.vod_type,
               grade: this.type.grade,
               subject: this.type.subject,
-              class_type : this.type.course_type,
+              class_type: this.type.course_type,
               area: this.type.province,
-              type : this.type.exam_type
+              type: this.type.exam_type
             }
           })
           .then(function(res) {
             this.limittime = res.data.data[0].end_time;
-							this.Countdown(this.limittime);
-							//console.log(this.limitclass11)
-							
-							this.limitclass = res.data.data;
+            this.Countdown(this.limittime);
+            //console.log(this.limitclass11)
+
+            this.limitclass = res.data.data;
           });
       },
       deep: true
-    },
+    }
   },
   methods: {
-  	Countdown: function(timestamp) {
-				var that = this;
-				console.log(timestamp);
-				console.log(new Date().getTime());
+    Countdown: function(element,index) {
+      var that = this;
+      let text = "";
+      let timer = setInterval(function() {
+        var now = new Date().getTime();
+        var leftTime = element.end_time - now;
+        if (leftTime >= 0) {
+          var d = Math.floor(leftTime / 1000 / 60 / 60 / 24);
+          var h = Math.floor((leftTime / 1000 / 60 / 60) % 24);
+          var m = Math.floor((leftTime / 1000 / 60) % 60);
+          var s = Math.floor((leftTime / 1000) % 60);
+          //	console.log(666)
 
-				this.timer = setInterval(function() {
-					var now = new Date().getTime();
-					var leftTime = timestamp - now;
-					if(leftTime >= 0) {
-						var d = Math.floor(leftTime / 1000 / 60 / 60 / 24);
-						var h = Math.floor((leftTime / 1000 / 60 / 60) % 24);
-						var m = Math.floor((leftTime / 1000 / 60) % 60);
-						var s = Math.floor((leftTime / 1000) % 60);
-						//	console.log(666)
-
-						that.xsdaojishi = d + " 天 " + h + " 时 " + m + " 分 " + s + " 秒";
-						// return "<i>"+d+"</i> 天 <i>"+h+"</i> 时 <i>"+m+"</i> 分 <i>"+s+"</i> 秒";
-					} else {
-						//console.log(777)
-						that.xsdaojishi = "已经结束";
-						window.clearInterval(this.timer);
-					}
-				}, 800);
-			},
+          that.$set(that.arr,element.id,d + " 天 " + h + " 时 " + m + " 分 " + s + " 秒") ;
+          // return "<i>"+d+"</i> 天 <i>"+h+"</i> 时 <i>"+m+"</i> 分 <i>"+s+"</i> 秒";
+        } else {
+          //console.log(777)
+          that.$set(that.arr,element.id,"已经结束");
+          window.clearInterval(timer);
+        }
+      }, 800);
+    },
     onInfiniteScroll: function() {
       console.log(1);
     },
     shareboy: function(data) {
       this.$refs.c1.sharefn();
     },
-    exam_typeFn: function(e){
+    exam_typeFn: function(e) {
       this.$http
-      .get(this.url + "/flashsale/moretype", {
-        params: {
-          type: e
-        }
-      })
-      .then(function(res) {
-        console.log(res)
-        this.gitCon = res.body.data;
-      });
+        .get(this.url + "/flashsale/moretype", {
+          params: {
+            type: e
+          }
+        })
+        .then(function(res) {
+          console.log(res);
+          this.gitCon = res.body.data;
+        });
     }
   },
 
   created() {
     //赛选条件
-    this.$http
-      .get(this.url + "/flashsale/moretype", {
-       
-      })
-      .then(function(res) {
-        this.gitCon = res.body.data;
-      });
+    this.$http.get(this.url + "/flashsale/moretype", {}).then(function(res) {
+      this.gitCon = res.body.data;
+    });
     //列表
     this.$http
       .get(this.url + "/flashsale/sale", {
         params: {
           page: 1,
-          limit: 50,
+          limit: 50
           /*vod_type: this.type.vod_type,
           grade: this.type.grade,
           subject: this.type.subject,
@@ -264,11 +255,12 @@ export default {
         }
       })
       .then(function(res) {
-        this.limittime = res.data.data[0].end_time;
-							this.Countdown(this.limittime);
-							//console.log(this.limitclass11)
-							
-							this.limitclass = res.data.data;
+        this.limitclass = res.data.data;
+        this.limitclass.forEach((element,index) => {
+
+          this.Countdown(element,index)
+        });
+
       });
   }
 };

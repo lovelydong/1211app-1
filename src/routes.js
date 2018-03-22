@@ -92,7 +92,7 @@ export default [{
         path: '/recommended', //推荐课程
         component: Recommended,
     }, {
-        path: '/xsmore', //推荐课程
+        path: '/xsmore', //限时抢购
         component: Xsmore,
     }, {
         path: '/newmore', //推荐课程
