@@ -30,12 +30,12 @@
         </div>
         <div class="bot">
           <p>招教币已抵扣{{msg}}<span>合计:</span><em>￥{{pay}}</em></p>
-          <f7-link href="">结算（{{listJsonLength}}）</f7-link>
+          <f7-link @click="PayApp" >结算（{{listJsonLength}}）</f7-link>
         </div>
   </f7-page>
 </template>
 <script>
-import Global from '../../Global.vue';
+import Global from "../../Global.vue";
 
 export default {
   data: function() {
@@ -46,17 +46,17 @@ export default {
       ForteachingB: false,
       listJson: {},
       receiveraddress: {
-        userName:"***",
-        phone:"*****",
-        address:"******"
+        userName: "***",
+        phone: "*****",
+        address: "******"
       },
       listJsonLength: 0,
-      shoppingsid:[],
-      balance:0,
-      msg:0,
-      pay:0,
-      you:0,
-      yhq:"",
+      shoppingsid: [],
+      balance: 0,
+      msg: 0,
+      pay: 0,
+      you: 0,
+      yhq: ""
     };
   },
   methods: {
@@ -72,18 +72,20 @@ export default {
       console.log(stringids);
       return stringids;
     },
-    dik(){
-      if(this.ForteachingB){
+    dik() {
+      if (this.ForteachingB) {
         this.msg = this.balance;
         this.pay = this.listJson.msg - this.balance;
-      }else{
+      } else {
         this.msg = 0;
-        this.pay =  this.listJson.msg;
+        this.pay = this.listJson.msg;
       }
+    },
+    PayApp() {
+      this.$f7router.navigate('/pay')
     }
   },
   created() {
-
     //订单详情
     this.$http
       .get(this.url + "/sxorder/listJson", {
@@ -97,50 +99,59 @@ export default {
         this.pay = this.listJson.msg;
         this.listJsonLength = res.body.data.length;
         res.body.data.forEach(element => {
-          this.shoppingsid.push(element.id)
+          this.shoppingsid.push(element.id);
         });
 
         //获取可用优惠券
         let ids = this.idsFn();
         Global.usershoppingIDS = ids + "&amount=" + this.listJson.msg;
         this.$http
-          .get(this.url + "/sxcouponsend/getCoupon" + ids + "&amount=" + this.listJson.msg, {})
+          .get(
+            this.url +
+              "/sxcouponsend/getCoupon" +
+              ids +
+              "&amount=" +
+              this.listJson.msg,
+            {}
+          )
           .then(function(res) {
-            console.log(res)
-            console.log("分界线————————————————————————————————————————————————————————")
+            console.log(res);
+            console.log(
+              "分界线————————————————————————————————————————————————————————"
+            );
             this.you = res.body.data.length;
-            if(Global.usershoppingID){
+            if (Global.usershoppingID) {
               res.body.data.forEach(element => {
-                if(element.id == Global.usershoppingID){
+                if (element.id == Global.usershoppingID) {
                   this.yhq = "- " + element.amount;
                   this.listJson.msg = this.listJson.msg - element.amount;
                   this.pay = this.listJson.msg;
                 }
               });
-            }else{
-                  this.yhq = this.you +"张可用";
+            } else {
+              this.yhq = this.you + "张可用";
             }
           });
         //获取招教币
         this.$http
           .get(this.url + "/personal/loginState", {})
           .then(function(res) {
-            console.log(res)
+            console.log(res);
             let balance = res.body.data.balance;
             let msg = this.listJson.msg * 0.15;
-            if(msg < balance  ){
+            if (msg < balance) {
               this.balance = msg;
-            }else{
+            } else {
               this.balance = balance;
             }
-            console.log(balance)
+            console.log(balance);
           });
       });
     //获取收件人信息接口
     this.$http
       .get(this.url + "/receiveraddress/listJson", {})
       .then(function(res) {
-        if(res.body.data){
+        if (res.body.data) {
           this.receiveraddress = res.body.data;
         }
         console.log("---------------------------------------");

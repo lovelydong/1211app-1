@@ -33,6 +33,7 @@ import MyCourses from './pages/my/myCourses/myCourses.vue';
 import WatchTheRecord from './pages/my/watchTheRecord/watchTheRecord.vue';
 import ShoppingTrolley from './pages/my/shoppingTrolley/shoppingTrolley.vue';
 import Indent from './pages/my/shoppingTrolley/indent.vue';
+import Pay from './pages/my/shoppingTrolley/pay.vue';
 import ShoppingdiscountCoupon from './pages/my/shoppingTrolley/shoppingdiscountCoupon.vue';
 import MyAddress from './pages/my/shoppingTrolley/myAddress/myAddress.vue';
 import NewAddress from './pages/my/shoppingTrolley/myAddress/newAddress.vue';
@@ -231,6 +232,10 @@ export default [{
     {
         path: '/indent', //提交订单
         component: Indent,
+    },
+    {
+        path: '/pay', //支付
+        component: Pay,
     },
     {
         path: '/myAddress', //地址管理

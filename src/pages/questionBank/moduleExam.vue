@@ -202,7 +202,7 @@ export default {
     }
   },
   created: function() {
-    let url = "http://192.168.0.115:8080/shiro_test";
+    let url = this.url;
     this.classtype = this.$f7route.query.classtype;
     this.qtype = this.$f7route.query.qtype;
     /*	console.log(this.classtype)

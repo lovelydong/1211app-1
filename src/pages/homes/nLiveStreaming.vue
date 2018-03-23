@@ -163,7 +163,7 @@ export default {
       recommend: {},
       limittype: Global.limittype,
       page: 1,
-      Infinite:true,
+      Infinite: true
     };
   },
   watch: {
@@ -227,8 +227,6 @@ export default {
           })
           .then(function(res) {
             let data = res.body.data;
-            console.log(this.page);
-            console.log(data)
             data.forEach(element => {
               this.recommend.push(element);
             });
@@ -252,16 +250,6 @@ export default {
         });
     },
     initialize: function(page, fn) {
-      //赛选条件
-      this.$http
-        .get(this.url + "/sx1211courseAdmin/getCon", {
-          params: {
-            exam_type: 121100301
-          }
-        })
-        .then(function(res) {
-          this.gitCon = res.body.data;
-        });
       //列表
       this.$http
         .get(this.url + "/sx1211courseAdmin/recommend2", {
@@ -288,6 +276,16 @@ export default {
     }
   },
   created() {
+    //赛选条件
+    this.$http
+      .get(this.url + "/sx1211courseAdmin/getCon", {
+        params: {
+          exam_type: 121100301
+        }
+      })
+      .then(function(res) {
+        this.gitCon = res.body.data;
+      });
     this.initialize(1);
   }
 };
