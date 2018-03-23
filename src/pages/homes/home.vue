@@ -98,7 +98,7 @@
 						<ul>
 							<li class="clearfix link" v-for="cl in recommend1">
 								<f7-link  @click="$f7router.navigate('/recommendedParticulars?id='+cl.id )" >
-									<span></span>
+									<span :style="{backgroundImage: 'url(' + url + cl.img + ')' }"></span>
 									<div>
 										<p>{{cl.name}}</p>
 										<p>{{cl.area}}·{{cl.buyno}}人正在学习 <i class="iconfont icon-xingxing"></i><i class="iconfont icon-xingxing"></i><i class="iconfont icon-xingxing"></i><i class="iconfont icon-xingxing"></i><i class="iconfont icon-xingxing"></i></p>
@@ -140,7 +140,7 @@
 						<ul>
 							<li class="clearfix link" v-for="cl in recommend2">
 								<f7-link @click="$f7router.navigate('/recommendedParticulars?id='+cl.id )"  >
-									<span></span>
+									<span :style="{backgroundImage: 'url(' + url + cl.img + ')' }"></span>
 									<div>
 										<p>{{cl.name}}</p>
 										<p>{{cl.area}}·{{cl.buyno}}人正在学习 <i class="iconfont icon-xingxing"></i><i class="iconfont icon-xingxing"></i><i class="iconfont icon-xingxing"></i><i class="iconfont icon-xingxing"></i><i class="iconfont icon-xingxing"></i></p>
@@ -171,7 +171,7 @@
 						<ul>
 							<li class="clearfix link" v-for="newclass in newclass1">
 								<f7-link  @click="$f7router.navigate('/recommendedParticulars?id='+newclass.id )" >
-									<span></span>
+									<span :style="{backgroundImage: 'url(' + url + newclass.img + ')' }"></span>
 									<div>
 										<p>{{newclass.name}}</p>
 										<p>{{newclass.area}}·{{newclass.buyno}}人正在学习 <i class="iconfont icon-xingxing"></i><i class="iconfont icon-xingxing"></i><i class="iconfont icon-xingxing"></i><i class="iconfont icon-xingxing"></i><i class="iconfont icon-xingxing"></i></p>
@@ -214,7 +214,7 @@
 						<ul>
 							<li class="clearfix link" v-for="newclass in newclass2">
 								<f7-link @click="$f7router.navigate('/recommendedParticulars?id='+newclass.id )" >
-									<span></span>
+									<span :style="{backgroundImage: 'url(' + url + newclass.img + ')' }"></span>
 									<div>
 										<p>{{newclass.name}}</p>
 										<p>{{newclass.area}}·{{newclass.buyno}}人正在学习 <i class="iconfont icon-xingxing"></i><i class="iconfont icon-xingxing"></i><i class="iconfont icon-xingxing"></i><i class="iconfont icon-xingxing"></i><i class="iconfont icon-xingxing"></i></p>
@@ -244,7 +244,7 @@
 						<ul>
 							<li class="clearfix link" v-for="limit in limitclass1" >
 								<f7-link @click="$f7router.navigate('/recommendedParticulars?id='+limit.id+'&isxs=1')" >
-									<span></span>
+									<span :style="{backgroundImage: 'url(' + url + limit.img + ')' }"></span>
 									<div>
 										<p>{{limit.name}}</p>
 										<p>{{limit.area}}·{{limit.buyno}}人正在学习 <i class="iconfont icon-xingxing"></i><i class="iconfont icon-xingxing"></i><i class="iconfont icon-xingxing"></i><i class="iconfont icon-xingxing"></i><i class="iconfont icon-xingxing"></i></p>
@@ -288,7 +288,7 @@
 						<ul>
 							<li class="clearfix link" v-for="limit in limitclass2">
 								<f7-link @click="$f7router.navigate('/recommendedParticulars?id='+limit.id+'&isxs=1')"    >
-									<span></span>
+									<span :style="{backgroundImage: 'url(' + url + limit.img + ')' }"></span>
 									<div>
 										<p>{{limit.name}}</p>
 										<p>{{limit.area}}·{{limit.buyno}}人正在学习 <i class="iconfont icon-xingxing"></i><i class="iconfont icon-xingxing"></i><i class="iconfont icon-xingxing"></i><i class="iconfont icon-xingxing"></i><i class="iconfont icon-xingxing"></i></p>
@@ -403,7 +403,7 @@
 				<ul>
 					<li class="clearfix link" v-for="like in glike1">
 						<f7-link @click="$f7router.navigate('/recommendedParticulars?id='+like.id )" >
-							<span></span>
+							<span :style="{backgroundImage: 'url(' + url + like.img + ')' }"></span>
 							<div>
 								<p>{{like.name}}</p>
 								<p>{{like.area}}·{{like.buyno}}人正在学习 <i class="iconfont icon-xingxing"></i><i class="iconfont icon-xingxing"></i><i class="iconfont icon-xingxing"></i><i class="iconfont icon-xingxing"></i><i class="iconfont icon-xingxing"></i></p>
@@ -443,7 +443,7 @@
 				<ul>
 					<li class="clearfix link" v-for="like in glike2">
 						<f7-link  @click="$f7router.navigate('/recommendedParticulars?id='+like.id )">
-							<span></span>
+							<span  :style="{backgroundImage: 'url(' + url + like.img + ')' }"></span>
 							<div>
 								<p>{{like.name}}</p>
 								<p>{{like.area}}·{{like.buyno}}人正在学习 <i class="iconfont icon-xingxing"></i><i class="iconfont icon-xingxing"></i><i class="iconfont icon-xingxing"></i><i class="iconfont icon-xingxing"></i><i class="iconfont icon-xingxing"></i></p>
@@ -484,6 +484,7 @@ import Global from "../Global.vue";
 export default {
   data: function() {
     return {
+    	url:"http://localhost:8080/shiro_test",
       recommend1: "",
       recommend2: "",
       recommend11: "",
@@ -545,12 +546,12 @@ export default {
 
     randerClass: function() {
     	
-      let url = "http://localhost:8080/shiro_test";
+      
 
       //最新课程渲染1
 
       this.$http
-        .get(url + "/sx1211courseAdmin/listJson", {
+        .get(this.url + "/sx1211courseAdmin/listJson", {
           params: {
             exam_type: this.recommendtype,
             page: 1,
@@ -573,7 +574,7 @@ export default {
       //最新课程渲染2
 
       this.$http
-        .get(url + "/sx1211courseAdmin/listJson", {
+        .get(this.url + "/sx1211courseAdmin/listJson", {
           params: {
             exam_type: this.recommendtype,
             page: 1,
@@ -596,7 +597,7 @@ export default {
 
       //推荐课程渲染1
       this.$http
-        .get(url + "/sx1211courseAdmin/recommend", {
+        .get(this.url + "/sx1211courseAdmin/recommend", {
           params: {
             type: this.recommendtype,
             page: 1,
@@ -619,7 +620,7 @@ export default {
         );
       //推荐课程渲染2
       this.$http
-        .get(url + "/sx1211courseAdmin/recommend", {
+        .get(this.url + "/sx1211courseAdmin/recommend", {
           params: {
             type: this.recommendtype,
             page: 1,
@@ -641,7 +642,7 @@ export default {
 
       //限时课程渲染1
       this.$http
-        .get(url + "/flashsale/sale", {
+        .get(this.url + "/flashsale/sale", {
           params: {
             type: this.limittype,
             page: 1,
@@ -670,7 +671,7 @@ export default {
         );
       //限时课程渲染2
       this.$http
-        .get(url + "/flashsale/sale", {
+        .get(this.url + "/flashsale/sale", {
           params: {
             type: this.limittype,
             page: 1,
@@ -698,7 +699,7 @@ export default {
 
       //推荐题库1
       this.$http
-        .get(url + "/exambank/jsonlist", {
+        .get(this.url + "/exambank/jsonlist", {
           params: {
             page: 1,
             limit: 4,
@@ -716,7 +717,7 @@ export default {
         });
       //推荐题库2
       this.$http
-        .get(url + "/exambank/jsonlist", {
+        .get(this.url + "/exambank/jsonlist", {
           params: {
             page: 1,
             limit: 4,
@@ -734,7 +735,7 @@ export default {
         });
       //考情分析列表渲染1
       this.$http
-        .get("http://localhost:8080/shiro_test/examcondition/applist", {
+        .get(this.url +"/examcondition/applist", {
           params: {
             page: 1,
             limit: 4
@@ -751,7 +752,7 @@ export default {
         );
       //考情分析列表渲染2
       this.$http
-        .get("http://localhost:8080/shiro_test/examcondition/applist", {
+        .get(this.url +"/examcondition/applist", {
           params: {
             page: 2,
             limit: 4
@@ -769,7 +770,7 @@ export default {
 
       //猜你喜欢列表渲染1
       this.$http
-        .get(url + "/sx1211courseAdmin/listJson", {
+        .get(this.url + "/sx1211courseAdmin/listJson", {
           params: {
             page: 2,
             limit: 4
@@ -791,7 +792,7 @@ export default {
         );
       //猜你喜欢列表渲染2
       this.$http
-        .get(url + "/sx1211courseAdmin/listJson", {
+        .get(this.url + "/sx1211courseAdmin/listJson", {
           params: {
             page: 3,
             limit: 4
@@ -1171,6 +1172,7 @@ export default {
                       height: 86px;
                       background: url(https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1519301525135&di=dd2fed90de9f2622da9e2c6f51d3888b&imgtype=0&src=http%3A%2F%2F5b0988e595225.cdn.sohucs.com%2Fimages%2F20170922%2Fca414a2cf9b34ec49aff78f350b0ec87.gif)
                         no-repeat center center;
+                        background-size: cover;
                       border-radius: 12px;
                       position: absolute;
                       left: 0;
@@ -1367,6 +1369,7 @@ export default {
                 height: 86px;
                 background: url(https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1519301525135&di=dd2fed90de9f2622da9e2c6f51d3888b&imgtype=0&src=http%3A%2F%2F5b0988e595225.cdn.sohucs.com%2Fimages%2F20170922%2Fca414a2cf9b34ec49aff78f350b0ec87.gif)
                   no-repeat center center;
+                   background-size: cover;
                 border-radius: 12px;
                 position: absolute;
                 left: 0;

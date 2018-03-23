@@ -74,7 +74,8 @@
           <f7-link :class="{active: iscollect}" @click="iscollectfn"><i class="iconfont icon-shoucang"></i> <p>收藏</p></f7-link>
         </div>
         <div class="col-33"><f7-link @click="addspc">加入购物车</f7-link></div>
-        <div class="col-33"><f7-link :href="(isornot==1&&type==1)?'/live?id='+oneJson.id+'&type='+isxs:(isornot==1&&(type==2||type==3))?'/vod?id='+oneJson.id+'&type='+isxs:'/indent'" :html="isornot==1?flag='立即播放':flag='立即购买'">{{flag}}</f7-link></div>
+        <div class="col-33"><f7-link @click="whereToGO(oneJson.id)" :html="isornot==1?flag='立即播放':flag='立即购买'">{{flag}}</f7-link></div>
+        
       </div>
     </div>
         <Share ref="c1"></Share>
@@ -230,6 +231,76 @@ export default {
         });
     	}
       
+    },
+    
+    whereToGO:function(id)
+    {
+    	
+    	
+    //:href="(isornot==1&&type==1)?'/live?id='+oneJson.id+'&type='+isxs:(isornot==1&&(type==2||type==3))?'/vod?id='+oneJson.id+'&type='+isxs:'/indent?order_number='+creatOrder(oneJson.id)"--> 	
+    if(this.isornot==1&&this.type==1)
+    {
+    	this.$f7router.navigate(
+                '/live?id='+id+'&type='+this.isxs
+              );
+    }
+    else if(this.isornot==1&&(this.type==2||this.type==3)){
+    	this.$f7router.navigate(
+                '/vod?id='+id+'&type='+this.isxs
+              );
+    }
+    else{
+    	
+    	if(this.isxs==1)
+    	{
+    		this.$http
+        .get(this.url + "/shoppingcart/save", {
+          params: {
+            goodsId:id,
+            goodsNum: 1,
+            type: 100
+          }
+        })
+        .then(function(res) {
+          console.log(res);
+          if (res.body.code == 1) {
+          	this.$f7router.navigate('/shoppingTrolley');
+           /* let toastCenter = this.$f7.toast.create({
+              text: "成功加入购物车",
+              position: "center",
+              closeTimeout: 2000
+            });
+            toastCenter.open();*/
+           
+          }
+        });
+    	}
+    	else{
+    			this.$http
+        .get(this.url + "/shoppingcart/save", {
+          params: {
+            goodsId: this.id,
+            goodsNum: 1,
+            type: 200
+          }
+        })
+        .then(function(res) {
+          console.log(res);
+          if (res.body.code == 1) {
+          	this.$f7router.navigate(
+                '/shoppingTrolley'
+              );
+            
+          }
+        });
+    	}
+  }
+    	
+    	
+    
+ 
+          
+       
     },
    
     xstype:function(t)

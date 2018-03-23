@@ -18,10 +18,10 @@
           <div class="TopsZ" v-if="showTop" >
             <em></em>
             <ul>
-              <f7-link><i class="iconfont icon-xiaoxi1"></i> 系统消息</f7-link>
-              <f7-link><i class="iconfont icon-shouye"></i> 返回首页</f7-link>
+              <f7-link href="/news"><i class="iconfont icon-xiaoxi1"></i> 系统消息</f7-link>
+              <f7-link href="/"><i class="iconfont icon-shouye"></i> 返回首页</f7-link>
               <f7-link><i class="iconfont icon-saoyisao"></i> 扫一扫</f7-link>
-              <f7-link><i class="iconfont icon-gouwuche"></i> 购物车</f7-link>
+              <f7-link href="/shoppingTrolley"><i class="iconfont icon-gouwuche"></i> 购物车</f7-link>
               <f7-link  @click="shareboy"><i class="iconfont icon-fenxiang"></i> 分享</f7-link>
             </ul>
           </div>

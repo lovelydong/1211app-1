@@ -4,7 +4,7 @@
           <f7-nav-left sliding><f7-link class="iconfont icon-zuo" @click="$f7router.back()"></f7-link></f7-nav-left>
           <f7-nav-title>我的课程</f7-nav-title>
           <f7-nav-right>
-            <f7-link class="iconfont icon-xiaoxi1" href=""></f7-link>
+            <f7-link class="iconfont icon-xiaoxi1" href="/news"></f7-link>
           </f7-nav-right>
         </f7-navbar>
         <f7-subnavbar sliding>
