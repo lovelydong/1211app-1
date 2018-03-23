@@ -1,5 +1,5 @@
 <template>
-  <f7-page class="nLiveStreaming"  infinite @infinite="onInfiniteScroll">
+  <f7-page class="nLiveStreaming"  ptr @ptr:refresh="onRefresh" infinite @infinite="onInfinite" >
         <f7-navbar>
           <f7-nav-title>直播</f7-nav-title>
           <f7-nav-right>
@@ -129,7 +129,7 @@
           <ul>
             <li class="clearfix link" v-for="item in recommend">
              <f7-link :href="'/recommendedParticulars?id=' + item.id ">
-                  <span :style="{backgroundImage: 'url(' + item.simg + ')' }"></span>
+                  <span :style="{backgroundImage: 'url(' + url  + item.simg + ')'} "></span>
                    <div>
                    <p>{{item.name}}</p>
                     <p>{{item.area}}·{{item.buyno}}人正在学习 <i class="iconfont icon-xingxing"></i><i class="iconfont icon-xingxing"></i><i class="iconfont icon-xingxing"></i><i class="iconfont icon-xingxing"></i><i class="iconfont icon-xingxing"></i></p>
@@ -143,7 +143,7 @@
   </f7-page>
 </template>
 <script>
-import Global from '../Global.vue';
+import Global from "../Global.vue";
 
 export default {
   data: function() {
@@ -161,7 +161,9 @@ export default {
       },
       gitCon: {},
       recommend: {},
-      limittype:Global.limittype,
+      limittype: Global.limittype,
+      page: 1,
+      Infinite:true,
     };
   },
   watch: {
@@ -171,7 +173,7 @@ export default {
           .get(this.url + "/sx1211courseAdmin/listJson", {
             params: {
               page: 1,
-              limit: 50,
+              limit: 10,
               vod_type: this.type.vod_type,
               grade: this.type.grade,
               subject: this.type.subject,
@@ -188,8 +190,51 @@ export default {
     }
   },
   methods: {
-    onInfiniteScroll: function() {
-      console.log(1);
+    onRefresh: function() {
+      let self = this;
+      self.page = 1;
+      this.initialize(self.page, function() {
+        self.$f7.ptr.done();
+      });
+    },
+    onInfinite: function() {
+      if (this.Infinite) {
+        this.Infinite = false;
+        this.page++;
+        //赛选条件
+        this.$http
+          .get(this.url + "/sx1211courseAdmin/getCon", {
+            params: {
+              exam_type: 121100301
+            }
+          })
+          .then(function(res) {
+            this.gitCon = res.body.data;
+          });
+        //列表
+        this.$http
+          .get(this.url + "/sx1211courseAdmin/recommend2", {
+            params: {
+              page: this.page,
+              limit: 10,
+              vod_type: this.type.vod_type,
+              grade: this.type.grade,
+              subject: this.type.subject,
+              course_type: this.type.course_type,
+              province: this.type.province,
+              exam_type: this.type.exam_type
+            }
+          })
+          .then(function(res) {
+            let data = res.body.data;
+            console.log(this.page);
+            console.log(data)
+            data.forEach(element => {
+              this.recommend.push(element);
+            });
+            this.Infinite = true;
+          });
+      }
     },
     shareboy: function(data) {
       this.$refs.c1.sharefn();
@@ -205,42 +250,49 @@ export default {
           console.log(res);
           this.gitCon = res.body.data;
         });
+    },
+    initialize: function(page, fn) {
+      //赛选条件
+      this.$http
+        .get(this.url + "/sx1211courseAdmin/getCon", {
+          params: {
+            exam_type: 121100301
+          }
+        })
+        .then(function(res) {
+          this.gitCon = res.body.data;
+        });
+      //列表
+      this.$http
+        .get(this.url + "/sx1211courseAdmin/recommend2", {
+          params: {
+            page: page,
+            limit: 10,
+            vod_type: this.type.vod_type,
+            grade: this.type.grade,
+            subject: this.type.subject,
+            course_type: this.type.course_type,
+            province: this.type.province,
+            exam_type: this.type.exam_type
+          }
+        })
+        .then(function(res) {
+          this.recommend = res.body.data;
+          console.log(this.recommend);
+          if (fn) {
+            setTimeout(function() {
+              fn();
+            }, 2000);
+          }
+        });
     }
   },
-
   created() {
-    //赛选条件
-    this.$http
-      .get(this.url + "/sx1211courseAdmin/getCon", {
-        params: {
-          exam_type: 121100301
-        }
-      })
-      .then(function(res) {
-        this.gitCon = res.body.data;
-      });
-    //列表
-    this.$http
-      .get(this.url + "/sx1211courseAdmin/recommend2", {
-        params: {
-          page: 1,
-          limit: 50,
-          vod_type: this.type.vod_type,
-          grade: this.type.grade,
-          subject: this.type.subject,
-          course_type: this.type.course_type,
-          province: this.type.province,
-          exam_type: this.type.exam_type
-        }
-      })
-      .then(function(res) {
-        this.recommend = res.body.data;
-      });
+    this.initialize(1);
   }
 };
 </script>
 <style lang="less">
-
 .TopsZ {
   position: fixed;
   top: 56px;
@@ -280,25 +332,25 @@ export default {
   }
 }
 .nLiveStreaming {
-  .toolbarlog1{
-     background: url(../../assets/jingling.png) no-repeat 0px -137px;
-     background-color: transparent !important;
+  .toolbarlog1 {
+    background: url(../../assets/jingling.png) no-repeat 0px -137px;
+    background-color: transparent !important;
   }
-  .toolbarlog2{
-     background: url(../../assets/jingling.png) no-repeat -138px -87px;
-     background-color: transparent !important;
+  .toolbarlog2 {
+    background: url(../../assets/jingling.png) no-repeat -138px -87px;
+    background-color: transparent !important;
   }
-  .toolbarlog3{
-     background: url(../../assets/jingling.png) no-repeat -39px -137px;
-     background-color: transparent !important;
+  .toolbarlog3 {
+    background: url(../../assets/jingling.png) no-repeat -39px -137px;
+    background-color: transparent !important;
   }
-  .toolbarlog4{
-     background: url(../../assets/jingling.png) no-repeat -77px -137px;
-     background-color: transparent !important;
+  .toolbarlog4 {
+    background: url(../../assets/jingling.png) no-repeat -77px -137px;
+    background-color: transparent !important;
   }
-  .toolbarlog5{
-     background: url(../../assets/jingling.png) no-repeat -155px -137px;
-     background-color: transparent !important;
+  .toolbarlog5 {
+    background: url(../../assets/jingling.png) no-repeat -155px -137px;
+    background-color: transparent !important;
   }
   .mid {
     padding: 10px;
@@ -316,6 +368,7 @@ export default {
             background: url(https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1519301525135&di=dd2fed90de9f2622da9e2c6f51d3888b&imgtype=0&src=http%3A%2F%2F5b0988e595225.cdn.sohucs.com%2Fimages%2F20170922%2Fca414a2cf9b34ec49aff78f350b0ec87.gif)
               no-repeat center center;
             border-radius: 12px;
+            background-size: 100% 100%;
             position: absolute;
             left: 0;
             top: 0;
