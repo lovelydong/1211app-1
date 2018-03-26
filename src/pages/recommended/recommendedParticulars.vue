@@ -22,7 +22,9 @@
             </ul>
           </div>
           </transition>
+          <div class="xqt" :style="{backgroundImage: 'url('+ url+ oneJson.img + ')' }" ></div>
       <div class="text">
+      	
       	<div>{{xsdaojishi}}</div>
         <p>{{oneJson.name}}</p>
         <p v-show="oneJson.is_send_book == 1 || oneJson.is_send_file == 1">赠送<span v-if="oneJson.is_send_book == 1">配套图书</span>、<span v-if="oneJson.is_send_file == 1">配套资料</span> </p>
@@ -532,6 +534,18 @@ export default {
 };
 </script>
 <style lang="less">
+	
+	.xqt{
+		width: 100%;
+		
+		height:200px;
+		border-radius: 20px;
+		position: absolute;
+		top: 50px;
+		
+		background-position:center center;
+		background-size: cover;
+	}
 .TopsZ {
   position: fixed;
   top: 56px;

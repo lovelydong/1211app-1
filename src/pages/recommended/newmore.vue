@@ -117,7 +117,7 @@
           <ul>
             <li class="clearfix link" v-for="item in recommend" :key="item.id">
              <f7-link :href="'/recommendedParticulars?id=' + item.id ">
-                  <span :style="{backgroundImage: 'url(' + item.simg + ')' }"></span>
+                  <span :style="{backgroundImage: 'url('+ url+ item.img + ')' }"></span>
                    <div>
                    <p>{{item.name}}</p>
                     <p>{{item.area}}·{{item.buyno}}人正在学习 <i class="iconfont icon-xingxing"></i><i class="iconfont icon-xingxing"></i><i class="iconfont icon-xingxing"></i><i class="iconfont icon-xingxing"></i><i class="iconfont icon-xingxing"></i></p>
@@ -279,6 +279,8 @@ export default {
             height: 86px;
             background: url(https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1519301525135&di=dd2fed90de9f2622da9e2c6f51d3888b&imgtype=0&src=http%3A%2F%2F5b0988e595225.cdn.sohucs.com%2Fimages%2F20170922%2Fca414a2cf9b34ec49aff78f350b0ec87.gif)
               no-repeat center center;
+              -webkit-background-size: cover;
+              background-size: cover;
             border-radius: 12px;
             position: absolute;
             left: 0;
