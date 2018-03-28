@@ -18,7 +18,7 @@
                 <div class="content">
                     <p>{{e.itemname}}</p>
                     <ul>
-                        <f7-link v-for="(ee,index) in exams.dxa" v-if="e.id==ee.itemid" :key="ee.id"> <span>A</span>{{ee.optionname}}</f7-link>
+                        <f7-link v-for="(ee,index) in exams.dxa" v-if="e.id==ee.itemid" :key="ee.id"> <!--<span>A</span>-->{{ee.optionname}}</f7-link>
                        <!-- <f7-link class="active"> <span>B</span>灯比原来亮了</f7-link>
                         <f7-link class="active1"> <span>C</span>灯比原来亮了</f7-link>-->
                     </ul>
@@ -36,7 +36,7 @@
                 <div class="content">
                     <p>{{e.itemname}}</p>
                     <ul>
-                        <f7-link v-for="(ee,index) in exams.dxsa" v-if="e.id==ee.itemid" :key="ee.id"> <span>A</span>{{ee.optionname}}</f7-link>
+                        <f7-link v-for="(ee,index) in exams.dxsa" v-if="e.id==ee.itemid" :key="ee.id"> <!--<span>A</span>-->{{ee.optionname}}</f7-link>
                        <!-- <f7-link class="active"> <span>B</span>灯比原来亮了</f7-link>
                         <f7-link class="active1"> <span>C</span>灯比原来亮了</f7-link>-->
                     </ul>

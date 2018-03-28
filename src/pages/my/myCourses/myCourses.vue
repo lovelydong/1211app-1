@@ -19,7 +19,7 @@
         <div class="mid">
           <ul>
             <li class="clearfix link" v-for="(cc,index) in class1">
-                <f7-link>
+                <f7-link @click="$f7router.navigate('/recommendedParticulars?id='+cc.id )">
                     <span><em>直播中</em></span>
                     <div>
                       <p>{{cc.goodsName}}</p>

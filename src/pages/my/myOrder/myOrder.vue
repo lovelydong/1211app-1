@@ -155,7 +155,7 @@ export default {
     {
     	if(a==1)
     	{
-    		this.tabAll.splice(index,1);
+    		//this.tabAll.splice(index,1);
     	this.$http
       .get(this.url + "/sxorder/del", {
         params: {
@@ -164,6 +164,7 @@ export default {
       })
       .then(function(res) {
        console.log(res)
+       this.randerOrder();
        let toastCenter = this.$f7.toast.create({
 								text: "删除成功！",
 								position: "center",
@@ -173,7 +174,7 @@ export default {
       });
     	}
     	else{
-    		this.tabAll3.splice(index,1);
+    		//this.tabAll3.splice(index,1);
     	this.$http
       .get(this.url + "/sxorder/del", {
         params: {
@@ -182,6 +183,7 @@ export default {
       })
       .then(function(res) {
        console.log(res)
+       this.randerOrder();
        let toastCenter = this.$f7.toast.create({
 								text: "删除成功！",
 								position: "center",
@@ -196,7 +198,7 @@ export default {
     {
     	if(a==1)
     	{
-    		this.tabAll.splice(index,1);
+    		//this.tabAll.splice(index,1);
     	this.$http
       .get(this.url + "/sxorder/godel", {
         params: {
@@ -205,6 +207,7 @@ export default {
       })
       .then(function(res) {
        console.log(res)
+       this.randerOrder();
        let toastCenter = this.$f7.toast.create({
 								text: "删除成功！",
 								position: "center",
@@ -214,7 +217,7 @@ export default {
       });
     	}
     	else{
-    		this.tabAll1.splice(index,1);
+    		//this.tabAll1.splice(index,1);
     	this.$http
       .get(this.url + "/sxorder/godel", {
         params: {
@@ -223,6 +226,7 @@ export default {
       })
       .then(function(res) {
        console.log(res)
+       this.randerOrder();
        let toastCenter = this.$f7.toast.create({
 								text: "删除成功！",
 								position: "center",
@@ -232,10 +236,10 @@ export default {
       });
     	}
 
-    }
-  },
-  created() {
-    //订单详情全部
+    },
+    randerOrder:function()
+    {
+    	 //订单详情全部
     this.$http
       .get(this.url + "/sxorder/listPage", {
         params: {
@@ -283,6 +287,10 @@ export default {
       .then(function(res) {
         this.tabAll3 = res.body.data;
       });
+    }
+  },
+  created() {
+   this.randerOrder();
   }
 };
 </script>
