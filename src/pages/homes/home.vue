@@ -308,7 +308,7 @@
 						<ul>
 							<li class="clearfix link" v-for="condition in condition1">
 								<f7-link @click="$f7router.navigate('/examinationParticulars?id='+condition.id )"  >
-									<span  :style="{backgroundImage: 'url(' + condition.img + ')' }"></span>
+									<span  :style="{backgroundImage: 'url(' + url + condition.img + ')' }"></span>
 									<div>
 										<p>{{condition.file_name}}</p>
 										<p><i>新</i> {{condition.wfrom}} &nbsp;&nbsp;{{condition.create_time/1000 | moment("YYYY-MM-DD")}}</p>
@@ -340,7 +340,7 @@
 						<ul>
 							<li class="clearfix link" v-for="condition in condition2">
 								<f7-link  @click="$f7router.navigate('/examinationParticulars?id='+condition.id )"  >
-									<span :style="{backgroundImage: 'url(' + condition.img + ')' }"></span>
+									<span :style="{backgroundImage: 'url(' + url + condition.img + ')' }"></span>
 									<div>
 										<p>{{condition.file_name}}</p>
 										<p><i>新</i> {{condition.wfrom}} &nbsp;&nbsp;{{condition.create_time/1000 | moment("YYYY-MM-DD")}}</p>

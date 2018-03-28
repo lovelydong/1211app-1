@@ -71,7 +71,7 @@
           <ul>
                       <li class="clearfix link" v-for="(con,index) in getCondition">
                         <f7-link :href="'/examinationParticulars?id='+con.id">
-                          <span></span>
+                          <span :style="{backgroundImage: 'url(' + url + con.img + ')' }"></span>
                           <div>
                             <p>{{con.file_name}}</p>
                             <p><i v-if="index <= 10">新</i>  {{con.wfrom}} &nbsp;&nbsp;{{con.create_time/1000 | moment("YYYY-MM-DD")}}</p>
@@ -187,7 +187,7 @@ export default {
     }
   },
   created() {
-    //赛选条件
+    //筛选条件
     this.$http
       .get(this.url + "/examcondition/getCondition", {
         params: {}
@@ -375,6 +375,8 @@ export default {
             background: url(https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1519301525135&di=dd2fed90de9f2622da9e2c6f51d3888b&imgtype=0&src=http%3A%2F%2F5b0988e595225.cdn.sohucs.com%2Fimages%2F20170922%2Fca414a2cf9b34ec49aff78f350b0ec87.gif)
               no-repeat center center;
             border-radius: 12px;
+            -webkit-background-size: cover;
+            background-size: cover;
             position: absolute;
             left: 0;
             top: 0;

@@ -28,7 +28,7 @@
           <p>{{detail.wfrom}}-{{detail.create_time/1000 | moment("YYYY-MM-DD")}}</p>
           <div class="com">
           	
-            <img :src="detail.img" alt="">
+            <img :src="url+detail.img" alt="">
             <p>{{detail.file_content}}</p>
           </div>
         </div>
@@ -39,7 +39,7 @@
 
                       <li class="clearfix link" v-for="x in xiangguan">
                         <f7-link :href="'/examinationParticulars?id='+x.id">
-                          <span></span>
+                          <span  :style="{backgroundImage: 'url(' + url + x.img + ')' }"></span>
                           <div>
                             <p>{{x.file_name}}</p>
                             <p><i>新</i> {{x.wfrom}} &nbsp;&nbsp;{{x.create_time/1000 | moment("YYYY-MM-DD")}}</p>
@@ -78,7 +78,8 @@ export default {
         showTop: false
       },
       detail:"",
-      xiangguan:""
+      xiangguan:"",
+      url: "http://localhost:8080/shiro_test"
     };
   },
   methods: {
@@ -95,7 +96,7 @@ export default {
   	//详情渲染
   	//console.log(id)
   	this.$http
-					.get("http://localhost:8080/shiro_test/examcondition/detail", {
+					.get(this.url+"/examcondition/detail", {
 						params: {
 						
 							id:id
@@ -117,7 +118,7 @@ export default {
 					
 					//相关考情渲染
 					this.$http
-					.get("http://localhost:8080/shiro_test/examcondition/appXgCon", {
+					.get(this.url+"/examcondition/appXgCon", {
 						params: {
 						
 							id:id
@@ -165,6 +166,7 @@ export default {
             background: url(https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1519301525135&di=dd2fed90de9f2622da9e2c6f51d3888b&imgtype=0&src=http%3A%2F%2F5b0988e595225.cdn.sohucs.com%2Fimages%2F20170922%2Fca414a2cf9b34ec49aff78f350b0ec87.gif)
               no-repeat center center;
             border-radius: 12px;
+            background-size: cover;
             position: absolute;
             left: 0;
             top: 0;
@@ -198,6 +200,7 @@ export default {
               > span {
                 float: right;
                 color: #333333;
+                
                 > i {
                   color: #fd2d44;
                   margin: 0;
@@ -214,6 +217,7 @@ export default {
           > span {
             left: auto;
             right: 0;
+            
           }
           > div {
             padding: 0;
