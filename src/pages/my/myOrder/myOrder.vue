@@ -137,7 +137,7 @@
 export default {
   data: function() {
     return {
-      url: "http://localhost:8080/shiro_test",
+      url: "http://39.106.134.125/netschool/",
       shows: {
         showTop: false
       },
@@ -249,7 +249,7 @@ export default {
         }
       })
       .then(function(res) {
-      	
+
         this.tabAll = res.body.data;
       });
     //订单代付款

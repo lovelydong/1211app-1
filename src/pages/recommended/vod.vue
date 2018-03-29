@@ -8,7 +8,7 @@
 		</f7-navbar>
 		<!--<iframe src="http://localhost:8080/shiro_test/sx1211courseAdmin/mobile_live?&uid=5583122&ownerid='zFiZQhs0Sh'&uname='李冬冬'&authcode=534577" frameborder="0" width="100%" height="100%" id="studyManageIframe"></iframe>-->
 	<iframe :src="url1" frameborder="0" width="100%" height="100%" ></iframe>
-	
+
 	</f7-page>
 </template>
 <script>
@@ -16,18 +16,18 @@
 	export default {
 		data: function() {
 			return {
-				url: "http://localhost:8080/shiro_test",
+				url: "http://39.106.134.125/netschool/",
 				url1:"",
 				type:""
 			}
 		},
 		created:function()
 		{
-	
-	
+
+
   	let id = this.$f7route.query.id;
   	let iszj = this.$f7route.query.iszj;
-  	
+
   	this.type= this.$f7route.query.type;
   	if(iszj==1)
   	{
@@ -40,11 +40,11 @@
       .then(function(res) {
       	console.log(res)
         this.url1=res.body.data.vod_url+"?token="+res.body.data.vod_pass+"&nickname=66"
-        
-       
-        
+
+
+
       });
-        
+
   	}
   	else{
   			if(this.type==1)
@@ -59,7 +59,7 @@
       .then(function(res) {
         this.firstid = res.body.data.ext4;
         alert(this.firstid)
-       
+
        //alert(this.firstid)
         this.$http
       .get(this.url + "/sx1211courseAdmin/onechap", {
@@ -70,21 +70,21 @@
       })
       .then(function(res) {
        this.url1=res.body.data.vod_url+"?token="+res.body.data.vod_pass+"&nickname=66"
-        
-       
-        
+
+
+
       });
-        
+
       });
-      
-     
-      
-      
-      
-  	
+
+
+
+
+
+
   	}
   	else{
-  		
+
   		 this.$http
       .get(this.url + "/sx1211courseAdmin/oneJson", {
         params: {
@@ -94,7 +94,7 @@
       .then(function(res) {
         this.firstid = res.body.data.ext4;
         //alert(this.firstid)
-       
+
     this.$http
       .get(this.url + "/sx1211courseAdmin/onechap", {
         params: {
@@ -104,19 +104,19 @@
       .then(function(res) {
       	console.log(res)
         this.url1=res.body.data.vod_url+"?token="+res.body.data.vod_pass+"&nickname=66"
-        
-       
-        
+
+
+
       });
-        
+
       });
-      
-     
-      
+
+
+
   	}
   	}
-  	
- 
+
+
 		}
 	}
 </script>

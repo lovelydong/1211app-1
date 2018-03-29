@@ -67,7 +67,7 @@ export default {
   data: function() {
     return {
       userinfo: "",
-      url: "http://localhost:8080/shiro_test",
+      url: "http://39.106.134.125/netschool/",
       limittype: global_.limittype
     };
   },
@@ -83,7 +83,7 @@ export default {
   	}
   },
   created: function() {
-   
+
 
     this.$http.get(this.url + "/personal/loginState", {}).then(
       function(res) {

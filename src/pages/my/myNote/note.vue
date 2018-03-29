@@ -43,10 +43,10 @@ export default {
     },
     noteDelete:function(idd)
     {
-    	
-    	
+
+
     	console.log(idd)
-    	let url="http://localhost:8080/shiro_test";
+    	let url="http://39.106.134.125/netschool/";
   	//笔记列表删除
 
        /* this.$http.get(url+"/booknote/del",{
@@ -57,7 +57,7 @@ export default {
             }
             }).then(function(res){
                 console.log(res)
-                	
+
 					 },function(res){
                 console.log(res.status);
             })*/
@@ -81,14 +81,14 @@ export default {
 								closeTimeout: 2000
 							});
 							toastCenter.open();
-                	
+
         }, function () {
             // 请求失败回调
         });
-           
-    	
+
+
     }
-    
+
   },
   created:function(){
   	let url="http://localhost:8080/shiro_test";

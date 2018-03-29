@@ -28,14 +28,14 @@
 export default {
   data: function() {
     return {
-    	 url: "http://localhost:8080/shiro_test",
+    	 url: "http://39.106.134.125/netschool/",
     	 coupon:"",
     	 nowtime:"",
-    	
+
     };
   },
   methods: {
-  	
+
   },
   created:function()
   {
@@ -43,7 +43,7 @@ export default {
   	console.log(this.nowtime)
   	this.$http
         .get(this.url + "/sxcouponsend/getAllCoupon", {
-          
+
         })
         .then(function(res) {
           console.log(res);
@@ -53,7 +53,7 @@ export default {
  }
 </script>
 <style lang="less">
-	
+
 .discountCoupon {
   .mid {
     min-height: 100%;

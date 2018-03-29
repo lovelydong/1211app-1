@@ -11,7 +11,7 @@
                 <h3>{{index+1}}、<i v-html="e.examItemRecList.length>0?'单选题':'简答题'"></i><span><em>{{index+1}}</em>/{{count}}</span></h3>
                 <div class="content">
                     <p>{{e.examItem.itemname}}</p>
-                    <ul v-if="(e.examItemRecList.length>0)" v-for="eee in e.examItemRecList"> 
+                    <ul v-if="(e.examItemRecList.length>0)" v-for="eee in e.examItemRecList">
                         <f7-link class="active2"> <span>A</span>{{eee.optionname}}</f7-link>
                        <!-- <f7-link class="active"> <span>B</span>灯比原来亮了</f7-link>
                         <f7-link class="active1"> <span>C</span>灯比原来亮了</f7-link>-->
@@ -50,7 +50,7 @@ export default {
   },
   methods: {},
   created:function(){
-  	let url="http://localhost:8080/shiro_test";
+  	let url="http://39.106.134.125/netschool/";
   	var id=this.$f7route.query.id;
 		//console.log(id)
 		 this.$http.get(url+"/sx1211examcollect/detail",{
@@ -68,7 +68,7 @@ export default {
 							}
 							this.count=counter;
               // console.log(res.data.data.examItemRecList)
-             
+
             },function(res){
                 console.log(res.status);
             })
@@ -150,7 +150,7 @@ export default {
               > span {
                 color: #fff;
                 background-color: #22ac38;
-                
+
               }
             }
           }

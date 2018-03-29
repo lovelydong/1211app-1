@@ -34,10 +34,10 @@
 export default {
   data: function() {
     return {
-    	url:"http://localhost:8080/shiro_test",
+    	url:"http://39.106.134.125/netschool/",
     	errorList:"",
     	nowtime:""
-    	
+
     };
   },
   methods: {
@@ -46,21 +46,21 @@ export default {
     },
     deleteerror:function(id)
     {
-    	
+
     	this.$http.get(this.url+"/exambank/deleteerror",{
   	 		params:{
   			examid:id
   		}
-  	
+
             }).then(function(res){
             	console.log(res)
-            
-               
-                
+
+
+
 					 },function(res){
                 console.log(res.status);
-            })	
-    	
+            })
+
     }
   },
   created:function()
@@ -72,16 +72,16 @@ export default {
   			page:1,
   			limit:100
   		}
-  	
+
             }).then(function(res){
             	//console.log(res.body.data)
             	this.errorList=res.body.data;
-               
-                
+
+
 					 },function(res){
                 console.log(res.status);
-            })	
-  		
+            })
+
   }
   }
 

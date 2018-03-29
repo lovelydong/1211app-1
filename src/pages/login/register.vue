@@ -18,7 +18,7 @@
 export default {
   data: function() {
     return {
-url:"http://192.168.0.130:8080/shiro_test",   	
+url:"http://39.106.134.125/netschool/",
 statu:1,
 status:1,
 code:"获取验证码",
@@ -39,13 +39,13 @@ registera:""
               return 1;
             }
   	},
-	isPoneAvailable: function (pone) {  
-   var myreg = /^[1][3,4,5,7,8][0-9]{9}$/;  
-   if (!myreg.test(pone)) {  
-     return false;  
-   } else {  
-     return true;  
-   }  
+	isPoneAvailable: function (pone) {
+   var myreg = /^[1][3,4,5,7,8][0-9]{9}$/;
+   if (!myreg.test(pone)) {
+     return false;
+   } else {
+     return true;
+   }
  },getcode:function()
   	{
   		if(this.isPoneAvailable(this.mobile))
@@ -55,17 +55,17 @@ registera:""
   			return;
   		}
   		else{
-  			
+
   		console.log(this.mobile)
   	this.$http.get(this.url+"/doCode",{
   	 		params:{
   			mobile:this.mobile
   		}
-  	
+
             }).then(function(res){
             	console.log(res.body.msg)
                this.yanzheng=res.body.msg;
-                
+
 					 },function(res){
                 console.log(res.status);
             })
@@ -85,12 +85,12 @@ registera:""
   				that.code="获取验证码";
   				that.statu=1;
   			}
-  			
+
   		},1000)
   	}
   		}
   	else{
-  		
+
   		let toastCenter = this.$f7.toast.create({
 								text: "请输入有效的手机号！",
 								position: "center",
@@ -113,17 +113,17 @@ registera:""
   		}
   	},
   	register: function() {
-				
+
 				if(this.mobile == "" || this.pwd == ""||this.incode == "") {
 					//alert("用户名或者密码不能为空");
 					return;
 				} else {
-					
+
 					console.log(this.checkPassword(this.pwd))
 					if(this.checkPassword(this.pwd)==1)
 					{
-						
-					
+
+
 					if(this.incode==this.yanzheng)
 					{
 							this.$http.get(this.url + "/user/appRegister", {
@@ -131,7 +131,7 @@ registera:""
 							mobile: this.mobile,
 							password: this.pwd
 						}
-						
+
 
 					}).then(function(res) {
 						console.log(res);
@@ -144,10 +144,10 @@ registera:""
 							});
 							toastCenter.open();
 						this.$f7router.navigate('/login');
-	
+
 						}
 						else if(res.body.code==3){
-							
+
 								let toastCenter = this.$f7.toast.create({
 								text: "该手机号已经注册！",
 								position: "center",
@@ -155,17 +155,17 @@ registera:""
 							});
 							toastCenter.open();
 						}
-						
+
 						//this.$f7router.navigate('/login');
 
 					}, function(res) {
 						console.log(res);
 					})
-					
+
 					}
 					else{
-					
-						
+
+
 						let toastCenter = this.$f7.toast.create({
 								text: "验证码错误！",
 								position: "center",
@@ -175,7 +175,7 @@ registera:""
 					}
 				}
 					else{
-						
+
 						let toastCenter = this.$f7.toast.create({
 								text: "密码请设为8到16位数字与字母组合",
 								position: "center",
@@ -229,7 +229,7 @@ registera:""
 	font-size: 12px;
 	color: #fff;
 	background-color: #00AAEE;
-	
+
 }
 #register div {
 		background-color: #00AAEE;

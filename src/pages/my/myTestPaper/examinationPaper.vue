@@ -8,7 +8,7 @@
          <div class="mid">
             <div class="list">
             <ul>
-              <li class="swipeout" v-for="e in exam"> 
+              <li class="swipeout" v-for="e in exam">
                 <div class="swipeout-content">
                   <f7-link :href="'/examinationPaperParticulars?id='+e.examid" class="item-link">
                     <div class="item-content">
@@ -34,10 +34,10 @@
 export default {
   data: function() {
     return {
-    	url:"http://localhost:8080/shiro_test",
+    	url:"http://39.106.134.125/netschool/",
     	exam:"",
     	nowtime:""
-    	
+
     };
   },
   methods: {
@@ -50,10 +50,10 @@ export default {
           .get(this.url +"/myexam/delete", {
           params: {
         id:id
-        }   
+        }
           })
           .then(function(res) {
-           
+
             console.log(res)
             let toastCenter = this.$f7.toast.create({
 								text: "删除成功！",
@@ -63,14 +63,14 @@ export default {
 							toastCenter.open();
           });
     }
-    
+
   },
   created:function()
     {
     	this.nowtime=new Date().getTime()/1000;
     	this.$http
           .get(this.url + "/myexam/list", {
-            
+
           })
           .then(function(res) {
             this.exam = res.body.data;

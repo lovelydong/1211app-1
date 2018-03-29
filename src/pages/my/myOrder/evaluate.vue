@@ -18,7 +18,7 @@
 export default {
   data: function() {
     return {
-      url: "http://192.168.0.130:8080/shiro_test",
+      url: "http://39.106.134.125/netschool/",
       info: "",
       val: "",
       id:this.$f7route.query.id,

@@ -432,6 +432,7 @@
                         </f7-link>
                       </li>-->
 				</ul>
+
 				<div>
 					<f7-link @click="$f7router.navigate('/recommendedParticulars?id='+glike22.id )"  >
 						<p>{{glike22.name}}</p>
@@ -484,7 +485,7 @@ import Global from "../Global.vue";
 export default {
   data: function() {
     return {
-    	url:"http://localhost:8080/shiro_test",
+    	url:"http://39.106.134.125/netschool/",
       recommend1: "",
       recommend2: "",
       recommend11: "",
@@ -545,8 +546,8 @@ export default {
     },
 
     randerClass: function() {
-    	
-      
+
+
 
       //最新课程渲染1
 
@@ -663,7 +664,7 @@ export default {
             res.data.data.splice(0, 1);
             this.limitclass1 = res.data.data;
             //console.log(res.data.data)
-           
+
           },
           function(res) {
             console.log(res.status);
@@ -690,7 +691,7 @@ export default {
             res.data.data.splice(0, 1);
             this.limitclass2 = res.data.data;
             // console.log(res.data.data)
-            
+
           },
           function(res) {
             console.log(res.status);
@@ -841,7 +842,7 @@ export default {
   },
 
   created: function() {
-	
+
     this.randerClass();
   },
   mounted: function() {}

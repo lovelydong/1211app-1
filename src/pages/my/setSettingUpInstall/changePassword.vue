@@ -31,7 +31,7 @@
 export default {
   data: function() {
     return {
-    	url:"http://192.168.0.130:8080/shiro_test",
+    	url:"http://39.106.134.125/netschool/",
     	mobile:"",
     	statu:1,
     	code:"获取验证码",
@@ -43,13 +43,13 @@ export default {
     };
   },
   methods: {
-  	isPoneAvailable: function (pone) {  
-   var myreg = /^[1][3,4,5,7,8][0-9]{9}$/;  
-   if (!myreg.test(pone)) {  
-     return false;  
-   } else {  
-     return true;  
-   }  
+  	isPoneAvailable: function (pone) {
+   var myreg = /^[1][3,4,5,7,8][0-9]{9}$/;
+   if (!myreg.test(pone)) {
+     return false;
+   } else {
+     return true;
+   }
  },getcode:function()
   	{
   		if(this.isPoneAvailable(this.mobile))
@@ -59,20 +59,20 @@ export default {
   			return;
   		}
   		else{
-  			
+
   		console.log(this.mobile)
   	this.$http.get(this.url+"/doCode",{
   	 		params:{
   			mobile:this.mobile
   		}
-  	
+
             }).then(function(res){
             	console.log(res.body.msg)
                this.yanzheng=res.body.msg;
-                
+
 					 },function(res){
                 console.log(res.status);
-            })	
+            })
   		this.code=60;
   		this.statu=0;
   		var that=this;
@@ -89,12 +89,12 @@ export default {
   				that.code="获取验证码";
   				that.statu=1;
   			}
-  			
+
   		},1000)
   	}
   		}
   	else{
-  	
+
   		let toastCenter = this.$f7.toast.create({
               text: "请输入有效的手机号！",
               position: "center",
@@ -125,7 +125,7 @@ export default {
   			mobile:this.mobile,
   			password:this.pwd
   		}
-  	
+
             }).then(function(res){
                console.log(res);
                	let toastCenter = this.$f7.toast.create({
@@ -136,13 +136,13 @@ export default {
 							toastCenter.open();
                //this.global_.mobile=this.mobile;
                this.$f7router.navigate('/privacy');
-                
+
 					 },function(res){
                 console.log(res.status);
-            })	
+            })
   		}
   		else{
-  			
+
   			let toastCenter = this.$f7.toast.create({
               text: "验证码错误！",
               position: "center",
@@ -160,7 +160,7 @@ export default {
 }
 #code{
 	background-color: #00AAEE;
-	
+
 }
 .navbrleft {
   font-family: "PingFang-SC-Regular";

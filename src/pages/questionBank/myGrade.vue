@@ -53,7 +53,7 @@ import global_ from "../../pages/Global";
 export default {
   data: function() {
     return {
-      url: "http://192.168.0.115:8080/shiro_test",
+      url: "http://39.106.134.125/netschool/",
       val:0,
       max:10,
       shows: {

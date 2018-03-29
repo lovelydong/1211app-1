@@ -85,7 +85,7 @@ export default {
   data: function() {
     return {
       id: this.$f7route.query.id,
-      url: "http://localhost:8080/shiro_test",
+      url: "http://39.106.134.125/netschool/",
       showTop: false,
       shows: {
         XQ: true,

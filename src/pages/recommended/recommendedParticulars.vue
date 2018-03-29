@@ -24,7 +24,7 @@
           </transition>
           <div class="xqt" :style="{backgroundImage: 'url('+ url+ oneJson.img + ')' }" ></div>
       <div class="text">
-      	
+
       	<div>{{xsdaojishi}}</div>
         <p>{{oneJson.name}}</p>
         <p v-show="oneJson.is_send_book == 1 || oneJson.is_send_file == 1">赠送<span v-if="oneJson.is_send_book == 1">配套图书</span>、<span v-if="oneJson.is_send_file == 1">配套资料</span> </p>
@@ -77,7 +77,7 @@
         </div>
         <div class="col-33"><f7-link @click="addspc">加入购物车</f7-link></div>
         <div class="col-33"><f7-link @click="whereToGO(oneJson.id)" :html="isornot==1?flag='立即播放':flag='立即购买'">{{flag}}</f7-link></div>
-        
+
       </div>
     </div>
         <Share ref="c1"></Share>
@@ -90,7 +90,7 @@ export default {
     return {
     	xsdaojishi:"",
       id: this.$f7route.query.id,
-      url: "http://localhost:8080/shiro_test",
+      url: "http://39.106.134.125/netschool/",
       showTop: false,
       isornot:"",
       type:'',
@@ -168,7 +168,7 @@ export default {
           }
         });
     	}
-    	else 
+    	else
     	{
     		this.$http
         .get(this.url + "/sxcollect/add", {
@@ -185,8 +185,8 @@ export default {
           }
         });
     	}
-    	
-      
+
+
     },
     addspc: function() {
     	if(this.isxs==1)
@@ -232,14 +232,14 @@ export default {
           }
         });
     	}
-      
+
     },
-    
+
     whereToGO:function(id)
     {
-    	
-    	
-    //:href="(isornot==1&&type==1)?'/live?id='+oneJson.id+'&type='+isxs:(isornot==1&&(type==2||type==3))?'/vod?id='+oneJson.id+'&type='+isxs:'/indent?order_number='+creatOrder(oneJson.id)"--> 	
+
+
+    //:href="(isornot==1&&type==1)?'/live?id='+oneJson.id+'&type='+isxs:(isornot==1&&(type==2||type==3))?'/vod?id='+oneJson.id+'&type='+isxs:'/indent?order_number='+creatOrder(oneJson.id)"-->
     if(this.isornot==1&&this.type==1)
     {
     	this.$f7router.navigate(
@@ -252,7 +252,7 @@ export default {
               );
     }
     else{
-    	
+
     	if(this.isxs==1)
     	{
     		this.$http
@@ -273,7 +273,7 @@ export default {
               closeTimeout: 2000
             });
             toastCenter.open();*/
-           
+
           }
         });
     	}
@@ -292,19 +292,19 @@ export default {
           	this.$f7router.navigate(
                 '/shoppingTrolley'
               );
-            
+
           }
         });
     	}
   }
-    	
-    	
-    
- 
-          
-       
+
+
+
+
+
+
     },
-   
+
     xstype:function(t)
     {
     	if(t==35202044)
@@ -314,11 +314,11 @@ export default {
     	else if(t==35202045)
     	{
     		return 2;
-    		
+
     	}else if(t==35202046)
     	{
     		return 3;
-    		
+
     	}
     },
     kctype:function(t)
@@ -330,11 +330,11 @@ export default {
     	else if(t==121100402)
     	{
     		return 2;
-    		
+
     	}else if(t==121100403)
     	{
     		return 3;
-    		
+
     	}
     }
   },
@@ -361,7 +361,7 @@ export default {
           this.iscollect = false;
         }
       });
-    	 	
+
        //是否购买
     this.$http
       .get(this.url + "/sx1211courseAdmin/buyornot", {
@@ -373,10 +373,10 @@ export default {
       .then(function(res) {
         console.log(res.data)
         this.isornot=res.data.data;
-        
+
       });
-    	
-    	
+
+
        //详情
     this.$http
       .get(this.url + "/flashsale/detail", {
@@ -388,8 +388,8 @@ export default {
         this.oneJson = res.body.data;
         this.Countdown(res.body.data.end_time);
         this.type=this.xstype(res.body.data.course_type);
-       
-        
+
+
       });
     //章节
     this.$http
@@ -413,7 +413,7 @@ export default {
         this.chap = obj;
       });
     }else if(this.isxs!=1){
-    	
+
     		      //检测是否收藏/*/
     this.$http
       .get(this.url + "/sxcollect/iscollect", {
@@ -429,7 +429,7 @@ export default {
         } else {
           this.iscollect = false;
         }
-      }); 	
+      });
        //是否购买
     this.$http
       .get(this.url + "/sx1211courseAdmin/buyornot", {
@@ -441,9 +441,9 @@ export default {
       .then(function(res) {
         console.log(res.data)
         this.isornot=res.data.data;
-        
+
       });
-    	
+
     	   //详情
     this.$http
       .get(this.url + "/sx1211courseAdmin/oneJson", {
@@ -454,7 +454,7 @@ export default {
       .then(function(res) {
         this.oneJson = res.body.data;
          this.type=this.kctype(res.body.data.vod_type);
-        
+
       });
     //章节
     this.$http
@@ -486,7 +486,7 @@ export default {
       .then(function(res) {
         this.Quantityincart = res.body.count;
       });
-    
+
     //详情
     this.$http
       .get(this.url + "/sx1211courseAdmin/oneJson", {
@@ -535,15 +535,15 @@ export default {
 };
 </script>
 <style lang="less">
-	
+
 	.xqt{
 		width: 100%;
-		
+
 		height:200px;
 		border-radius: 20px;
 		position: absolute;
 		top: 50px;
-		
+
 		background-position:center center;
 		background-size: cover;
 	}

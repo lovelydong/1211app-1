@@ -118,10 +118,10 @@
 export default {
   data: function() {
     return {
-    	
+
     	exams:"",
-    	course:"",    	
-    	url:"http://localhost:8080/shiro_test"
+    	course:"",
+    	url:"http://39.106.134.125/netschool/"
     };
   },
   methods: {
@@ -153,7 +153,7 @@ export default {
 								closeTimeout: 2000
 							});
 							toastCenter.open();
-             
+
             },function(res){
                 console.log(res.status);
             })
@@ -173,7 +173,7 @@ export default {
 								closeTimeout: 2000
 							});
 							toastCenter.open();
-             
+
             },function(res){
                 console.log(res.status);
             })
@@ -181,7 +181,7 @@ export default {
     },
     created:function()
  {
- 	
+
  	//课程收藏渲染
  	 this.$http.get(this.url+"/sxcollect/information",{
   		params:{
@@ -196,34 +196,34 @@ export default {
             },function(res){
                 console.log(res.status);
             })
-            
+
    	//试卷收藏渲染
  	 this.$http.get(this.url+"/sx1211examcollect/listJson",{
   		params:{
-  			
+
   			page:1,
   			limit:4
   		}
             }).then(function(res){
                 console.log(res.data.data)
                	this.exams=res.data.data;
-                 
+
                  //console.log(res.data.data)
 
             },function(res){
                 console.log(res.status);
-            })         
-            
-            
-            
-     
-            
- 
- 
- 
+            })
+
+
+
+
+
+
+
+
  }
   }
- 
+
 </script>
 <style lang="less">
 .myCollect {

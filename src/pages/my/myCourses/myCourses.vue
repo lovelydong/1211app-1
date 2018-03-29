@@ -11,7 +11,7 @@
           <f7-segmented>
             <f7-button tab-link="#tab1" tab-link-active @click="tab=1">我的课程</f7-button>
             <f7-button tab-link="#tab2"  @click="tab=2">过期课程</f7-button>
-          
+
           </f7-segmented>
         </f7-subnavbar>
         <div class="tabs">
@@ -23,7 +23,7 @@
                     <span :style="{backgroundImage: 'url(' + url + cc.img + ')' }"><em>直播中</em></span>
                     <div>
                       <p>{{cc.goodsName}}</p>
-                     
+
                       <p>开课时间：{{cc.creat_time}}</p>
                     </div>
                 </f7-link>
@@ -41,7 +41,7 @@
           </ul>
         </div>
         </div>
-        
+
           <div id="tab2" class="tab" >
         <div class="mid">
           <ul>
@@ -50,7 +50,7 @@
                     <span :style="{backgroundImage: 'url(' + url + cc.img + ')' }"><em style="background-color: #666666;">已结束</em></span>
                     <div>
                       <p>{{cc.goodsName}}</p>
-                      
+
                       <p>开课时间：{{cc.creat_time}}</p>
                     </div>
                 </f7-link>
@@ -75,14 +75,14 @@
 export default {
   data: function() {
     return {
-    	url:"http://localhost:8080/shiro_test",
+    	url:"http://39.106.134.125/netschool/",
     	class1:"",
     	class2:""
-    	
+
     };
   },
   methods: {
-  	
+
   	 whatType:function(num)
     {
     	if(num==2)
@@ -306,10 +306,10 @@ export default {
         }
       }
     }
-  
+
   }
 }
-    
+
 </style>
 
 

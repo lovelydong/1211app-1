@@ -26,7 +26,7 @@ import global_ from "../../../pages/Global"; //引用模块进来
 export default {
   data: function() {
     return {
-      url: "http://localhost:8080/shiro_test",
+      url: "http://39.106.134.125/netschool/",
       mobile: "",
       incode: ""
     };

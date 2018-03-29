@@ -53,7 +53,7 @@ import Global from "../../Global.vue";
 export default {
   data: function() {
     return {
-      url: "http://localhost:8080/shiro_test",
+      url: "http://39.106.134.125/netschool/",
       shows: {
         bot: false
       },
@@ -148,7 +148,7 @@ export default {
     Pay() {
       if (this.shoppingsid.length != 0) {
         let toastCenter = this.$f7.toast.create({
-          text: "程序猿正在努力生成订单中.....",
+          text: "正在努力生成订单中.....",
           position: "top",
           closeTimeout: 2000
         });

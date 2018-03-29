@@ -27,7 +27,7 @@
           <h3>{{detail.file_name}}</h3>
           <p>{{detail.wfrom}}-{{detail.create_time/1000 | moment("YYYY-MM-DD")}}</p>
           <div class="com">
-          	
+
             <img :src="url+detail.img" alt="">
             <p>{{detail.file_content}}</p>
           </div>
@@ -79,7 +79,7 @@ export default {
       },
       detail:"",
       xiangguan:"",
-      url: "http://localhost:8080/shiro_test"
+      url: "http://39.106.134.125/netschool/"
     };
   },
   methods: {
@@ -98,7 +98,7 @@ export default {
   	this.$http
 					.get(this.url+"/examcondition/detail", {
 						params: {
-						
+
 							id:id
 						}
 					})
@@ -106,21 +106,21 @@ export default {
 						function(res) {
 							//console.log(res.data.data)
 						this.detail=res.data.data;
-						
 
-						
-						
+
+
+
 						},
 						function(res) {
 							console.log(res.status);
 						}
-					);	
-					
+					);
+
 					//相关考情渲染
 					this.$http
 					.get(this.url+"/examcondition/appXgCon", {
 						params: {
-						
+
 							id:id
 						}
 					})
@@ -128,16 +128,16 @@ export default {
 						function(res) {
 							console.log(res.data.data)
 							this.xiangguan=res.data.data;
-						
 
-						
-						
+
+
+
 						},
 						function(res) {
 							console.log(res.status);
 						}
 					);
-  	
+
   }
  }
 </script>
@@ -200,7 +200,7 @@ export default {
               > span {
                 float: right;
                 color: #333333;
-                
+
                 > i {
                   color: #fd2d44;
                   margin: 0;
@@ -217,7 +217,7 @@ export default {
           > span {
             left: auto;
             right: 0;
-            
+
           }
           > div {
             padding: 0;

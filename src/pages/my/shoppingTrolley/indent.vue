@@ -40,7 +40,7 @@ import Global from "../../Global.vue";
 export default {
   data: function() {
     return {
-      url: "http://localhost:8080/shiro_test",
+      url: "http://39.106.134.125/netschool/",
       Alipay: false,
       WeChatPay: false,
       ForteachingB: false,
@@ -82,7 +82,35 @@ export default {
       }
     },
     PayApp() {
-      this.$f7router.navigate('/pay')
+      if (this.Alipay || this.WeChatPay) {
+        let flag = 0;
+        if (this.ForteachingB) {
+          flag = 1;
+        }
+        let pay = 0;
+        if (this.Alipay) {
+          pay = 1; //支付宝支付
+        } else if (this.WeChatPay) {
+          pay = 2; //微信支付
+        }
+        this.$f7router.navigate(
+          "/pay?order=" +
+            this.$f7route.query.order_number +
+            "&couponid=" +
+            Global.usershoppingID +
+            "&flag=" +
+            flag +
+            "&pay=" +
+            pay
+        );
+      } else {
+        let toastCenter = this.$f7.toast.create({
+          text: "请选择支付方式",
+          position: "center",
+          closeTimeout: 2000
+        });
+        toastCenter.open();
+      }
     }
   },
   created() {
