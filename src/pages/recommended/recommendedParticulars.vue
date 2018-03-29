@@ -342,6 +342,7 @@ export default {
 
     let id = this.$f7route.query.id;
     this.isxs=this.$f7route.query.isxs;
+    /*alert(this.isxs)*/
     if(this.isxs==1)
     {
     	      //检测是否收藏/*/

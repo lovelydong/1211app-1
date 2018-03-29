@@ -52,8 +52,8 @@
       </ul>
       <ul>
         <li>
-          <f7-link><span class="bgmid7"></span >  邀请好友 <i class="iconfont icon-you"></i></f7-link>
-          <f7-link><span  class="bgmid8"></span>  在线客服 <i class="iconfont icon-you"></i></f7-link>
+          <f7-link @click=qidai()><span class="bgmid7"></span >  邀请好友 <i class="iconfont icon-you"></i></f7-link>
+          <f7-link @click=qidai()><span  class="bgmid8"></span>  在线客服 <i class="iconfont icon-you"></i></f7-link>
           <f7-link href="/setSettingUpInstall"><span class="bgmid9"></span>  设置 <i class="iconfont icon-you"></i></f7-link>
         </li>
       </ul>
@@ -71,7 +71,17 @@ export default {
       limittype: global_.limittype
     };
   },
-  methods: {},
+  methods: {
+  	qidai:function()
+  	{
+  		 let toastCenter = this.$f7.toast.create({
+              text: "敬请期待！",
+              position: "center",
+              closeTimeout: 2000
+            });
+            toastCenter.open();
+  	}
+  },
   created: function() {
    
 

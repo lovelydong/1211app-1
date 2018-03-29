@@ -22,11 +22,11 @@
                 <ul>
                   <li class="swipeout" v-for="c in course">
                     <div class="swipeout-content">
-                      <a :href="'/recommendedParticulars?id='+c.id+'&type='+c.type" class="item-link">
+                      <a :href="'/recommendedParticulars?id='+c.id+'&isxs='+whatType(c.type)" class="item-link">
                         <div class="item-content">
                           <div class="item-inner">
                             <div class="item-title">
-                              <span></span>
+                              <span :style="{backgroundImage: 'url(' + url + c.img + ')' }"></span>
                               <div>
                                 <p>{{c.course_details}}</p>
                                 <!--<p>国版·354人正在学习 <i class="iconfont icon-xingxing"></i><i class="iconfont icon-xingxing"></i><i class="iconfont icon-xingxing"></i><i class="iconfont icon-xingxing"></i><i class="iconfont icon-xingxing"></i></p>-->
@@ -128,8 +128,17 @@ export default {
     shareboy: function(data) {
       this.$refs.c1.sharefn();
     },
-    
-   examDelete:function(id)
+    whatType:function(num)
+    {
+    	if(num==2)
+    	{
+    		return 1;
+    	}
+    	else{
+    		return 0;
+    	}
+    },
+    examDelete:function(id)
    {
    	//alert(id);
    	 this.$http.get(this.url+"/sx1211examcollect/delexam",{
@@ -172,9 +181,9 @@ export default {
     },
     created:function()
  {
- 	let url="http://localhost:8080/shiro_test";
+ 	
  	//课程收藏渲染
- 	 this.$http.get(url+"/sxcollect/information",{
+ 	 this.$http.get(this.url+"/sxcollect/information",{
   		params:{
   		page:1,
   		limit:100
@@ -189,7 +198,7 @@ export default {
             })
             
    	//试卷收藏渲染
- 	 this.$http.get(url+"/sx1211examcollect/listJson",{
+ 	 this.$http.get(this.url+"/sx1211examcollect/listJson",{
   		params:{
   			
   			page:1,
@@ -257,6 +266,7 @@ export default {
               height: 86px;
               background: url(https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1519301525135&di=dd2fed90de9f2622da9e2c6f51d3888b&imgtype=0&src=http%3A%2F%2F5b0988e595225.cdn.sohucs.com%2Fimages%2F20170922%2Fca414a2cf9b34ec49aff78f350b0ec87.gif)
                 no-repeat center center;
+                background-size: cover;
               border-radius: 12px;
               position: absolute;
               left: 0;

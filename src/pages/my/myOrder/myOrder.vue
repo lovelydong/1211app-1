@@ -38,7 +38,7 @@
                 <li>
                   <p>订单编号：{{item.order_number}}</p>
                   <div class="con">
-                      <img :src="item.img" alt="" >
+                      <img :src="url+item.img" alt="" >
                       <div>
                         <p>{{item.goodsName}}</p>
                         <p>￥{{item.price}} &nbsp;&nbsp;<span>优惠：{{item.price - item.pay_amount}}</span></p>
@@ -51,7 +51,7 @@
                 <li>
                   <p>订单编号：{{item.order_number}}</p>
                   <div class="con">
-                      <img :src="item.img" alt="" >
+                      <img :src="url+item.img" alt="" >
                       <div>
                         <p>{{item.goodsName}}</p>
                           <p>￥{{item.price}} &nbsp;&nbsp;<span>优惠：{{item.price - item.pay_amount}}</span></p>
@@ -64,7 +64,7 @@
                 <li>
                   <p>订单编号：{{item.order_number}}</p>
                   <div class="con">
-                      <img :src="item.img" alt="" >
+                      <img :src="url+item.img" alt="" >
                       <div>
                         <p>{{item.goodsName}}</p>
                           <p>￥{{item.price}} &nbsp;&nbsp;<span>优惠：{{item.price - item.pay_amount}}</span></p>
@@ -82,7 +82,7 @@
                 <li>
                   <p>订单编号：{{item.order_number}}</p>
                   <div class="con">
-                      <img :src="item.img" alt="" >
+                      <img :src="url+item.img" alt="" >
                       <div>
                         <p>{{item.goodsName}}</p>
                           <p>￥{{item.price}} &nbsp;&nbsp;<span>优惠：{{item.price - item.pay_amount}}</span></p>
@@ -99,7 +99,7 @@
                 <li>
                   <p>订单编号：{{item.order_number}}</p>
                   <div class="con">
-                      <img :src="item.img" alt="" >
+                      <img :src="url+item.img" alt="" >
                       <div>
                         <p>{{item.goodsName}}</p>
                           <p>￥{{item.price}} &nbsp;&nbsp;<span>优惠：{{item.price - item.pay_amount}}</span></p>
@@ -116,7 +116,7 @@
                 <li>
                   <p>订单编号：{{item.order_number}}</p>
                   <div class="con">
-                      <img :src="item.img" alt="" >
+                      <img :src="url+item.img" alt="" >
                       <div>
                         <p>{{item.goodsName}}</p>
                           <p>￥{{item.price}} &nbsp;&nbsp;<span>优惠：{{item.price - item.pay_amount}}</span></p>
@@ -245,10 +245,11 @@ export default {
         params: {
           state: 0,
           page: 1,
-          limit: 99
+          limit: 20
         }
       })
       .then(function(res) {
+      	
         this.tabAll = res.body.data;
       });
     //订单代付款
@@ -257,7 +258,7 @@ export default {
         params: {
           state: 1,
           page: 1,
-          limit: 99
+          limit: 20
         }
       })
       .then(function(res) {
@@ -269,7 +270,7 @@ export default {
         params: {
           state: 2,
           page: 1,
-          limit: 99
+          limit: 20
         }
       })
       .then(function(res) {
@@ -281,7 +282,7 @@ export default {
         params: {
           state: 3,
           page: 1,
-          limit: 99
+          limit: 20
         }
       })
       .then(function(res) {

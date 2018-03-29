@@ -19,8 +19,8 @@
         <div class="mid">
           <ul>
             <li class="clearfix link" v-for="(cc,index) in class1">
-                <f7-link @click="$f7router.navigate('/recommendedParticulars?id='+cc.id )">
-                    <span><em>直播中</em></span>
+                <f7-link @click="$f7router.navigate('/recommendedParticulars?id='+cc.id+'&isxs='+whatType(cc.ext2))">
+                    <span :style="{backgroundImage: 'url(' + url + cc.img + ')' }"><em>直播中</em></span>
                     <div>
                       <p>{{cc.goodsName}}</p>
                      
@@ -47,7 +47,7 @@
           <ul>
             <li class="clearfix link" v-for="(cc,index) in class2">
                 <f7-link>
-                    <span><em style="background-color: #666666;">已结束</em></span>
+                    <span :style="{backgroundImage: 'url(' + url + cc.img + ')' }"><em style="background-color: #666666;">已结束</em></span>
                     <div>
                       <p>{{cc.goodsName}}</p>
                       
@@ -81,7 +81,19 @@ export default {
     	
     };
   },
-  methods: {},
+  methods: {
+  	
+  	 whatType:function(num)
+    {
+    	if(num==2)
+    	{
+    		return 1;
+    	}
+    	else{
+    		return 0;
+    	}
+    }
+  },
   created:function()
   {
   	//我的课程渲染
@@ -135,6 +147,7 @@ export default {
             background: url(https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1519301525135&di=dd2fed90de9f2622da9e2c6f51d3888b&imgtype=0&src=http%3A%2F%2F5b0988e595225.cdn.sohucs.com%2Fimages%2F20170922%2Fca414a2cf9b34ec49aff78f350b0ec87.gif)
               no-repeat center center;
             border-radius: 12px;
+            background-size: cover;
             position: absolute;
             left: 0;
             top: 0;
@@ -228,6 +241,7 @@ export default {
               background: url(https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1519301525135&di=dd2fed90de9f2622da9e2c6f51d3888b&imgtype=0&src=http%3A%2F%2F5b0988e595225.cdn.sohucs.com%2Fimages%2F20170922%2Fca414a2cf9b34ec49aff78f350b0ec87.gif)
                 no-repeat center center;
               border-radius: 12px;
+              background-size: cover;
               position: absolute;
               left: 0;
               top: 0;
