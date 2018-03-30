@@ -136,6 +136,16 @@ export default {
         .then(function(res) {
           console.log(res);
         });
+      //购物车列表
+      this.$http
+        .get(this.url + "/shoppingcart/listJson", {})
+        .then(function(res) {
+          this.listJson = res.body.data;
+          this.listJson.forEach(element => {
+            this.shoppingsidAll.push(element.id);
+            this.shoppingsidPriceAll.push(element.goodsPrice);
+          });
+        });
     },
     removespc() {
       let data = this.idsFn();
@@ -143,6 +153,16 @@ export default {
         .get(this.url + "/shoppingcart/del" + data, {})
         .then(function(res) {
           console.log(res);
+        });
+      //购物车列表
+      this.$http
+        .get(this.url + "/shoppingcart/listJson", {})
+        .then(function(res) {
+          this.listJson = res.body.data;
+          this.listJson.forEach(element => {
+            this.shoppingsidAll.push(element.id);
+            this.shoppingsidPriceAll.push(element.goodsPrice);
+          });
         });
     },
     Pay() {
