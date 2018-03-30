@@ -255,6 +255,7 @@ export default {
         }
       })
       .then(function(res) {
+      	console.log(res)
         this.limitclass = res.data.data;
         this.limitclass.forEach((element,index) => {
 
