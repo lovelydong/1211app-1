@@ -17,22 +17,40 @@
               <f7-link href="/issue">  常见问题 <i class="iconfont icon-you"></i></f7-link>
               <f7-link href="">  软件检查更新 <i>V 1.01</i></f7-link>
               <f7-link href="/AboutUs">  关于山香 <i class="iconfont icon-you"></i></f7-link>
+              <f7-link @click="removeUser">  退出登录 <i class="iconfont icon-you"></i></f7-link>
             </li>
           </ul>
         </div>
   </f7-page>
 </template>
 <script>
-	import global_ from '../../../pages/Global'//引用模块进来
+import global_ from "../../../pages/Global"; //引用模块进来
 export default {
   data: function() {
-    return {};
+    return {
+      url: "http://39.106.134.125/netschool/",
+
+    };
   },
-  methods: {},
-  created:function(){
-  	console.log(global_.userinfo)
+  methods: {
+    removeUser: function(params) {
+      //退出登录
+      this.$http
+        .get(this.url + "/appLogout", {
+          params: {}
+        })
+        .then(function(res) {
+          console.log(res);
+          if (res.body.code == 1) {
+            this.$f7router.navigate("/login/");
+          }
+        });
+    }
+  },
+  created: function() {
+    console.log(global_.userinfo);
   }
- }
+};
 </script>
 <style lang="less">
 .setSettingUpInstall {

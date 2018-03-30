@@ -78,7 +78,8 @@ export default {
           min-height: 180px;
           > div {
             height: 118px;
-            background-color: pink;
+            background: url(../../assets/tiku1.png) no-repeat 0 0;
+            background-size: 100% 100%;
             position: relative;
             > p {
               position: absolute;
@@ -102,6 +103,30 @@ export default {
               padding: 5px 10px;
               color: #999;
             }
+          }
+        }
+      }
+      .col-50:nth-of-type(2) {
+        .link {
+          > div {
+            background: url(../../assets/tiku2.png) no-repeat 0 0;
+            background-size: 100% 100%;
+          }
+        }
+      }
+      .col-50:nth-of-type(3) {
+        .link {
+          > div {
+            background: url(../../assets/tiku3.png) no-repeat 0 0;
+            background-size: 100% 100%;
+          }
+        }
+      }
+      .col-50:nth-of-type(4) {
+        .link {
+          > div {
+            background: url(../../assets/tiku4.png) no-repeat 0 0;
+            background-size: 100% 100%;
           }
         }
       }

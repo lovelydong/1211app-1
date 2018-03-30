@@ -70,13 +70,6 @@ export default [{
 
     }, {
         path: '/home', //首页
-
-        component: HomePage,
-        // component: Login,
-
-
-    }, {
-        path: '/home', //首页
         component: HomePage,
 
     }, {

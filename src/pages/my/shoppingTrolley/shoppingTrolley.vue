@@ -16,7 +16,7 @@
                   </div>
                 </f7-link>
                 <f7-link>
-                  <span :style="{backgroundImage: 'url(' + item.goodsPicture + ')' }"></span>
+                  <span :style="{backgroundImage: 'url(' +url+ item.goodsPicture + ')' }"></span>
                     <div>
                       <p>{{item.goodsName}}</p>
                       <p>{{item.goodsPrice}}</p>
@@ -226,6 +226,7 @@ export default {
             background: url(https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1519301525135&di=dd2fed90de9f2622da9e2c6f51d3888b&imgtype=0&src=http%3A%2F%2F5b0988e595225.cdn.sohucs.com%2Fimages%2F20170922%2Fca414a2cf9b34ec49aff78f350b0ec87.gif)
               no-repeat center center;
             border-radius: 12px;
+            background-size: 100% 100%;
             position: absolute;
             left: 0;
             top: 0;

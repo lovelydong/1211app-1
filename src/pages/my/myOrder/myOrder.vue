@@ -57,7 +57,7 @@
                           <p>￥{{item.price}} &nbsp;&nbsp;<span>优惠：{{item.price - item.pay_amount}}</span></p>
                       </div>
                   </div>
-                  <div class="bot">实付：<span>￥{{item.pay_amount}}</span>  <div><f7-link @click="deleteOrderw(1,item.id,index)">取消订单</f7-link><f7-link>立即付款</f7-link></div></div>
+                  <div class="bot">实付：<span>￥{{item.pay_amount}}</span>  <div><f7-link @click="deleteOrderw(1,item.id,index)">取消订单</f7-link><f7-link :href="'/indent?order_number=' + item.order_number">立即付款</f7-link></div></div>
                 </li>
               </ul>
               <ul class="Nopay" v-else-if="item.state == 5">
@@ -88,7 +88,7 @@
                           <p>￥{{item.price}} &nbsp;&nbsp;<span>优惠：{{item.price - item.pay_amount}}</span></p>
                       </div>
                   </div>
-                  <div class="bot">实付：<span>￥{{item.pay_amount}}</span>  <div><f7-link  @click="deleteOrderw(0,item.id,index)">取消订单</f7-link><f7-link>立即付款</f7-link></div></div>
+                  <div class="bot">实付：<span>￥{{item.pay_amount}}</span>  <div><f7-link  @click="deleteOrderw(0,item.id,index)">取消订单</f7-link><f7-link :href="'/indent?order_number=' + item.order_number">立即付款</f7-link></div></div>
                 </li>
               </ul>
              </div>
@@ -245,12 +245,13 @@ export default {
         params: {
           state: 0,
           page: 1,
-          limit: 20
+          limit: 999
         }
       })
       .then(function(res) {
 
         this.tabAll = res.body.data;
+        console.log(this.tabAll)
       });
     //订单代付款
     this.$http
@@ -258,7 +259,7 @@ export default {
         params: {
           state: 1,
           page: 1,
-          limit: 20
+          limit: 999
         }
       })
       .then(function(res) {
@@ -270,7 +271,7 @@ export default {
         params: {
           state: 2,
           page: 1,
-          limit: 20
+          limit: 999
         }
       })
       .then(function(res) {
@@ -282,7 +283,7 @@ export default {
         params: {
           state: 3,
           page: 1,
-          limit: 20
+          limit: 999
         }
       })
       .then(function(res) {

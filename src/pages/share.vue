@@ -39,9 +39,9 @@
 
       </f7-actions-group>
       <!-- Another Group -->
-      <f7-actions-group>
+      <!-- <f7-actions-group>
           <f7-link class="remove" @click="sharefn">取消</f7-link>
-      </f7-actions-group>
+      </f7-actions-group> -->
     </f7-actions>
 </template>
 <script>

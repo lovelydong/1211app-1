@@ -46,7 +46,7 @@ export default {
       })
       .then(function(res) {
         //this.url1="http://localhost:8080/shiro_test/sx1211courseAdmin/mobile_live?uid="+res.body.data.uid+"&ownerid="+res.body.data.ownerid+"&uname=66"+"&authcode="+res.body.data.authcode;
-        this.url1="http://localhost:8080/shiro_test/sx1211courseAdmin/mobile_live?&uid=5583122&ownerid='zFiZQhs0Sh'&uname='李冬冬'&authcode=534577"
+        this.url1="http://39.106.134.125/netschool/sx1211courseAdmin/mobile_live?&uid=5583122&ownerid='zFiZQhs0Sh'&uname='李冬冬'&authcode=534577"
 
 
 
@@ -81,7 +81,7 @@ export default {
       .then(function(res) {
 
       	//this.url1="http://localhost:8080/shiro_test/sx1211courseAdmin/mobile_live?uid="+res.body.data.uid+"&ownerid="+res.body.data.ownerid+"&uname=66"+"&authcode="+res.body.data.authcode;
-      	 this.url1="http://localhost:8080/shiro_test/sx1211courseAdmin/mobile_live?&uid=5583122&ownerid='zFiZQhs0Sh'&uname='李冬冬'&authcode=534577"
+      	 this.url1="http://39.106.134.125/netschool/  sx1211courseAdmin/mobile_live?&uid=5583122&ownerid='zFiZQhs0Sh'&uname='李冬冬'&authcode=534577"
 
 
 
