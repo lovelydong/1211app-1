@@ -341,11 +341,13 @@ export default {
   created() {
 
     let id = this.$f7route.query.id;
+    
     this.isxs=this.$f7route.query.isxs;
     /*alert(this.isxs)*/
     if(this.isxs==1)
     {
-    	      //检测是否收藏/*/
+    	   
+    	//检测是否收藏/*/
     this.$http
       .get(this.url + "/sxcollect/iscollect", {
         params: {
@@ -385,6 +387,7 @@ export default {
         }
       })
       .then(function(res) {
+      	console.log(res)
         this.oneJson = res.body.data;
         this.Countdown(res.body.data.end_time);
         this.type=this.xstype(res.body.data.course_type);
@@ -412,8 +415,9 @@ export default {
         });
         this.chap = obj;
       });
-    }else if(this.isxs!=1){
-
+    }else{
+ 
+ 
     		      //检测是否收藏/*/
     this.$http
       .get(this.url + "/sxcollect/iscollect", {
@@ -487,38 +491,8 @@ export default {
         this.Quantityincart = res.body.count;
       });
 
-    //详情
-    this.$http
-      .get(this.url + "/sx1211courseAdmin/oneJson", {
-        params: {
-          id: id
-        }
-      })
-      .then(function(res) {
-        this.oneJson = res.body.data;
-
-      });
-    //章节
-    this.$http
-      .get(this.url + "/sx1211courseAdmin/chap", {
-        params: {
-          id: id
-        }
-      })
-      .then(function(res) {
-        let obj = {};
-        let key = "";
-        res.body.data.forEach(element => {
-          if (element.ext1) {
-            key = element.ext1;
-            obj[key] = [];
-            obj[key].push(element);
-          } else {
-            obj[key].push(element);
-          }
-        });
-        this.chap = obj;
-      });
+   
+  
     //评论
     this.$http
       .get(this.url + "/coursedetail/detailCourseJson", {
