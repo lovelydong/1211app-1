@@ -121,7 +121,7 @@
 									<div>
 										<p>{{limit.name}}</p>
 										<p>{{limit.area}}·{{limit.buyno}}人正在学习 <i class="iconfont icon-xingxing"></i><i class="iconfont icon-xingxing"></i><i class="iconfont icon-xingxing"></i><i class="iconfont icon-xingxing"></i><i class="iconfont icon-xingxing"></i></p>
-										<p>￥{{limit.discount_price}}.00 <span style="color:#000;float:right">{{arr[limit.id]}}</span></p>
+										<p>￥{{limit.discount_price}}<span style="color:#000;float:right">{{arr[limit.id]}}</span></p>
 									</div>
 								</f7-link>
 							</li>
