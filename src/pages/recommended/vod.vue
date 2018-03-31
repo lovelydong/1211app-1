@@ -18,7 +18,8 @@
 			return {
 				url: "http://39.106.134.125/netschool/",
 				url1:"",
-				type:""
+				type:"",
+				firstid:''
 			}
 		},
 		created:function()
@@ -29,7 +30,7 @@
   	let iszj = this.$f7route.query.iszj;
 
   	this.type= this.$f7route.query.type;
-  	if(iszj==1)
+  	/*if(iszj==1)
   	{
   		  this.$http
       .get(this.url + "/sx1211courseAdmin/onechap", {
@@ -46,7 +47,7 @@
       });
 
   	}
-  	else{
+  	else{*/
   			if(this.type==1)
   	{
   	//alert("限时")
@@ -64,12 +65,12 @@
         this.$http
       .get(this.url + "/sx1211courseAdmin/onechap", {
         params: {
-          id: 58
+          id: this.firstid
           //暂时写死
         }
       })
       .then(function(res) {
-       this.url1=res.body.data.vod_url+"?token="+res.body.data.vod_pass+"&nickname=66"
+       this.url1=res.body.data.vod_url+"?token="+res.body.data.vod_pass+"&nickname="+res.body.data.uname
 
 
 
@@ -84,7 +85,7 @@
 
   	}
   	else{
-
+  	//alert("fei限时")
   		 this.$http
       .get(this.url + "/sx1211courseAdmin/oneJson", {
         params: {
@@ -98,12 +99,14 @@
     this.$http
       .get(this.url + "/sx1211courseAdmin/onechap", {
         params: {
-          id: 58
+          id: this.firstid
         }
       })
       .then(function(res) {
       	console.log(res)
-        this.url1=res.body.data.vod_url+"?token="+res.body.data.vod_pass+"&nickname=66"
+      	
+        this.url1=res.body.data.vod_url+"?token="+res.body.data.vod_pass+"&nickname="+res.body.data.uname
+        
 
 
 
@@ -114,7 +117,7 @@
 
 
   	}
-  	}
+  	
 
 
 		}

@@ -147,7 +147,7 @@
 export default {
   data: function() {
     return {
-      url: "http://39.106.134.125/netschool/",
+      url: "http://localhost:8080/shiro_test/",
       shows: false,
       limitclass: "",
       xsdaojishi: "",
@@ -255,6 +255,7 @@ export default {
         }
       })
       .then(function(res) {
+      	console.log(res)
         this.limitclass = res.data.data;
         this.limitclass.forEach((element,index) => {
 

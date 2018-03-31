@@ -40,13 +40,15 @@ export default {
         this.$http
       .get(this.url + "/sx1211courseAdmin/onechap", {
         params: {
-          id: 58
-          //暂时写死
+          id: this.firstid
+
         }
       })
       .then(function(res) {
-        //this.url1="http://localhost:8080/shiro_test/sx1211courseAdmin/mobile_live?uid="+res.body.data.uid+"&ownerid="+res.body.data.ownerid+"&uname=66"+"&authcode="+res.body.data.authcode;
-        this.url1="http://39.106.134.125/netschool/sx1211courseAdmin/mobile_live?&uid=5583122&ownerid='zFiZQhs0Sh'&uname='李冬冬'&authcode=534577"
+
+        this.url1="http://39.106.134.125/netschool/sx1211courseAdmin/mobile_live?uid="+res.body.data.uid+"&ownerid="+res.body.data.ownerid+"&uname="+res.body.data.uname+"&authcode="+res.body.data.authcode;
+        //this.url1="http://localhost:8080/shiro_test/sx1211courseAdmin/mobile_live?&uid=5583122&ownerid='zFiZQhs0Sh'&uname='李冬冬'&authcode=534577"
+
 
 
 
@@ -75,13 +77,15 @@ export default {
     this.$http
       .get(this.url + "/sx1211courseAdmin/onechap", {
         params: {
-          id: 60
+          id: this.firstid
         }
       })
       .then(function(res) {
 
-      	//this.url1="http://localhost:8080/shiro_test/sx1211courseAdmin/mobile_live?uid="+res.body.data.uid+"&ownerid="+res.body.data.ownerid+"&uname=66"+"&authcode="+res.body.data.authcode;
-      	 this.url1="http://39.106.134.125/netschool/sx1211courseAdmin/mobile_live?&uid=5583122&ownerid='zFiZQhs0Sh'&uname='李冬冬'&authcode=534577"
+
+      	this.url1="http://39.106.134.125/netschool/sx1211courseAdmin/mobile_live?uid="+res.body.data.uid+"&ownerid="+res.body.data.ownerid+"&uname="+res.body.data.uname+"&authcode="+res.body.data.authcode;
+      	 //this.url1="http://localhost:8080/shiro_test/sx1211courseAdmin/mobile_live?&uid=5583122&ownerid='zFiZQhs0Sh'&uname='李冬冬'&authcode=534577"
+
 
 
 
