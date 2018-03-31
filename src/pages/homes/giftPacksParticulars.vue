@@ -161,7 +161,7 @@ export default {
         });
         toastCenter.open(); 
           	this.$http
-        .get(this.url + "/buyrightnow", {
+        .get(this.url + "/sxorder/buyrightnow", {
           params: {
             id: this.id,
             type: 300,
