@@ -242,11 +242,14 @@ export default {
     //:href="(isornot==1&&type==1)?'/live?id='+oneJson.id+'&type='+isxs:(isornot==1&&(type==2||type==3))?'/vod?id='+oneJson.id+'&type='+isxs:'/indent?order_number='+creatOrder(oneJson.id)"-->
     if(this.isornot==1&&this.type==1)
     {
+    	
     	this.$f7router.navigate(
                 '/live?id='+id+'&type='+this.isxs
               );
     }
     else if(this.isornot==1&&(this.type==2||this.type==3)){
+    	
+    	
     	this.$f7router.navigate(
                 '/vod?id='+id+'&type='+this.isxs
               );
@@ -255,7 +258,7 @@ export default {
 
     	if(this.isxs==1)
     	{
-    		this.$http
+    		/*this.$http
         .get(this.url + "/shoppingcart/save", {
           params: {
             goodsId:id,
@@ -266,35 +269,73 @@ export default {
         .then(function(res) {
           console.log(res);
           if (res.body.code == 1) {
-          	this.$f7router.navigate('/shoppingTrolley');
+          	this.$f7router.navigate('/shoppingTrolley');*/
            /* let toastCenter = this.$f7.toast.create({
               text: "成功加入购物车",
               position: "center",
               closeTimeout: 2000
             });
             toastCenter.open();*/
-
-          }
+           
+           
+           
+           
+           
+          let toastCenter = this.$f7.toast.create({
+          text: "正在努力生成订单中.....",
+          position: "top",
+          closeTimeout: 2000
         });
-    	}
-    	else{
-    			this.$http
-        .get(this.url + "/shoppingcart/save", {
+        toastCenter.open(); 
+          	this.$http
+        .get(this.url + "/sxorder/buyrightnow", {
           params: {
-            goodsId: this.id,
-            goodsNum: 1,
-            type: 200
+            id: this.id,
+          	type: 100,
+          	count:1
           }
         })
         .then(function(res) {
           console.log(res);
-          if (res.body.code == 1) {
-          	this.$f7router.navigate(
-                '/shoppingTrolley'
+         if (res.body.code == 1) {
+         	
+              this.$f7router.navigate(
+              	
+                "/indent?order_number=" + res.body.data.order_number
               );
+            }
+        }); 
+           
 
-          }
+         
+       
+    	}
+    	else{
+    		
+    		
+    			 let toastCenter = this.$f7.toast.create({
+          text: "正在努力生成订单中.....",
+          position: "top",
+          closeTimeout: 2000
         });
+        toastCenter.open(); 
+          	this.$http
+        .get(this.url + "/sxorder/buyrightnow", {
+          params: {
+            id: this.id,
+           	type: 200,
+           	count:1
+          }
+        })
+        .then(function(res) {
+          console.log(res);
+         if (res.body.code == 1) {
+         	
+              this.$f7router.navigate(
+                "/indent?order_number=" + res.body.data.order_number
+              );
+            }
+        }); 
     	}
   }
 

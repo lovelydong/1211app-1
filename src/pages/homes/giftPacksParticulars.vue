@@ -73,7 +73,7 @@
           <f7-link :class="{active: iscollect}" @click="iscollectfn"><i class="iconfont icon-shoucang"></i> <p>收藏</p></f7-link>
         </div>
         <div class="col-33"><f7-link @click="addspc">加入购物车</f7-link></div>
-        <div class="col-33"><f7-link href="/live">立即购买</f7-link></div>
+        <div class="col-33"><f7-link @click="whereToGO()">立即购买</f7-link></div>
       </div>
     </div>
         <Share ref="c1"></Share>
@@ -84,7 +84,7 @@
 export default {
   data: function() {
     return {
-      id: this.$f7route.query.id,
+      id: '',
       url: "http://39.106.134.125/netschool/",
       showTop: false,
       shows: {
@@ -150,10 +150,36 @@ export default {
             toastCenter.open();
           }
         });
+    },
+    whereToGO:function()
+    {
+    	
+    	   let toastCenter = this.$f7.toast.create({
+          text: "正在努力生成订单中.....",
+          position: "top",
+          closeTimeout: 2000
+        });
+        toastCenter.open(); 
+          	this.$http
+        .get(this.url + "/buyrightnow", {
+          params: {
+            id: this.id,
+            type: 300,
+            count:1
+          }
+        })
+        .then(function(res) {
+          console.log(res);
+         if (res.body.code == 1) {
+              this.$f7router.navigate(
+                "/indent?order_number=" + res.body.data.order_number
+              );
+            }
+        }); 
     }
   },
   created() {
-    let id = this.$f7route.query.id;
+    this.id= this.$f7route.query.id;
     //购物车数量
     this.$http
       .get(this.url + "/shoppingcart/selectShoppingCount", {
@@ -166,7 +192,7 @@ export default {
     this.$http
       .get(this.url + "/sxcollect/iscollect", {
         params: {
-          courseid: id,
+          courseid: this.id,
           type: 300
         }
       })
@@ -182,7 +208,7 @@ export default {
     this.$http
       .get(this.url + "/curriculumcombAdmin/edit", {
         params: {
-          id: id
+          id: this.id
         }
       })
       .then(function(res) {
@@ -193,7 +219,7 @@ export default {
     this.$http
       .get(this.url + "/curriculumcourseAdmin/listJson", {
         params: {
-          id: id,
+          id: this.id,
           page: 1,
           limit: 99
         }
@@ -206,7 +232,7 @@ export default {
     this.$http
       .get(this.url + "/coursedetail/detailCourseJson", {
         params: {
-          courseid: id,
+          courseid: this.id,
           page: 1,
           limit: 50
         }
