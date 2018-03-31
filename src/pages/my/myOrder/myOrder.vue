@@ -44,7 +44,7 @@
                         <p>￥{{item.price}} &nbsp;&nbsp;<span>优惠：{{item.price - item.pay_amount}}</span></p>
                       </div>
                   </div>
-                  <div class="bot">实付：<span>￥{{item.pay_amount}}</span>  <div><f7-link :href="'/checkTheLogistics?orderno='+item.id">查看物流</f7-link><f7-link>确认收货</f7-link></div></div>
+                  <div class="bot">实付：<span>￥{{item.pay_amount}}</span>  <div><f7-link :href="'/checkTheLogistics?orderno='+item.id">查看物流</f7-link><f7-link @click="Isok(item.id)">确认收货</f7-link></div></div>
                 </li>
               </ul>
               <ul class="Nopay" v-else-if="item.state == 1 || item.state == 3">
@@ -70,7 +70,7 @@
                           <p>￥{{item.price}} &nbsp;&nbsp;<span>优惠：{{item.price - item.pay_amount}}</span></p>
                       </div>
                   </div>
-                  <div class="bot">实付：<span>￥{{item.pay_amount}}</span>  <div><f7-link @click="deleteOrder(1,item.id,index)">删除订单</f7-link><f7-link>立即评价</f7-link></div></div>
+                  <div class="bot">实付：<span>￥{{item.pay_amount}}</span>  <div><f7-link @click="deleteOrder(1,item.id,index)">删除订单</f7-link><f7-link :href="'/evaluate?id='+item.id">立即评价</f7-link></div></div>
                 </li>
               </ul>
             </div>
@@ -105,7 +105,7 @@
                           <p>￥{{item.price}} &nbsp;&nbsp;<span>优惠：{{item.price - item.pay_amount}}</span></p>
                       </div>
                   </div>
-                  <div class="bot">实付：<span>￥{{item.pay_amount}}</span>  <div><f7-link :href="'/checkTheLogistics?orderno='+item.id">查看物流</f7-link><f7-link>确认收货</f7-link></div></div>
+                  <div class="bot">实付：<span>￥{{item.pay_amount}}</span>  <div><f7-link :href="'/checkTheLogistics?orderno='+item.id">查看物流</f7-link><f7-link @click="Isok(item.id)">确认收货</f7-link></div></div>
                 </li>
               </ul>
              </div>
@@ -137,7 +137,9 @@
 export default {
   data: function() {
     return {
-      url: "http://39.106.134.125/netschool/",
+      // url: "http://192.168.0.66:8080/shiro_test",
+    	url: "http://39.106.134.125/netschool/",
+
       shows: {
         showTop: false
       },
@@ -151,148 +153,149 @@ export default {
     shareboy: function(data) {
       this.$refs.c1.sharefn();
     },
-    deleteOrder:function(a,num,index)
-    {
-    	if(a==1)
-    	{
-    		//this.tabAll.splice(index,1);
-    	this.$http
-      .get(this.url + "/sxorder/del", {
-        params: {
-         order_number:num
-        }
-      })
-      .then(function(res) {
-       console.log(res)
-       this.randerOrder();
-       let toastCenter = this.$f7.toast.create({
-								text: "删除成功！",
-								position: "center",
-								closeTimeout: 2000
-							});
-							toastCenter.open();
-      });
-    	}
-    	else{
-    		//this.tabAll3.splice(index,1);
-    	this.$http
-      .get(this.url + "/sxorder/del", {
-        params: {
-         order_number:num
-        }
-      })
-      .then(function(res) {
-       console.log(res)
-       this.randerOrder();
-       let toastCenter = this.$f7.toast.create({
-								text: "删除成功！",
-								position: "center",
-								closeTimeout: 2000
-							});
-							toastCenter.open();
-      });
-    	}
-
+    deleteOrder: function(a, num, index) {
+      if (a == 1) {
+        //this.tabAll.splice(index,1);
+        this.$http
+          .get(this.url + "/sxorder/del", {
+            params: {
+              order_number: num
+            }
+          })
+          .then(function(res) {
+            console.log(res);
+            this.randerOrder();
+            let toastCenter = this.$f7.toast.create({
+              text: "删除成功！",
+              position: "center",
+              closeTimeout: 2000
+            });
+            toastCenter.open();
+          });
+      } else {
+        //this.tabAll3.splice(index,1);
+        this.$http
+          .get(this.url + "/sxorder/del", {
+            params: {
+              order_number: num
+            }
+          })
+          .then(function(res) {
+            console.log(res);
+            this.randerOrder();
+            let toastCenter = this.$f7.toast.create({
+              text: "删除成功！",
+              position: "center",
+              closeTimeout: 2000
+            });
+            toastCenter.open();
+          });
+      }
     },
-    deleteOrderw:function(a,num,index)
-    {
-    	if(a==1)
-    	{
-    		//this.tabAll.splice(index,1);
-    	this.$http
-      .get(this.url + "/sxorder/godel", {
-        params: {
-         order_number:num
-        }
-      })
-      .then(function(res) {
-       console.log(res)
-       this.randerOrder();
-       let toastCenter = this.$f7.toast.create({
-								text: "删除成功！",
-								position: "center",
-								closeTimeout: 2000
-							});
-							toastCenter.open();
-      });
-    	}
-    	else{
-    		//this.tabAll1.splice(index,1);
-    	this.$http
-      .get(this.url + "/sxorder/godel", {
-        params: {
-         order_number:num
-        }
-      })
-      .then(function(res) {
-       console.log(res)
-       this.randerOrder();
-       let toastCenter = this.$f7.toast.create({
-								text: "删除成功！",
-								position: "center",
-								closeTimeout: 2000
-							});
-							toastCenter.open();
-      });
-    	}
-
+    deleteOrderw: function(a, num, index) {
+      if (a == 1) {
+        //this.tabAll.splice(index,1);
+        this.$http
+          .get(this.url + "/sxorder/godel", {
+            params: {
+              order_number: num
+            }
+          })
+          .then(function(res) {
+            console.log(res);
+            this.randerOrder();
+            let toastCenter = this.$f7.toast.create({
+              text: "删除成功！",
+              position: "center",
+              closeTimeout: 2000
+            });
+            toastCenter.open();
+          });
+      } else {
+        //this.tabAll1.splice(index,1);
+        this.$http
+          .get(this.url + "/sxorder/godel", {
+            params: {
+              order_number: num
+            }
+          })
+          .then(function(res) {
+            console.log(res);
+            this.randerOrder();
+            let toastCenter = this.$f7.toast.create({
+              text: "删除成功！",
+              position: "center",
+              closeTimeout: 2000
+            });
+            toastCenter.open();
+          });
+      }
     },
-    randerOrder:function()
-    {
-    	 //订单详情全部
-    this.$http
-      .get(this.url + "/sxorder/listPage", {
-        params: {
-          state: 0,
-          page: 1,
-          limit: 999
-        }
-      })
-      .then(function(res) {
-
-        this.tabAll = res.body.data;
-        console.log(this.tabAll)
-      });
-    //订单代付款
-    this.$http
-      .get(this.url + "/sxorder/listPage", {
-        params: {
-          state: 1,
-          page: 1,
-          limit: 999
-        }
-      })
-      .then(function(res) {
-        this.tabAll1 = res.body.data;
-      });
-    //订单待收货
-    this.$http
-      .get(this.url + "/sxorder/listPage", {
-        params: {
-          state: 2,
-          page: 1,
-          limit: 999
-        }
-      })
-      .then(function(res) {
-        this.tabAll2 = res.body.data;
-      });
-    //订单已取消
-    this.$http
-      .get(this.url + "/sxorder/listPage", {
-        params: {
-          state: 3,
-          page: 1,
-          limit: 999
-        }
-      })
-      .then(function(res) {
-        this.tabAll3 = res.body.data;
-      });
+    randerOrder: function() {
+      //订单详情全部
+      this.$http
+        .get(this.url + "/sxorder/listPage", {
+          params: {
+            state: 0,
+            page: 1,
+            limit: 99
+          }
+        })
+        .then(function(res) {
+          this.tabAll = res.body.data;
+          console.log(this.tabAll);
+        });
+      //订单代付款
+      this.$http
+        .get(this.url + "/sxorder/listPage", {
+          params: {
+            state: 1,
+            page: 1,
+            limit: 999
+          }
+        })
+        .then(function(res) {
+          this.tabAll1 = res.body.data;
+        });
+      //订单待收货
+      this.$http
+        .get(this.url + "/sxorder/listPage", {
+          params: {
+            state: 2,
+            page: 1,
+            limit: 999
+          }
+        })
+        .then(function(res) {
+          this.tabAll2 = res.body.data;
+        });
+      //订单已取消
+      this.$http
+        .get(this.url + "/sxorder/listPage", {
+          params: {
+            state: 3,
+            page: 1,
+            limit: 999
+          }
+        })
+        .then(function(res) {
+          this.tabAll3 = res.body.data;
+        });
+    },
+    Isok: function(id) {
+      this.$http
+        .get(this.url + "/sxorder/updateState", {
+          params: {
+            order_number:id
+          }
+        })
+        .then(function(res) {
+          this.randerOrder();
+        });
     }
   },
   created() {
-   this.randerOrder();
+    this.randerOrder();
   }
 };
 </script>
