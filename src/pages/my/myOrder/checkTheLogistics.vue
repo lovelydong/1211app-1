@@ -8,7 +8,7 @@
           </f7-nav-right>
         </f7-navbar>
         <div class="top">
-          <img src="../../../assets/post.jpg" alt="">
+          <img :src="url+ info.img" alt="">
           <p>物流状态：<span>运输中</span></p>
           <p>运单号：{{info.trackingNo}}</p>
           <p>信息来源：{{express(info.express)}}</p>
