@@ -48,10 +48,6 @@ export default {
 
         this.url1="http://39.106.134.125/netschool/sx1211courseAdmin/mobile_live?uid="+res.body.data.uid+"&ownerid="+res.body.data.ownerid+"&uname="+res.body.data.uname+"&authcode="+res.body.data.authcode;
         //this.url1="http://localhost:8080/shiro_test/sx1211courseAdmin/mobile_live?&uid=5583122&ownerid='zFiZQhs0Sh'&uname='李冬冬'&authcode=534577"
-<<<<<<< HEAD
-=======
-
->>>>>>> 6dcc61c22e5fe9b706492741c33b940e300d2898
 
 
 
@@ -88,10 +84,6 @@ export default {
 
       	this.url1="http://39.106.134.125/netschool/sx1211courseAdmin/mobile_live?uid="+res.body.data.uid+"&ownerid="+res.body.data.ownerid+"&uname="+res.body.data.uname+"&authcode="+res.body.data.authcode;
       	 //this.url1="http://localhost:8080/shiro_test/sx1211courseAdmin/mobile_live?&uid=5583122&ownerid='zFiZQhs0Sh'&uname='李冬冬'&authcode=534577"
-<<<<<<< HEAD
-=======
-
->>>>>>> 6dcc61c22e5fe9b706492741c33b940e300d2898
 
 
 
