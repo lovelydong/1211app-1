@@ -17,7 +17,7 @@
 
 
         <div class="tabs">
-           <div id="tab1" class="tab tab-active" >
+           <div id="tab1" class="tab tab-active">
              <div class="list">
                 <ul>
                   <li class="swipeout" v-for="c in course">
@@ -30,7 +30,7 @@
                               <div>
                                 <p>{{c.course_details}}</p>
                                 <!--<p>国版·354人正在学习 <i class="iconfont icon-xingxing"></i><i class="iconfont icon-xingxing"></i><i class="iconfont icon-xingxing"></i><i class="iconfont icon-xingxing"></i><i class="iconfont icon-xingxing"></i></p>-->
-                                <p>￥{{c.price}}.00</p>
+                                <p>￥{{c.price}}</p>
                               </div>
                             </div>
                           </div>

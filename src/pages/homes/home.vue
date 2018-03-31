@@ -87,22 +87,22 @@
 
 				<f7-swiper pagination>
 					<f7-swiper-slide>
-						<div>
+						<div v-if="recommend11">
 							<f7-link @click="$f7router.navigate('/recommendedParticulars?id='+recommend11.id )" >
 								<p>{{recommend11.name}}</p>
 								<p>{{recommend11.area}}·{{recommend11.buyno}}人正在学习</p>
 								<p><i class="iconfont icon-xingxing"></i><i class="iconfont icon-xingxing"></i><i class="iconfont icon-xingxing"></i><i class="iconfont icon-xingxing"></i><i class="iconfont icon-xingxing"></i></p>
-								<p>￥{{recommend11.discount_price}}.00</p>
+								<p>￥{{recommend11.discount_price}}</p>
 							</f7-link>
 						</div>
 						<ul>
-							<li class="clearfix link" v-for="cl in recommend1">
+							<li v-if="recommend1" class="clearfix link" v-for="cl in recommend1">
 								<f7-link  @click="$f7router.navigate('/recommendedParticulars?id='+cl.id )" >
 									<span :style="{backgroundImage: 'url(' + url + cl.img + ')' }"></span>
 									<div>
 										<p>{{cl.name}}</p>
 										<p>{{cl.area}}·{{cl.buyno}}人正在学习 <i class="iconfont icon-xingxing"></i><i class="iconfont icon-xingxing"></i><i class="iconfont icon-xingxing"></i><i class="iconfont icon-xingxing"></i><i class="iconfont icon-xingxing"></i></p>
-										<p>￥{{cl.discount_price}}.00</p>
+										<p>￥{{cl.discount_price}}</p>
 									</div>
 								</f7-link>
 							</li>
@@ -112,7 +112,7 @@
                           <div>
                             <p>浙江2018年教师招聘教育心理学二期回放</p>
                             <p>国版·354人正在学习 <i class="iconfont icon-xingxing"></i><i class="iconfont icon-xingxing"></i><i class="iconfont icon-xingxing"></i><i class="iconfont icon-xingxing"></i><i class="iconfont icon-xingxing"></i></p>
-                            <p>￥356.00</p>
+                            <p>￥356</p>
                           </div>
                         </f7-link>
                       </li>
@@ -122,29 +122,29 @@
                           <div>
                             <p>浙江2018年教师招聘教育心理学二期回放</p>
                             <p>国版·354人正在学习 <i class="iconfont icon-xingxing"></i><i class="iconfont icon-xingxing"></i><i class="iconfont icon-xingxing"></i><i class="iconfont icon-xingxing"></i><i class="iconfont icon-xingxing"></i></p>
-                            <p>￥356.00</p>
+                            <p>￥356</p>
                           </div>
                         </f7-link>
                       </li>-->
 						</ul>
 					</f7-swiper-slide>
 					<f7-swiper-slide>
-						<div>
+						<div v-if="recommend22">
 							<f7-link  @click="$f7router.navigate('/recommendedParticulars?id='+recommend22.id )"  >
 								<p>{{recommend22.name}}</p>
 								<p>{{recommend22.area}}·{{recommend22.buyno}}人正在学习</p>
 								<p><i class="iconfont icon-xingxing"></i><i class="iconfont icon-xingxing"></i><i class="iconfont icon-xingxing"></i><i class="iconfont icon-xingxing"></i><i class="iconfont icon-xingxing"></i></p>
-								<p>￥{{recommend22.discount_price}}.00</p>
+								<p>￥{{recommend22.discount_price}}</p>
 							</f7-link>
 						</div>
 						<ul>
-							<li class="clearfix link" v-for="cl in recommend2">
+							<li v-if="recommend2" class="clearfix link" v-for="cl in recommend2">
 								<f7-link @click="$f7router.navigate('/recommendedParticulars?id='+cl.id )"  >
 									<span :style="{backgroundImage: 'url(' + url + cl.img + ')' }"></span>
 									<div>
 										<p>{{cl.name}}</p>
 										<p>{{cl.area}}·{{cl.buyno}}人正在学习 <i class="iconfont icon-xingxing"></i><i class="iconfont icon-xingxing"></i><i class="iconfont icon-xingxing"></i><i class="iconfont icon-xingxing"></i><i class="iconfont icon-xingxing"></i></p>
-										<p>￥{{cl.discount_price}}.00</p>
+										<p>￥{{cl.discount_price}}</p>
 									</div>
 								</f7-link>
 							</li>
@@ -155,27 +155,27 @@
 				</f7-swiper>
 
 			</div>
-			<div class="midlist midNew">
+			<div class="midlist midNew" >
 				<h3><i class="lefth32"></i> 最新课程 <f7-link href="/newmore/">更多 <i class="iconfont icon-you"></i></f7-link></h3>
 
 				<f7-swiper pagination>
-					<f7-swiper-slide>
-						<div>
+					<f7-swiper-slide >
+						<div v-if="newclass11">
 							<f7-link @click="$f7router.navigate('/recommendedParticulars?id='+newclass11.id )"  >
 								<p>{{newclass11.name}}</p>
 								<p>{{newclass11.area}}·{{newclass11.buyno}}人正在学习</p>
 								<p><i class="iconfont icon-xingxing"></i><i class="iconfont icon-xingxing"></i><i class="iconfont icon-xingxing"></i><i class="iconfont icon-xingxing"></i><i class="iconfont icon-xingxing"></i></p>
-								<p>￥{{newclass11.discount_price}}.00</p>
+								<p>￥{{newclass11.discount_price}}</p>
 							</f7-link>
 						</div>
 						<ul>
-							<li class="clearfix link" v-for="newclass in newclass1">
+							<li v-if="newclass1" class="clearfix link" v-for="newclass in newclass1">
 								<f7-link  @click="$f7router.navigate('/recommendedParticulars?id='+newclass.id )" >
 									<span :style="{backgroundImage: 'url(' + url + newclass.img + ')' }"></span>
 									<div>
 										<p>{{newclass.name}}</p>
 										<p>{{newclass.area}}·{{newclass.buyno}}人正在学习 <i class="iconfont icon-xingxing"></i><i class="iconfont icon-xingxing"></i><i class="iconfont icon-xingxing"></i><i class="iconfont icon-xingxing"></i><i class="iconfont icon-xingxing"></i></p>
-										<p>￥{{newclass.discount_price}}.00</p>
+										<p>￥{{newclass.discount_price}}</p>
 									</div>
 								</f7-link>
 							</li>
@@ -185,7 +185,7 @@
                           <div>
                             <p>浙江2018年教师招聘教育心理学二期回放</p>
                             <p>国版·354人正在学习 <i class="iconfont icon-xingxing"></i><i class="iconfont icon-xingxing"></i><i class="iconfont icon-xingxing"></i><i class="iconfont icon-xingxing"></i><i class="iconfont icon-xingxing"></i></p>
-                            <p>￥356.00</p>
+                            <p>￥356</p>
                           </div>
                         </f7-link>
                       </li>
@@ -195,7 +195,7 @@
                           <div>
                             <p>浙江2018年教师招聘教育心理学二期回放</p>
                             <p>国版·354人正在学习 <i class="iconfont icon-xingxing"></i><i class="iconfont icon-xingxing"></i><i class="iconfont icon-xingxing"></i><i class="iconfont icon-xingxing"></i><i class="iconfont icon-xingxing"></i></p>
-                            <p>￥356.00</p>
+                            <p>￥356</p>
                           </div>
                         </f7-link>
                       </li>-->
@@ -203,22 +203,22 @@
 					</f7-swiper-slide>
 					<f7-swiper-slide>
 						<!--<img src="../../assets/homebar.png" alt="">-->
-						<div>
+						<div v-if="newclass22">
 							<f7-link  @click="$f7router.navigate('/recommendedParticulars?id='+newclass22.id )" >
 								<p>{{newclass22.name}}</p>
 								<p>{{newclass22.area}}·{{newclass22.buyno}}人正在学习</p>
 								<p><i class="iconfont icon-xingxing"></i><i class="iconfont icon-xingxing"></i><i class="iconfont icon-xingxing"></i><i class="iconfont icon-xingxing"></i><i class="iconfont icon-xingxing"></i></p>
-								<p>￥{{newclass22.discount_price}}.00</p>
+								<p>￥{{newclass22.discount_price}}</p>
 							</f7-link>
 						</div>
 						<ul>
-							<li class="clearfix link" v-for="newclass in newclass2">
+							<li v-if="newclass2" class="clearfix link" v-for="newclass in newclass2">
 								<f7-link @click="$f7router.navigate('/recommendedParticulars?id='+newclass.id )" >
 									<span :style="{backgroundImage: 'url(' + url + newclass.img + ')' }"></span>
 									<div>
 										<p>{{newclass.name}}</p>
 										<p>{{newclass.area}}·{{newclass.buyno}}人正在学习 <i class="iconfont icon-xingxing"></i><i class="iconfont icon-xingxing"></i><i class="iconfont icon-xingxing"></i><i class="iconfont icon-xingxing"></i><i class="iconfont icon-xingxing"></i></p>
-										<p>￥{{newclass.discount_price}}.00</p>
+										<p>￥{{newclass.discount_price}}</p>
 									</div>
 								</f7-link>
 							</li>
@@ -231,25 +231,25 @@
 				<h3><i class="lefth33"></i> 限时抢购 <f7-link href="/xsmore">更多 <i class="iconfont icon-you"></i></f7-link></h3>
 				<f7-swiper pagination>
 					<f7-swiper-slide>
-						<div>
+						<div v-if="limitclass11">
 							<f7-link @click="$f7router.navigate('/recommendedParticulars?id='+limitclass11.id+'&isxs=1')">
 								<p>{{limitclass11.name}}</p>
 								<p>{{limitclass11.area}}·{{limitclass11.buyno}}人正在学习</p>
 								<p><i class="iconfont icon-xingxing"></i><i class="iconfont icon-xingxing"></i><i class="iconfont icon-xingxing"></i><i class="iconfont icon-xingxing"></i><i class="iconfont icon-xingxing"></i></p>
 
-								<p>￥{{limitclass11.discount_price}}.00 <span>{{arr[limitclass11.id]}}</span></p>
+								<p>￥{{limitclass11.discount_price}} <span>{{arr[limitclass11.id]}}</span></p>
 
 							</f7-link>
 						</div>
 						<ul>
-							<li class="clearfix link" v-for="limit in limitclass1" >
+							<li v-if="limitclass1" class="clearfix link" v-for="limit in limitclass1" >
 								<f7-link @click="$f7router.navigate('/recommendedParticulars?id='+limit.id+'&isxs=1')" >
 									<span :style="{backgroundImage: 'url(' + url + limit.img + ')' }"></span>
 									<div>
 										<p>{{limit.name}}</p>
 										<p>{{limit.area}}·{{limit.buyno}}人正在学习 <i class="iconfont icon-xingxing"></i><i class="iconfont icon-xingxing"></i><i class="iconfont icon-xingxing"></i><i class="iconfont icon-xingxing"></i><i class="iconfont icon-xingxing"></i></p>
 
-										<p>￥{{limit.discount_price}}.00 <span>{{arr[limit.id]}}</span></p>
+										<p>￥{{limit.discount_price}} <span>{{arr[limit.id]}}</span></p>
 
 									</div>
 								</f7-link>
@@ -260,7 +260,7 @@
                           <div>
                             <p>浙江2018年教师招聘教育心理学二期回放</p>
                             <p>国版·354人正在学习 <i class="iconfont icon-xingxing"></i><i class="iconfont icon-xingxing"></i><i class="iconfont icon-xingxing"></i><i class="iconfont icon-xingxing"></i><i class="iconfont icon-xingxing"></i></p>
-                            <p>￥356.00 <span><i>24</i> 时 <i>30</i> 分 <i>30</i> 秒</span></p>
+                            <p>￥356 <span><i>24</i> 时 <i>30</i> 分 <i>30</i> 秒</span></p>
                           </div>
                         </f7-link>
                       </li>
@@ -270,29 +270,29 @@
                           <div>
                             <p>浙江2018年教师招聘教育心理学二期回放</p>
                             <p>国版·354人正在学习 <i class="iconfont icon-xingxing"></i><i class="iconfont icon-xingxing"></i><i class="iconfont icon-xingxing"></i><i class="iconfont icon-xingxing"></i><i class="iconfont icon-xingxing"></i></p>
-                            <p>￥356.00 <span><i>24</i> 时 <i>30</i> 分 <i>30</i> 秒</span></p>
+                            <p>￥356 <span><i>24</i> 时 <i>30</i> 分 <i>30</i> 秒</span></p>
                           </div>
                         </f7-link>
                       </li>-->
 						</ul>
 					</f7-swiper-slide>
 					<f7-swiper-slide>
-						<div>
+						<div v-if="limitclass22">
 							<f7-link  @click="$f7router.navigate('/recommendedParticulars?id='+limitclass22.id+'&isxs=1')"  >
 								<p>{{limitclass22.name}}</p>
 								<p>{{limitclass22.area}}·{{limitclass22.buyno}}人正在学习</p>
 								<p><i class="iconfont icon-xingxing"></i><i class="iconfont icon-xingxing"></i><i class="iconfont icon-xingxing"></i><i class="iconfont icon-xingxing"></i><i class="iconfont icon-xingxing"></i></p>
-								<p>￥{{limitclass22.discount_price}}.00 <span>{{arr[limitclass22.id]}}</span></p>
+								<p>￥{{limitclass22.discount_price}} <span>{{arr[limitclass22.id]}}</span></p>
 							</f7-link>
 						</div>
 						<ul>
-							<li class="clearfix link" v-for="limit in limitclass2">
+							<li v-if="limitclass2" class="clearfix link" v-for="limit in limitclass2">
 								<f7-link @click="$f7router.navigate('/recommendedParticulars?id='+limit.id+'&isxs=1')"    >
 									<span :style="{backgroundImage: 'url(' + url + limit.img + ')' }"></span>
 									<div>
 										<p>{{limit.name}}</p>
 										<p>{{limit.area}}·{{limit.buyno}}人正在学习 <i class="iconfont icon-xingxing"></i><i class="iconfont icon-xingxing"></i><i class="iconfont icon-xingxing"></i><i class="iconfont icon-xingxing"></i><i class="iconfont icon-xingxing"></i></p>
-										<p>￥{{limit.discount_price}}.00 <span>{{arr[limit.id]}}</span></p>
+										<p>￥{{limit.discount_price}} <span>{{arr[limit.id]}}</span></p>
 									</div>
 								</f7-link>
 							</li>
@@ -306,7 +306,7 @@
 				<f7-swiper pagination>
 					<f7-swiper-slide>
 						<ul>
-							<li class="clearfix link" v-for="condition in condition1">
+							<li v-if="condition1" class="clearfix link" v-for="condition in condition1">
 								<f7-link @click="$f7router.navigate('/examinationParticulars?id='+condition.id )"  >
 									<span  :style="{backgroundImage: 'url(' + url + condition.img + ')' }"></span>
 									<div>
@@ -338,7 +338,7 @@
 					<f7-swiper-slide>
 						<!--<img src="../../assets/homebar.png" alt="">-->
 						<ul>
-							<li class="clearfix link" v-for="condition in condition2">
+							<li v-if="condition2" class="clearfix link" v-for="condition in condition2">
 								<f7-link  @click="$f7router.navigate('/examinationParticulars?id='+condition.id )"  >
 									<span :style="{backgroundImage: 'url(' + url + condition.img + ')' }"></span>
 									<div>
@@ -359,7 +359,7 @@
             <f7-swiper pagination >
               <f7-swiper-slide>
                   <ul>
-                      <li class="clearfix link" v-for="item in tjtkrecommend" :key="item.id">
+                      <li v-if="tjtkrecommend" class="clearfix link" v-for="item in tjtkrecommend" :key="item.id">
                         <f7-link @click="$f7router.navigate('/questionBankParticulars?id='+item.id+'&qtype=null')">
                           <div>
                             <p>{{item.name}}</p>
@@ -372,7 +372,7 @@
               </f7-swiper-slide>
               <f7-swiper-slide>
                <ul>
-                      <li class="clearfix link" v-for="item in tjtkrecommend1" :key="item.id">
+                      <li v-if="tjtkrecommend1" class="clearfix link" v-for="item in tjtkrecommend1" :key="item.id">
                         <f7-link @click="$f7router.navigate('/questionBankParticulars?id='+item.id+'&qtype=null')">
                           <div>
                             <p>{{item.name}}</p>
@@ -392,22 +392,22 @@
 
 			<div class="midlist midLink">
 				<h3><i class="lefth36"></i> 猜你喜欢</h3>
-				<div>
+				<div v-if="glike11">
 					<f7-link  @click="$f7router.navigate('/recommendedParticulars?id='+glike11.id )"  >
 						<p>{{glike11.name}}</p>
 						<p>{{glike11.area}}·{{glike11.buyno}}人正在学习</p>
 						<p><i class="iconfont icon-xingxing"></i><i class="iconfont icon-xingxing"></i><i class="iconfont icon-xingxing"></i><i class="iconfont icon-xingxing"></i><i class="iconfont icon-xingxing"></i></p>
-						<p>￥{{glike11.discount_price}}.00</p>
+						<p>￥{{glike11.discount_price}}</p>
 					</f7-link>
 				</div>
 				<ul>
-					<li class="clearfix link" v-for="like in glike1">
+					<li v-if="glike1" class="clearfix link" v-for="like in glike1">
 						<f7-link @click="$f7router.navigate('/recommendedParticulars?id='+like.id )" >
 							<span :style="{backgroundImage: 'url(' + url + like.img + ')' }"></span>
 							<div>
 								<p>{{like.name}}</p>
 								<p>{{like.area}}·{{like.buyno}}人正在学习 <i class="iconfont icon-xingxing"></i><i class="iconfont icon-xingxing"></i><i class="iconfont icon-xingxing"></i><i class="iconfont icon-xingxing"></i><i class="iconfont icon-xingxing"></i></p>
-								<p>￥{{like.discount_price}}.00</p>
+								<p>￥{{like.discount_price}}</p>
 							</div>
 						</f7-link>
 					</li>
@@ -417,7 +417,7 @@
                           <div>
                             <p>浙江2018年教师招聘教育心理学二期回放</p>
                             <p>国版·354人正在学习 <i class="iconfont icon-xingxing"></i><i class="iconfont icon-xingxing"></i><i class="iconfont icon-xingxing"></i><i class="iconfont icon-xingxing"></i><i class="iconfont icon-xingxing"></i></p>
-                            <p>￥356.00</p>
+                            <p>￥356</p>
                           </div>
                         </f7-link>
                       </li>
@@ -427,28 +427,28 @@
                           <div>
                             <p>浙江2018年教师招聘教育心理学二期回放</p>
                             <p>国版·354人正在学习 <i class="iconfont icon-xingxing"></i><i class="iconfont icon-xingxing"></i><i class="iconfont icon-xingxing"></i><i class="iconfont icon-xingxing"></i><i class="iconfont icon-xingxing"></i></p>
-                            <p>￥356.00</p>
+                            <p>￥356</p>
                           </div>
                         </f7-link>
                       </li>-->
 				</ul>
 
-				<div>
+				<div v-if="glike22">
 					<f7-link @click="$f7router.navigate('/recommendedParticulars?id='+glike22.id )"  >
 						<p>{{glike22.name}}</p>
 						<p>{{glike22.area}}·{{glike22.buyno}}人正在学习</p>
 						<p><i class="iconfont icon-xingxing"></i><i class="iconfont icon-xingxing"></i><i class="iconfont icon-xingxing"></i><i class="iconfont icon-xingxing"></i><i class="iconfont icon-xingxing"></i></p>
-						<p>￥{{glike22.discount_price}}.00</p>
+						<p>￥{{glike22.discount_price}}</p>
 					</f7-link>
 				</div>
 				<ul>
-					<li class="clearfix link" v-for="like in glike2">
+					<li v-if="glike2" class="clearfix link" v-for="like in glike2">
 						<f7-link  @click="$f7router.navigate('/recommendedParticulars?id='+like.id )">
 							<span  :style="{backgroundImage: 'url(' + url + like.img + ')' }"></span>
 							<div>
 								<p>{{like.name}}</p>
 								<p>{{like.area}}·{{like.buyno}}人正在学习 <i class="iconfont icon-xingxing"></i><i class="iconfont icon-xingxing"></i><i class="iconfont icon-xingxing"></i><i class="iconfont icon-xingxing"></i><i class="iconfont icon-xingxing"></i></p>
-								<p>￥{{like.discount_price}}.00</p>
+								<p>￥{{like.discount_price}}</p>
 							</div>
 						</f7-link>
 					</li>
@@ -458,7 +458,7 @@
                           <div>
                             <p>浙江2018年教师招聘教育心理学二期回放</p>
                             <p>国版·354人正在学习 <i class="iconfont icon-xingxing"></i><i class="iconfont icon-xingxing"></i><i class="iconfont icon-xingxing"></i><i class="iconfont icon-xingxing"></i><i class="iconfont icon-xingxing"></i></p>
-                            <p>￥356.00</p>
+                            <p>￥356</p>
                           </div>
                         </f7-link>
                       </li>
@@ -468,7 +468,7 @@
                           <div>
                             <p>浙江2018年教师招聘教育心理学二期回放</p>
                             <p>国版·354人正在学习 <i class="iconfont icon-xingxing"></i><i class="iconfont icon-xingxing"></i><i class="iconfont icon-xingxing"></i><i class="iconfont icon-xingxing"></i><i class="iconfont icon-xingxing"></i></p>
-                            <p>￥356.00</p>
+                            <p>￥356</p>
                           </div>
                         </f7-link>
                       </li>-->
@@ -485,7 +485,7 @@ import Global from "../Global.vue";
 export default {
   data: function() {
     return {
-    	url:"http://39.106.134.125/netschool/",
+      url: "http://39.106.134.125/netschool/",
       recommend1: "",
       recommend2: "",
       recommend11: "",
@@ -514,16 +514,14 @@ export default {
       timer: "",
       tjtkrecommend: [],
       tjtkrecommend1: [],
-      arr:[],
+      arr: []
     };
   },
   methods: {
-
-    Countdown: function(element,index) {
+    Countdown: function(element, index) {
       var that = this;
       let text = "";
       let timer = setInterval(function() {
-
         var now = new Date().getTime();
         var leftTime = element.end_time - now;
         if (leftTime >= 0) {
@@ -533,24 +531,22 @@ export default {
           var s = Math.floor((leftTime / 1000) % 60);
           //	console.log(666)
 
-
-          that.$set(that.arr,element.id,d + " 天 " + h + " 时 " + m + " 分 " + s + " 秒") ;
+          that.$set(
+            that.arr,
+            element.id,
+            d + " 天 " + h + " 时 " + m + " 分 " + s + " 秒"
+          );
           // return "<i>"+d+"</i> 天 <i>"+h+"</i> 时 <i>"+m+"</i> 分 <i>"+s+"</i> 秒";
         } else {
           //console.log(777)
-          that.$set(that.arr,element.id,"已经结束");
+          that.$set(that.arr, element.id, "已经结束");
           window.clearInterval(timer);
         }
       }, 800);
-
     },
 
     randerClass: function() {
-
-
-
       //最新课程渲染1
-
       this.$http
         .get(this.url + "/sx1211courseAdmin/listJson", {
           params: {
@@ -561,24 +557,20 @@ export default {
         })
         .then(
           function(res) {
-            //console.log(res.data.data)
             this.newclass11 = res.data.data[0];
-
             res.data.data.splice(0, 1);
             this.newclass1 = res.data.data;
-            //console.log(res.data.data)
           },
           function(res) {
             console.log(res.status);
           }
         );
       //最新课程渲染2
-
       this.$http
         .get(this.url + "/sx1211courseAdmin/listJson", {
           params: {
             exam_type: this.recommendtype,
-            page: 1,
+            page: 2,
             limit: 4
           }
         })
@@ -607,7 +599,7 @@ export default {
         })
         .then(
           function(res) {
-            //console.log(res.data.data)
+            // console.log(res.data.data)
             this.recommend11 = res.data.data[0];
 
             //console.log(this.recommend11)
@@ -624,7 +616,7 @@ export default {
         .get(this.url + "/sx1211courseAdmin/recommend", {
           params: {
             type: this.recommendtype,
-            page: 1,
+            page: 2,
             limit: 4
           }
         })
@@ -655,16 +647,14 @@ export default {
             //console.log(res.data.data)
             this.limitclass11 = res.data.data[0];
             /*console.info(res.data.data[0].end_time)*/
-           // this.limittime = res.data.data[0].end_time;
- 		res.data.data.forEach((element,index) => {
-
-              this.Countdown(element,index)
+            // this.limittime = res.data.data[0].end_time;
+            res.data.data.forEach((element, index) => {
+              this.Countdown(element, index);
             });
             //console.log(this.limitclass11)
             res.data.data.splice(0, 1);
             this.limitclass1 = res.data.data;
             //console.log(res.data.data)
-
           },
           function(res) {
             console.log(res.status);
@@ -675,7 +665,7 @@ export default {
         .get(this.url + "/flashsale/sale", {
           params: {
             type: this.limittype,
-            page: 1,
+            page: 2,
             limit: 4
           }
         })
@@ -683,15 +673,13 @@ export default {
           function(res) {
             //console.log(res.data.data)
             this.limitclass22 = res.data.data[0];
-			res.data.data.forEach((element,index) => {
-
-              this.Countdown(element,index)
+            res.data.data.forEach((element, index) => {
+              this.Countdown(element, index);
             });
             //console.log(this.limitclass22)
             res.data.data.splice(0, 1);
             this.limitclass2 = res.data.data;
             // console.log(res.data.data)
-
           },
           function(res) {
             console.log(res.status);
@@ -720,7 +708,7 @@ export default {
       this.$http
         .get(this.url + "/exambank/jsonlist", {
           params: {
-            page: 1,
+            page: 2,
             limit: 4,
             type: this.Topactive,
             ext1: 1,
@@ -736,7 +724,7 @@ export default {
         });
       //考情分析列表渲染1
       this.$http
-        .get(this.url +"/examcondition/applist", {
+        .get(this.url + "/examcondition/applist", {
           params: {
             page: 1,
             limit: 4
@@ -753,7 +741,7 @@ export default {
         );
       //考情分析列表渲染2
       this.$http
-        .get(this.url +"/examcondition/applist", {
+        .get(this.url + "/examcondition/applist", {
           params: {
             page: 2,
             limit: 4
@@ -773,7 +761,7 @@ export default {
       this.$http
         .get(this.url + "/sx1211courseAdmin/listJson", {
           params: {
-            page: 2,
+            page: 3,
             limit: 4
           }
         })
@@ -795,7 +783,7 @@ export default {
       this.$http
         .get(this.url + "/sx1211courseAdmin/listJson", {
           params: {
-            page: 3,
+            page: 4,
             limit: 4
           }
         })
@@ -808,6 +796,7 @@ export default {
             res.data.data.splice(0, 1);
             this.glike2 = res.data.data;
             // console.log(res.data.data)
+
           },
           function(res) {
             console.log(res.status);
@@ -842,8 +831,22 @@ export default {
   },
 
   created: function() {
-
     this.randerClass();
+    //验证登录
+    this.$http
+      .get(this.url + "/personal/loginState", {
+        params: {
+
+        }
+      })
+      .then(
+        function(res) {
+          console.log(res)
+          if(res.body.code != 1){
+            this.$f7router.navigate('/login/');
+          }
+        }
+      );
   },
   mounted: function() {}
 };
@@ -1173,7 +1176,7 @@ export default {
                       height: 86px;
                       background: url(https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1519301525135&di=dd2fed90de9f2622da9e2c6f51d3888b&imgtype=0&src=http%3A%2F%2F5b0988e595225.cdn.sohucs.com%2Fimages%2F20170922%2Fca414a2cf9b34ec49aff78f350b0ec87.gif)
                         no-repeat center center;
-                        background-size: cover;
+                      background-size: cover;
                       border-radius: 12px;
                       position: absolute;
                       left: 0;
@@ -1370,7 +1373,7 @@ export default {
                 height: 86px;
                 background: url(https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1519301525135&di=dd2fed90de9f2622da9e2c6f51d3888b&imgtype=0&src=http%3A%2F%2F5b0988e595225.cdn.sohucs.com%2Fimages%2F20170922%2Fca414a2cf9b34ec49aff78f350b0ec87.gif)
                   no-repeat center center;
-                   background-size: cover;
+                background-size: cover;
                 border-radius: 12px;
                 position: absolute;
                 left: 0;

@@ -12,7 +12,7 @@
           </f7-link>
           <div class="com" v-for="item in listJson.data" :key="item.id">
                 <f7-link>
-                    <span :style="{backgroundImage: 'url(' + item.img + ')' }"></span>
+                    <span :style="{backgroundImage: 'url('+ url + item.img + ')' }"></span>
                     <div>
                       <p>{{item.goodsName}}</p>
                       <p>￥{{item.pay_amount}}</p>
