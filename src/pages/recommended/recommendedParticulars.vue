@@ -38,8 +38,8 @@
       <span :class="{active:shows.PJ}" @click="PJ">评价</span>
     </h4>
     <div class="mid">
-      <div class="XQ" v-if="shows.XQ">
-        {{oneJson.descripetion}}
+      <div class="XQ" v-if="shows.XQ" v-html="oneJson.descripetion">
+        
       </div>
       <div class="ZJ" v-if="shows.ZJ">
         <ul v-for="(value, key) in chap" :key="key">
