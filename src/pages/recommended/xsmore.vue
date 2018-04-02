@@ -166,7 +166,9 @@ export default {
   },
   watch: {
     type: {
+    	
       handler: function(val, oldVal) {
+      	
         window.clearInterval(this.timer);
         this.$http
           .get(this.url + "/flashsale/sale", {
