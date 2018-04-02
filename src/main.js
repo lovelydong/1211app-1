@@ -32,7 +32,6 @@ import Less from 'less-loader'
 // Init F7 Vue Plugin
 Vue.use(Framework7Vue, Framework7)
     //分享
-
 import Share from './pages/share.vue';
 
 Vue.component('Share', Share);

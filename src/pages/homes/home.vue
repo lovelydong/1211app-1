@@ -831,6 +831,7 @@ export default {
   },
 
   created: function() {
+
     this.randerClass();
     //验证登录
     this.$http

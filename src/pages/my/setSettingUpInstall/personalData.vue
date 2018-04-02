@@ -7,7 +7,8 @@
         <div class="mid">
           <ul>
             <li>
-              <f7-link href=""> <input type="file" name="header_img" >  头像 <i class="iconfont icon-you"></i><img src="https://afp.alicdn.com/afp-creative/creative/u124884735/14945f2171400c10764ab8f3468470e4.jpg" alt=""> </f7-link>
+              <input type="file" name="header_img" accept="image/gif,image/jpeg,image/png,image/jpg" @change="getFile">
+              <f7-link href="">   头像 <i class="iconfont icon-you"></i><img :src="formsrc" alt=""> </f7-link>
               <f7-link>  昵称 <i class="iconfont icon-you"></i><i>{{userinfo.user_name}}</i></f7-link>
               <f7-link href="">  性别 <i class="iconfont icon-you"></i><i v-html='userinfo.sex=="1"?"男":"女"'></i></f7-link>
             </li>
@@ -19,19 +20,47 @@
             </li>
           </ul> -->
         </div>
-
+        <multiple-file-uploader postURL="http://.." successMessagePath="" errorMessagePath="" :minItems="5" :maxItems="10"></multiple-file-uploader>
   </f7-page>
 </template>
 <script>
 import global_ from "../../../pages/Global"; //引用模块进来
-
 export default {
+  // components: {
+  //   vueImgPreview
+  // },
   data: function() {
     return {
-      userinfo: ""
+      userinfo: "",
+      url: "http://localhost:8080/shiro_test/",
+      formsrc: ""
     };
   },
-  methods: {},
+  methods: {
+    getFile(e) {
+      // let files = e.target.files;
+      // console.log(files);
+      // this.formsrc = files[0].name;
+      // this.$http
+      //   .get(this.url + "/user/upload", {
+      //     params: {
+      //       data: files
+      //     }
+      //   })
+      //   .then(function(res) {
+      //     console.log(res);
+      //   });
+      // this.$http
+      //   .get(this.url + "/personal/addOrSave", {
+      //     params: {
+      //       img: files[0]
+      //     }
+      //   })
+      //   .then(function(res) {
+      //     console.log(res);
+      //   });
+    }
+  },
   created: function() {
     this.userinfo = global_.userinfo;
     console.log(this.userinfo);
@@ -45,6 +74,15 @@ export default {
       background-color: #fff;
       margin-bottom: 20px;
       > li {
+        > input {
+          z-index: 9999;
+          display: block;
+          width: 100%;
+          height: 50px;
+          position: absolute;
+          opacity: 0;
+          left: 0;
+        }
         padding: 0 20px;
         > .link {
           display: block;
@@ -67,7 +105,7 @@ export default {
             float: right;
             color: #999;
           }
-          >img{
+          > img {
             width: 30px;
             height: 30px;
             position: absolute;
