@@ -182,8 +182,9 @@ export default {
             }
           })
           .then(function(res) {
-            this.limittime = res.data.data[0].end_time;
-            this.Countdown(this.limittime);
+            console.log(res)
+            // this.limittime = res.data.data[0].end_time;
+            // this.Countdown(this.limittime);
             //console.log(this.limitclass11)
 
             this.limitclass = res.data.data;

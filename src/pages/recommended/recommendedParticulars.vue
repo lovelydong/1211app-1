@@ -4,7 +4,7 @@
       <div class="img" :style="{backgroundImage: 'url(' + oneJson.img + ')' }">
         <h3>
           <f7-link  @click="$f7router.back()"><i class="iconfont icon-zuo"></i></f7-link>
-          <f7-link><i class="iconfont icon-gouwuche1"></i><span>{{Quantityincart}}</span></f7-link>
+          <f7-link href="/shoppingTrolley"><i class="iconfont icon-gouwuche1"></i><span>{{Quantityincart}}</span></f7-link>
           <f7-link><i class="iconfont icon-gengduo" @click="showTop = !showTop"></i></f7-link>
         </h3>
       </div>
@@ -208,6 +208,7 @@ export default {
               closeTimeout: 2000
             });
             toastCenter.open();
+            this.Quantityincart++;
           }
         });
     	}
@@ -229,6 +230,7 @@ export default {
               closeTimeout: 2000
             });
             toastCenter.open();
+             this.Quantityincart++;
           }
         });
     	}
@@ -242,14 +244,14 @@ export default {
     //:href="(isornot==1&&type==1)?'/live?id='+oneJson.id+'&type='+isxs:(isornot==1&&(type==2||type==3))?'/vod?id='+oneJson.id+'&type='+isxs:'/indent?order_number='+creatOrder(oneJson.id)"-->
     if(this.isornot==1&&this.type==1)
     {
-    	
+
     	this.$f7router.navigate(
                 '/live?id='+id+'&type='+this.isxs
               );
     }
     else if(this.isornot==1&&(this.type==2||this.type==3)){
-    	
-    	
+
+
     	this.$f7router.navigate(
                 '/vod?id='+id+'&type='+this.isxs
               );
@@ -276,17 +278,17 @@ export default {
               closeTimeout: 2000
             });
             toastCenter.open();*/
-           
-           
-           
-           
-           
+
+
+
+
+
           let toastCenter = this.$f7.toast.create({
           text: "正在努力生成订单中.....",
           position: "top",
           closeTimeout: 2000
         });
-        toastCenter.open(); 
+        toastCenter.open();
           	this.$http
         .get(this.url + "/sxorder/buyrightnow", {
           params: {
@@ -298,27 +300,27 @@ export default {
         .then(function(res) {
           console.log(res);
          if (res.body.code == 1) {
-         	
+
               this.$f7router.navigate(
-              	
+
                 "/indent?order_number=" + res.body.data.order_number
               );
             }
-        }); 
-           
+        });
 
-         
-       
+
+
+
     	}
     	else{
-    		
-    		
+
+
     			 let toastCenter = this.$f7.toast.create({
           text: "正在努力生成订单中.....",
           position: "top",
           closeTimeout: 2000
         });
-        toastCenter.open(); 
+        toastCenter.open();
           	this.$http
         .get(this.url + "/sxorder/buyrightnow", {
           params: {
@@ -330,12 +332,12 @@ export default {
         .then(function(res) {
           console.log(res);
          if (res.body.code == 1) {
-         	
+
               this.$f7router.navigate(
                 "/indent?order_number=" + res.body.data.order_number
               );
             }
-        }); 
+        });
     	}
   }
 
@@ -382,12 +384,12 @@ export default {
   created() {
 
     let id = this.$f7route.query.id;
-    
+
     this.isxs=this.$f7route.query.isxs;
     /*alert(this.isxs)*/
     if(this.isxs==1)
     {
-    	   
+
     	//检测是否收藏/*/
     this.$http
       .get(this.url + "/sxcollect/iscollect", {
@@ -457,8 +459,8 @@ export default {
         this.chap = obj;
       });
     }else{
- 
- 
+
+
     		      //检测是否收藏/*/
     this.$http
       .get(this.url + "/sxcollect/iscollect", {
@@ -532,8 +534,8 @@ export default {
         this.Quantityincart = res.body.count;
       });
 
-   
-  
+
+
     //评论
     this.$http
       .get(this.url + "/coursedetail/detailCourseJson", {

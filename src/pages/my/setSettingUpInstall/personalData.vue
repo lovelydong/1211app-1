@@ -7,39 +7,36 @@
         <div class="mid">
           <ul>
             <li>
-              <f7-link href="">  头像 <i class="iconfont icon-you"></i></f7-link>
+              <f7-link href=""> <input type="file" name="header_img" >  头像 <i class="iconfont icon-you"></i><img src="https://afp.alicdn.com/afp-creative/creative/u124884735/14945f2171400c10764ab8f3468470e4.jpg" alt=""> </f7-link>
               <f7-link>  昵称 <i class="iconfont icon-you"></i><i>{{userinfo.user_name}}</i></f7-link>
               <f7-link href="">  性别 <i class="iconfont icon-you"></i><i v-html='userinfo.sex=="1"?"男":"女"'></i></f7-link>
             </li>
           </ul>
-          <ul>
+          <!-- <ul>
             <li>
               <f7-link href="">  出生日期 <i class="iconfont icon-you"></i><i>{{userinfo.birthday}}</i></f7-link>
               <f7-link href="">  所在地区 <i class="iconfont icon-you"></i><i>{{userinfo.province}}</i></f7-link>
             </li>
-          </ul>
+          </ul> -->
         </div>
 
   </f7-page>
 </template>
 <script>
-	import global_ from '../../../pages/Global'//引用模块进来
-	
+import global_ from "../../../pages/Global"; //引用模块进来
+
 export default {
   data: function() {
     return {
-userinfo:""
+      userinfo: ""
     };
   },
-  methods: {
-
-  },
-  created:function()
-  {
-  	this.userinfo=global_.userinfo;
+  methods: {},
+  created: function() {
+    this.userinfo = global_.userinfo;
+    console.log(this.userinfo);
   }
- }
-
+};
 </script>
 <style lang="less">
 .personalData {
@@ -69,6 +66,15 @@ userinfo:""
           > i {
             float: right;
             color: #999;
+          }
+          >img{
+            width: 30px;
+            height: 30px;
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            right: 20px;
+            border-radius: 50%;
           }
         }
       }

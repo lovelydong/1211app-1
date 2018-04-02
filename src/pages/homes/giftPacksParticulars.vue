@@ -4,7 +4,7 @@
       <div class="img" :style="{backgroundImage: 'url('+url + oneJson.img + ')' }">
         <h3>
           <f7-link  @click="$f7router.back()"><i class="iconfont icon-zuo"></i></f7-link>
-          <f7-link><i class="iconfont icon-gouwuche1"></i><span>{{Quantityincart}}</span></f7-link>
+          <f7-link  href="/shoppingTrolley"><i class="iconfont icon-gouwuche1"></i><span>{{Quantityincart}}</span></f7-link>
           <f7-link><i class="iconfont icon-gengduo" @click="showTop = !showTop"></i></f7-link>
         </h3>
       </div>
@@ -148,18 +148,19 @@ export default {
               closeTimeout: 2000
             });
             toastCenter.open();
+            Quantityincart++;
           }
         });
     },
     whereToGO:function()
     {
-    	
+
     	   let toastCenter = this.$f7.toast.create({
           text: "正在努力生成订单中.....",
           position: "top",
           closeTimeout: 2000
         });
-        toastCenter.open(); 
+        toastCenter.open();
           	this.$http
         .get(this.url + "/sxorder/buyrightnow", {
           params: {
@@ -175,7 +176,7 @@ export default {
                 "/indent?order_number=" + res.body.data.order_number
               );
             }
-        }); 
+        });
     }
   },
   created() {
