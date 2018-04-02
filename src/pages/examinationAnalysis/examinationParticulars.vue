@@ -29,7 +29,7 @@
           <div class="com">
 
             <img :src="url+detail.img" alt="">
-            <p>{{detail.file_content}}</p>
+            <p v-html="detail.file_content"></p>
           </div>
         </div>
         <div class="mid">
