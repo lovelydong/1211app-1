@@ -761,7 +761,7 @@ export default {
       this.$http
         .get(this.url + "/sx1211courseAdmin/listJson", {
           params: {
-            page: 1,
+            page: 2,
             limit: 4
           }
         })
@@ -783,7 +783,7 @@ export default {
       this.$http
         .get(this.url + "/sx1211courseAdmin/listJson", {
           params: {
-            page: 2,
+            page:3 ,
             limit: 4
           }
         })
