@@ -50,6 +50,7 @@ Vue.use(require('vue-moment'));
 new Vue({
     el: '#app',
     template: '<app/>',
+
     // Init Framework7 by passing parameters here
     framework7: {
         id: 'io.framework7.testapp', // App bundle ID
@@ -57,7 +58,11 @@ new Vue({
         theme: 'ios', // Automatic theme detection
         // App routes
         routes: Routes,
+        view: {
+            pushState: true,
+        },
     },
+
     // Register App Component
     components: {
         app: App

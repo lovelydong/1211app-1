@@ -14,7 +14,7 @@ export default {
   data: function() {
     return {
       url: "http://39.106.134.125/netschool/",
-      
+      // url: "http://192.168.0.221:8080/shiro_test/",
       order: this.$f7route.query.order,
       couponid: this.$f7route.query.couponid,
       flag: this.$f7route.query.flag,
@@ -25,7 +25,7 @@ export default {
   created() {
     console.log(this.$f7route.query)
     //window.open("39.106.134.125/netschool/app/toPayApp?order=49427799&couponid=null&flag=0");
-    window.location.href="http://39.106.134.125/netschool/app/toPayApp?order="+this.order+"&couponid="+this.couponid+"&flag="+this.flag;
+    window.location.href= this.url+"/app/toPayApp?order="+this.order+"&couponid="+this.couponid+"&flag="+this.flag;
   }
 };
 </script>
