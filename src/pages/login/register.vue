@@ -18,7 +18,7 @@
 export default {
   data: function() {
     return {
-url:"http://39.106.134.125/netschool/",
+url:"http://39.106.134.125:8080/netschool/",
 statu:1,
 status:1,
 code:"获取验证码",

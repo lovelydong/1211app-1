@@ -7,7 +7,7 @@
 				<span :class="Topactive==3?'active':''" @click="Topactive=3">特岗教师</span>
 			</div>
 			<div class="rt">
-				<f7-link>
+				<f7-link @click=qidai()>
 					<i class="iconfont icon-saoyisao"></i>
 				</f7-link>
 
@@ -485,7 +485,7 @@ import Global from "../Global.vue";
 export default {
   data: function() {
     return {
-      url: "http://39.106.134.125/netschool/",
+      url: "http://39.106.134.125:8080/netschool/",
       recommend1: "",
       recommend2: "",
       recommend11: "",
@@ -802,7 +802,16 @@ export default {
             console.log(res.status);
           }
         );
-    }
+    },
+    qidai:function()
+  	{
+  		 let toastCenter = this.$f7.toast.create({
+              text: "敬请期待！",
+              position: "center",
+              closeTimeout: 2000
+            });
+            toastCenter.open();
+  	}
   },
 
   //监听课程切换
