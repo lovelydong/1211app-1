@@ -32,7 +32,7 @@ export default {
   data: function() {
     return {
       userinfo: "",
-      url: "http://localhost:8080/shiro_test/",
+      url: "http://39.106.134.125:8080/netschool/",
       formsrc: ""
     };
   },

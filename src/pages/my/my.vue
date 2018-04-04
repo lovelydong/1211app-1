@@ -67,7 +67,7 @@ export default {
   data: function() {
     return {
       userinfo: "",
-      url: "http://39.106.134.125/netschool/",
+      url: "http://39.106.134.125:8080/netschool/",
       limittype: global_.limittype
     };
   },

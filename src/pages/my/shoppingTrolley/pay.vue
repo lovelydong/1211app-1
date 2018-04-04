@@ -13,7 +13,7 @@ import Global from "../../Global.vue";
 export default {
   data: function() {
     return {
-      url: "http://39.106.134.125/netschool/",
+      url: "http://39.106.134.125:8080/netschool/",
       // url: "http://192.168.0.221:8080/shiro_test/",
       order: this.$f7route.query.order,
       couponid: this.$f7route.query.couponid,

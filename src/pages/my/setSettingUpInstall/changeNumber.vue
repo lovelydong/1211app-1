@@ -27,7 +27,7 @@
 export default {
   data: function() {
     return {
-    	url:"http://39.106.134.125/netschool/",
+    	url:"http://39.106.134.125:8080/netschool/",
     	code:"获取验证码",
     	statu:1,
     	yanzheng:'',

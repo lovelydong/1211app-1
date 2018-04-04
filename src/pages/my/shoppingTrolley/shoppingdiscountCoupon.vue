@@ -30,7 +30,7 @@ import Global from '../../Global.vue';
 export default {
   data: function() {
     return {
-    	 url: "http://39.106.134.125/netschool/",
+    	 url: "http://39.106.134.125:8080/netschool/",
     	 coupon:"",
     	 nowtime:"",
     	 ids : Global.usershoppingIDS,

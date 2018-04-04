@@ -138,7 +138,7 @@ export default {
   data: function() {
     return {
       // url: "http://192.168.0.66:8080/shiro_test",
-    	url: "http://39.106.134.125/netschool/",
+    	url: "http://39.106.134.125:8080/netschool/",
 
       shows: {
         showTop: false

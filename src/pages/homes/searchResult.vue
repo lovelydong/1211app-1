@@ -94,7 +94,7 @@
 export default {
   data: function() {
     return {
-      url: "http://39.106.134.125/netschool/",
+      url: "http://39.106.134.125:8080/netschool/",
       val: this.$f7route.query.val,
       list1: {},
       list2: {},

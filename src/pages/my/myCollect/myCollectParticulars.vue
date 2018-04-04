@@ -50,7 +50,7 @@ export default {
   },
   methods: {},
   created:function(){
-  	let url="http://39.106.134.125/netschool/";
+  	let url="http://39.106.134.125:8080/netschool/";
   	var id=this.$f7route.query.id;
 		//console.log(id)
 		 this.$http.get(url+"/sx1211examcollect/detail",{

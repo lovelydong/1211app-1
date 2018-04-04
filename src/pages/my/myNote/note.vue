@@ -34,6 +34,7 @@
 export default {
   data: function() {
     return {
+    url:"http://39.106.134.125:8080/netschool",
     	notes:""
     }
   },
@@ -46,7 +47,7 @@ export default {
 
 
     	console.log(idd)
-    	let url="http://39.106.134.125/netschool/";
+    	
   	//笔记列表删除
 
        /* this.$http.get(url+"/booknote/del",{
@@ -62,7 +63,7 @@ export default {
                 console.log(res.status);
             })*/
            this.$http({
-            url: url+"/booknote/del",
+            url: this.url+"/booknote/del",
             method: 'POST',
             // 请求体重发送的数据
             params: {
@@ -91,10 +92,10 @@ export default {
 
   },
   created:function(){
-  	let url="http://localhost:8080/shiro_test";
+  	
   	//笔记列表渲染
 
-        this.$http.get(url+"/booknote/bookList",{
+        this.$http.get(this.url+"/booknote/bookList",{
   		params:{
   			page:1,
   			limit:1000
