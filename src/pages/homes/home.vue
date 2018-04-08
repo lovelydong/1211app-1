@@ -842,21 +842,7 @@ export default {
   created: function() {
 
     this.randerClass();
-    //验证登录
-    this.$http
-      .get(this.url + "/personal/loginState", {
-        params: {
 
-        }
-      })
-      .then(
-        function(res) {
-          console.log(res)
-          if(res.body.code != 1){
-            this.$f7router.navigate('/login/');
-          }
-        }
-      );
   },
   mounted: function() {}
 };
