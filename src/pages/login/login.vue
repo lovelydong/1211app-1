@@ -136,10 +136,11 @@
 					>em {
 						text-align: center;
 						display: block;
-						margin-top: 50%;
+						margin-top: 30%;
+						color: #00AAEE;
 						font-family: "PingFang-SC-Medium";
 						font-size: 16px;
-						color: #333333;
+						
 					}
 				}
 			}

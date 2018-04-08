@@ -7,7 +7,7 @@
           <h1>注册</h1>
           <input type="tel" placeholder="请输入您的手机号" v-model="mobile">
           <div><input type="text" placeholder="请输入验证码" v-model="incode"> <f7-link class="yzm" :id="statu==1?'code':'code1'"  @click="getcode()" v-html="code">获取验证码</f7-link></div>
-          <div><input :type="status==1?'password':'text'"  v-model="pwd" placeholder="请输入您的密码"><f7-link> <i class="iconfont icon-chakan" @click="show()"></i> </f7-link></div>
+          <div><input :type="status==1?'password':'text'"  v-model="pwd" placeholder="请输入您的密码"><f7-link> <i class="iconfont icon-chakan" @click="show()" :style="status==0?'color: #00AAEE':'color: #ccc'"></i> </f7-link></div>
           <f7-link :id="registera==1?'register':''" @click="register"><div>注册</div></f7-link>
           <f7-link href="/login"><span>已有账号？去登录</span></f7-link>
           <f7-link href="/retrievePassword"><em>忘记密码</em></f7-link>
@@ -296,7 +296,7 @@ registera:""
           margin-top: 28px;
           font-family: "PingFang-SC-Medium";
           font-size: 16px;
-          color: #333333;
+          color: #00AAEE;
         }
         >em{
             text-align: center;
@@ -304,7 +304,7 @@ registera:""
             margin-top: 40%;
             font-family: "PingFang-SC-Medium";
             font-size: 16px;
-            color: #333333;
+            color: #00AAEE;
         }
       }
     }
