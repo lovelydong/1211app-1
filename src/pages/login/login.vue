@@ -91,7 +91,7 @@ export default {
       .then(function(res) {
         console.log(res);
         if (res.body.code == 1) {
-          this.$f7router.navigate("/home");
+          this.$f7router.navigate("/home",{reload :true});
         }
       });
   }
