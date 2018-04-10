@@ -104,56 +104,58 @@ export default {
   background-color: #00aaee;
 }
 
-.login {
-  .page-content {
-    background-color: #fff;
-    .mid {
-      padding: 38px;
-      > h1 {
-        text-align: center;
-        font-family: "PingFang-SC-Medium";
-        font-size: 24px;
-        color: #333333;
-        font-weight: 400;
-        margin: 70px 0;
-      }
-      > input {
-        width: 100%;
-        line-height: 50px;
-        font-family: "PingFang-SC-Regular";
-        font-size: 16px;
-      }
-      > .link {
-        display: block;
-        > div {
-          height: 45px;
-          line-height: 45px;
-          text-align: center;
-          background-color: #cccccc;
-          color: #fff;
-          border-radius: 10px;
-          font-family: "PingFang-SC-Regular";
-          font-size: 16px;
-          margin-top: 50px;
-        }
-        > span {
-          text-align: center;
-          display: block;
-          margin-top: 28px;
-          font-family: "PingFang-SC-Medium";
-          font-size: 16px;
-          color: #333333;
-        }
-        > em {
-          text-align: center;
-          display: block;
-          margin-top: 50%;
-          font-family: "PingFang-SC-Medium";
-          font-size: 16px;
-          color: #333333;
-        }
-      }
-    }
-  }
-}
+	.login {
+		.page-content {
+			background-color: #fff;
+			.mid {
+				padding: 38px;
+				>h1 {
+					text-align: center;
+					font-family: "PingFang-SC-Medium";
+					font-size: 24px;
+					color: #333333;
+					font-weight: 400;
+					margin: 70px 0;
+				}
+				>input {
+					width: 100%;
+					line-height: 50px;
+					font-family: "PingFang-SC-Regular";
+					font-size: 16px;
+				}
+				>.link {
+					display: block;
+					>div {
+						height: 45px;
+						line-height: 45px;
+						text-align: center;
+						background-color: #cccccc;
+						color: #fff;
+						border-radius: 10px;
+						font-family: "PingFang-SC-Regular";
+						font-size: 16px;
+						margin-top: 50px;
+					}
+					>span {
+						text-align: center;
+						display: block;
+						margin-top: 28px;
+						font-family: "PingFang-SC-Medium";
+						font-size: 16px;
+						color: #333333;
+					}
+					>em {
+						text-align: center;
+						display: block;
+						margin-top: 30%;
+						color: #00AAEE;
+						font-family: "PingFang-SC-Medium";
+						font-size: 16px;
+						
+					}
+				}
+			}
+		}
+	}
+
 </style>
