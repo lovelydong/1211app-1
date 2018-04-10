@@ -16,23 +16,42 @@
   </f7-page>
 </template>
 <script>
+	import Global from "../Global.vue";
 export default {
   data: function() {
     return {
       url: "http://39.106.134.125:8080/netschool/",
+      
       tabAll:""
     };
   },
   methods: {},
   created:function() {
     //消息
-    this.$http
-      .get(this.url + "/sxsystempersonadmin/listJson", {
+ 
+    /*this.$http
+      .post(this.url + "/sxsystempersonadmin/listJson", {
         params: {
           page: 1,
           limit: 99
-        }
-      })
+       	 }
+      
+      })*/
+      
+      this.$http({
+            url: this.url+"/sxsystempersonadmin/listJson",
+            method: 'POST',
+            // 请求体重发送的数据
+            params: {
+               page: 1,
+          		limit: 99,
+          		token:Global.token
+            },
+            // 设置请求头
+            headers: {
+                'Content-Type':'application/x-www-form-urlencoded'
+            }
+        })
       .then(function(res) {
       	console.log(res.data.data)
         this.tabAll = res.data.data;

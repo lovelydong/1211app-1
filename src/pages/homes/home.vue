@@ -703,6 +703,8 @@ export default {
         })
         .then(function(res) {
           this.tjtkrecommend = res.body.data;
+        },function(res) {
+          console.log(res);
         });
       //推荐题库2
       this.$http
@@ -721,6 +723,8 @@ export default {
         })
         .then(function(res) {
           this.tjtkrecommend1 = res.body.data;
+        },function(res) {
+          console.log(res);
         });
       //考情分析列表渲染1
       this.$http
@@ -842,6 +846,7 @@ export default {
   created: function() {
 
     this.randerClass();
+    
 
   },
   mounted: function() {}

@@ -14,7 +14,10 @@
 	</f7-page>
 </template>
 <script>
+import Global from "../Global.vue";
+
 export default {
+	
   data: function() {
     return {
       url: "http://39.106.134.125:8080/netschool/",
@@ -47,6 +50,9 @@ export default {
                   closeTimeout: 2000
                 });
                 toastCenter.open();
+                console.log(res)
+                Global.token=res.body.data;
+                
                 this.$f7router.navigate("/home");
               } else {
                 let toastCenter = this.$f7.toast.create({

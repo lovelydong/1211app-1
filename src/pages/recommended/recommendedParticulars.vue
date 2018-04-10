@@ -85,6 +85,7 @@
   </f7-page>
 </template>
 <script>
+	import Global from "../Global.vue";
 export default {
   data: function() {
     return {
@@ -157,7 +158,8 @@ export default {
         .get(this.url + "/sxcollect/add", {
           params: {
             courseid: this.id,
-            type: 200
+            type: 200,
+            token:Global.token
           }
         })
         .then(function(res) {
@@ -174,7 +176,8 @@ export default {
         .get(this.url + "/sxcollect/add", {
           params: {
             courseid: this.id,
-            type: 100
+            type: 100,
+            token:Global.token
           }
         })
         .then(function(res) {
@@ -196,7 +199,8 @@ export default {
           params: {
             goodsId: this.id,
             goodsNum: 1,
-            type: 100
+            type: 100,
+            token:Global.token
           }
         })
         .then(function(res) {
@@ -218,7 +222,8 @@ export default {
           params: {
             goodsId: this.id,
             goodsNum: 1,
-            type: 200
+            type: 200,
+            token:Global.token
           }
         })
         .then(function(res) {
@@ -294,7 +299,9 @@ export default {
           params: {
             id: this.id,
           	type: 100,
-          	count:1
+          	count:1,
+          	token:Global.token
+          	
           }
         })
         .then(function(res) {
@@ -326,7 +333,8 @@ export default {
           params: {
             id: this.id,
            	type: 200,
-           	count:1
+           	count:1,
+           	token:Global.token
           }
         })
         .then(function(res) {
@@ -395,7 +403,8 @@ export default {
       .get(this.url + "/sxcollect/iscollect", {
         params: {
           courseid: id,
-          type: 100
+          type: 100,
+          token:Global.token
         }
       })
       .then(function(res) {
@@ -412,12 +421,14 @@ export default {
       .get(this.url + "/sx1211courseAdmin/buyornot", {
         params: {
           id: id,
-          ext2:2
+          ext2:2,
+          token:Global.token
         }
       })
       .then(function(res) {
-        console.log(res.data)
-        this.isornot=res.data.data;
+        console.log(res.data.data)
+        
+        this.isornot=res.data.data.fg;
 
       });
 
@@ -431,6 +442,7 @@ export default {
       })
       .then(function(res) {
       	console.log(res)
+      	
         this.oneJson = res.body.data;
         this.Countdown(res.body.data.end_time);
         this.type=this.xstype(res.body.data.course_type);
@@ -466,7 +478,8 @@ export default {
       .get(this.url + "/sxcollect/iscollect", {
         params: {
           courseid: id,
-          type: 200
+          type: 200,
+          token:Global.token
         }
       })
       .then(function(res) {
@@ -482,12 +495,13 @@ export default {
       .get(this.url + "/sx1211courseAdmin/buyornot", {
         params: {
           id: id,
-          ext2:1
+          ext2:1,
+           token:Global.token
         }
       })
       .then(function(res) {
-        console.log(res.data)
-        this.isornot=res.data.data;
+        console.log(res.data.data.fg);
+        this.isornot=res.data.data.fg;
 
       });
 
@@ -528,7 +542,9 @@ export default {
     //购物车数量
     this.$http
       .get(this.url + "/shoppingcart/selectShoppingCount", {
-        params: {}
+        params: {
+        	token:Global.token
+        }
       })
       .then(function(res) {
         this.Quantityincart = res.body.count;
@@ -542,7 +558,8 @@ export default {
         params: {
           courseid: id,
           page: 1,
-          limit: 50
+          limit: 50,
+          
         }
       })
       .then(function(res) {

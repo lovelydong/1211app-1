@@ -85,7 +85,12 @@ export default {
   created: function() {
 
 
-    this.$http.get(this.url + "/personal/loginState", {}).then(
+    this.$http.get(this.url + "/personal/loginState", {
+    	params: {
+              token:global_.token
+            }
+    	
+    }).then(
       function(res) {
         console.log(res.data.data);
         this.userinfo = res.data.data;

@@ -131,6 +131,7 @@
   </f7-page>
 </template>
 <script>
+	import Global from "../Global.vue";
 export default {
   data: function() {
     return {
@@ -209,7 +210,7 @@ export default {
       .get(this.url + "/sx1211courseAdmin/recommend2", {
         params: {
           page: 1,
-          limit: 50,
+          limit: 99,
           vod_type: this.type.vod_type,
           grade: this.type.grade,
           subject: this.type.subject,

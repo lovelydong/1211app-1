@@ -11,6 +11,7 @@
     usershoppingIDS:[],
     usershoppingID:null,
     limittype:35202001,
+    token:""
 
   }
 </script>

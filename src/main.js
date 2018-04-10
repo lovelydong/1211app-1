@@ -28,7 +28,7 @@ import App from './app';
 // Import Less
 import Less from 'less-loader'
 
-
+import Global from "./pages/Global.vue";
 // Init F7 Vue Plugin
 Vue.use(Framework7Vue, Framework7)
     //分享
@@ -46,7 +46,8 @@ import VueResource from 'vue-resource'
 Vue.use(VueResource);
 //moment 公共类库
 Vue.use(require('vue-moment'));
-// Init App
+
+
 new Vue({
     el: '#app',
     template: '<app/>',
@@ -60,7 +61,9 @@ new Vue({
         routes: Routes,
 
     },
-
+    
+    
+   
     // Register App Component
     components: {
         app: App
