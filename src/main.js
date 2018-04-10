@@ -58,11 +58,13 @@ new Vue({
         theme: 'ios', // Automatic theme detection
         // App routes
         routes: Routes,
-
+        view: {
+            pushState : true
+        }
     },
 
     // Register App Component
     components: {
         app: App
     }
-});
+})
