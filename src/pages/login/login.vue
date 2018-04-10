@@ -21,6 +21,8 @@ export default {
   data: function() {
     return {
       url: "http://39.106.134.125:8080/netschool/",
+      // url: "http://localhost:8080/shiro_test/",
+
       username: "",
       pwd: "",
       logina: 0
@@ -97,7 +99,7 @@ export default {
       .then(function(res) {
         console.log(res);
         if (res.body.code == 1) {
-          this.$f7router.navigate("/home",{reload :true});
+          this.$f7router.navigate("/home");
         }
       });
   }

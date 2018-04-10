@@ -127,7 +127,7 @@ export default {
         this.pay = this.listJson.msg;
         this.listJsonLength = res.body.data.length;
         res.body.data.forEach(element => {
-          this.shoppingsid.push(element.id);
+          this.shoppingsid.push(element.order_details);
         });
 
         //获取可用优惠券
