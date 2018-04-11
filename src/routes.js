@@ -64,7 +64,7 @@ import GiftPacksParticulars from './pages/homes/giftPacksParticulars.vue';
 export default [{
         path: '/', //首页
 
-        // component: HomePage,
+         //component: News,
         component: Login,
 
 

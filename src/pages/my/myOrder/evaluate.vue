@@ -15,6 +15,7 @@
   </f7-page>
 </template>
 <script>
+		import Global from "../../Global.vue";
 export default {
   data: function() {
     return {
@@ -33,6 +34,7 @@ export default {
           params: {
             id: this.id,
             comment:this.val
+            
           }
         })
         .then(function(res) {
@@ -46,6 +48,7 @@ export default {
       .get(this.url + "/coursedetail/appEdit", {
         params: {
           id: this.id
+          
         }
       })
       .then(function(res) {

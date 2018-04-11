@@ -41,6 +41,7 @@
   </f7-page>
 </template>
 <script>
+		import Global from "../../Global.vue";
 export default {
   data: function() {
     return {
@@ -56,6 +57,7 @@ export default {
 		 this.$http.get(url+"/sx1211examcollect/detail",{
   		params:{
   			id:id
+  			
   		}
             }).then(function(res){
             	this.exam=res.data.data;

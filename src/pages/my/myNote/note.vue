@@ -31,6 +31,7 @@
   </f7-page>
 </template>
 <script>
+		import Global from "../../Global.vue";
 export default {
   data: function() {
     return {
@@ -68,6 +69,7 @@ export default {
             // 请求体重发送的数据
             params: {
                id:idd
+               
             },
             // 设置请求头
             headers: {
@@ -99,6 +101,7 @@ export default {
   		params:{
   			page:1,
   			limit:1000
+  			
   		}
             }).then(function(res){
                 console.log(res.data.data)

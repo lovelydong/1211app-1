@@ -24,7 +24,8 @@
   </f7-page>
 </template>
 <script>
-import global_ from "../../../pages/Global"; //引用模块进来
+
+import global_ from "../../Global.vue";//引用模块进来
 export default {
   // components: {
   //   vueImgPreview

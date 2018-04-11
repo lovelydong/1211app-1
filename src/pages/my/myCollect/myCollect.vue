@@ -115,7 +115,7 @@
   </f7-page>
 </template>
 <script>
-	
+		import Global from "../../Global.vue";
 export default {
   data: function() {
     return {
@@ -145,6 +145,7 @@ export default {
    	 this.$http.get(this.url+"/sx1211examcollect/delexam",{
   		params:{
   			id:id
+  			
   		}
             }).then(function(res){
                console.log(res)
@@ -165,6 +166,7 @@ export default {
    	 this.$http.get(this.url+"/sxcollect/del",{
   		params:{
   			id:id
+  			
   		}
             }).then(function(res){
                console.log(res)
@@ -188,6 +190,7 @@ export default {
   		params:{
   		page:1,
   		limit:100
+  	
   		}
             }).then(function(res){
                // console.log(res.data.data)
@@ -204,6 +207,7 @@ export default {
 
   			page:1,
   			limit:4
+  			
   		}
             }).then(function(res){
                 console.log(res.data.data)

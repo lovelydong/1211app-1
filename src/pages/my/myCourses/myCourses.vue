@@ -72,6 +72,7 @@
   </f7-page>
 </template>
 <script>
+		import Global from "../../Global.vue";
 export default {
   data: function() {
     return {
@@ -102,6 +103,7 @@ export default {
   			page:1,
   			limit:99,
   			type:1
+  			
   		}
             }).then(function(res){
                // console.log(res.data.data)
@@ -117,6 +119,7 @@ export default {
   			page:1,
   			limit:99,
   			type:2
+  			
   		}
             }).then(function(res){
                // console.log(res.data.data)

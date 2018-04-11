@@ -20,7 +20,8 @@
 export default {
   data: function() {
     return {
-      url: "http://39.106.134.125:8080/netschool/",
+     // url: "http://39.106.134.125:8080/netschool/",
+     url:'http://192.168.0.43:8080/shiro_test',
       
       tabAll:""
     };
@@ -44,8 +45,8 @@ export default {
             // 请求体重发送的数据
             params: {
                page: 1,
-          		limit: 99,
-          		token:Global.token
+          		limit: 99
+          		
             },
             // 设置请求头
             headers: {
@@ -53,8 +54,11 @@ export default {
             }
         })
       .then(function(res) {
-      	console.log(res.data.data)
+      	console.log(res)
         this.tabAll = res.data.data;
+      },function(res) {
+      	console.log(res)
+        
       });
   }
 };

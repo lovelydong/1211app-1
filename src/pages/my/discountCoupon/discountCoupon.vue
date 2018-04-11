@@ -44,7 +44,7 @@ export default {
   	console.log(this.nowtime)
   	this.$http
         .get(this.url + "/sxcouponsend/getAllCoupon", {
-				 params: {token:Global.token}
+				
         })
         .then(function(res) {
           console.log(res);

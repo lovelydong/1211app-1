@@ -46,8 +46,14 @@ import VueResource from 'vue-resource'
 Vue.use(VueResource);
 //moment 公共类库
 Vue.use(require('vue-moment'));
-
-
+//Vue.http.headers.common['token'] = '3303e05fc3c4fa5b882f8ec05038230d';
+Vue.http.interceptors.push((request, next) => {
+    request.headers.set('token',Global.token); //setting request.headers
+    console.log(request.headers)
+    next((response) => {
+      return response
+   })
+})
 new Vue({
     el: '#app',
     template: '<app/>',

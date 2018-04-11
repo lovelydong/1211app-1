@@ -25,6 +25,7 @@
   </f7-page>
 </template>
 <script>
+		import Global from "../../Global.vue";
 export default {
   data: function() {
     return {
@@ -66,6 +67,7 @@ export default {
       .get(this.url + "/deliverinfor/infor", {
        params: {
          orderNo:orderNo
+         
         }
        })
       .then(function(res) {
