@@ -19,8 +19,8 @@
         <div class="mid">
           <ul>
             <li class="clearfix link" v-for="(cc,index) in class1">
-                <f7-link @click="$f7router.navigate('/recommendedParticulars?id='+cc.id+'&isxs='+whatType(cc.ext2))">
-                    <span :style="{backgroundImage: 'url(' + url + cc.img + ')' }"><em>直播中</em></span>
+                <f7-link @click="$f7router.navigate('/recommendedParticulars?id='+cc.order_details+'&isxs='+whatType(cc.ext2))">
+                    <span :style="{backgroundImage: 'url(' +url+ cc.img + ')' }"><!--<em></em>--></span>
                     <div>
                       <p>{{cc.goodsName}}</p>
 
@@ -46,7 +46,7 @@
         <div class="mid">
           <ul>
             <li class="clearfix link" v-for="(cc,index) in class2">
-                <f7-link>
+                <f7-link @click="guoqi()">
                     <span :style="{backgroundImage: 'url(' + url + cc.img + ')' }"><em style="background-color: #666666;">已结束</em></span>
                     <div>
                       <p>{{cc.goodsName}}</p>
@@ -93,6 +93,15 @@ export default {
     	else{
     		return 0;
     	}
+    },
+    guoqi:function()
+    {
+    	let toastCenter = this.$f7.toast.create({
+          text: "课程已过期",
+          position: "center",
+          closeTimeout: 2000
+        });
+        toastCenter.open();
     }
   },
   created:function()
@@ -106,7 +115,7 @@ export default {
   			
   		}
             }).then(function(res){
-               // console.log(res.data.data)
+                console.log(res)
                 this.class1=res.data.data;
                  //console.log(res.data.data)
 
