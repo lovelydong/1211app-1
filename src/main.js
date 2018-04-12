@@ -29,6 +29,12 @@ import App from './app';
 import Less from 'less-loader'
 
 import Global from "./pages/Global.vue";
+//LocalStorage
+import VueLocalStorage from 'vue-localstorage'
+
+Vue.use(VueLocalStorage)
+
+
 // Init F7 Vue Plugin
 Vue.use(Framework7Vue, Framework7)
     //分享
@@ -48,11 +54,10 @@ Vue.use(VueResource);
 Vue.use(require('vue-moment'));
 //Vue.http.headers.common['token'] = '3303e05fc3c4fa5b882f8ec05038230d';
 Vue.http.interceptors.push((request, next) => {
-    request.headers.set('token',Global.token); //setting request.headers
-    console.log(request.headers)
+    request.headers.set('token', Vue.localStorage.get('token')); //setting request.headers
     next((response) => {
-      return response
-   })
+        return response
+    })
 })
 new Vue({
     el: '#app',
@@ -65,13 +70,13 @@ new Vue({
         theme: 'ios', // Automatic theme detection
         // App routes
         routes: Routes,
-        view: {
-            pushState : true
-        }
+        // view: {
+        //     pushState : true
+        // }
     },
-    
-    
-   
+
+
+
     // Register App Component
     components: {
         app: App

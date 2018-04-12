@@ -17,7 +17,7 @@
 import Global from "../Global.vue";
 
 export default {
-	
+
   data: function() {
     return {
       url: "http://39.106.134.125:8080/netschool/",
@@ -53,8 +53,8 @@ export default {
                 });
                 toastCenter.open();
                 console.log(res)
-                Global.token=res.body.data;
-                
+                this.$localStorage.set('token', res.body.data)
+
                 this.$f7router.navigate("/home");
               } else {
                 let toastCenter = this.$f7.toast.create({
@@ -91,6 +91,7 @@ export default {
     }
   },
   created: function() {
+
     //验证登录
     this.$http
       .get(this.url + "/personal/loginState", {
@@ -157,7 +158,7 @@ export default {
 						color: #00AAEE;
 						font-family: "PingFang-SC-Medium";
 						font-size: 16px;
-						
+
 					}
 				}
 			}

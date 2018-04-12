@@ -12,7 +12,7 @@
           <ul>
             <f7-link v-for="item in getSearchFg" @click="add(item.sname)" :key="item.id">{{item.sname}}</f7-link>
           </ul>
-          <h3>热门搜索</h3>
+          <!-- <h3>热门搜索</h3>
           <ul>
             <f7-link>课程</f7-link>
             <f7-link>课程</f7-link>
@@ -24,7 +24,7 @@
             <f7-link>课312程</f7-link>
             <f7-link>课12程</f7-link>
             <f7-link>课333程</f7-link>
-          </ul>
+          </ul> -->
         </div>
 
   </f7-page>
