@@ -44,7 +44,8 @@
       <div class="ZJ" v-if="shows.ZJ">
         <ul v-for="(value, key) in chap" :key="key">
           <h3> <i class="iconfont icon-selected-copy"></i> {{key}}</h3>
-          <f7-link v-for="item in value"  :key="item.id" :href="(isornot==1)?'/vod?id='+item.id+'&type='+isxs+'&iszj=1':''"> <i class="iconfont icon-fasong"></i> {{item.name}}</f7-link>
+          <f7-link v-for="item in value"  :key="item.id"  @click="wToGO(item.id,item.ext2)"> <i class="iconfont icon-fasong"></i> {{item.name}}</f7-link>
+          <!--:href="(isornot==1)?'/vod?id='+item.id+'&type='+isxs+'&iszj=1':''"-->
         </ul>
       </div>
       <div class="PJ" v-if="shows.PJ">
@@ -94,6 +95,7 @@ export default {
       url: "http://39.106.134.125:8080/netschool/",
       showTop: false,
       isornot:"",
+      isplay:'',
       type:'',
       isxs:"",
       flag:"",
@@ -250,11 +252,23 @@ export default {
     if(this.isornot==1&&this.type==1)
     {
 
-    	this.$f7router.navigate(
+if(this.isplay==0)
+{
+	this.$f7router.navigate(
                 '/live?id='+id+'&type='+this.isxs
               );
+}
+else{
+	let toastCenter = this.$f7.toast.create({
+              text: "当前不在直播时间",
+              position: "center",
+              closeTimeout: 2000
+            });
+            toastCenter.open();
+}
+    	
     }
-    else if(this.isornot==1&&(this.type==2||this.type==3)){
+    else if(this.isornot==1&&(this.type==2||this.type==3)&this.isplay==0){
 
 
     	this.$f7router.navigate(
@@ -355,6 +369,52 @@ export default {
 
 
     },
+    wToGO:function(id,ext2)
+    {
+    	if(this.isornot==1&&this.type==1){
+    		if(ext2==2){
+    			this.$f7router.navigate(
+                '/live?id='+id+'&type='+this.isxs
+              );
+    		}
+    		else if(ext2==1){
+    			
+    	this.$f7router.navigate(
+                '/vod?id='+id+'&type='+this.isxs
+              );
+    		}
+    		else if(ext2==3){
+    			 let toastCenter = this.$f7.toast.create({
+          text: "直播未开始.....",
+          position: "top",
+          closeTimeout: 2000
+        });
+        toastCenter.open();
+    		}
+    		else{
+    			let toastCenter = this.$f7.toast.create({
+          text: "当前不在直播时间",
+          position: "top",
+          closeTimeout: 2000
+        });
+        toastCenter.open();
+    		}
+    	}
+    	else if(this.isornot==1&&(this.type==2||this.type==3))
+    	{
+    		this.$f7router.navigate(
+                '/vod?id='+id+'&type='+this.isxs
+              );
+    	}
+    	else{
+    		let toastCenter = this.$f7.toast.create({
+          text: "请先购买课程！",
+          position: "top",
+          closeTimeout: 2000
+        });
+        toastCenter.open();
+    	}
+    },
 
     xstype:function(t)
     {
@@ -429,6 +489,7 @@ export default {
         console.log(res.data.data)
         
         this.isornot=res.data.data.fg;
+        this.isplay=res.data.data.zg;
 
       });
 
@@ -502,6 +563,7 @@ export default {
       .then(function(res) {
         console.log(res.data.data.fg);
         this.isornot=res.data.data.fg;
+        this.isplay=res.data.data.zg;
 
       });
 
@@ -545,6 +607,8 @@ export default {
         
       })
       .then(function(res) {
+      	console.log(res)
+      	
         this.Quantityincart = res.body.count;
       });
 

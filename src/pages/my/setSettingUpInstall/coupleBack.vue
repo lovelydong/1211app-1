@@ -25,8 +25,14 @@ export default {
   methods: {
 advice:function()
 {
-	alert("谢谢您宝贵的意见！");
-	 this.$f7router.navigate('/setSettingUpInstall');
+	let toastCenter = this.$f7.toast.create({
+              text: "谢谢您宝贵的意见！",
+              position: "center",
+              closeTimeout: 2000
+            });
+            toastCenter.open();
+this.$f7router.back();
+	 
 
 }
   }

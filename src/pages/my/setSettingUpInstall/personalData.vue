@@ -9,8 +9,8 @@
             <li>
               <input type="file" name="header_img" accept="image/gif,image/jpeg,image/png,image/jpg" @change="getFile">
               <f7-link href="">   头像 <i class="iconfont icon-you"></i><img :src="formsrc" alt=""> </f7-link>
-              <f7-link>  昵称 <i class="iconfont icon-you"></i><i>{{userinfo.user_name}}</i></f7-link>
-              <f7-link href="">  性别 <i class="iconfont icon-you"></i><i v-html='userinfo.sex=="1"?"男":"女"'></i></f7-link>
+              <f7-link href="/modificationName">  昵称 <i class="iconfont icon-you"></i><i>{{userinfo.nick_name}}</i></f7-link>
+              <f7-link href="" @click="changesex()">  性别 <i class="iconfont icon-you"></i><i v-html='userinfo.sex=="1"?"男":"女"'></i></f7-link>
             </li>
           </ul>
           <!-- <ul>
@@ -60,6 +60,50 @@ export default {
       //   .then(function(res) {
       //     console.log(res);
       //   });
+    },
+    changesex:function()
+    {
+    	if(this.userinfo.sex==1)
+    	{
+    		
+    		this.$http.get(this.url + "/user/appupdate", {
+    	params:{
+    		 sex:0
+    	}
+    	
+    }).then(
+      function(res) {
+      	console.log(res)
+      	this.userinfo.sex=0;
+      	global_.userinfo.sex=0;
+     
+      	
+      	
+      },function(res) {
+      	console.log(res)
+      	
+      })
+    	}
+    	else{
+    		
+    		this.$http.get(this.url + "/user/appupdate", {
+    	params:{
+    		 sex:1
+    	}
+    	
+    }).then(
+      function(res) {
+      	console.log(res)
+      	this.userinfo.sex=1;
+      	global_.userinfo.sex=1;
+     
+      	
+      	
+      },function(res) {
+      	console.log(res)
+      	
+      })
+    	}
     }
   },
   created: function() {

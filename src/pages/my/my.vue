@@ -22,7 +22,7 @@
       <div>
         <h5>
           <img :src=url+userinfo.img alt="">
-          <p>{{userinfo.user_name}}</p>
+          <p>{{userinfo.nick_name}}</p>
           <span>招教币：{{userinfo.balance}}</span>
         </h5>
         <div class="row">
@@ -88,9 +88,7 @@ export default {
 
 
     this.$http.get(this.url + "/personal/loginState", {
-    	params: {
-              token:global_.token
-            }
+    	
     	
     }).then(
       function(res) {
