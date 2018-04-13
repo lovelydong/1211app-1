@@ -7,10 +7,10 @@
         <div class="mid">
           <ul>
             <li>
-              <input type="file" name="header_img" accept="image/gif,image/jpeg,image/png,image/jpg" @change="getFile">
+              <input type="file" name="header_img" accept="image/gif,image/jpeg,image/png,image/jpg" @change="getFile($event)">
               <f7-link href="">   头像 <i class="iconfont icon-you"></i><img :src="formsrc" alt=""> </f7-link>
-              <f7-link>  昵称 <i class="iconfont icon-you"></i><i>{{userinfo.user_name}}</i></f7-link>
-              <f7-link href="">  性别 <i class="iconfont icon-you"></i><i v-html='userinfo.sex=="1"?"男":"女"'></i></f7-link>
+              <f7-link href="/modificationName">  昵称 <i class="iconfont icon-you"></i><i>{{userinfo.nick_name}}</i></f7-link>
+              <f7-link href="" @click="changesex()">  性别 <i class="iconfont icon-you"></i><i v-html='userinfo.sex=="1"?"男":"女"'></i></f7-link>
             </li>
           </ul>
           <!-- <ul>
@@ -20,51 +20,100 @@
             </li>
           </ul> -->
         </div>
-        <multiple-file-uploader postURL="http://.." successMessagePath="" errorMessagePath="" :minItems="5" :maxItems="10"></multiple-file-uploader>
+
   </f7-page>
 </template>
 <script>
-
-import global_ from "../../Global.vue";//引用模块进来
+import global_ from "../../Global.vue"; //引用模块进来
 export default {
   // components: {
   //   vueImgPreview
   // },
   data: function() {
     return {
-      userinfo: "",
+      userinfo: {
+        nick_name: "",
+        sex: ""
+      },
       url: "http://39.106.134.125:8080/netschool/",
+      // url: "http://192.168.0.43:8080/shiro_test/",
       formsrc: ""
     };
   },
   methods: {
-    getFile(e) {
-      // let files = e.target.files;
-      // console.log(files);
-      // this.formsrc = files[0].name;
-      // this.$http
-      //   .get(this.url + "/user/upload", {
-      //     params: {
-      //       data: files
-      //     }
-      //   })
-      //   .then(function(res) {
-      //     console.log(res);
-      //   });
-      // this.$http
-      //   .get(this.url + "/personal/addOrSave", {
-      //     params: {
-      //       img: files[0]
-      //     }
-      //   })
-      //   .then(function(res) {
-      //     console.log(res);
-      //   });
+    getFile() {
+      const file = event.target.files[0];
+      let formData = new FormData();
+      formData.append("image", file);
+      this.$http.post(this.url + "/UploadApp", formData).then(function(res) {
+        console.log(res);
+        this.formsrc = this.url + res.body;
+        this.$http
+          .get(this.url + "/user/upAppImg", {
+            params: {
+              img: res.body
+            }
+          })
+          .then(function(res) {
+            console.log(res);
+            if (res.body.code == 0) {
+              let toastCenter = this.$f7.toast.create({
+                text: "更改成功，重启应用后生效",
+                position: "center",
+                closeTimeout: 2000
+              });
+              toastCenter.open();
+            } else {
+              let toastCenter = this.$f7.toast.create({
+                text: "请重试",
+                position: "center",
+                closeTimeout: 2000
+              });
+            }
+          });
+      });
+    },
+    changesex: function() {
+      if (this.userinfo.sex == 1) {
+        this.$http
+          .get(this.url + "/user/appupdate", {
+            params: {
+              sex: 0
+            }
+          })
+          .then(
+            function(res) {
+              console.log(res);
+              this.userinfo.sex = 0;
+              global_.userinfo.sex = 0;
+            },
+            function(res) {
+              console.log(res);
+            }
+          );
+      } else {
+        this.$http
+          .get(this.url + "/user/appupdate", {
+            params: {
+              sex: 1
+            }
+          })
+          .then(
+            function(res) {
+              console.log(res);
+              this.userinfo.sex = 1;
+              global_.userinfo.sex = 1;
+            },
+            function(res) {
+              console.log(res);
+            }
+          );
+      }
     }
   },
   created: function() {
     this.userinfo = global_.userinfo;
-    console.log(this.userinfo);
+    this.formsrc = this.url + this.userinfo.img;
   }
 };
 </script>

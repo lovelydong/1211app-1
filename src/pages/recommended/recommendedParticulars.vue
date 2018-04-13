@@ -44,7 +44,8 @@
       <div class="ZJ" v-if="shows.ZJ">
         <ul v-for="(value, key) in chap" :key="key">
           <h3> <i class="iconfont icon-selected-copy"></i> {{key}}</h3>
-          <f7-link v-for="item in value"  :key="item.id" :href="(isornot==1)?'/vod?id='+item.id+'&type='+isxs+'&iszj=1':''"> <i class="iconfont icon-fasong"></i> {{item.name}}</f7-link>
+          <f7-link v-for="item in value"  :key="item.id"  @click="wToGO(item.id,item.ext2)"> <i class="iconfont icon-fasong"></i> {{item.name}}</f7-link>
+          <!--:href="(isornot==1)?'/vod?id='+item.id+'&type='+isxs+'&iszj=1':''"-->
         </ul>
       </div>
       <div class="PJ" v-if="shows.PJ">
@@ -85,18 +86,19 @@
   </f7-page>
 </template>
 <script>
-import Global from "../Global.vue";
+	import Global from "../Global.vue";
 export default {
   data: function() {
     return {
-      xsdaojishi: "",
+    	xsdaojishi:"",
       id: this.$f7route.query.id,
       url: "http://39.106.134.125:8080/netschool/",
       showTop: false,
-      isornot: "",
-      type: "",
-      isxs: "",
-      flag: "",
+      isornot:"",
+      isplay:'',
+      type:'',
+      isxs:"",
+      flag:"",
       shows: {
         XQ: true,
         ZJ: false,
@@ -110,30 +112,30 @@ export default {
     };
   },
   methods: {
-    Countdown: function(timestamp) {
-      var that = this;
-      console.log(timestamp);
-      console.log(new Date().getTime());
+  	Countdown: function(timestamp) {
+				var that = this;
+				console.log(timestamp);
+				console.log(new Date().getTime());
 
-      this.timer = setInterval(function() {
-        var now = new Date().getTime();
-        var leftTime = timestamp - now;
-        if (leftTime >= 0) {
-          var d = Math.floor(leftTime / 1000 / 60 / 60 / 24);
-          var h = Math.floor((leftTime / 1000 / 60 / 60) % 24);
-          var m = Math.floor((leftTime / 1000 / 60) % 60);
-          var s = Math.floor((leftTime / 1000) % 60);
-          //	console.log(666)
+				this.timer = setInterval(function() {
+					var now = new Date().getTime();
+					var leftTime = timestamp - now;
+					if(leftTime >= 0) {
+						var d = Math.floor(leftTime / 1000 / 60 / 60 / 24);
+						var h = Math.floor((leftTime / 1000 / 60 / 60) % 24);
+						var m = Math.floor((leftTime / 1000 / 60) % 60);
+						var s = Math.floor((leftTime / 1000) % 60);
+						//	console.log(666)
 
-          that.xsdaojishi = d + " 天 " + h + " 时 " + m + " 分 " + s + " 秒";
-          // return "<i>"+d+"</i> 天 <i>"+h+"</i> 时 <i>"+m+"</i> 分 <i>"+s+"</i> 秒";
-        } else {
-          //console.log(777)
-          that.xsdaojishi = "已经结束";
-          window.clearInterval(this.timer);
-        }
-      }, 800);
-    },
+						that.xsdaojishi = d + " 天 " + h + " 时 " + m + " 分 " + s + " 秒";
+						// return "<i>"+d+"</i> 天 <i>"+h+"</i> 时 <i>"+m+"</i> 分 <i>"+s+"</i> 秒";
+					} else {
+						//console.log(777)
+						that.xsdaojishi = "已经结束";
+						window.clearInterval(this.timer);
+					}
+				}, 800);
+			},
     XQ() {
       this.shows.XQ = true;
       this.shows.ZJ = false;
@@ -153,97 +155,131 @@ export default {
       this.$refs.c1.sharefn();
     },
     iscollectfn: function() {
-      if (this.isxs == 1) {
-        this.$http
-          .get(this.url + "/sxcollect/add", {
-            params: {
-              courseid: this.id,
-              type: 200,
-              token: Global.token
-            }
-          })
-          .then(function(res) {
-            if (res.body.code == 1) {
-              this.iscollect = true;
-            } else {
-              this.iscollect = false;
-            }
-          });
-      } else {
-        this.$http
-          .get(this.url + "/sxcollect/add", {
-            params: {
-              courseid: this.id,
-              type: 100,
-              token: Global.token
-            }
-          })
-          .then(function(res) {
-            if (res.body.code == 1) {
-              this.iscollect = true;
-            } else {
-              this.iscollect = false;
-            }
-          });
-      }
+    	if(this.isxs==1){
+    		this.$http
+        .get(this.url + "/sxcollect/add", {
+          params: {
+            courseid: this.id,
+            type: 200
+
+          }
+        })
+        .then(function(res) {
+          if (res.body.code == 1) {
+            this.iscollect = true;
+          } else {
+            this.iscollect = false;
+          }
+        });
+    	}
+    	else
+    	{
+    		this.$http
+        .get(this.url + "/sxcollect/add", {
+          params: {
+            courseid: this.id,
+            type: 100
+
+          }
+        })
+        .then(function(res) {
+          if (res.body.code == 1) {
+            this.iscollect = true;
+          } else {
+            this.iscollect = false;
+          }
+        });
+    	}
+
+
     },
     addspc: function() {
-      if (this.isxs == 1) {
-        this.$http
-          .get(this.url + "/shoppingcart/save", {
-            params: {
-              goodsId: this.id,
-              goodsNum: 1,
-              type: 100,
-              token: Global.token
-            }
-          })
-          .then(function(res) {
-            console.log(res);
-            if (res.body.code == 1) {
-              let toastCenter = this.$f7.toast.create({
-                text: "成功加入购物车",
-                position: "center",
-                closeTimeout: 2000
-              });
-              toastCenter.open();
-              this.Quantityincart++;
-            }
-          });
-      } else {
-        this.$http
-          .get(this.url + "/shoppingcart/save", {
-            params: {
-              goodsId: this.id,
-              goodsNum: 1,
-              type: 200,
-              token: Global.token
-            }
-          })
-          .then(function(res) {
-            console.log(res);
-            if (res.body.code == 1) {
-              let toastCenter = this.$f7.toast.create({
-                text: "成功加入购物车",
-                position: "center",
-                closeTimeout: 2000
-              });
-              toastCenter.open();
-              this.Quantityincart++;
-            }
-          });
-      }
+    	if(this.isxs==1)
+    	{
+    		this.$http
+        .get(this.url + "/shoppingcart/save", {
+          params: {
+            goodsId: this.id,
+            goodsNum: 1,
+            type: 100
+
+          }
+        })
+        .then(function(res) {
+          console.log(res);
+          if (res.body.code == 1) {
+            let toastCenter = this.$f7.toast.create({
+              text: "成功加入购物车",
+              position: "center",
+              closeTimeout: 2000
+            });
+            toastCenter.open();
+            this.Quantityincart++;
+          }
+        });
+    	}
+    	else{
+    			this.$http
+        .get(this.url + "/shoppingcart/save", {
+          params: {
+            goodsId: this.id,
+            goodsNum: 1,
+            type: 200
+
+          }
+        })
+        .then(function(res) {
+          console.log(res);
+          if (res.body.code == 1) {
+            let toastCenter = this.$f7.toast.create({
+              text: "成功加入购物车",
+              position: "center",
+              closeTimeout: 2000
+            });
+            toastCenter.open();
+             this.Quantityincart++;
+          }
+        });
+    	}
+
     },
 
-    whereToGO: function(id) {
-      //:href="(isornot==1&&type==1)?'/live?id='+oneJson.id+'&type='+isxs:(isornot==1&&(type==2||type==3))?'/vod?id='+oneJson.id+'&type='+isxs:'/indent?order_number='+creatOrder(oneJson.id)"-->
-      if (this.isornot == 1 && this.type == 1) {
-        this.$f7router.navigate("/live?id=" + id + "&type=" + this.isxs);
-      } else if (this.isornot == 1 && (this.type == 2 || this.type == 3)) {
-        this.$f7router.navigate("/vod?id=" + id + "&type=" + this.isxs);
-      } else {
-        if (this.isxs == 1) {
-          /*this.$http
+    whereToGO:function(id)
+    {
+
+
+    //:href="(isornot==1&&type==1)?'/live?id='+oneJson.id+'&type='+isxs:(isornot==1&&(type==2||type==3))?'/vod?id='+oneJson.id+'&type='+isxs:'/indent?order_number='+creatOrder(oneJson.id)"-->
+    if(this.isornot==1&&this.type==1)
+    {
+
+if(this.isplay==0)
+{
+	this.$f7router.navigate(
+                '/live?id='+id+'&type='+this.isxs
+              );
+}
+else{
+	let toastCenter = this.$f7.toast.create({
+              text: "当前不在直播时间",
+              position: "center",
+              closeTimeout: 2000
+            });
+            toastCenter.open();
+}
+
+    }
+    else if(this.isornot==1&&(this.type==2||this.type==3)&this.isplay==0){
+
+
+    	this.$f7router.navigate(
+                '/vod?id='+id+'&type='+this.isxs
+              );
+    }
+    else{
+
+    	if(this.isxs==1)
+    	{
+    		/*this.$http
         .get(this.url + "/shoppingcart/save", {
           params: {
             goodsId:id,
@@ -255,232 +291,328 @@ export default {
           console.log(res);
           if (res.body.code == 1) {
           	this.$f7router.navigate('/shoppingTrolley');*/
-          /* let toastCenter = this.$f7.toast.create({
+           /* let toastCenter = this.$f7.toast.create({
               text: "成功加入购物车",
               position: "center",
               closeTimeout: 2000
             });
             toastCenter.open();*/
 
+
+
+
+
           let toastCenter = this.$f7.toast.create({
-            text: "正在努力生成订单中.....",
-            position: "top",
-            closeTimeout: 2000
-          });
-          toastCenter.open();
-          this.$http
-            .get(this.url + "/sxorder/buyrightnow", {
-              params: {
-                id: this.id,
-                type: 100,
-                count: 1,
-                token: Global.token
-              }
-            })
-            .then(function(res) {
-              console.log(res);
-              if (res.body.code == 1) {
-                this.$f7router.navigate(
-                  "/indent?order_number=" + res.body.data.order_number
-                );
-              }
-            });
-        } else {
-          let toastCenter = this.$f7.toast.create({
-            text: "正在努力生成订单中.....",
-            position: "top",
-            closeTimeout: 2000
-          });
-          toastCenter.open();
-          this.$http
-            .get(this.url + "/sxorder/buyrightnow", {
-              params: {
-                id: this.id,
-                type: 200,
-                count: 1,
-                token: Global.token
-              }
-            })
-            .then(function(res) {
-              console.log(res);
-              if (res.body.code == 1) {
-                this.$f7router.navigate(
-                  "/indent?order_number=" + res.body.data.order_number
-                );
-              }
-            });
-        }
-      }
+          text: "正在努力生成订单中.....",
+          position: "top",
+          closeTimeout: 2000
+        });
+        toastCenter.open();
+          	this.$http
+        .get(this.url + "/sxorder/buyrightnow", {
+          params: {
+            id: this.id,
+          	type: 100,
+          	count:1
+
+
+          }
+        })
+        .then(function(res) {
+          console.log(res);
+         if (res.body.code == 1) {
+
+              this.$f7router.navigate(
+
+                "/indent?order_number=" + res.body.data.order_number
+              );
+            }
+        });
+
+
+
+
+    	}
+    	else{
+
+
+    			 let toastCenter = this.$f7.toast.create({
+          text: "正在努力生成订单中.....",
+          position: "top",
+          closeTimeout: 2000
+        });
+        toastCenter.open();
+          	this.$http
+        .get(this.url + "/sxorder/buyrightnow", {
+          params: {
+            id: this.id,
+           	type: 200,
+           	count:1
+
+          }
+        })
+        .then(function(res) {
+          console.log(res);
+         if (res.body.code == 1) {
+
+              this.$f7router.navigate(
+                "/indent?order_number=" + res.body.data.order_number
+              );
+            }
+        });
+    	}
+  }
+
+
+
+
+
+
+    },
+    wToGO:function(id,ext2)
+    {
+    	if(this.isornot==1&&this.type==1){
+    		if(ext2==2){
+    			this.$f7router.navigate(
+                '/live?id='+id+'&type='+this.isxs
+              );
+    		}
+    		else if(ext2==1){
+
+    	this.$f7router.navigate(
+                '/vod?id='+id+'&type='+this.isxs
+              );
+    		}
+    		else if(ext2==3){
+    			 let toastCenter = this.$f7.toast.create({
+          text: "直播未开始.....",
+          position: "top",
+          closeTimeout: 2000
+        });
+        toastCenter.open();
+    		}
+    		else{
+    			let toastCenter = this.$f7.toast.create({
+          text: "当前不在直播时间",
+          position: "top",
+          closeTimeout: 2000
+        });
+        toastCenter.open();
+    		}
+    	}
+    	else if(this.isornot==1&&(this.type==2||this.type==3))
+    	{
+    		this.$f7router.navigate(
+                '/vod?id='+id+'&type='+this.isxs
+              );
+    	}
+    	else{
+    		let toastCenter = this.$f7.toast.create({
+          text: "请先购买课程！",
+          position: "top",
+          closeTimeout: 2000
+        });
+        toastCenter.open();
+    	}
     },
 
-    xstype: function(t) {
-      if (t == 35202044) {
-        return 1;
-      } else if (t == 35202045) {
-        return 2;
-      } else if (t == 35202046) {
-        return 3;
-      }
+    xstype:function(t)
+    {
+    	if(t==35202044)
+    	{
+    		return 1;
+    	}
+    	else if(t==35202045)
+    	{
+    		return 2;
+
+    	}else if(t==35202046)
+    	{
+    		return 3;
+
+    	}
     },
-    kctype: function(t) {
-      if (t == 121100401) {
-        return 1;
-      } else if (t == 121100402) {
-        return 2;
-      } else if (t == 121100403) {
-        return 3;
-      }
+    kctype:function(t)
+    {
+    	if(t==121100401)
+    	{
+    		return 1;
+    	}
+    	else if(t==121100402)
+    	{
+    		return 2;
+
+    	}else if(t==121100403)
+    	{
+    		return 3;
+
+    	}
     }
   },
   created() {
+
     let id = this.$f7route.query.id;
 
-    this.isxs = this.$f7route.query.isxs;
+    this.isxs=this.$f7route.query.isxs;
     /*alert(this.isxs)*/
-    if (this.isxs == 1) {
-      //检测是否收藏/*/
-      this.$http
-        .get(this.url + "/sxcollect/iscollect", {
-          params: {
-            courseid: id,
-            type: 100,
-            token: Global.token
-          }
-        })
-        .then(function(res) {
-          console.log(res);
-          if (res.body.code) {
-            this.iscollect = true;
+    if(this.isxs==1)
+    {
+
+    	//检测是否收藏/*/
+    this.$http
+      .get(this.url + "/sxcollect/iscollect", {
+        params: {
+          courseid: id,
+          type: 100
+
+        }
+      })
+      .then(function(res) {
+        console.log(res);
+        if (res.body.code) {
+          this.iscollect = true;
+        } else {
+          this.iscollect = false;
+        }
+      });
+
+       //是否购买
+    this.$http
+      .get(this.url + "/sx1211courseAdmin/buyornot", {
+        params: {
+          id: id,
+          ext2:2
+
+        }
+      })
+      .then(function(res) {
+        console.log(res.data.data)
+
+        this.isornot=res.data.data.fg;
+        this.isplay=res.data.data.zg;
+
+      });
+
+
+       //详情
+    this.$http
+      .get(this.url + "/flashsale/detail", {
+        params: {
+          id: id
+        }
+      })
+      .then(function(res) {
+      	console.log(res)
+
+        this.oneJson = res.body.data;
+        this.Countdown(res.body.data.end_time);
+        this.type=this.xstype(res.body.data.course_type);
+
+
+      });
+    //章节
+    this.$http
+      .get(this.url + "/sx1211courseAdmin/chap", {
+        params: {
+          pid: id
+        }
+      })
+      .then(function(res) {
+        let obj = {};
+        let key = "";
+        res.body.data.forEach(element => {
+          if (element.ext1) {
+            key = element.ext1;
+            obj[key] = [];
+            obj[key].push(element);
           } else {
-            this.iscollect = false;
+            obj[key].push(element);
           }
         });
+        this.chap = obj;
+      });
+    }else{
 
-      //是否购买
-      this.$http
-        .get(this.url + "/sx1211courseAdmin/buyornot", {
-          params: {
-            id: id,
-            ext2: 2,
-            token: Global.token
-          }
-        })
-        .then(function(res) {
-          console.log(res.data.data);
 
-          this.isornot = res.data.data.fg;
-        });
+    		      //检测是否收藏/*/
+    this.$http
+      .get(this.url + "/sxcollect/iscollect", {
+        params: {
+          courseid: id,
+          type: 200
 
-      //详情
-      this.$http
-        .get(this.url + "/flashsale/detail", {
-          params: {
-            id: id
-          }
-        })
-        .then(function(res) {
-          console.log(res);
+        }
+      })
+      .then(function(res) {
+        console.log(res);
+        if (res.body.code) {
+          this.iscollect = true;
+        } else {
+          this.iscollect = false;
+        }
+      });
+       //是否购买
+    this.$http
+      .get(this.url + "/sx1211courseAdmin/buyornot", {
+        params: {
+          id: id,
+          ext2:1
 
-          this.oneJson = res.body.data;
-          this.Countdown(res.body.data.end_time);
-          this.type = this.xstype(res.body.data.course_type);
-        });
-      //章节
-      this.$http
-        .get(this.url + "/sx1211courseAdmin/chap", {
-          params: {
-            pid: id
-          }
-        })
-        .then(function(res) {
-          let obj = {};
-          let key = "";
-          res.body.data.forEach(element => {
-            if (element.ext1) {
-              key = element.ext1;
-              obj[key] = [];
-              obj[key].push(element);
-            } else {
-              obj[key].push(element);
-            }
-          });
-          this.chap = obj;
-        });
-    } else {
-      //检测是否收藏/*/
-      this.$http
-        .get(this.url + "/sxcollect/iscollect", {
-          params: {
-            courseid: id,
-            type: 200,
-            token: Global.token
-          }
-        })
-        .then(function(res) {
-          console.log(res);
-          if (res.body.code) {
-            this.iscollect = true;
+        }
+      })
+      .then(function(res) {
+        console.log(res.data.data.fg);
+        this.isornot=res.data.data.fg;
+        this.isplay=res.data.data.zg;
+
+      });
+
+    	   //详情
+    this.$http
+      .get(this.url + "/sx1211courseAdmin/oneJson", {
+        params: {
+          id: id
+        }
+      })
+      .then(function(res) {
+        this.oneJson = res.body.data;
+         this.type=this.kctype(res.body.data.vod_type);
+
+      });
+    //章节
+    this.$http
+      .get(this.url + "/sx1211courseAdmin/chap", {
+        params: {
+          id: id
+        }
+      })
+      .then(function(res) {
+        let obj = {};
+        let key = "";
+        res.body.data.forEach(element => {
+          if (element.ext1) {
+            key = element.ext1;
+            obj[key] = [];
+            obj[key].push(element);
           } else {
-            this.iscollect = false;
+            obj[key].push(element);
           }
         });
-      //是否购买
-      this.$http
-        .get(this.url + "/sx1211courseAdmin/buyornot", {
-          params: {
-            id: id,
-            ext2: 1,
-            token: Global.token
-          }
-        })
-        .then(function(res) {
-          console.log(res.data.data.fg);
-          this.isornot = res.data.data.fg;
-        });
-
-      //详情
-      this.$http
-        .get(this.url + "/sx1211courseAdmin/oneJson", {
-          params: {
-            id: id
-          }
-        })
-        .then(function(res) {
-          this.oneJson = res.body.data;
-          this.type = this.kctype(res.body.data.vod_type);
-        });
-      //章节
-      this.$http
-        .get(this.url + "/sx1211courseAdmin/chap", {
-          params: {
-            id: id
-          }
-        })
-        .then(function(res) {
-          let obj = {};
-          let key = "";
-          res.body.data.forEach(element => {
-            if (element.ext1) {
-              key = element.ext1;
-              obj[key] = [];
-              obj[key].push(element);
-            } else {
-              obj[key].push(element);
-            }
-          });
-          this.chap = obj;
-        });
+        this.chap = obj;
+      });
     }
     //购物车数量
     this.$http
       .get(this.url + "/shoppingcart/selectShoppingCount", {
-        params: {
-          token: Global.token
-        }
+
       })
       .then(function(res) {
+      	console.log(res)
+
         this.Quantityincart = res.body.count;
       });
+
+
 
     //评论
     this.$http
@@ -488,7 +620,8 @@ export default {
         params: {
           courseid: id,
           page: 1,
-          limit: 50
+          limit: 50,
+
         }
       })
       .then(function(res) {
@@ -498,17 +631,18 @@ export default {
 };
 </script>
 <style lang="less">
-.xqt {
-  width: 100%;
 
-  height: 200px;
-  border-radius: 20px;
-  position: absolute;
-  top: 50px;
+	.xqt{
+		width: 100%;
 
-  background-position: center center;
-  background-size: cover;
-}
+		height:200px;
+		border-radius: 20px;
+		position: absolute;
+		top: 50px;
+
+		background-position:center center;
+		background-size: cover;
+	}
 .TopsZ {
   position: fixed;
   top: 56px;

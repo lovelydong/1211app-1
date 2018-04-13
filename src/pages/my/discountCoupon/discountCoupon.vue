@@ -10,7 +10,7 @@
               <span>券</span>
               <p>{{c.name}}</p>
               <em>有效期至：{{c.over_time/1000 | moment("YYYY/MM/DD")}}</em>
-              <p class="p1">{{c.amount}} <span>{{c.type}}</span></p>
+              <p class="p1">{{c.amount}} <span>{{c.use_condition}}</span></p>
               <f7-link :href="state='立即使用'?'/home':''" id="gg" :class="(c.state==1&&c.over_time>nowtime)?'':'gg' "  :html="(c.state==1&&c.over_time)>nowtime?state='立即使用':(c.state==2?state='已使用':(c.state==3?state='已失效':state='已过期'))">{{state}}</f7-link>
             </li>
            <!-- <li>
