@@ -8,7 +8,7 @@
           </f7-nav-right>
         </f7-navbar>
         <div class="mid">
-          <textarea :placeholder="nickname" v-model="nickname"></textarea>
+          <textarea :placeholder="nickname" v-model="nickname" maxlength="8"></textarea>
         </div> 
 
   </f7-page>
@@ -29,7 +29,7 @@ export default {
   	{
   		
   		
-   this.$http.get(this.url + "/user/checkUname", {
+   this.$http.get(this.url + "/user/checkNickname", {
     	params:{
     		nick_name:this.nickname
     	}
@@ -37,10 +37,10 @@ export default {
     }).then(
       function(res) {
         console.log(res);
-        if(res.body.data.code==1)
+        if(res.data.code==1)
         {
         		
-   this.$http.get(this.url + "/user/appupdate", {
+   this.$http.get(this.url + "user/appupdate", {
     	params:{
     		 nick_name:this.nickname
     	}
@@ -49,7 +49,7 @@ export default {
       function(res) {
       	console.log(res)
       	Global.userinfo.nick_name=this.nickname;
-      	this.$f7router.navigate("/personalData");
+      	this.$f7router.back();
       	
       	
       },function(res) {

@@ -386,7 +386,7 @@ else{
     		else if(ext2==3){
     			 let toastCenter = this.$f7.toast.create({
           text: "直播未开始.....",
-          position: "top",
+          position: "center",
           closeTimeout: 2000
         });
         toastCenter.open();
@@ -394,7 +394,7 @@ else{
     		else{
     			let toastCenter = this.$f7.toast.create({
           text: "当前不在直播时间",
-          position: "top",
+          position: "center",
           closeTimeout: 2000
         });
         toastCenter.open();
@@ -409,7 +409,7 @@ else{
     	else{
     		let toastCenter = this.$f7.toast.create({
           text: "请先购买课程！",
-          position: "top",
+          position: "center",
           closeTimeout: 2000
         });
         toastCenter.open();
@@ -518,6 +518,7 @@ else{
         }
       })
       .then(function(res) {
+      	console.log(res)
         let obj = {};
         let key = "";
         res.body.data.forEach(element => {
@@ -575,6 +576,7 @@ else{
         }
       })
       .then(function(res) {
+      	console.log(res)
         this.oneJson = res.body.data;
          this.type=this.kctype(res.body.data.vod_type);
 
@@ -587,6 +589,7 @@ else{
         }
       })
       .then(function(res) {
+      	console.log(res)
         let obj = {};
         let key = "";
         res.body.data.forEach(element => {
